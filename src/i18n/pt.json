@@ -1,0 +1,156 @@
+{
+  "nav": {
+    "about": "Sobre",
+    "projects": "Trabalhos",
+    "timeline": "Trajetoria",
+    "skills": "Equipamentos",
+    "contact": "Contato"
+  },
+  "hero": {
+    "role": "Engenheiro de Audio",
+    "headline": "A melhor mixagem é aquela que ninguém percebe",
+    "subtitle": "Eventos ao vivo, DVDs e mixagem de estúdio para grupos vocais, corais, bandas e artistas independentes.",
+    "cta": "Ouvir mixagens"
+  },
+  "about": {
+    "title": "Sobre",
+    "p1": "Sou Felipe Penteado, engenheiro de áudio especializado em música vocal. Trabalho com eventos ao vivo, DVDs e mixagem de estúdio, atuando ao lado de grupos vocais, corais, bandas e artistas independentes.",
+    "p2": "Desde os 12 anos eu ja mexia em cabos e ficava curioso com os equipamentos de som da igreja. Não sei exatamente quando isso virou vocação, acho que sempre foi. Aos 15, no colégio interno, já estava ajudando nos eventos da escola e da universidade. Aos 18, dei meu primeiro passo profissional integrando a equipe de áudio do Ministério VOX.",
+    "p3": "Pra mim, o papel do engenheiro de áudio é ser invisível. Ninguém no público precisa reparar que eu estou ali. O meu trabalho é amplificar o que o palco entrega, e deixar a mensagem chegar com ainda mais força. Quando a mixagem está boa, eu consigo vibrar junto com o público, me emocionar com as músicas. E nesse momento que eu me desligo de tudo ao redor e simplesmente curto o show.",
+    "quote": "As músicas tocam os corações. Mas quando o som está bom, a mensagem consegue ser ainda mais amplificada."
+  },
+  "projects": {
+    "title": "Mixagens selecionadas",
+    "items": [
+      {
+        "title": "Penteado's Mixes",
+        "description": "Playlist com mixagens de estudio e ao vivo de diversos projetos e artistas.",
+        "tags": ["Playlist", "Estudio", "Ao Vivo"],
+        "embedType": "spotify",
+        "embedId": "playlist/0U64yQ2gcfF4di63dp9Gdt"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Mixagem front-of-house para o Vocal Livre.",
+        "tags": ["Som ao Vivo", "FOH"],
+        "embedType": "youtube",
+        "embedId": "xFA-36yV4Iw"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Mixagem front-of-house para o Vocal Livre.",
+        "tags": ["Som ao Vivo", "FOH"],
+        "embedType": "youtube",
+        "embedId": "vQ9FtkHUTW0"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Mixagem front-of-house para o Vocal Livre.",
+        "tags": ["Som ao Vivo", "FOH"],
+        "embedType": "youtube",
+        "embedId": "8cDzRdb7AdA"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Mixagem front-of-house para o Vocal Livre.",
+        "tags": ["Som ao Vivo", "FOH"],
+        "embedType": "youtube",
+        "embedId": "sV7bTqrZ9qE"
+      }
+    ],
+    "productionsTitle": "Producoes",
+    "productions": [
+      {
+        "title": "DVD Temporal - Vocal Livre",
+        "description": "Direcao tecnica e mixagem FOH do DVD ao vivo do Vocal Livre.",
+        "roles": ["Direcao Tecnica", "FOH"]
+      },
+      {
+        "title": "DVD 15 Anos - Vocal Livre",
+        "description": "Mixagem FOH do show de 15 anos do Vocal Livre, gravado ao vivo em Recife.",
+        "roles": ["Direcao Tecnica", "FOH"]
+      },
+      {
+        "title": "Novo Tempo In Concert: 30 Anos",
+        "description": "Mixagem FOH da producao do show de 30 anos da Gravadora Novo Tempo.",
+        "roles": ["FOH"]
+      }
+    ],
+    "otherTitle": "Outros trabalhos",
+    "otherItems": [
+      "DVD Gabro Ao Vivo",
+      "Live Session \"Em Ti\" - Luz e Rimas",
+      "Live Session NT Play: Especial de Natal",
+      "DVD Liz Avancini",
+      "DVD Coral Livre feat. Marcos Almeida e Paulo Nazareth",
+      "Alice e Amanda",
+      "Vocal Livre",
+      "Vocal NV",
+      "Leticia Cordeiro",
+      "Paula Schneider",
+      "Ministerio Sence",
+      "Macakitos"
+    ]
+  },
+  "timeline": {
+    "title": "Trajetoria",
+    "items": [
+      {
+        "year": "2024",
+        "title": "Mixagem de Estudio",
+        "description": "Expande para mixagem de estudio, com trabalhos lancados nas principais plataformas digitais."
+      },
+      {
+        "year": "2022",
+        "title": "Diretor Tecnico, Vocal Livre",
+        "description": "Assume a direcao tecnica do Vocal Livre."
+      },
+      {
+        "year": "2021",
+        "title": "Lider de Audio, Igreja do UNASP-HT",
+        "description": "Assume a lideranca da equipe de audio da Igreja do UNASP-HT."
+      },
+      {
+        "year": "2020",
+        "title": "Ministerio VOX",
+        "description": "Integra a equipe de audio do Ministerio VOX."
+      },
+      {
+        "year": "2017",
+        "title": "UNASP-HT",
+        "description": "Vai para o internato do UNASP-HT e comeca a operar o audio nos eventos da escola e da universidade."
+      }
+    ]
+  },
+  "skills": {
+    "title": "Estudio & Equipamentos",
+    "categories": [
+      {
+        "name": "Mesas de Som",
+        "items": ["Yamaha Rivage", "Yamaha DM7", "Yamaha CL Series", "Waves eMotion LV1", "Digico", "Soundcraft"]
+      },
+      {
+        "name": "Estudio",
+        "items": ["Avid Pro Tools", "Apogee Duet 3", "Apple AirPods Max", "Beyerdynamic DT 1990 Pro MKII"]
+      },
+      {
+        "name": "Servicos",
+        "items": ["Mixagem", "Masterizacao", "Gravacao", "Som ao Vivo", "Direcao Tecnica"]
+      }
+    ]
+  },
+  "photos": {
+    "title": "Fotos"
+  },
+  "contact": {
+    "title": "Trabalhando em algo que precisa soar certo?",
+    "subtitle": "Estou disponivel para mixagem, masterizacao, som ao vivo e direcao tecnica. Me conta sobre o seu projeto.",
+    "namePlaceholder": "Seu nome",
+    "emailPlaceholder": "Seu email",
+    "messagePlaceholder": "Conte-me sobre seu projeto",
+    "send": "Enviar Mensagem"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados."
+  }
+}

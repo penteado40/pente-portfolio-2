@@ -1,0 +1,168 @@
+'use client';
+
+import { useState } from 'react';
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useReducedMotion,
+  AnimatePresence,
+} from 'motion/react';
+import { useLocale } from '@/i18n/LocaleProvider';
+import {
+  User,
+  MusicNotes,
+  Clock,
+  GearSix,
+  Envelope,
+  List,
+  X,
+} from '@phosphor-icons/react';
+
+const navItems = [
+  { key: 'about' as const, href: '#about', Icon: User },
+  { key: 'projects' as const, href: '#projects', Icon: MusicNotes },
+  { key: 'timeline' as const, href: '#timeline', Icon: Clock },
+  { key: 'skills' as const, href: '#skills', Icon: GearSix },
+  { key: 'contact' as const, href: '#contact', Icon: Envelope },
+];
+
+export function Navbar() {
+  const { dict, locale, setLocale } = useLocale();
+  const { scrollY } = useScroll();
+  const [inHero, setInHero] = useState(true);
+  const [hovered, setHovered] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const reduce = useReducedMotion();
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const hero = latest < window.innerHeight * 0.85;
+    setInHero(hero);
+    if (hero) setMobileOpen(false);
+  });
+
+  const showExpanded = !inHero || hovered;
+
+  return (
+    <div className="fixed top-4 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
+      <motion.nav
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        initial={reduce ? false : { y: -20, opacity: 0 }}
+        animate={{
+          y: 0,
+          opacity: 1,
+          maxWidth: showExpanded ? 1024 : 280,
+          borderRadius: showExpanded ? 16 : 999,
+        }}
+        transition={{
+          y: { duration: 0.6, ease: [0.23, 1, 0.32, 1] },
+          opacity: { duration: 0.6 },
+          maxWidth: { type: 'spring', duration: 0.5, bounce: 0.15 },
+          borderRadius: { type: 'spring', duration: 0.4, bounce: 0.1 },
+        }}
+        className="w-full glass-strong shadow-lg shadow-stone-900/5 pointer-events-auto overflow-hidden"
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          {showExpanded ? (
+            <motion.div
+              key="expanded"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
+              className="flex items-center justify-between px-6 h-14"
+            >
+              <a
+                href="#"
+                className="font-medium text-sm tracking-tight text-stone-900 shrink-0"
+              >
+                Felipe Penteado
+              </a>
+
+              <div className="hidden md:flex items-center gap-6">
+                {navItems.map((item) => (
+                  <a
+                    key={item.key}
+                    href={item.href}
+                    className="text-sm text-stone-500 hover:text-stone-900 transition-colors"
+                  >
+                    {dict.nav[item.key]}
+                  </a>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
+                  className="text-xs font-mono text-stone-400 hover:text-stone-900 transition-colors uppercase tracking-wider px-2 py-1 rounded-lg hover:bg-stone-100/50"
+                  aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
+                >
+                  {locale === 'en' ? 'PT' : 'EN'}
+                </button>
+                <button
+                  onClick={() => setMobileOpen(!mobileOpen)}
+                  className="md:hidden text-stone-600 p-1"
+                  aria-label="Toggle menu"
+                >
+                  {mobileOpen ? <X size={20} /> : <List size={20} />}
+                </button>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="compact"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
+              className="flex items-center justify-center gap-1 px-3 h-11"
+            >
+              {navItems.map((item) => (
+                <a
+                  key={item.key}
+                  href={item.href}
+                  className="p-2 text-stone-500 hover:text-stone-900 transition-colors rounded-full hover:bg-stone-100/50"
+                  aria-label={dict.nav[item.key]}
+                >
+                  <item.Icon size={16} />
+                </a>
+              ))}
+              <div className="w-px h-4 bg-stone-300/50 mx-1" />
+              <button
+                onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
+                className="text-xs font-mono text-stone-400 hover:text-stone-900 transition-colors uppercase tracking-wider px-2 py-1 rounded-full hover:bg-stone-100/50"
+                aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
+              >
+                {locale === 'en' ? 'PT' : 'EN'}
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {mobileOpen && showExpanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden px-6 pb-4 flex flex-col gap-3 border-t border-stone-200/40 overflow-hidden"
+            >
+              {navItems.map((item) => (
+                <a
+                  key={item.key}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="text-sm text-stone-500 hover:text-stone-900 transition-colors py-1"
+                >
+                  {dict.nav[item.key]}
+                </a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
+    </div>
+  );
+}

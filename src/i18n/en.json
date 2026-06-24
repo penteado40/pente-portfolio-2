@@ -1,0 +1,156 @@
+{
+  "nav": {
+    "about": "About",
+    "projects": "Work",
+    "timeline": "Journey",
+    "skills": "Gear",
+    "contact": "Contact"
+  },
+  "hero": {
+    "role": "Audio Engineer",
+    "headline": "The best mix is the one nobody notices",
+    "subtitle": "Live events, DVDs, and studio mixing for vocal groups, bands, and independent artists.",
+    "cta": "Listen to mixes"
+  },
+  "about": {
+    "title": "About",
+    "p1": "I'm Felipe Penteado, an audio engineer specializing in vocal music. I work with live events, DVDs, and studio mixing, alongside vocal groups, choirs, bands, and independent artists.",
+    "p2": "I've been messing around with cables and gear since I was 12, always curious about the sound equipment at church. I'm not sure exactly when it became a calling, I think it always was. At 15, at boarding school, I was already helping with events at school and at the university. At 18, I took my first professional step joining the audio team at Ministerio VOX.",
+    "p3": "To me, the audio engineer's role is to be invisible. No one in the audience should notice I'm there. My job is to amplify what the stage delivers, and let the message land with even more force. When the mix is right, I can feel the energy alongside the audience, get moved by the music. That's when I disconnect from everything around me and just enjoy the show.",
+    "quote": "Music touches hearts. But when the sound is right, the message gets amplified even further."
+  },
+  "projects": {
+    "title": "Selected Mixes",
+    "items": [
+      {
+        "title": "Penteado's Mixes",
+        "description": "A curated playlist of studio and live mixes across multiple projects and artists.",
+        "tags": ["Playlist", "Studio", "Live"],
+        "embedType": "spotify",
+        "embedId": "playlist/0U64yQ2gcfF4di63dp9Gdt"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Front-of-house mixing for Vocal Livre.",
+        "tags": ["Live Sound", "FOH"],
+        "embedType": "youtube",
+        "embedId": "xFA-36yV4Iw"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Front-of-house mixing for Vocal Livre.",
+        "tags": ["Live Sound", "FOH"],
+        "embedType": "youtube",
+        "embedId": "vQ9FtkHUTW0"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Front-of-house mixing for Vocal Livre.",
+        "tags": ["Live Sound", "FOH"],
+        "embedType": "youtube",
+        "embedId": "8cDzRdb7AdA"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Front-of-house mixing for Vocal Livre.",
+        "tags": ["Live Sound", "FOH"],
+        "embedType": "youtube",
+        "embedId": "sV7bTqrZ9qE"
+      }
+    ],
+    "productionsTitle": "Productions",
+    "productions": [
+      {
+        "title": "DVD Temporal - Vocal Livre",
+        "description": "Technical direction and FOH mixing for Vocal Livre's live DVD recording.",
+        "roles": ["Technical Direction", "FOH"]
+      },
+      {
+        "title": "DVD 15 Anos - Vocal Livre",
+        "description": "FOH mixing for Vocal Livre's 15th anniversary concert, recorded live in Recife.",
+        "roles": ["Technical Direction", "FOH"]
+      },
+      {
+        "title": "Novo Tempo In Concert: 30 Anos",
+        "description": "FOH mixing for Novo Tempo label's 30th anniversary concert production.",
+        "roles": ["FOH"]
+      }
+    ],
+    "otherTitle": "Other work",
+    "otherItems": [
+      "DVD Gabro Ao Vivo",
+      "Live Session \"Em Ti\" - Luz e Rimas",
+      "Live Session NT Play: Especial de Natal",
+      "DVD Liz Avancini",
+      "DVD Coral Livre feat. Marcos Almeida e Paulo Nazareth",
+      "Alice e Amanda",
+      "Vocal Livre",
+      "Vocal NV",
+      "Leticia Cordeiro",
+      "Paula Schneider",
+      "Ministerio Sence",
+      "Macakitos"
+    ]
+  },
+  "timeline": {
+    "title": "Career",
+    "items": [
+      {
+        "year": "2024",
+        "title": "Studio Mixing",
+        "description": "Expanded into studio mixing, with releases on major streaming platforms."
+      },
+      {
+        "year": "2022",
+        "title": "Technical Director, Vocal Livre",
+        "description": "Became technical director of Vocal Livre."
+      },
+      {
+        "year": "2021",
+        "title": "Audio Lead, Igreja do UNASP-HT",
+        "description": "Took over leadership of the audio team at Igreja do UNASP-HT."
+      },
+      {
+        "year": "2020",
+        "title": "Ministerio VOX",
+        "description": "Joined the audio team at Ministerio VOX."
+      },
+      {
+        "year": "2017",
+        "title": "UNASP-HT",
+        "description": "Left home for boarding school at UNASP-HT, where he started running audio for school and university events."
+      }
+    ]
+  },
+  "skills": {
+    "title": "Studio & Gear",
+    "categories": [
+      {
+        "name": "Consoles",
+        "items": ["Yamaha Rivage", "Yamaha DM7", "Yamaha CL Series", "Waves eMotion LV1", "Digico", "Soundcraft"]
+      },
+      {
+        "name": "Studio",
+        "items": ["Avid Pro Tools", "Apogee Duet 3", "Apple AirPods Max", "Beyerdynamic DT 1990 Pro MKII"]
+      },
+      {
+        "name": "Services",
+        "items": ["Mixing", "Mastering", "Recording", "Live Sound", "Technical Direction"]
+      }
+    ]
+  },
+  "photos": {
+    "title": "Photos"
+  },
+  "contact": {
+    "title": "Working on something that needs to sound right?",
+    "subtitle": "I'm open to mixing, mastering, live sound, and technical direction work. Tell me about your project.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "Your email",
+    "messagePlaceholder": "Tell me about your project",
+    "send": "Send Message"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}
