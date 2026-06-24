@@ -150,7 +150,10 @@
     "namePlaceholder": "Your name",
     "emailPlaceholder": "Your email",
     "messagePlaceholder": "Tell me about your project",
-    "send": "Send Message"
+    "send": "Send Message",
+    "sending": "Sending...",
+    "sent": "Message sent!",
+    "error": "Something went wrong. Try again."
   },
   "footer": {
     "rights": "All rights reserved."
