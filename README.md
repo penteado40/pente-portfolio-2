@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Felipe Penteado - Portfolio
 
-## Getting Started
+Portfolio website for Felipe Penteado, audio engineer and systems developer. Bilingual (EN/PT), single-page, with motion design and glassmorphism.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, React 19)
+- **Tailwind v4**
+- **Motion** (`motion/react`) for animations
+- **Phosphor Icons**
+- **Geist + Geist Mono** fonts
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+  app/
+    layout.tsx          # Root layout (fonts, locale provider)
+    page.tsx            # Main page (all sections)
+    globals.css         # Tailwind + glass utilities
+  components/
+    Navbar.tsx          # Dynamic Island navbar (compact/expanded morph)
+    Hero.tsx            # Full-bleed photo hero with scroll zoom
+    About.tsx           # Photo + bio + quote
+    Projects.tsx        # Spotify/YouTube embeds + productions
+    Timeline.tsx        # Career milestones (vertical timeline)
+    Skills.tsx          # Studio gear + dev skills (glass cards)
+    Photos.tsx          # Masonry photo grid (27 photos)
+    Contact.tsx         # Glass card contact form
+    Footer.tsx          # Social links (email, Instagram, LinkedIn, GitHub)
+    CursorGlow.tsx      # Mouse-following amber spotlight (desktop only)
+  i18n/
+    LocaleProvider.tsx  # Client-side locale context + hook
+    en.json             # English dictionary
+    pt.json             # Portuguese dictionary
+public/
+  photos/               # Optimized JPEGs (max 1600px, quality 75)
+```
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+**Dynamic Island Navbar** - Compact icon pill over the hero, spring-morphs to full bar on scroll or hover. Collapses back when mouse leaves.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Full-bleed Hero** - Studio photo (`photo_12.jpg`) as background with dark gradient overlay. Content at bottom. Scroll-driven zoom + fade-out.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Cursor Glow** - Amber spotlight follows the mouse with spring physics. `mix-blend-mode: screen`. Desktop only, respects `prefers-reduced-motion`.
 
-## Deploy on Vercel
+**Bilingual** - EN/PT toggle persisted to localStorage. All visible text comes from JSON dictionaries.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Glassmorphism** - `.glass` and `.glass-strong` utilities with `backdrop-filter`, layered borders, and inner shadows. Solid fallback for `prefers-reduced-transparency`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Scroll Animations** - Section reveals using Motion's `whileInView` with stagger. All gated by `useReducedMotion()`.
+
+**Photo Gallery** - 27 optimized photos in a masonry-style grid with hover zoom.
+
+**Embedded Media** - Spotify playlist and YouTube videos from real Vocal Livre performances.
+
+## Content
+
+All text content comes from the i18n JSON files. Edit `src/i18n/en.json` and `src/i18n/pt.json` to update copy. Social links are in `Footer.tsx`. Photo list is in `Photos.tsx`.
+
+## Deploy
+
+```bash
+npm run build
+```
+
+Deploy the `.next` output to Vercel, Netlify, or any Node.js host.
