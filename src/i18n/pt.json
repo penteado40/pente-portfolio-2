@@ -140,7 +140,9 @@
     ]
   },
   "photos": {
-    "title": "Fotos"
+    "title": "Fotos",
+    "tabPhotos": "Fotos",
+    "tabInstagram": "Instagram"
   },
   "contact": {
     "title": "Trabalhando em algo que precisa soar certo?",
