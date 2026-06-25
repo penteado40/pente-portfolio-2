@@ -1,7 +1,37 @@
 'use client';
 
+import { type ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+
+const LINKS: Record<string, string> = {
+  'UNASP-HT': 'https://unasp.br',
+  'Ministerio VOX': 'https://www.instagram.com/ministerio_vox/',
+  'Ministério VOX': 'https://www.instagram.com/ministerio_vox/',
+  'Vocal Livre': 'https://www.vocallivre.com.br',
+};
+
+const LINK_RE = new RegExp(`(${Object.keys(LINKS).join('|')})`, 'g');
+
+function linkify(text: string): ReactNode {
+  const parts = text.split(LINK_RE);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) =>
+    LINKS[part] ? (
+      <a
+        key={i}
+        href={LINKS[part]}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline decoration-amber-400/60 underline-offset-2 hover:decoration-amber-500 transition-colors"
+      >
+        {part}
+      </a>
+    ) : (
+      part
+    ),
+  );
+}
 
 export function Timeline() {
   const { dict } = useLocale();
@@ -47,9 +77,9 @@ export function Timeline() {
                   <span className="text-xs font-mono text-amber-700 tracking-wider">
                     {entry.year}
                   </span>
-                  <h3 className="text-lg font-medium mt-1">{entry.title}</h3>
+                  <h3 className="text-lg font-medium mt-1">{linkify(entry.title)}</h3>
                   <p className="text-stone-500 text-sm leading-relaxed mt-1 max-w-[50ch]">
-                    {entry.description}
+                    {linkify(entry.description)}
                   </p>
                 </div>
               </motion.div>
