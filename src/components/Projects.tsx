@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 
@@ -107,8 +108,20 @@ export function Projects() {
                 delay: i * 0.08,
                 ease: [0.16, 1, 0.3, 1] as const,
               }}
-              className="glass rounded-2xl p-6"
+              className="glass rounded-2xl overflow-hidden"
             >
+              {prod.image && (
+                <div className="relative aspect-[16/9]">
+                  <Image
+                    src={prod.image}
+                    alt={prod.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+              )}
+              <div className="p-6">
               <h4 className="font-medium mb-2">{prod.title}</h4>
               <p className="text-stone-500 text-sm leading-relaxed mb-3">
                 {prod.description}
@@ -122,6 +135,7 @@ export function Projects() {
                     {role}
                   </span>
                 ))}
+              </div>
               </div>
             </motion.div>
           ))}
