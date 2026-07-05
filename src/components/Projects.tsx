@@ -3,10 +3,34 @@
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { ProjectsCarousel } from './ProjectsCarousel';
+
+type SpotifyProject = {
+  title: string;
+  description: string;
+  tags: string[];
+  embedType: 'spotify';
+  embedId: string;
+};
+type YoutubeProject = {
+  title: string;
+  description: string;
+  tags: string[];
+  embedType: 'youtube';
+  embedId: string;
+  views?: string;
+};
 
 export function Projects() {
   const { dict } = useLocale();
   const reduce = useReducedMotion();
+
+  const spotifyItem = dict.projects.items.find(
+    (p): p is SpotifyProject => p.embedType === 'spotify',
+  );
+  const youtubeItems = dict.projects.items.filter(
+    (p): p is YoutubeProject => p.embedType === 'youtube',
+  );
 
   return (
     <section
@@ -24,66 +48,44 @@ export function Projects() {
           {dict.projects.title}
         </motion.h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {dict.projects.items.map((project, i) => (
-            <motion.article
-              key={`${project.title}-${project.embedId}`}
-              initial={reduce ? false : { opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.08,
-                ease: [0.16, 1, 0.3, 1] as const,
-              }}
-              className={`glass rounded-2xl p-6 hover:shadow-xl hover:shadow-stone-900/5 transition-shadow duration-300 ${
-                i === 0 ? 'lg:col-span-2' : ''
-              }`}
-            >
-              <div className="rounded-xl overflow-hidden mb-5 bg-stone-100">
-                {project.embedType === 'spotify' ? (
-                  <iframe
-                    src={`https://open.spotify.com/embed/${project.embedId}?utm_source=generator&theme=0`}
-                    width="100%"
-                    height="352"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    className="border-0"
-                    title={project.title}
-                  />
-                ) : (
-                  <div className="aspect-video">
-                    <iframe
-                      src={`https://www.youtube.com/embed/${project.embedId}`}
-                      width="100%"
-                      height="100%"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                      className="border-0"
-                      title={project.title}
-                    />
-                  </div>
-                )}
-              </div>
+        {spotifyItem && (
+          <motion.article
+            initial={reduce ? false : { opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
+            className="glass rounded-2xl p-6 hover:shadow-xl hover:shadow-stone-900/5 transition-shadow duration-300 mb-6"
+          >
+            <div className="rounded-xl overflow-hidden mb-5 bg-stone-100">
+              <iframe
+                src={`https://open.spotify.com/embed/${spotifyItem.embedId}?utm_source=generator&theme=0`}
+                width="100%"
+                height="352"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                className="border-0"
+                title={spotifyItem.title}
+              />
+            </div>
 
-              <h3 className="text-xl font-medium mb-2">{project.title}</h3>
-              <p className="text-stone-500 text-sm leading-relaxed mb-4">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs font-mono text-stone-400 bg-stone-100/80 px-3 py-1 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.article>
-          ))}
-        </div>
+            <h3 className="text-xl font-medium mb-2">{spotifyItem.title}</h3>
+            <p className="text-stone-500 text-sm leading-relaxed mb-4">
+              {spotifyItem.description}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {spotifyItem.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs font-mono text-stone-400 bg-stone-100/80 px-3 py-1 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </motion.article>
+        )}
+
+        <ProjectsCarousel items={youtubeItems} />
 
         {/* Productions */}
         <motion.h3
@@ -122,7 +124,14 @@ export function Projects() {
                 </div>
               )}
               <div className="p-6">
-              <h4 className="font-medium mb-2">{prod.title}</h4>
+              <div className="flex items-center gap-2 mb-2">
+                <h4 className="font-medium">{prod.title}</h4>
+                {'streams' in prod && (
+                  <span className="text-xs font-mono text-stone-400">
+                    {prod.streams} {dict.stats.streamsLabel}
+                  </span>
+                )}
+              </div>
               <p className="text-stone-500 text-sm leading-relaxed mb-3">
                 {prod.description}
               </p>

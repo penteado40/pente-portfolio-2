@@ -12,6 +12,17 @@
     "subtitle": "Eventos ao vivo, DVDs e mixagem de estúdio para grupos vocais, corais, bandas e artistas independentes.",
     "cta": "Ouvir mixagens"
   },
+  "stats": {
+    "title": "Em Números",
+    "viewsLabel": "visualizacoes",
+    "streamsLabel": "streams",
+    "items": [
+      { "label": "Eventos", "value": "250+" },
+      { "label": "Anos de Atuacao", "value": "7+" },
+      { "label": "Artistas Atendidos", "value": "50+" },
+      { "label": "DVDs e LiveSessions", "value": "5+" }
+    ]
+  },
   "about": {
     "title": "Sobre",
     "p1": "Sou Felipe Penteado, engenheiro de áudio especializado em música vocal. Trabalho com eventos ao vivo, DVDs e mixagem de estúdio, atuando ao lado de grupos vocais, corais, bandas e artistas independentes.",
@@ -30,33 +41,85 @@
         "embedId": "playlist/0U64yQ2gcfF4di63dp9Gdt"
       },
       {
-        "title": "FOH - Vocal Livre",
-        "description": "Mixagem front-of-house para o Vocal Livre.",
-        "tags": ["Som ao Vivo", "FOH"],
+        "title": "Vocal Livre - Oh Come All Ye Faithful (Voctave Cover)",
+        "description": "Mixagem para o Vocal Livre, cover da musica \"Oh Come All Ye Faithful\" da Voctave.",
+        "tags": ["Mixagem", "Estudio"],
         "embedType": "youtube",
-        "embedId": "xFA-36yV4Iw"
+        "embedId": "kClk9hDEPds",
+        "views": "45k+"
       },
       {
         "title": "FOH - Vocal Livre",
-        "description": "Mixagem front-of-house para o Vocal Livre.",
+        "description": "Mixagem PA para o Vocal Livre.",
         "tags": ["Som ao Vivo", "FOH"],
         "embedType": "youtube",
-        "embedId": "vQ9FtkHUTW0"
+        "embedId": "iuAzxiUe1GI",
+        "views": "-"
+      },
+      {
+        "title": "EU CANTO PRA TI - VOCAL LIVRE | ACÚSTICO YAMAHA",
+        "description": "Mixagem para o Vocal Livre, cover da musica \"EU CANTO PRA TI\" da Voctave.",
+        "tags": ["Mixagem", "Estudio"],
+        "embedType": "youtube",
+        "embedId": "ylX_fWT_1Ts",
+        "views": "81k+"
       },
       {
         "title": "FOH - Vocal Livre",
-        "description": "Mixagem front-of-house para o Vocal Livre.",
+        "description": "Mixagem PA para o Vocal Livre.",
         "tags": ["Som ao Vivo", "FOH"],
         "embedType": "youtube",
-        "embedId": "8cDzRdb7AdA"
+        "embedId": "JSHblD_li2Q",
+        "views": "-"
+      },
+      {
+        "title": "KIRK FRANKLIN COVER (Wanna be Happy? / I Smile) - VOCAL LIVRE | Acústico Yamaha",
+        "description": "Mixagem para o Vocal Livre, cover da musica \"Wanna be Happy? / I Smile\" by Kirk Franklin.",
+        "tags": ["Mixagem", "Estudio"],
+        "embedType": "youtube",
+        "embedId": "gN31mnrysoo",
+        "views": "54k+"
       },
       {
         "title": "FOH - Vocal Livre",
-        "description": "Mixagem front-of-house para o Vocal Livre.",
+        "description": "Mixagem PA para o Vocal Livre.",
         "tags": ["Som ao Vivo", "FOH"],
         "embedType": "youtube",
-        "embedId": "sV7bTqrZ9qE"
-      }
+        "embedId": "up1XMdkS6Lw",
+        "views": "-"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Mixagem PA para o Vocal Livre.",
+        "tags": ["Som ao Vivo", "FOH"],
+        "embedType": "youtube",
+        "embedId": "xFA-36yV4Iw",
+        "views": "-"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Mixagem PA para o Vocal Livre.",
+        "tags": ["Som ao Vivo", "FOH"],
+        "embedType": "youtube",
+        "embedId": "vQ9FtkHUTW0",
+        "views": "-"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Mixagem PA para o Vocal Livre.",
+        "tags": ["Som ao Vivo", "FOH"],
+        "embedType": "youtube",
+        "embedId": "8cDzRdb7AdA",
+        "views": "-"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Mixagem PA para o Vocal Livre.",
+        "tags": ["Som ao Vivo", "FOH"],
+        "embedType": "youtube",
+        "embedId": "sV7bTqrZ9qE",
+        "views": "-"
+      }      
     ],
     "productionsTitle": "Producoes",
     "productions": [
@@ -64,19 +127,22 @@
         "title": "DVD Temporal - Vocal Livre",
         "description": "Direcao tecnica e mixagem FOH do DVD ao vivo do Vocal Livre.",
         "roles": ["Direcao Tecnica", "FOH"],
-        "image": "/photos/photo_vltemporal.jpeg"
+        "image": "/photos/photo_vltemporal.jpeg",
+        "streams": "-"
       },
       {
         "title": "DVD 15 Anos - Vocal Livre",
         "description": "Mixagem FOH do show de 15 anos do Vocal Livre, gravado ao vivo em Recife.",
         "roles": ["Direcao Tecnica", "FOH"],
-        "image": "/photos/photo_vl15.jpeg"
+        "image": "/photos/photo_vl15.jpeg",
+        "streams": "-"
       },
       {
         "title": "Novo Tempo In Concert: 30 Anos",
         "description": "Mixagem FOH da producao do show de 30 anos da Gravadora Novo Tempo.",
         "roles": ["FOH"],
-        "image": "/photos/photo_nt30.jpg"
+        "image": "/photos/photo_nt30.jpg",
+        "streams": "-"
       }
     ],
     "otherTitle": "Outros trabalhos",

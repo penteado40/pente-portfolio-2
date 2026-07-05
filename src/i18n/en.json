@@ -12,6 +12,17 @@
     "subtitle": "Live events, DVDs, and studio mixing for vocal groups, bands, and independent artists.",
     "cta": "Listen to mixes"
   },
+  "stats": {
+    "title": "By the Numbers",
+    "viewsLabel": "views",
+    "streamsLabel": "streams",
+    "items": [
+      { "label": "Events", "value": "250+" },
+      { "label": "Years Active", "value": "7+" },
+      { "label": "Artists Served", "value": "50+" },
+      { "label": "DVDs and LiveSessions", "value": "5+" }
+    ]
+  },
   "about": {
     "title": "About",
     "p1": "I'm Felipe Penteado, an audio engineer specializing in vocal music. I work with live events, DVDs, and studio mixing, alongside vocal groups, choirs, bands, and independent artists.",
@@ -30,32 +41,84 @@
         "embedId": "playlist/0U64yQ2gcfF4di63dp9Gdt"
       },
       {
+        "title": "Vocal Livre - Oh Come All Ye Faithful (Voctave Cover)",
+        "description": "Mixing for Vocal Livre, cover of the song \"Oh Come All Ye Faithful\" by Voctave.",
+        "tags": ["Mixing", "Studio"],
+        "embedType": "youtube",
+        "embedId": "kClk9hDEPds",
+        "views": "45K+"
+      },
+      {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
-        "tags": ["Live Sound", "FOH"],
+        "tags": ["Som ao Vivo", "FOH"],
         "embedType": "youtube",
-        "embedId": "xFA-36yV4Iw"
+        "embedId": "iuAzxiUe1GI",
+        "views": "-"
+      },
+      {
+        "title": "EU CANTO PRA TI - VOCAL LIVRE | ACÚSTICO YAMAHA",
+        "description": "Mixing for Vocal Livre, cover of the song \"EU CANTO PRA TI\" by Yamaha.",
+        "tags": ["Mixing", "Studio"],
+        "embedType": "youtube",
+        "embedId": "ylX_fWT_1Ts",
+        "views": "81K+"
       },
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
         "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
-        "embedId": "vQ9FtkHUTW0"
+        "embedId": "JSHblD_li2Q",
+        "views": "-"
+      },
+      {
+        "title": "KIRK FRANKLIN COVER (Wanna be Happy? / I Smile) - VOCAL LIVRE | Acústico Yamaha",
+        "description": "Mixing for Vocal Livre, cover of the songs \"Wanna be Happy? / I Smile\" by Kirk Franklin.",
+        "tags": ["Mixagem", "Estudio"],
+        "embedType": "youtube",
+        "embedId": "gN31mnrysoo",
+        "views": "54K+"
       },
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
         "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
-        "embedId": "8cDzRdb7AdA"
+        "embedId": "up1XMdkS6Lw",
+        "views": "-"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Front-of-house mixing for Vocal Livre.",
+        "tags": ["Som ao Vivo", "FOH"],
+        "embedType": "youtube",
+        "embedId": "xFA-36yV4Iw",
+        "views": "-"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Front-of-house mixing for Vocal Livre.",
+        "tags": ["Som ao Vivo", "FOH"],
+        "embedType": "youtube",
+        "embedId": "vQ9FtkHUTW0",
+        "views": "-"
       },
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
         "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
-        "embedId": "sV7bTqrZ9qE"
+        "embedId": "8cDzRdb7AdA",
+        "views": "-"
+      },
+      {
+        "title": "FOH - Vocal Livre",
+        "description": "Front-of-house mixing for Vocal Livre.",
+        "tags": ["Live Sound", "FOH"],
+        "embedType": "youtube",
+        "embedId": "sV7bTqrZ9qE",
+        "views": "-"
       }
     ],
     "productionsTitle": "Productions",
@@ -64,19 +127,22 @@
         "title": "DVD Temporal - Vocal Livre",
         "description": "Technical direction and FOH mixing for Vocal Livre's live DVD recording.",
         "roles": ["Technical Direction", "FOH"],
-        "image": "/photos/photo_vltemporal.jpeg"
+        "image": "/photos/photo_vltemporal.jpeg",
+        "streams": "-"
       },
       {
         "title": "DVD 15 Anos - Vocal Livre",
         "description": "FOH mixing for Vocal Livre's 15th anniversary concert, recorded live in Recife.",
         "roles": ["Technical Direction", "FOH"],
-        "image": "/photos/photo_vl15.jpeg"
+        "image": "/photos/photo_vl15.jpeg",
+        "streams": "-"
       },
       {
         "title": "Novo Tempo In Concert: 30 Anos",
         "description": "FOH mixing for Novo Tempo label's 30th anniversary concert production.",
         "roles": ["FOH"],
-        "image": "/photos/photo_nt30.jpg"
+        "image": "/photos/photo_nt30.jpg",
+        "streams": "-"
       }
     ],
     "otherTitle": "Other work",
