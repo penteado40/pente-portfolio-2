@@ -18,9 +18,9 @@
     "streamsLabel": "streams",
     "items": [
       { "label": "Eventos", "value": "250+" },
-      { "label": "Anos de Atuacao", "value": "7+" },
+      { "label": "Anos de Atuação", "value": "7+" },
       { "label": "Artistas Atendidos", "value": "50+" },
-      { "label": "DVDs e LiveSessions", "value": "5+" }
+      { "label": "DVDs e LiveSessions Gravadas", "value": "5+" }
     ]
   },
   "about": {
