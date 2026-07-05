@@ -2,12 +2,12 @@
   "nav": {
     "about": "Sobre",
     "projects": "Trabalhos",
-    "timeline": "Trajetoria",
+    "timeline": "Trajetória",
     "skills": "Equipamentos",
     "contact": "Contato"
   },
   "hero": {
-    "role": "Engenheiro de Audio",
+    "role": "Engenheiro de Áudio",
     "headline": "A melhor mixagem é aquela que ninguém percebe",
     "subtitle": "Eventos ao vivo, captação de áudio para DVDs e mixagem de estúdio para grupos vocais, corais, bandas e artistas independentes.",
     "cta": "Ouvir mixagens"
@@ -32,7 +32,7 @@
     "quote": "As músicas tocam os corações. Mas quando o som está bom, a mensagem consegue ser ainda mais amplificada."
   },
   "projects": {
-    "title": "Mixagens selecionadas",
+    "title": "Trabalhos Selecionados",
     "items": [
       {
         "title": "Penteado's Mixes",
@@ -58,8 +58,8 @@
         "views": "-"
       },
       {
-        "title": "EU CANTO PRA TI - VOCAL LIVRE | ACÚSTICO YAMAHA",
-        "description": "Mixagem para o Vocal Livre, cover da musica \"EU CANTO PRA TI\" da Voctave.",
+        "title": "EU CANTO PRA TI - VOCAL LIVRE",
+        "description": "Mixagem para o Vocal Livre, videoclipe da música \"EU CANTO PRA TI\" pra um projeto da Yamaha.",
         "tags": ["Mixagem", "Estudio"],
         "embedType": "youtube",
         "embedId": "ylX_fWT_1Ts",
@@ -74,8 +74,8 @@
         "views": "-"
       },
       {
-        "title": "KIRK FRANKLIN COVER (Wanna be Happy? / I Smile) - VOCAL LIVRE | Acústico Yamaha",
-        "description": "Mixagem para o Vocal Livre, cover da musica \"Wanna be Happy? / I Smile\" by Kirk Franklin.",
+        "title": "KIRK FRANKLIN COVER (Wanna be Happy? / I Smile) - VOCAL LIVRE",
+        "description": "Mixagem para o Vocal Livre, cover da musica \"Wanna be Happy? / I Smile\" by Kirk Franklin pra um projeto da Yamaha.",
         "tags": ["Mixagem", "Estudio"],
         "embedType": "youtube",
         "embedId": "gN31mnrysoo",
@@ -122,7 +122,7 @@
         "views": "-"
       }      
     ],
-    "productionsTitle": "Producoes",
+    "productionsTitle": "Produções",
     "productions": [
       {
         "title": "DVD Temporal - Vocal Livre",
@@ -169,7 +169,7 @@
     ]
   },
   "timeline": {
-    "title": "Trajetoria",
+    "title": "Trajetória",
     "items": [
       {
         "year": "2024",
