@@ -1,9 +1,9 @@
 'use client';
 
-import Image from 'next/image';
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import { ProjectsCarousel } from './ProjectsCarousel';
+import { ProductionCard } from './ProductionCard';
 
 type SpotifyProject = {
   title: string;
@@ -98,7 +98,7 @@ export function Projects() {
           {dict.projects.productionsTitle}
         </motion.h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="productions-grid grid grid-cols-1 md:grid-cols-3 gap-6">
           {dict.projects.productions.map((prod, i) => (
             <motion.div
               key={prod.title}
@@ -110,42 +110,8 @@ export function Projects() {
                 delay: i * 0.08,
                 ease: [0.16, 1, 0.3, 1] as const,
               }}
-              className="glass rounded-2xl overflow-hidden"
             >
-              {prod.image && (
-                <div className="relative aspect-[16/9]">
-                  <Image
-                    src={prod.image}
-                    alt={prod.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                </div>
-              )}
-              <div className="p-6">
-              <div className="flex items-center gap-2 mb-2">
-                <h4 className="font-medium">{prod.title}</h4>
-                {'streams' in prod && (
-                  <span className="text-xs font-mono text-stone-400">
-                    {prod.streams} {dict.stats.streamsLabel}
-                  </span>
-                )}
-              </div>
-              <p className="text-stone-500 text-sm leading-relaxed mb-3">
-                {prod.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {prod.roles.map((role) => (
-                  <span
-                    key={role}
-                    className="text-xs font-mono text-amber-700 bg-amber-50 px-3 py-1 rounded-full"
-                  >
-                    {role}
-                  </span>
-                ))}
-              </div>
-              </div>
+              <ProductionCard prod={prod} streamsLabel={dict.stats.streamsLabel} />
             </motion.div>
           ))}
         </div>

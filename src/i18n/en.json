@@ -128,21 +128,24 @@
         "description": "Technical direction and FOH mixing for Vocal Livre's live DVD recording.",
         "roles": ["Technical Direction", "FOH"],
         "image": "/photos/photo_vltemporal.jpeg",
-        "streams": "-"
+        "streams": "13mi+",
+        "youtubeId": "j10ORL-xEu8"
       },
       {
         "title": "DVD 15 Anos - Vocal Livre",
         "description": "FOH mixing for Vocal Livre's 15th anniversary concert, recorded live in Recife.",
         "roles": ["Technical Direction", "FOH"],
         "image": "/photos/photo_vl15.jpeg",
-        "streams": "-"
+        "streams": "6mi+",
+        "youtubeId": "DXllcDBfu88"
       },
       {
         "title": "Novo Tempo In Concert: 30 Anos",
         "description": "FOH mixing for Novo Tempo label's 30th anniversary concert production.",
         "roles": ["FOH"],
         "image": "/photos/photo_nt30.jpg",
-        "streams": "-"
+        "streams": "19mi+",
+        "youtubeId": "gt-V6JlXxmc"
       }
     ],
     "otherTitle": "Other work",

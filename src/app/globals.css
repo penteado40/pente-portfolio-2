@@ -65,3 +65,39 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+.productions-grid {
+  isolation: isolate;
+}
+
+.production-card {
+  position: relative;
+  transform-origin: center;
+  transition:
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 300ms ease,
+    filter 300ms ease;
+}
+
+.production-card.is-active {
+  transform: scale(1.18);
+  z-index: 20;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+}
+
+.productions-grid:has(.production-card.is-active) .production-card:not(.is-active) {
+  opacity: 0.35;
+  filter: blur(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .production-card {
+    transition:
+      opacity 200ms ease,
+      filter 200ms ease;
+  }
+
+  .production-card.is-active {
+    transform: none;
+  }
+}
