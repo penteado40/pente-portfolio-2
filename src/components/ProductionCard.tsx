@@ -13,6 +13,7 @@ type Production = {
   image?: string;
   streams?: string;
   youtubeId?: string;
+  youtubeUrl?: string;
 };
 
 export function ProductionCard({
@@ -167,7 +168,21 @@ function ProductionCardText({ prod, streamsLabel }: { prod: Production; streamsL
   return (
     <div className="p-6">
       <div className="flex items-center gap-2 mb-2">
-        <h4 className="font-medium">{prod.title}</h4>
+        {prod.youtubeUrl ? (
+          <h4 className="font-medium">
+            <a
+              href={prod.youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="hover:text-amber-700 hover:underline underline-offset-2 transition-colors"
+            >
+              {prod.title}
+            </a>
+          </h4>
+        ) : (
+          <h4 className="font-medium">{prod.title}</h4>
+        )}
         {prod.streams && (
           <span className="text-xs font-mono text-stone-400">
             {prod.streams} {streamsLabel}

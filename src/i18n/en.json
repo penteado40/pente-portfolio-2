@@ -9,7 +9,7 @@
   "hero": {
     "role": "Audio Engineer",
     "headline": "The best mix is the one nobody notices",
-    "subtitle": "Live events, DVDs, and studio mixing for vocal groups, bands, and independent artists.",
+    "subtitle": "Live events, audio recording for DVDs, and studio mixing for vocal groups, bands, and independent artists.",
     "cta": "Listen to mixes"
   },
   "stats": {
@@ -20,7 +20,8 @@
       { "label": "Events", "value": "250+" },
       { "label": "Years Active", "value": "7+" },
       { "label": "Artists Served", "value": "50+" },
-      { "label": "DVDs and LiveSessions Recorded", "value": "5+" }
+      { "label": "DVDs and LiveSessions Recorded", "value": "5+" },
+      { "label": "Audio Systems Designed for Events", "value": "25+" }
     ]
   },
   "about": {
@@ -129,7 +130,8 @@
         "roles": ["Technical Direction", "FOH"],
         "image": "/photos/photo_vltemporal.jpeg",
         "streams": "13mi+",
-        "youtubeId": "j10ORL-xEu8"
+        "youtubeId": "j10ORL-xEu8",
+        "youtubeUrl": "https://www.youtube.com/watch?v=D4Z0-KE6ir8"
       },
       {
         "title": "DVD 15 Anos - Vocal Livre",
@@ -137,7 +139,8 @@
         "roles": ["Technical Direction", "FOH"],
         "image": "/photos/photo_vl15.jpeg",
         "streams": "6mi+",
-        "youtubeId": "DXllcDBfu88"
+        "youtubeId": "DXllcDBfu88",
+        "youtubeUrl": "https://www.youtube.com/watch?v=YY6mj0kj94s"
       },
       {
         "title": "Novo Tempo In Concert: 30 Anos",
@@ -145,7 +148,8 @@
         "roles": ["FOH"],
         "image": "/photos/photo_nt30.jpg",
         "streams": "19mi+",
-        "youtubeId": "gt-V6JlXxmc"
+        "youtubeId": "gt-V6JlXxmc",
+        "youtubeUrl": "https://www.youtube.com/watch?v=fcOxkFoRCto"
       }
     ],
     "otherTitle": "Other work",
@@ -208,6 +212,26 @@
       {
         "name": "Services",
         "items": ["Mixing", "Mastering", "Recording", "Live Sound", "Technical Direction"]
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "What They Say",
+    "items": [
+      {
+        "quote": "The mix was flawless, every vocal sat exactly where it needed to be. Felipe has an ear for detail most engineers miss.",
+        "name": "Name Placeholder",
+        "role": "Vocalist, Vocal Livre"
+      },
+      {
+        "quote": "Professional, calm under pressure, and technically sharp. Our live DVD sounded better than we imagined.",
+        "name": "Name Placeholder",
+        "role": "Producer, Novo Tempo"
+      },
+      {
+        "quote": "Felipe turned a chaotic stage into a clean, powerful mix in minutes. That's rare.",
+        "name": "Name Placeholder",
+        "role": "Musical Director"
       }
     ]
   },

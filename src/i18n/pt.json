@@ -9,7 +9,7 @@
   "hero": {
     "role": "Engenheiro de Audio",
     "headline": "A melhor mixagem é aquela que ninguém percebe",
-    "subtitle": "Eventos ao vivo, DVDs e mixagem de estúdio para grupos vocais, corais, bandas e artistas independentes.",
+    "subtitle": "Eventos ao vivo, captação de áudio para DVDs e mixagem de estúdio para grupos vocais, corais, bandas e artistas independentes.",
     "cta": "Ouvir mixagens"
   },
   "stats": {
@@ -20,7 +20,8 @@
       { "label": "Eventos", "value": "250+" },
       { "label": "Anos de Atuação", "value": "7+" },
       { "label": "Artistas Atendidos", "value": "50+" },
-      { "label": "DVDs e LiveSessions Gravadas", "value": "5+" }
+      { "label": "DVDs e LiveSessions Gravadas", "value": "5+" },
+      { "label": "Sistemas de Áudio Desenhados pra Eventos", "value": "25+" }
     ]
   },
   "about": {
@@ -126,26 +127,29 @@
       {
         "title": "DVD Temporal - Vocal Livre",
         "description": "Direcao tecnica e mixagem FOH do DVD ao vivo do Vocal Livre.",
-        "roles": ["Direcao Tecnica", "FOH"],
+        "roles": ["Captação de Áudio", "FOH"],
         "image": "/photos/photo_vltemporal.jpeg",
         "streams": "13mi+",
-        "youtubeId": "j10ORL-xEu8"
+        "youtubeId": "j10ORL-xEu8",
+        "youtubeUrl": "https://www.youtube.com/watch?v=D4Z0-KE6ir8"
       },
       {
         "title": "DVD 15 Anos - Vocal Livre",
         "description": "Mixagem FOH do show de 15 anos do Vocal Livre, gravado ao vivo em Recife.",
-        "roles": ["Direcao Tecnica", "FOH"],
+        "roles": ["Captação de Áudio", "FOH"],
         "image": "/photos/photo_vl15.jpeg",
         "streams": "6mi+",
-        "youtubeId": "DXllcDBfu88"
+        "youtubeId": "DXllcDBfu88",
+        "youtubeUrl": "https://www.youtube.com/watch?v=YY6mj0kj94s"
       },
       {
         "title": "Novo Tempo In Concert: 30 Anos",
         "description": "Mixagem FOH da producao do show de 30 anos da Gravadora Novo Tempo.",
-        "roles": ["FOH"],
+        "roles": ["Assistente de Monitor", "Captação de Áudio"],
         "image": "/photos/photo_nt30.jpg",
         "streams": "19mi+",
-        "youtubeId": "gt-V6JlXxmc"
+        "youtubeId": "gt-V6JlXxmc",
+        "youtubeUrl": "https://www.youtube.com/watch?v=fcOxkFoRCto"
       }
     ],
     "otherTitle": "Outros trabalhos",
@@ -208,6 +212,26 @@
       {
         "name": "Servicos",
         "items": ["Mixagem", "Masterizacao", "Gravacao", "Som ao Vivo", "Direcao Tecnica"]
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "O Que Dizem",
+    "items": [
+      {
+        "quote": "A mixagem ficou impecavel, cada vocal encaixou exatamente onde precisava. O Felipe tem um ouvido pra detalhe que poucos engenheiros tem.",
+        "name": "Nome Placeholder",
+        "role": "Vocalista, Vocal Livre"
+      },
+      {
+        "quote": "Profissional, calmo sob pressao e tecnicamente afiado. Nosso DVD ao vivo ficou com um som melhor do que imaginavamos.",
+        "name": "Nome Placeholder",
+        "role": "Produtor, Novo Tempo"
+      },
+      {
+        "quote": "O Felipe transformou um palco caotico numa mixagem limpa e potente em minutos. Isso e raro.",
+        "name": "Nome Placeholder",
+        "role": "Diretor Musical"
       }
     ]
   },

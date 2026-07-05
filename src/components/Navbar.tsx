@@ -21,8 +21,8 @@ import {
 
 const navItems = [
   { key: 'about' as const, href: '#about', Icon: User },
-  { key: 'projects' as const, href: '#projects', Icon: MusicNotes },
   { key: 'timeline' as const, href: '#timeline', Icon: Clock },
+  { key: 'projects' as const, href: '#projects', Icon: MusicNotes },
   { key: 'skills' as const, href: '#skills', Icon: GearSix },
   { key: 'contact' as const, href: '#contact', Icon: Envelope },
 ];
