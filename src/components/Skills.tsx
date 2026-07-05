@@ -10,7 +10,7 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className="py-24 md:py-32 bg-gradient-to-b from-[#f3f1ec] to-[#f8f7f4]"
+      className="py-24 md:py-32 bg-gradient-to-b from-mist to-background"
     >
       <div className="max-w-[1400px] mx-auto px-6">
         <motion.h2
@@ -39,14 +39,14 @@ export function Skills() {
                 i === 0 ? 'md:col-span-2 lg:col-span-1' : ''
               }`}
             >
-              <h3 className="text-sm font-mono text-amber-700 tracking-wider mb-4">
+              <h3 className="text-sm font-mono text-accent tracking-wider mb-4">
                 {category.name}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {category.items.map((skill) => (
                   <span
                     key={skill}
-                    className="text-sm text-stone-600 bg-white/60 border border-stone-200/60 px-4 py-2 rounded-full hover:bg-white hover:border-stone-300 transition-colors cursor-default"
+                    className="text-sm text-ink/70 bg-surface/70 border border-ink/10 px-4 py-2 rounded-full hover:bg-surface hover:border-ink/25 transition-colors cursor-default"
                   >
                     {skill}
                   </span>

@@ -99,7 +99,7 @@ export function ProductionCard({
       onPointerLeave={handlePointerLeave}
       onClick={handleClick}
     >
-      <div className="relative aspect-[16/9] bg-stone-900">
+      <div className="relative aspect-[16/9] bg-background">
         {expanded ? (
           <>
             <iframe
@@ -113,7 +113,7 @@ export function ProductionCard({
             <button
               onClick={toggleMute}
               aria-label={muted ? 'Unmute video' : 'Mute video'}
-              className="absolute bottom-3 right-3 z-10 glass-strong p-2 rounded-full text-stone-700"
+              className="absolute bottom-3 right-3 z-10 glass-strong p-2 rounded-full text-ink/80"
             >
               {muted ? <SpeakerSlashIcon size={16} weight="bold" /> : <SpeakerHighIcon size={16} weight="bold" />}
             </button>
@@ -123,7 +123,7 @@ export function ProductionCard({
                 collapse();
               }}
               aria-label="Close preview"
-              className="absolute top-3 right-3 z-10 glass-strong p-1.5 rounded-full text-stone-700"
+              className="absolute top-3 right-3 z-10 glass-strong p-1.5 rounded-full text-ink/80"
             >
               <XIcon size={16} weight="bold" />
             </button>
@@ -175,7 +175,7 @@ function ProductionCardText({ prod, streamsLabel }: { prod: Production; streamsL
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="hover:text-amber-700 hover:underline underline-offset-2 transition-colors"
+              className="hover:text-accent hover:underline underline-offset-2 transition-colors"
             >
               {prod.title}
             </a>
@@ -184,17 +184,17 @@ function ProductionCardText({ prod, streamsLabel }: { prod: Production; streamsL
           <h4 className="font-medium">{prod.title}</h4>
         )}
         {prod.streams && (
-          <span className="text-xs font-mono text-stone-400">
+          <span className="text-xs font-mono text-ink/40">
             {prod.streams} {streamsLabel}
           </span>
         )}
       </div>
-      <p className="text-stone-500 text-sm leading-relaxed mb-3">{prod.description}</p>
+      <p className="text-ink/60 text-sm leading-relaxed mb-3">{prod.description}</p>
       <div className="flex flex-wrap gap-2">
         {prod.roles.map((role) => (
           <span
             key={role}
-            className="text-xs font-mono text-amber-700 bg-amber-50 px-3 py-1 rounded-full"
+            className="text-xs font-mono text-accent bg-accent/10 px-3 py-1 rounded-full"
           >
             {role}
           </span>

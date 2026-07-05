@@ -24,10 +24,10 @@ export function Stats() {
               }}
               className="glass rounded-2xl p-6 text-center"
             >
-              <div className="text-3xl md:text-4xl font-mono text-amber-700">
+              <div className="text-3xl md:text-4xl font-mono text-accent">
                 {stat.value}
               </div>
-              <div className="text-sm text-stone-500 mt-2">{stat.label}</div>
+              <div className="text-sm text-ink/60 mt-2">{stat.label}</div>
             </motion.div>
           ))}
         </div>

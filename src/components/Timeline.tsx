@@ -23,7 +23,7 @@ function linkify(text: string): ReactNode {
         href={LINKS[part]}
         target="_blank"
         rel="noopener noreferrer"
-        className="underline decoration-amber-400/60 underline-offset-2 hover:decoration-amber-500 transition-colors"
+        className="underline decoration-accent/60 underline-offset-2 hover:decoration-accent transition-colors"
       >
         {part}
       </a>
@@ -51,7 +51,7 @@ export function Timeline() {
         </motion.h2>
 
         <div className="relative max-w-3xl">
-          <div className="absolute left-[15px] md:left-[19px] top-2 bottom-2 w-px bg-gradient-to-b from-amber-300 via-amber-400/40 to-transparent" />
+          <div className="absolute left-[15px] md:left-[19px] top-2 bottom-2 w-px bg-gradient-to-b from-accent/50 via-accent/20 to-transparent" />
 
           <div className="space-y-14">
             {dict.timeline.items.map((entry, i) => (
@@ -68,17 +68,17 @@ export function Timeline() {
                 className="relative flex gap-8 md:gap-10 items-start"
               >
                 <div className="relative z-10 mt-1 shrink-0">
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center shadow-lg shadow-accent/20">
                     <div className="w-3 h-3 md:w-3.5 md:h-3.5 rounded-full bg-white" />
                   </div>
                 </div>
 
                 <div className="pb-2">
-                  <span className="text-xs font-mono text-amber-700 tracking-wider">
+                  <span className="text-xs font-mono text-accent tracking-wider">
                     {entry.year}
                   </span>
                   <h3 className="text-lg font-medium mt-1">{linkify(entry.title)}</h3>
-                  <p className="text-stone-500 text-sm leading-relaxed mt-1 max-w-[50ch]">
+                  <p className="text-ink/60 text-sm leading-relaxed mt-1 max-w-[50ch]">
                     {linkify(entry.description)}
                   </p>
                 </div>

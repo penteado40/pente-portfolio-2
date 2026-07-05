@@ -9,7 +9,7 @@ export function Testimonials() {
   const items = dict.testimonials.items;
 
   return (
-    <section className="py-24 md:py-32 bg-gradient-to-b from-[#f3f1ec] to-[#f8f7f4]">
+    <section className="py-24 md:py-32 bg-gradient-to-b from-mist to-background">
       <div className="max-w-[1400px] mx-auto px-6">
         <motion.h2
           initial={reduce ? false : { opacity: 0, y: 20 }}
@@ -48,10 +48,10 @@ export function Testimonials() {
 function TestimonialCard({ item }: { item: { quote: string; name: string; role: string } }) {
   return (
     <div className="glass rounded-2xl p-6 h-full">
-      <p className="text-stone-600 leading-relaxed mb-4">&ldquo;{item.quote}&rdquo;</p>
+      <p className="text-ink/70 leading-relaxed mb-4">&ldquo;{item.quote}&rdquo;</p>
       <p className="text-sm">
         <span className="font-medium">{item.name}</span>
-        <span className="text-stone-400"> &mdash; {item.role}</span>
+        <span className="text-ink/40"> &mdash; {item.role}</span>
       </p>
     </div>
   );

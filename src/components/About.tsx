@@ -28,7 +28,7 @@ export function About() {
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-900/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
             </div>
           </motion.div>
 
@@ -46,18 +46,18 @@ export function About() {
             <h2 className="text-3xl md:text-4xl font-medium tracking-tight">
               {dict.about.title}
             </h2>
-            <p className="text-stone-500 leading-relaxed max-w-[55ch]">
+            <p className="text-ink/60 leading-relaxed max-w-[55ch]">
               {dict.about.p1}
             </p>
-            <p className="text-stone-500 leading-relaxed max-w-[55ch]">
+            <p className="text-ink/60 leading-relaxed max-w-[55ch]">
               {dict.about.p2}
             </p>
-            <p className="text-stone-500 leading-relaxed max-w-[55ch]">
+            <p className="text-ink/60 leading-relaxed max-w-[55ch]">
               {dict.about.p3}
             </p>
 
-            <blockquote className="border-l-2 border-amber-500 pl-6 mt-8">
-              <p className="text-stone-700 italic leading-relaxed">
+            <blockquote className="border-l-2 border-accent pl-6 mt-8">
+              <p className="text-ink/80 italic leading-relaxed">
                 &ldquo;{dict.about.quote}&rdquo;
               </p>
             </blockquote>

@@ -57,7 +57,7 @@ export function Contact() {
           <h2 className="text-3xl md:text-4xl font-medium tracking-tight mb-2">
             {dict.contact.title}
           </h2>
-          <p className="text-stone-500 mb-8">{dict.contact.subtitle}</p>
+          <p className="text-ink/60 mb-8">{dict.contact.subtitle}</p>
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
@@ -71,7 +71,7 @@ export function Contact() {
                 required
                 disabled={status === 'sending'}
                 placeholder={dict.contact.namePlaceholder}
-                className="w-full bg-white/60 border border-stone-200 rounded-xl px-4 py-3.5 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 transition-all disabled:opacity-50"
+                className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all disabled:opacity-50"
               />
             </div>
             <div>
@@ -85,7 +85,7 @@ export function Contact() {
                 required
                 disabled={status === 'sending'}
                 placeholder={dict.contact.emailPlaceholder}
-                className="w-full bg-white/60 border border-stone-200 rounded-xl px-4 py-3.5 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 transition-all disabled:opacity-50"
+                className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all disabled:opacity-50"
               />
             </div>
             <div>
@@ -99,7 +99,7 @@ export function Contact() {
                 required
                 disabled={status === 'sending'}
                 placeholder={dict.contact.messagePlaceholder}
-                className="w-full bg-white/60 border border-stone-200 rounded-xl px-4 py-3.5 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 transition-all resize-none disabled:opacity-50"
+                className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all resize-none disabled:opacity-50"
               />
             </div>
 
@@ -108,10 +108,10 @@ export function Contact() {
               disabled={status === 'sending' || status === 'sent'}
               className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium transition-all active:scale-[0.98] disabled:pointer-events-none ${
                 status === 'sent'
-                  ? 'bg-emerald-600 text-white'
+                  ? 'bg-success text-background'
                   : status === 'error'
-                    ? 'bg-red-600 text-white hover:bg-red-700'
-                    : 'bg-stone-900 text-white hover:bg-stone-800'
+                    ? 'bg-danger text-white hover:bg-danger-dark'
+                    : 'bg-accent text-white hover:bg-accent-dark'
               }`}
             >
               <AnimatePresence mode="wait" initial={false}>

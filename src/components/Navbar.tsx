@@ -61,7 +61,7 @@ export function Navbar() {
           maxWidth: { type: 'spring', duration: 0.5, bounce: 0.15 },
           borderRadius: { type: 'spring', duration: 0.4, bounce: 0.1 },
         }}
-        className="w-full glass-strong shadow-lg shadow-stone-900/5 pointer-events-auto overflow-hidden"
+        className="w-full glass-dark shadow-lg shadow-black/25 pointer-events-auto overflow-hidden"
       >
         <AnimatePresence mode="wait" initial={false}>
           {showExpanded ? (
@@ -75,7 +75,7 @@ export function Navbar() {
             >
               <a
                 href="#"
-                className="font-medium text-sm tracking-tight text-stone-900 shrink-0"
+                className="font-medium text-sm tracking-tight text-white shrink-0"
               >
                 Felipe Penteado
               </a>
@@ -85,7 +85,7 @@ export function Navbar() {
                   <a
                     key={item.key}
                     href={item.href}
-                    className="text-sm text-stone-500 hover:text-stone-900 transition-colors"
+                    className="text-sm text-white/70 hover:text-accent transition-colors"
                   >
                     {dict.nav[item.key]}
                   </a>
@@ -95,14 +95,14 @@ export function Navbar() {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
-                  className="text-xs font-mono text-stone-400 hover:text-stone-900 transition-colors uppercase tracking-wider px-2 py-1 rounded-lg hover:bg-stone-100/50"
+                  className="text-xs font-mono text-white/50 hover:text-accent transition-colors uppercase tracking-wider px-2 py-1 rounded-lg hover:bg-white/10"
                   aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
                 >
                   {locale === 'en' ? 'PT' : 'EN'}
                 </button>
                 <button
                   onClick={() => setMobileOpen(!mobileOpen)}
-                  className="md:hidden text-stone-600 p-1"
+                  className="md:hidden text-white/80 p-1"
                   aria-label="Toggle menu"
                 >
                   {mobileOpen ? <X size={20} /> : <List size={20} />}
@@ -122,16 +122,16 @@ export function Navbar() {
                 <a
                   key={item.key}
                   href={item.href}
-                  className="p-2 text-stone-500 hover:text-stone-900 transition-colors rounded-full hover:bg-stone-100/50"
+                  className="p-2 text-white/70 hover:text-accent transition-colors rounded-full hover:bg-white/10"
                   aria-label={dict.nav[item.key]}
                 >
                   <item.Icon size={16} />
                 </a>
               ))}
-              <div className="w-px h-4 bg-stone-300/50 mx-1" />
+              <div className="w-px h-4 bg-white/20 mx-1" />
               <button
                 onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
-                className="text-xs font-mono text-stone-400 hover:text-stone-900 transition-colors uppercase tracking-wider px-2 py-1 rounded-full hover:bg-stone-100/50"
+                className="text-xs font-mono text-white/50 hover:text-accent transition-colors uppercase tracking-wider px-2 py-1 rounded-full hover:bg-white/10"
                 aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
               >
                 {locale === 'en' ? 'PT' : 'EN'}
@@ -147,14 +147,14 @@ export function Navbar() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden px-6 pb-4 flex flex-col gap-3 border-t border-stone-200/40 overflow-hidden"
+              className="md:hidden px-6 pb-4 flex flex-col gap-3 border-t border-white/10 overflow-hidden"
             >
               {navItems.map((item) => (
                 <a
                   key={item.key}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-sm text-stone-500 hover:text-stone-900 transition-colors py-1"
+                  className="text-sm text-white/70 hover:text-accent transition-colors py-1"
                 >
                   {dict.nav[item.key]}
                 </a>

@@ -1,15 +1,45 @@
 @import "tailwindcss";
 
+/*
+ * Brand palette — the only hex values in the whole codebase.
+ * To reskin the site, edit these lines only; every component
+ * consumes the semantic tokens below (ink/accent/mist/surface etc via
+ * Tailwind utilities like `text-ink/70`, `bg-accent`, `border-mist`),
+ * never raw hex, so a palette change cascades everywhere automatically.
+ */
 :root {
-  --background: #f8f7f4;
-  --foreground: #1c1917;
-  --accent: #b45309;
-  --text-secondary: #78716c;
+  --brand-midnight: #0f172a; /* Midnight */
+  --brand-slate: #1e293b;    /* Slate */
+  --brand-steel: #334155;    /* Steel */
+  --brand-offwhite: #f8fafc; /* Off-white */
+  --brand-red: #e21c34;
+  --brand-red-dark: #500b28;
+  --brand-emerald: #10b981;
+
+  /* Functional feedback colors — not brand colors, but themeable here too */
+  --state-success: var(--brand-emerald);
+  --state-danger: #dc2626;
+  --state-danger-dark: #b91c1c;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Re-point Tailwind's built-in `white` keyword at the brand token, so
+     text-white, border-white/10 etc. across every component stay in
+     sync with the brand off-white without any per-component edits. */
+  --color-white: var(--brand-offwhite);
+
+  /* Semantic app tokens — what components actually reference */
+  --color-background: var(--brand-midnight);
+  --color-foreground: var(--brand-offwhite);
+  --color-ink: var(--brand-offwhite);
+  --color-accent: var(--brand-red);
+  --color-accent-dark: var(--brand-red-dark);
+  --color-mist: var(--brand-slate);
+  --color-surface: var(--brand-steel);
+  --color-success: var(--state-success);
+  --color-danger: var(--state-danger);
+  --color-danger-dark: var(--state-danger-dark);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -19,39 +49,55 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-background);
+  color: var(--color-foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
 ::selection {
-  background: rgba(180, 83, 9, 0.15);
+  background: color-mix(in oklab, var(--color-accent) 15%, transparent);
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.65);
+  background: color-mix(in oklab, var(--color-surface) 55%, transparent);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid color-mix(in oklab, var(--color-white) 10%, transparent);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.4),
-    0 8px 32px rgba(0, 0, 0, 0.04);
+    inset 0 1px 0 color-mix(in oklab, var(--color-white) 8%, transparent),
+    0 8px 32px rgba(0, 0, 0, 0.35);
 }
 
 .glass-strong {
-  background: rgba(255, 255, 255, 0.78);
+  background: color-mix(in oklab, var(--color-surface) 75%, transparent);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid color-mix(in oklab, var(--color-white) 12%, transparent);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.5),
-    0 12px 40px rgba(0, 0, 0, 0.06);
+    inset 0 1px 0 color-mix(in oklab, var(--color-white) 10%, transparent),
+    0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.glass-dark {
+  background: color-mix(in oklab, var(--color-background) 80%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid color-mix(in oklab, var(--color-white) 8%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--color-white) 6%, transparent),
+    0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .glass,
   .glass-strong {
-    background: rgba(255, 255, 255, 0.95);
+    background: color-mix(in oklab, var(--color-surface) 95%, transparent);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .glass-dark {
+    background: color-mix(in oklab, var(--color-background) 96%, transparent);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
@@ -82,7 +128,7 @@ body {
 .production-card.is-active {
   transform: scale(1.18);
   z-index: 20;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
 }
 
 .productions-grid:has(.production-card.is-active) .production-card:not(.is-active) {
@@ -115,6 +161,17 @@ body {
 
 .marquee-track {
   animation: marquee 40s linear infinite;
+}
+
+.carousel-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
 .marquee-wrapper:hover .marquee-track {

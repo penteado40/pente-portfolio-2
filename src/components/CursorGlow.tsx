@@ -11,7 +11,6 @@ import {
 const SIZE = 200;
 const BLUR = 30;
 const SPRING = { stiffness: 120, damping: 22 };
-const ACCENT = '#e8743b';
 
 const noop = () => () => {};
 const getFinePointer = () => window.matchMedia('(pointer: fine)').matches;
@@ -60,7 +59,7 @@ export function CursorGlow() {
         width: SIZE,
         height: SIZE,
         borderRadius: '9999px',
-        backgroundColor: ACCENT,
+        backgroundColor: 'var(--color-accent)',
         filter: `blur(${BLUR}px)`,
         mixBlendMode: 'screen',
       }}

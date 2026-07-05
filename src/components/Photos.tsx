@@ -57,7 +57,7 @@ export function Photos() {
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-gradient-to-b from-[#f8f7f4] to-[#f3f1ec]">
+    <section className="py-24 md:py-32 bg-gradient-to-b from-background to-mist">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
           <motion.h2
@@ -70,21 +70,21 @@ export function Photos() {
             {dict.photos.title}
           </motion.h2>
 
-          <div className="flex gap-1 bg-stone-200/50 p-1 rounded-full w-fit">
+          <div className="flex gap-1 bg-mist p-1 rounded-full w-fit">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
                 className={`relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   activeTab === tab.key
-                    ? 'text-stone-900'
-                    : 'text-stone-400 hover:text-stone-600'
+                    ? 'text-ink'
+                    : 'text-ink/40 hover:text-ink/70'
                 }`}
               >
                 {activeTab === tab.key && (
                   <motion.div
                     layoutId="photos-tab-bg"
-                    className="absolute inset-0 bg-white rounded-full shadow-sm"
+                    className="absolute inset-0 bg-surface rounded-full shadow-sm"
                     transition={{ type: 'spring', duration: 0.4, bounce: 0.15 }}
                   />
                 )}

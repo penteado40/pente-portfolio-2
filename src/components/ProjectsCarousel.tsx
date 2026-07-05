@@ -60,7 +60,7 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
     <div className="relative">
       <div
         ref={trackRef}
-        className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide"
+        className="carousel-fade flex gap-6 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide px-6"
       >
         {items.map((project, i) => (
           <motion.article
@@ -76,9 +76,9 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
               delay: i * 0.08,
               ease: [0.16, 1, 0.3, 1] as const,
             }}
-            className="glass rounded-2xl p-6 hover:shadow-xl hover:shadow-stone-900/5 transition-shadow duration-300 shrink-0 snap-center w-[85%] sm:w-[70%] md:w-[48%] lg:w-[38%]"
+            className="glass rounded-2xl p-6 hover:shadow-xl hover:shadow-black/30 transition-shadow duration-300 shrink-0 snap-center w-[85%] max-w-[1150px] sm:w-[70%] sm:max-w-[946px] md:w-[48%] md:max-w-[650px] lg:w-[38%] lg:max-w-[514px]"
           >
-            <div className="rounded-xl overflow-hidden mb-5 bg-stone-100">
+            <div className="rounded-xl overflow-hidden mb-5 bg-mist">
               <div className="aspect-video">
                 <iframe
                   src={`https://www.youtube.com/embed/${project.embedId}`}
@@ -96,19 +96,19 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
             <div className="flex items-center gap-2 mb-2">
               <h3 className="text-xl font-medium">{project.title}</h3>
               {'views' in project && (
-                <span className="text-xs font-mono text-stone-400">
+                <span className="text-xs font-mono text-ink/40">
                   {project.views} {dict.stats.viewsLabel}
                 </span>
               )}
             </div>
-            <p className="text-stone-500 text-sm leading-relaxed mb-4">
+            <p className="text-ink/60 text-sm leading-relaxed mb-4">
               {project.description}
             </p>
             <div className="flex flex-wrap gap-2">
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs font-mono text-stone-400 bg-stone-100/80 px-3 py-1 rounded-full"
+                  className="text-xs font-mono text-ink/50 bg-mist px-3 py-1 rounded-full"
                 >
                   {tag}
                 </span>
@@ -122,7 +122,7 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
         onClick={() => goTo(activeIndex - 1)}
         disabled={isFirst}
         aria-label="Previous project"
-        className="hidden md:flex absolute left-2 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-stone-600 hover:text-stone-900 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-accent transition-colors disabled:opacity-30 disabled:pointer-events-none"
       >
         <CaretLeft size={18} weight="bold" />
       </button>
@@ -130,7 +130,7 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
         onClick={() => goTo(activeIndex + 1)}
         disabled={isLast}
         aria-label="Next project"
-        className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-stone-600 hover:text-stone-900 transition-colors disabled:opacity-30 disabled:pointer-events-none"
+        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-accent transition-colors disabled:opacity-30 disabled:pointer-events-none"
       >
         <CaretRight size={18} weight="bold" />
       </button>
@@ -142,7 +142,7 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
             onClick={() => goTo(i)}
             aria-label={`Go to project ${i + 1}`}
             className={`h-1.5 rounded-full transition-all ${
-              i === activeIndex ? 'w-4 bg-stone-900' : 'w-1.5 bg-stone-300'
+              i === activeIndex ? 'w-4 bg-accent' : 'w-1.5 bg-ink/20'
             }`}
           />
         ))}

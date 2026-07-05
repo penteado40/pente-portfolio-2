@@ -52,7 +52,7 @@ export function Hero() {
         />
       </motion.div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/50 to-stone-950/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/10" />
 
       <motion.div
         style={reduce ? undefined : { opacity: contentOpacity }}
@@ -66,7 +66,7 @@ export function Hero() {
         >
           <motion.p
             variants={reduce ? undefined : item}
-            className="text-sm font-mono text-amber-400 tracking-wider"
+            className="text-sm font-mono text-accent tracking-wider"
           >
             {dict.hero.role}
           </motion.p>
@@ -78,7 +78,7 @@ export function Hero() {
           </motion.h1>
           <motion.p
             variants={reduce ? undefined : item}
-            className="text-stone-300 text-lg leading-relaxed max-w-[50ch]"
+            className="text-white/70 text-lg leading-relaxed max-w-[50ch]"
           >
             {dict.hero.subtitle}
           </motion.p>
