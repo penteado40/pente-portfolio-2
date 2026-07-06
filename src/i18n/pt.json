@@ -36,15 +36,15 @@
     "items": [
       {
         "title": "Penteado's Mixes",
-        "description": "Playlist com mixagens de estudio e ao vivo de diversos projetos e artistas.",
-        "tags": ["Playlist", "Estudio", "Ao Vivo"],
+        "description": "Playlist com mixagens de estúdio e ao vivo de diversos projetos e artistas.",
+        "tags": ["Playlist", "Estúdio", "Ao Vivo"],
         "embedType": "spotify",
         "embedId": "playlist/0U64yQ2gcfF4di63dp9Gdt"
       },
       {
         "title": "Vocal Livre - Oh Come All Ye Faithful (Voctave Cover)",
         "description": "Mixagem para o Vocal Livre, cover da musica \"Oh Come All Ye Faithful\" da Voctave.",
-        "tags": ["Mixagem", "Estudio"],
+        "tags": ["Mixagem", "Estúdio"],
         "embedType": "youtube",
         "embedId": "kClk9hDEPds",
         "views": "45k+"
@@ -60,7 +60,7 @@
       {
         "title": "EU CANTO PRA TI - VOCAL LIVRE",
         "description": "Mixagem para o Vocal Livre, videoclipe da música \"EU CANTO PRA TI\" pra um projeto da Yamaha.",
-        "tags": ["Mixagem", "Estudio"],
+        "tags": ["Mixagem", "Estúdio"],
         "embedType": "youtube",
         "embedId": "ylX_fWT_1Ts",
         "views": "81k+"
@@ -76,7 +76,7 @@
       {
         "title": "KIRK FRANKLIN COVER (Wanna be Happy? / I Smile) - VOCAL LIVRE",
         "description": "Mixagem para o Vocal Livre, cover da musica \"Wanna be Happy? / I Smile\" by Kirk Franklin pra um projeto da Yamaha.",
-        "tags": ["Mixagem", "Estudio"],
+        "tags": ["Mixagem", "Estúdio"],
         "embedType": "youtube",
         "embedId": "gN31mnrysoo",
         "views": "54k+"
@@ -126,7 +126,7 @@
     "productions": [
       {
         "title": "DVD Temporal - Vocal Livre",
-        "description": "Direcao tecnica e mixagem FOH do DVD ao vivo do Vocal Livre.",
+        "description": "Captação de áudio e mixagem FOH da gravação de DVD ao vivo do Vocal Livre.",
         "roles": ["Captação de Áudio", "FOH"],
         "image": "/photos/photo_vltemporal.jpeg",
         "streams": "13mi+",
@@ -135,7 +135,7 @@
       },
       {
         "title": "DVD 15 Anos - Vocal Livre",
-        "description": "Mixagem FOH do show de 15 anos do Vocal Livre, gravado ao vivo em Recife.",
+        "description": "Captação de áudio e mixagem FOH do show de 15 anos do Vocal Livre, gravado ao vivo em Recife.",
         "roles": ["Captação de Áudio", "FOH"],
         "image": "/photos/photo_vl15.jpeg",
         "streams": "6mi+",
@@ -144,7 +144,7 @@
       },
       {
         "title": "Novo Tempo In Concert: 30 Anos",
-        "description": "Mixagem FOH da producao do show de 30 anos da Gravadora Novo Tempo.",
+        "description": "Assistente de Monitor e captação de áudio da gravação do DVD de 30 anos da Gravadora Novo Tempo.",
         "roles": ["Assistente de Monitor", "Captação de Áudio"],
         "image": "/photos/photo_nt30.jpg",
         "streams": "19mi+",
@@ -173,45 +173,45 @@
     "items": [
       {
         "year": "2024",
-        "title": "Mixagem de Estudio",
-        "description": "Expande para mixagem de estudio, com trabalhos lancados nas principais plataformas digitais."
+        "title": "Mixagem de Estúdio",
+        "description": "Expande para mixagem de estúdio, com trabalhos lançados nas principais plataformas digitais."
       },
       {
         "year": "2022",
-        "title": "Diretor Tecnico, Vocal Livre",
-        "description": "Assume a direcao tecnica do Vocal Livre."
+        "title": "Diretor Técnico, Vocal Livre",
+        "description": "Assume a direção técnica do Vocal Livre."
       },
       {
         "year": "2021",
-        "title": "Lider de Audio, Igreja do UNASP-HT",
-        "description": "Assume a lideranca da equipe de audio da Igreja do UNASP-HT."
+        "title": "Líder de áudio, Igreja do UNASP-HT",
+        "description": "Assume a liderança da equipe de áudio da Igreja do UNASP-HT."
       },
       {
         "year": "2020",
         "title": "Ministerio VOX",
-        "description": "Integra a equipe de audio do Ministerio VOX."
+        "description": "Integra a equipe de áudio do Ministerio VOX."
       },
       {
         "year": "2017",
         "title": "UNASP-HT",
-        "description": "Vai para o internato do UNASP-HT e comeca a operar o audio nos eventos da escola e da universidade."
+        "description": "Vai para o internato do UNASP-HT e começa a operar o áudio nos eventos da escola e da universidade."
       }
     ]
   },
   "skills": {
-    "title": "Estudio & Equipamentos",
+    "title": "Estúdio & Equipamentos",
     "categories": [
       {
         "name": "Mesas de Som",
         "items": ["Yamaha Rivage", "Yamaha DM7", "Yamaha CL Series", "Waves eMotion LV1", "Digico", "Soundcraft"]
       },
       {
-        "name": "Estudio",
+        "name": "Estúdio",
         "items": ["Avid Pro Tools", "Apogee Duet 3", "Apple AirPods Max", "Beyerdynamic DT 1990 Pro MKII"]
       },
       {
-        "name": "Servicos",
-        "items": ["Mixagem", "Masterizacao", "Gravacao", "Som ao Vivo", "Direcao Tecnica"]
+        "name": "Serviços",
+        "items": ["Mixagem", "Masterização", "Gravacao", "Som ao Vivo", "Direção Tecnica"]
       }
     ]
   },
@@ -242,7 +242,7 @@
   },
   "contact": {
     "title": "Trabalhando em algo que precisa soar certo?",
-    "subtitle": "Estou disponivel para mixagem, masterizacao, som ao vivo e direcao tecnica. Me conta sobre o seu projeto.",
+    "subtitle": "Estou disponível para mixagem, masterização e som ao vivo. Me conta sobre o seu projeto.",
     "namePlaceholder": "Seu nome",
     "emailPlaceholder": "Seu email",
     "messagePlaceholder": "Conte-me sobre seu projeto",

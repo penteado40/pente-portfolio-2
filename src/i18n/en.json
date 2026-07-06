@@ -52,7 +52,7 @@
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
-        "tags": ["Som ao Vivo", "FOH"],
+        "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
         "embedId": "iuAzxiUe1GI",
         "views": "-"
@@ -76,7 +76,7 @@
       {
         "title": "KIRK FRANKLIN COVER (Wanna be Happy? / I Smile) - VOCAL LIVRE | Acústico Yamaha",
         "description": "Mixing for Vocal Livre, cover of the songs \"Wanna be Happy? / I Smile\" by Kirk Franklin.",
-        "tags": ["Mixagem", "Estudio"],
+        "tags": ["Mixing", "Studio"],
         "embedType": "youtube",
         "embedId": "gN31mnrysoo",
         "views": "54K+"
@@ -92,7 +92,7 @@
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
-        "tags": ["Som ao Vivo", "FOH"],
+        "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
         "embedId": "xFA-36yV4Iw",
         "views": "-"
@@ -100,7 +100,7 @@
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
-        "tags": ["Som ao Vivo", "FOH"],
+        "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
         "embedId": "vQ9FtkHUTW0",
         "views": "-"
@@ -126,8 +126,8 @@
     "productions": [
       {
         "title": "DVD Temporal - Vocal Livre",
-        "description": "Technical direction and FOH mixing for Vocal Livre's live DVD recording.",
-        "roles": ["Technical Direction", "FOH"],
+        "description": "Audio recording and FOH mixing for Vocal Livre's live DVD recording.",
+        "roles": ["Audio Recording", "FOH"],
         "image": "/photos/photo_vltemporal.jpeg",
         "streams": "13mi+",
         "youtubeId": "j10ORL-xEu8",
@@ -135,8 +135,8 @@
       },
       {
         "title": "DVD 15 Anos - Vocal Livre",
-        "description": "FOH mixing for Vocal Livre's 15th anniversary concert, recorded live in Recife.",
-        "roles": ["Technical Direction", "FOH"],
+        "description": "Audio recording and FOH mixing for Vocal Livre's 15th anniversary concert, recorded live in Recife.",
+        "roles": ["Audio Recording", "FOH"],
         "image": "/photos/photo_vl15.jpeg",
         "streams": "6mi+",
         "youtubeId": "DXllcDBfu88",
@@ -144,8 +144,8 @@
       },
       {
         "title": "Novo Tempo In Concert: 30 Anos",
-        "description": "FOH mixing for Novo Tempo label's 30th anniversary concert production.",
-        "roles": ["FOH"],
+        "description": "Monitor assistant and audio recording for Novo Tempo label's 30th anniversary DVD recording.",
+        "roles": ["Monitor Assistant", "Audio Recording"],
         "image": "/photos/photo_nt30.jpg",
         "streams": "19mi+",
         "youtubeId": "gt-V6JlXxmc",
@@ -242,7 +242,7 @@
   },
   "contact": {
     "title": "Working on something that needs to sound right?",
-    "subtitle": "I'm open to mixing, mastering, live sound, and technical direction work. Tell me about your project.",
+    "subtitle": "I'm open to mixing, mastering, and live sound work. Tell me about your project.",
     "namePlaceholder": "Your name",
     "emailPlaceholder": "Your email",
     "messagePlaceholder": "Tell me about your project",
