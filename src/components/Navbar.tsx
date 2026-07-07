@@ -9,6 +9,7 @@ import {
   AnimatePresence,
 } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { useTestimonialModal } from './TestimonialModalProvider';
 import {
   User,
   MusicNotes,
@@ -17,6 +18,7 @@ import {
   Envelope,
   List,
   X,
+  ChatCircleText,
 } from '@phosphor-icons/react';
 
 const navItems = [
@@ -29,6 +31,7 @@ const navItems = [
 
 export function Navbar() {
   const { dict, locale, setLocale } = useLocale();
+  const { open: openTestimonialModal } = useTestimonialModal();
   const { scrollY } = useScroll();
   const [inHero, setInHero] = useState(true);
   const [hovered, setHovered] = useState(false);
@@ -94,6 +97,12 @@ export function Navbar() {
 
               <div className="flex items-center gap-3">
                 <button
+                  onClick={openTestimonialModal}
+                  className="hidden md:inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-medium hover:bg-white/20 transition-colors active:scale-[0.98] shrink-0"
+                >
+                  {dict.testimonials.cta}
+                </button>
+                <button
                   onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
                   className="text-xs font-mono text-white/50 hover:text-accent transition-colors uppercase tracking-wider px-2 py-1 rounded-lg hover:bg-white/10"
                   aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
@@ -130,6 +139,13 @@ export function Navbar() {
               ))}
               <div className="w-px h-4 bg-white/20 mx-1" />
               <button
+                onClick={openTestimonialModal}
+                className="p-2 text-white/70 hover:text-accent transition-colors rounded-full hover:bg-white/10"
+                aria-label={dict.testimonials.cta}
+              >
+                <ChatCircleText size={16} />
+              </button>
+              <button
                 onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
                 className="text-xs font-mono text-white/50 hover:text-accent transition-colors uppercase tracking-wider px-2 py-1 rounded-full hover:bg-white/10"
                 aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
@@ -159,6 +175,15 @@ export function Navbar() {
                   {dict.nav[item.key]}
                 </a>
               ))}
+              <button
+                onClick={() => {
+                  setMobileOpen(false);
+                  openTestimonialModal();
+                }}
+                className="text-sm text-white/70 hover:text-accent transition-colors py-1 text-left"
+              >
+                {dict.testimonials.cta}
+              </button>
             </motion.div>
           )}
         </AnimatePresence>

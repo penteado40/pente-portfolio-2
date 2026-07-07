@@ -92,6 +92,8 @@ export function Modal({ isOpen, onClose, closeLabel, children }: ModalProps) {
             }
             transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 300, damping: 30 }}
           >
+            {children}
+
             <button
               type="button"
               onClick={onClose}
@@ -100,8 +102,6 @@ export function Modal({ isOpen, onClose, closeLabel, children }: ModalProps) {
             >
               <XIcon size={16} weight="bold" />
             </button>
-
-            {children}
           </motion.div>
         </motion.div>
       )}

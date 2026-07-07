@@ -1,16 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
-import { Modal } from './Modal';
-import { TestimonialForm } from './TestimonialForm';
+import { useTestimonialModal } from './TestimonialModalProvider';
 import type { ApprovedTestimonial } from '@/lib/testimonial';
 
 export function Testimonials({ items }: { items: ApprovedTestimonial[] }) {
   const { dict } = useLocale();
   const reduce = useReducedMotion();
-  const [isOpen, setIsOpen] = useState(false);
+  const { open } = useTestimonialModal();
 
   return (
     <section className="py-24 md:py-32 bg-gradient-to-b from-mist to-background">
@@ -28,7 +26,7 @@ export function Testimonials({ items }: { items: ApprovedTestimonial[] }) {
 
           <button
             type="button"
-            onClick={() => setIsOpen(true)}
+            onClick={open}
             className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-white/20 transition-colors active:scale-[0.98] shrink-0"
           >
             {dict.testimonials.cta}
@@ -56,10 +54,6 @@ export function Testimonials({ items }: { items: ApprovedTestimonial[] }) {
             </div>
           </div>
         ))}
-
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} closeLabel={dict.testimonialForm.close}>
-        <TestimonialForm onSuccessClose={() => setIsOpen(false)} />
-      </Modal>
     </section>
   );
 }

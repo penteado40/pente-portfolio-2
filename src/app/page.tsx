@@ -7,6 +7,7 @@ import { Timeline } from "@/components/Timeline";
 import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
 import { Testimonials } from "@/components/Testimonials";
+import { TestimonialModalProvider } from "@/components/TestimonialModalProvider";
 import { Photos } from "@/components/Photos";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
@@ -16,7 +17,7 @@ export default async function Home() {
   const testimonials = await getTestimonials();
 
   return (
-    <>
+    <TestimonialModalProvider>
       <CursorGlow />
       <Navbar />
       <main>
@@ -31,6 +32,6 @@ export default async function Home() {
         <Contact />
       </main>
       <Footer />
-    </>
+    </TestimonialModalProvider>
   );
 }
