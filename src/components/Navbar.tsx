@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   motion,
   useMotionValueEvent,
@@ -21,6 +21,8 @@ import {
   ChatCircleText,
 } from '@phosphor-icons/react';
 
+const HOVER_LEAVE_DELAY_MS = 400;
+
 const navItems = [
   { key: 'about' as const, href: '#about', Icon: User },
   { key: 'timeline' as const, href: '#timeline', Icon: Clock },
@@ -37,6 +39,7 @@ export function Navbar() {
   const [hovered, setHovered] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const reduce = useReducedMotion();
+  const hoverLeaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const hero = latest < window.innerHeight * 0.85;
@@ -44,13 +47,28 @@ export function Navbar() {
     if (hero) setMobileOpen(false);
   });
 
+  useEffect(() => {
+    return () => {
+      if (hoverLeaveTimeoutRef.current) clearTimeout(hoverLeaveTimeoutRef.current);
+    };
+  }, []);
+
+  function handleMouseEnter() {
+    if (hoverLeaveTimeoutRef.current) clearTimeout(hoverLeaveTimeoutRef.current);
+    setHovered(true);
+  }
+
+  function handleMouseLeave() {
+    hoverLeaveTimeoutRef.current = setTimeout(() => setHovered(false), HOVER_LEAVE_DELAY_MS);
+  }
+
   const showExpanded = !inHero || hovered;
 
   return (
     <div className="fixed top-4 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
       <motion.nav
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         initial={reduce ? false : { y: -20, opacity: 0 }}
         animate={{
           y: 0,
