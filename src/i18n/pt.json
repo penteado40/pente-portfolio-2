@@ -217,6 +217,7 @@
   },
   "testimonials": {
     "title": "O Que Dizem",
+    "cta": "Deixe o seu",
     "items": [
       {
         "quote": "A mixagem ficou impecavel, cada vocal encaixou exatamente onde precisava. O Felipe tem um ouvido pra detalhe que poucos engenheiros tem.",
@@ -234,6 +235,18 @@
         "role": "Diretor Musical"
       }
     ]
+  },
+  "testimonialForm": {
+    "title": "Compartilhe sua experiência",
+    "subtitle": "Conte para os outros como foi trabalhar juntos.",
+    "namePlaceholder": "Seu nome",
+    "rolePlaceholder": "Seu cargo",
+    "messagePlaceholder": "Seu depoimento",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "sent": "Obrigado!",
+    "error": "Algo deu errado. Tente novamente.",
+    "close": "Fechar"
   },
   "photos": {
     "title": "Fotos",

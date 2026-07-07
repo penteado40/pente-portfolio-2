@@ -10,8 +10,11 @@ import { Testimonials } from "@/components/Testimonials";
 import { Photos } from "@/components/Photos";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { getTestimonials } from "@/lib/getTestimonials";
 
-export default function Home() {
+export default async function Home() {
+  const testimonials = await getTestimonials();
+
   return (
     <>
       <CursorGlow />
@@ -23,7 +26,7 @@ export default function Home() {
         <Timeline />
         <Projects />
         <Skills />
-        <Testimonials />
+        <Testimonials items={testimonials} />
         <Photos />
         <Contact />
       </main>

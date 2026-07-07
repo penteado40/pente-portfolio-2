@@ -217,6 +217,7 @@
   },
   "testimonials": {
     "title": "What They Say",
+    "cta": "Share yours",
     "items": [
       {
         "quote": "The mix was flawless, every vocal sat exactly where it needed to be. Felipe has an ear for detail most engineers miss.",
@@ -234,6 +235,18 @@
         "role": "Musical Director"
       }
     ]
+  },
+  "testimonialForm": {
+    "title": "Share your experience",
+    "subtitle": "Tell others what it was like working together.",
+    "namePlaceholder": "Your name",
+    "rolePlaceholder": "Your role",
+    "messagePlaceholder": "Your testimonial",
+    "send": "Submit",
+    "sending": "Sending...",
+    "sent": "Thank you!",
+    "error": "Something went wrong. Try again.",
+    "close": "Close"
   },
   "photos": {
     "title": "Photos",
