@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import { PaperPlaneTilt, Check, CircleNotch } from '@phosphor-icons/react';
+import { submitContact } from '@/lib/submitContact';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -19,20 +20,16 @@ export function Contact() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    try {
-      const res = await fetch('https://formspree.io/f/mkoloerw', {
-        method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' },
-      });
+    const result = await submitContact({
+      name: String(data.get('name') ?? ''),
+      email: String(data.get('email') ?? ''),
+      message: String(data.get('message') ?? ''),
+    });
 
-      if (res.ok) {
-        setStatus('sent');
-        form.reset();
-      } else {
-        setStatus('error');
-      }
-    } catch {
+    if (result.ok) {
+      setStatus('sent');
+      form.reset();
+    } else {
       setStatus('error');
     }
   }
