@@ -148,21 +148,6 @@ body {
   }
 }
 
-.marquee-wrapper {
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 8%,
-    black 92%,
-    transparent
-  );
-  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-}
-
-.marquee-track {
-  animation: marquee 40s linear infinite;
-}
-
 .carousel-fade {
   -webkit-mask-image: linear-gradient(
     to right,
@@ -172,18 +157,5 @@ body {
     transparent
   );
   mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-}
-
-.marquee-wrapper:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
 }
 
