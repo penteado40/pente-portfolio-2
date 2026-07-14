@@ -23,6 +23,12 @@
 # misc
 .DS_Store
 *.pem
+__pycache__/
+*.pyc
+
+# claude
+.claude/settings.local.json
+.claude/skills
 
 # debug
 npm-debug.log*
