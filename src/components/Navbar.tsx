@@ -14,6 +14,7 @@ import {
   User,
   MusicNotes,
   Clock,
+  Certificate,
   GearSix,
   Envelope,
   List,
@@ -26,6 +27,7 @@ const HOVER_LEAVE_DELAY_MS = 400;
 const navItems = [
   { key: 'about' as const, href: '#about', Icon: User },
   { key: 'timeline' as const, href: '#timeline', Icon: Clock },
+  { key: 'certifications' as const, href: '#certifications', Icon: Certificate },
   { key: 'projects' as const, href: '#projects', Icon: MusicNotes },
   { key: 'skills' as const, href: '#skills', Icon: GearSix },
   { key: 'contact' as const, href: '#contact', Icon: Envelope },
@@ -73,7 +75,7 @@ export function Navbar() {
         animate={{
           y: 0,
           opacity: 1,
-          maxWidth: showExpanded ? 1024 : 280,
+          maxWidth: showExpanded ? 1024 : 340,
           borderRadius: showExpanded ? 16 : 999,
         }}
         transition={{

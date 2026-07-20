@@ -3,6 +3,7 @@
     "about": "About",
     "projects": "Work",
     "timeline": "Journey",
+    "certifications": "Certifications",
     "skills": "Gear",
     "contact": "Contact"
   },
@@ -195,6 +196,17 @@
         "year": "2017",
         "title": "UNASP-HT",
         "description": "Left home for boarding school at UNASP-HT, where he started running audio for school and university events."
+      }
+    ]
+  },
+  "certifications": {
+    "title": "Certifications",
+    "items": [
+      {
+        "title": "Dante Level 1 Certified",
+        "issuer": "Audinate",
+        "year": "2026",
+        "image": "/photos/photo_certification_dante.png"
       }
     ]
   },
