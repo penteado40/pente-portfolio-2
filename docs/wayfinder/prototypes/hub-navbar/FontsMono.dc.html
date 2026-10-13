@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Fontes de editor de código</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=Martian+Mono:wght@400;500;600&amp;family=DM+Mono:wght@400;500&amp;family=Fira+Code:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#141414}
+a{color:#F5F5F5;text-decoration:none}
+</style>
+</helmet>
+<div style="width: 1440px; height: 2200px; box-sizing: border-box; padding: 56px; background: #141414; color: #F5F5F5; font-family: 'Geist', system-ui, sans-serif; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: min-content; gap: 32px">
+  <sc-for list="{{fonts}}" as="f" hint-placeholder-count="6">
+    <div style="border-radius: 24px; border: 1px solid rgba(245,245,245,0.1); background: #1C1C1C; padding: 36px; display: flex; flex-direction: column; gap: 22px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,245,245,0.6)">
+        <span style="color: #F5F5F5">{{f.label}}</span><span>{{f.tag}}</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <h2 style="margin: 0; font-family: {{f.display}}; font-weight: {{f.dw}}; font-size: {{f.size}}; line-height: 1; letter-spacing: {{f.track}}">Felipe Penteado</h2>
+        <p style="margin: 0; font-family: {{f.body}}; font-size: 17px; line-height: 1.6; color: rgba(245,245,245,0.72)">Construo sistemas de backend e mixo som ao vivo, duas áreas movidas pelo mesmo instinto de precisão invisível.</p>
+      </div>
+      <div style="border-radius: 18px; padding: 22px; background: linear-gradient(0deg, #000 0%, #0F3F3F 100%); border: 1px solid rgba(245,245,245,0.12); display: flex; flex-direction: column; gap: 10px">
+        <span style="font-family: {{f.display}}; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #B6D298">02 / Dev  =&gt; != === -&gt;</span>
+        <span style="font-family: {{f.display}}; font-weight: {{f.dw}}; font-size: 28px; line-height: 1.05; letter-spacing: {{f.track}}">Desenvolvedor de Sistemas</span>
+        <span style="font-family: {{f.body}}; font-size: 15px; line-height: 1.5; color: rgba(245,245,245,0.8)">Back-end para faturamento, pagamentos e APIs. Ágil, ação, informação, 0123456789.</span>
+        <span style="font-family: {{f.display}}; font-size: 14px; font-weight: 500; color: #B6D298">Entrar em /dev →</span>
+      </div>
+      <p style="margin: 0; font-size: 14px; line-height: 1.55; color: rgba(245,245,245,0.66)">{{f.note}}</p>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      fonts: [
+        { label: '1 · Geist Mono + Geist', tag: 'mesma família', display: "'Geist Mono', monospace", body: "'Geist', sans-serif", dw: 500, size: '52px', track: '-0.05em', note: 'Títulos em mono, texto na Geist. Mesma família da Geist (atual), então combina sem esforço. Cara de terminal da Vercel.' },
+        { label: '2 · JetBrains Mono + Geist', tag: 'a fonte do IntelliJ', display: "'JetBrains Mono', monospace", body: "'Geist', sans-serif", dw: 600, size: '52px', track: '-0.05em', note: 'A mais "editor de código" de todas: é a fonte padrão dos editores JetBrains. Letras altas e retas, muito legível.' },
+        { label: '3 · IBM Plex Mono + Geist', tag: 'clássica, com serifas', display: "'IBM Plex Mono', monospace", body: "'Geist', sans-serif", dw: 500, size: '52px', track: '-0.045em', note: 'Mono com pequenas serifas e curvas mais humanas. Parece máquina de escrever moderna, menos fria que a 2.' },
+        { label: '4 · Martian Mono + Geist', tag: 'larga, display', display: "'Martian Mono', monospace", body: "'Geist', sans-serif", dw: 500, size: '42px', track: '-0.06em', note: 'Letras largas e geométricas, com muita presença em tamanho grande. A mais marcante como título; ocupa espaço.' },
+        { label: '5 · DM Mono + Geist', tag: 'suave', display: "'DM Mono', monospace", body: "'Geist', sans-serif", dw: 500, size: '52px', track: '-0.045em', note: 'Mono leve e arredondada, a mais discreta. Bom meio-termo se a 2 parecer técnica demais para o lado do áudio.' },
+        { label: '6 · Fira Code + Geist', tag: 'com ligaduras', display: "'Fira Code', monospace", body: "'Geist', sans-serif", dw: 500, size: '52px', track: '-0.045em', note: 'Junta símbolos de código em ligaduras (=>, !=, === viram um sinal só), veja o rótulo do card. Popular no VS Code.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

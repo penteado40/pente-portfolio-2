@@ -1,0 +1,28 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-10-13T12:00:00Z"},
+  "title": "Hub e Navbar: protótipo",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 1440, "h": 900, "title": "Hub A: split-screen com fotos", "expand": "fill"},
+    "HubCards.dc.html": {"x": 1520, "y": 0, "w": 1440, "h": 900, "title": "Hub B: cards com gradiente sobre Onyx", "expand": "fill"},
+    "HubType.dc.html": {"x": 3040, "y": 0, "w": 1440, "h": 900, "title": "Hub C: só tipografia", "expand": "fill"},
+    "HubPhotos.dc.html": {"x": 4560, "y": 0, "w": 1440, "h": 1100, "title": "Hub D: B com fotos, estrutura da referência", "expand": "fill"},
+    "HubTall.dc.html": {"x": 6080, "y": 0, "w": 1440, "h": 1260, "title": "Hub E: cards em pé com fotos", "expand": "fill"},
+    "HubMobileStack.dc.html": {"x": 6080, "y": 1600, "w": 390, "h": 1640, "title": "Hub E mobile 1: empilhados"},
+    "HubMobileSwipe.dc.html": {"x": 6550, "y": 1600, "w": 390, "h": 1180, "title": "Hub E mobile 2: carrossel", "is_interactive": true},
+    "HubMobileCompact.dc.html": {"x": 7020, "y": 1600, "w": 390, "h": 1000, "title": "Hub E mobile 3: compactos, sem scroll"},
+    "Fonts.dc.html": {"x": 1520, "y": 1360, "w": 1440, "h": 2200, "title": "Opções de fonte (texto do Hub E)"},
+    "FontsMono.dc.html": {"x": 3040, "y": 1360, "w": 1440, "h": 2200, "title": "Fontes de editor de código"},
+    "Navbar.dc.html": {"x": 0, "y": 1360, "w": 1440, "h": 1240, "title": "Navbar: compacta e expandida por persona"}
+  },
+  "order": ["Main.dc.html", "HubCards.dc.html", "HubType.dc.html", "HubPhotos.dc.html", "HubTall.dc.html", "HubMobileStack.dc.html", "HubMobileSwipe.dc.html", "HubMobileCompact.dc.html", "Fonts.dc.html", "FontsMono.dc.html", "Navbar.dc.html"],
+  "notes": {
+    "hubTitle": {"x": 0, "y": -300, "text": "Hub em /: três layouts", "kind": "title1", "maxW": 7520},
+    "navTitle": {"x": 0, "y": 1060, "text": "Navbar (Dynamic Island): troca de persona", "kind": "title1", "maxW": 1440},
+    "mobileTitle": {"x": 6080, "y": 1360, "text": "Hub E no celular", "kind": "title1", "maxW": 1330},
+    "fontTitle": {"x": 1520, "y": 1060, "text": "Fontes", "kind": "title1", "maxW": 2960}
+  },
+  "designSystems": []
+}
