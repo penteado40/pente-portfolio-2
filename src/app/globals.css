@@ -47,8 +47,8 @@
   --persona-gradient: linear-gradient(
     135deg,
     var(--brand-black),
-    #004a6b,
-    #00638e,
+    var(--brand-accent-dark),
+    var(--brand-accent),
     #8cb9cc
   );
 }
@@ -60,8 +60,8 @@
   --persona-gradient: linear-gradient(
     135deg,
     var(--brand-black),
-    #0f3f3f,
-    #b6d298,
+    var(--brand-accent),
+    var(--brand-highlight),
     #dce2c8 /* Beige: gradient only, too close to ink for highlight */
   );
 }
