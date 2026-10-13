@@ -52,7 +52,7 @@ export function Certifications() {
                   <div className="p-6">
                     <h3 className="text-lg font-medium">{item.title}</h3>
                     <p className="text-sm text-ink/60 mt-1">{item.issuer}</p>
-                    <span className="text-xs font-mono text-accent tracking-wider mt-3 inline-block">
+                    <span className="text-xs font-mono text-ink tracking-wider mt-3 inline-block">
                       {item.year}
                     </span>
                   </div>
@@ -64,7 +64,7 @@ export function Certifications() {
                   </div>
                   <h3 className="text-lg font-medium">{item.title}</h3>
                   <p className="text-sm text-ink/60 mt-1">{item.issuer}</p>
-                  <span className="text-xs font-mono text-accent tracking-wider mt-3 inline-block">
+                  <span className="text-xs font-mono text-ink tracking-wider mt-3 inline-block">
                     {item.year}
                   </span>
                 </>

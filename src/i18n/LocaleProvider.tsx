@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useSyncExternalStore, type ReactNode } from 'react';
 import en from './en.json';
 import pt from './pt.json';
 
@@ -19,19 +19,30 @@ const LocaleContext = createContext<{
   dict: en,
 });
 
-export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('en');
+const listeners = new Set<() => void>();
 
-  useEffect(() => {
-    const saved = localStorage.getItem('locale') as Locale;
-    if (saved === 'en' || saved === 'pt') {
-      setLocaleState(saved);
-    }
-  }, []);
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  window.addEventListener('storage', listener);
+  return () => {
+    listeners.delete(listener);
+    window.removeEventListener('storage', listener);
+  };
+}
+
+function getSnapshot(): Locale {
+  const saved = localStorage.getItem('locale');
+  return saved === 'pt' ? 'pt' : 'en';
+}
+
+const getServerSnapshot = (): Locale => 'en';
+
+export function LocaleProvider({ children }: { children: ReactNode }) {
+  const locale = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const setLocale = (l: Locale) => {
-    setLocaleState(l);
     localStorage.setItem('locale', l);
+    listeners.forEach((listener) => listener());
   };
 
   return (

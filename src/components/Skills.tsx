@@ -39,7 +39,7 @@ export function Skills() {
                 i === 0 ? 'md:col-span-2 lg:col-span-1' : ''
               }`}
             >
-              <h3 className="text-sm font-mono text-accent tracking-wider mb-4">
+              <h3 className="text-sm font-mono text-ink tracking-wider mb-4">
                 {category.name}
               </h3>
               <div className="flex flex-wrap gap-2">
