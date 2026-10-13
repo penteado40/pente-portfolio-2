@@ -14,6 +14,8 @@ Portfolio website for Felipe Penteado, an audio engineer and systems developer. 
 - **UNASP-HT** — Boarding school and university where Felipe began running audio for events.
 - **Persona** — One of Felipe's two professional identities, each presented on its own page: the **Audio persona** (Audio Engineer) and the **Dev persona** (Systems Developer). _Avoid_: "portfolio" for a single persona page.
 - **Hub** — The landing page where a visitor chooses which Persona to view.
+- **Product** — A project on the Dev persona that has real users or clients and is active or being built (FAWedding, Events, this Portfolio). May span several repos, some private. _Avoid_: "app", "client project".
+- **Study** — A project on the Dev persona built to learn or practice, with no users (inventory-api, task_manager, pente-portfolio-api). Being deployed does not make a Study a Product.
 
 ## Architecture
 
