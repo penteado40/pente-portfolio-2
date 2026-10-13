@@ -12,6 +12,8 @@ Portfolio website for Felipe Penteado, an audio engineer and systems developer. 
 - **Vocal Livre** — A vocal group Felipe serves as technical director.
 - **Ministerio VOX** — Ministry where Felipe started his professional audio career.
 - **UNASP-HT** — Boarding school and university where Felipe began running audio for events.
+- **Persona** — One of Felipe's two professional identities, each presented on its own page: the **Audio persona** (Audio Engineer) and the **Dev persona** (Systems Developer). _Avoid_: "portfolio" for a single persona page.
+- **Hub** — The landing page where a visitor chooses which Persona to view.
 
 ## Architecture
 
