@@ -4,7 +4,9 @@ export const PERSONAS = ['audio', 'dev'] as const;
 
 export type PersonaId = (typeof PERSONAS)[number];
 
-export function personaHref(id: PersonaId): `/${PersonaId}` {
+export type PersonaHref = `/${PersonaId}`;
+
+export function personaHref(id: PersonaId): PersonaHref {
   return `/${id}`;
 }
 
@@ -18,7 +20,7 @@ export type PersonaSwitchCopy = {
 export type PersonaOption = {
   id: PersonaId;
   label: string;
-  href: `/${PersonaId}`;
+  href: PersonaHref;
   current: boolean;
   /** Accessible name of the compact "go to" chip that leads here. */
   switchLabel: string;

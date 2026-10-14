@@ -9,10 +9,11 @@ import {
   AnimatePresence,
 } from 'motion/react';
 import Link from 'next/link';
-import { useLocale, useLocaleSwitch } from '@/i18n/LocaleProvider';
+import { useLocale } from '@/i18n/LocaleProvider';
 import { List, X, type Icon } from '@phosphor-icons/react';
 import { useMagnetic } from './useMagnetic';
 import { useActiveSection } from './useActiveSection';
+import { useLocaleSwitch } from './useLocaleSwitch';
 import type { PersonaSwitch } from './usePersonaSwitch';
 
 const HOVER_LEAVE_DELAY_MS = 400;
@@ -46,6 +47,7 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
   const [compactWidth, setCompactWidth] = useState(COMPACT_FALLBACK_WIDTH);
   const [compactEl, setCompactEl] = useState<HTMLDivElement | null>(null);
   const reduce = useReducedMotion();
+  const navRef = useRef<HTMLElement>(null);
   const hoverLeaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const active = useActiveSection(items.map((item) => item.href));
   const sections = items.map((item) => ({ ...item, active: item.href === active }));
@@ -78,12 +80,13 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
   // Measured while it is mounted; the last width is kept while expanded.
   useEffect(() => {
     if (!compactEl) return;
-    // + the nav's own border, read off the nav (its parent) rather than
-    // assumed. A ResizeObserver also reports once on observe.
-    const nav = compactEl.parentElement!;
-    const observer = new ResizeObserver(() =>
-      setCompactWidth(compactEl.offsetWidth + nav.offsetWidth - nav.clientWidth),
-    );
+    // + the nav's own border, read off the nav rather than assumed. A
+    // ResizeObserver also reports once on observe.
+    const observer = new ResizeObserver(() => {
+      const nav = navRef.current;
+      const border = nav ? nav.offsetWidth - nav.clientWidth : 0;
+      setCompactWidth(compactEl.offsetWidth + border);
+    });
     observer.observe(compactEl);
     return () => observer.disconnect();
   }, [compactEl]);
@@ -93,6 +96,7 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
   return (
     <div className="fixed top-4 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
       <motion.nav
+        ref={navRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         initial={reduce ? false : { y: -20, opacity: 0 }}

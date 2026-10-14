@@ -2,9 +2,10 @@
 
 import Link from 'next/link';
 import { Globe } from '@phosphor-icons/react';
-import { useLocale, useLocaleSwitch } from '@/i18n/LocaleProvider';
+import { useLocale } from '@/i18n/LocaleProvider';
 import { PERSONAS, personaHref } from '@/content/personas';
 import type { HubDictionary } from '@/i18n/types';
+import { useLocaleSwitch } from './useLocaleSwitch';
 
 // The Hub's plain top bar, not the personas' floating Navbar: the Hub has no
 // sections to jump between, only the routes. "Home" is always the active
