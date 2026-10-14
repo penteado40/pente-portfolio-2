@@ -35,7 +35,7 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="pt-24 md:pt-32 pb-12 md:pb-16 bg-gradient-to-b from-background to-mist"
+      className="pt-24 md:pt-32 pb-12 md:pb-16"
     >
       <div className="max-w-[1400px] mx-auto px-6">
         <motion.h2

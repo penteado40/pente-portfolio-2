@@ -175,7 +175,7 @@ function ProductionCardText({ prod, streamsLabel }: { prod: Production; streamsL
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="hover:text-accent hover:underline underline-offset-2 transition-colors"
+              className="hover:text-white hover:underline underline-offset-2 transition-colors"
             >
               {prod.title}
             </a>
@@ -194,7 +194,7 @@ function ProductionCardText({ prod, streamsLabel }: { prod: Production; streamsL
         {prod.roles.map((role) => (
           <span
             key={role}
-            className="text-xs font-mono text-accent bg-accent/10 px-3 py-1 rounded-full"
+            className="text-xs font-mono text-ink bg-accent px-3 py-1 rounded-full"
           >
             {role}
           </span>

@@ -3,23 +3,82 @@
 /*
  * Brand palette — the only hex values in the whole codebase.
  * To reskin the site, edit these lines only; every component
- * consumes the semantic tokens below (ink/accent/mist/surface etc via
- * Tailwind utilities like `text-ink/70`, `bg-accent`, `border-mist`),
+ * consumes the semantic tokens below (ink, accent, highlight, block-deep,
+ * block-mid, mist, surface via Tailwind utilities like `text-ink/70`,
+ * `bg-accent`, `border-mist`),
  * never raw hex, so a palette change cascades everywhere automatically.
+ *
+ * Persona colors are redefined per persona on the root element, keyed off
+ * the `data-persona` wrapper the page renders (see docs/adr/0003). The
+ * override must sit on :root: the --color-* tokens are declared there and
+ * inherited already resolved, so body, ::selection and .glass* would ignore
+ * an override placed only on the wrapper.
  */
 :root {
-  --brand-midnight: #0f172a; /* Midnight */
-  --brand-slate: #1e293b;    /* Slate */
-  --brand-steel: #334155;    /* Steel */
-  --brand-offwhite: #f8fafc; /* Off-white */
-  --brand-red: #e21c34;
-  --brand-red-dark: #500b28;
+  /* Onyx base, shared by every persona */
+  --brand-onyx: #141414;
+  --brand-mist: #1c1c1c;
+  --brand-charcoal: #2b2b2b;
+  --brand-offwhite: #f5f5f5;
+  --brand-black: #000; /* only for gradient starts and shadows, never a fill */
   --brand-emerald: #10b981;
+  --brand-crimson: #b91c1c;
 
-  /* Functional feedback colors — not brand colors, but themeable here too */
+  /* Functional feedback colors — not brand colors, never vary per persona */
   --state-success: var(--brand-emerald);
-  --state-danger: #dc2626;
-  --state-danger-dark: #b91c1c;
+  --state-danger: var(--brand-crimson);
+}
+
+/* Persona tokens. accent = fills only (never text); accent-dark = second
+   gradient stop only; highlight = focus/hover rings, active indicators,
+   loose icons, ::selection; block-deep / block-mid = Color block fills
+   (see CONTEXT.md), plus overlays that fade into a block (Hero, About
+   portrait) and controls set into a block-mid block (Photos tab pill).
+   The block tones are near-neutrals tinted with the persona hue:
+   block-deep sits at Onyx luminance, block-mid between Mist and Charcoal,
+   so bg-accent inside a block contrasts as much as it does on Onyx. That
+   is under 3:1 (WCAG 1.4.11), so an accent fill must never carry meaning
+   on its own, inside a block or out. The Hub is neutral and is also the
+   fallback, where the blocks fall back into the normal neutral rhythm.
+   Keep this block first: it compiles to :is(:root, :root:has(…)), the
+   same specificity as the persona blocks, so they win by source order. */
+:root,
+:root:has([data-persona="hub"]) {
+  --brand-accent: #3d3d3d;
+  --brand-accent-dark: var(--brand-charcoal);
+  --brand-highlight: var(--brand-offwhite);
+  --brand-block-deep: var(--brand-onyx);
+  --brand-block-mid: var(--brand-mist);
+}
+
+:root:has([data-persona="audio"]) {
+  --brand-accent: #00638e; /* Dark Azure */
+  --brand-accent-dark: #004a6b;
+  --brand-highlight: #bfd8e3; /* Light Azure */
+  --brand-block-deep: #0b1521; /* Deep Navy */
+  --brand-block-mid: #13263b; /* Ocean Blue */
+  --persona-gradient: linear-gradient(
+    135deg,
+    var(--brand-black),
+    var(--brand-accent-dark),
+    var(--brand-accent),
+    #8cb9cc
+  );
+}
+
+:root:has([data-persona="dev"]) {
+  --brand-accent: #0f3f3f; /* Deep Teal */
+  --brand-accent-dark: #0a2c2c;
+  --brand-highlight: #b6d298; /* Celadon */
+  --brand-block-deep: #0c1815; /* Deep Forest */
+  --brand-block-mid: #122b25; /* Pine */
+  --persona-gradient: linear-gradient(
+    135deg,
+    var(--brand-black),
+    var(--brand-accent),
+    var(--brand-highlight),
+    #dce2c8 /* Beige: gradient only, too close to ink for highlight */
+  );
 }
 
 @theme inline {
@@ -29,16 +88,18 @@
   --color-white: var(--brand-offwhite);
 
   /* Semantic app tokens — what components actually reference */
-  --color-background: var(--brand-midnight);
+  --color-background: var(--brand-onyx);
   --color-foreground: var(--brand-offwhite);
   --color-ink: var(--brand-offwhite);
-  --color-accent: var(--brand-red);
-  --color-accent-dark: var(--brand-red-dark);
-  --color-mist: var(--brand-slate);
-  --color-surface: var(--brand-steel);
+  --color-accent: var(--brand-accent);
+  --color-accent-dark: var(--brand-accent-dark);
+  --color-highlight: var(--brand-highlight);
+  --color-block-deep: var(--brand-block-deep);
+  --color-block-mid: var(--brand-block-mid);
+  --color-mist: var(--brand-mist);
+  --color-surface: var(--brand-charcoal);
   --color-success: var(--state-success);
   --color-danger: var(--state-danger);
-  --color-danger-dark: var(--state-danger-dark);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -55,7 +116,8 @@ body {
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--color-accent) 15%, transparent);
+  background: var(--color-highlight);
+  color: var(--color-background);
 }
 
 .glass {

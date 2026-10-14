@@ -2,31 +2,20 @@
 
 ## What this is
 
-Portfolio website for Felipe Penteado, an audio engineer and systems developer. Single-page bilingual (EN/PT) site showcasing audio work, career trajectory, studio gear, and photos.
+Portfolio website for Felipe Penteado, an audio engineer and systems developer. A bilingual (EN/PT) site where a Hub lets the visitor choose between two Personas, each with its own page.
 
 ## Domain
 
-- **Audio Engineer** — Felipe's primary professional identity. Specializes in vocal music: live events (FOH mixing), DVD productions, and studio mixing for vocal groups, bands, and independent artists.
-- **Systems Developer** — Secondary identity. Backend services, APIs, and tooling in TypeScript, Go, Python.
+- **Audio Engineer** — Felipe's audio identity. Specializes in vocal music: live events (FOH mixing), DVD productions, and studio mixing for vocal groups, bands, and independent artists.
+- **Systems Developer** — Felipe's software identity. Backend services, APIs, and tooling in TypeScript, Go, Python.
 - **FOH** — Front-of-house. The mixing position for live sound, facing the audience.
 - **Vocal Livre** — A vocal group Felipe serves as technical director.
 - **Ministerio VOX** — Ministry where Felipe started his professional audio career.
 - **UNASP-HT** — Boarding school and university where Felipe began running audio for events.
-
-## Architecture
-
-Single Next.js 16 app with App Router. No backend, no database. Static portfolio.
-
-- **Styling**: Tailwind v4 with custom glass utility classes in `globals.css`
-- **Animation**: Motion (`motion/react`) for scroll reveals and stagger; spring physics for the navbar morph
-- **Icons**: Phosphor Icons (`@phosphor-icons/react`)
-- **i18n**: Client-side locale switching via React context (`LocaleProvider`). Dictionaries in `src/i18n/en.json` and `src/i18n/pt.json`. No URL-based routing for locale.
-- **Photos**: Optimized JPEGs in `public/photos/`, max 1600px, quality 75.
-
-## Key design decisions
-
-- **Dynamic Island navbar**: Compact icon pill over the hero section, spring-morphs to full bar on scroll or hover. Uses `maxWidth` + `borderRadius` spring animation.
-- **Full-bleed hero**: Photo background (`photo_12.jpg`) with dark gradient overlay, text anchored at bottom. Scroll-driven zoom + fade-out.
-- **CursorGlow**: Global amber spotlight that follows the mouse with spring physics and `mix-blend-mode: screen`. Desktop only (fine pointer).
-- **Glassmorphism**: `backdrop-filter: blur(20px) saturate(180%)` with layered borders and inner shadows. Defined as `.glass` and `.glass-strong` utilities.
-- **Warm white palette**: Background `#f8f7f4`, amber-700 accent, stone neutrals. Light mode only (user requested "white colors").
+- **Persona** — One of Felipe's two professional identities, each presented on its own page: the **Audio persona** (Audio Engineer) and the **Dev persona** (Systems Developer). _Avoid_: "portfolio" for a single persona page.
+- **Hub** — The landing page where a visitor chooses which Persona to view.
+- **Color block** — A section on a Persona page filled solid with one of the Persona's dark tones instead of a neutral, with hard edges against its neighbours. At most three per page; the Hero (a photo) never counts. _Avoid_: "highlight section", "colored background".
+- **Production** — A piece of audio work shown on the Audio persona: a DVD production, a studio mix, or a live event. _Avoid_: "project" for audio work (reserved for the Dev persona).
+- **Product** — A project on the Dev persona that has real users or clients and is active or being built (FAWedding, Events, this Portfolio). May span several repos, some private. _Avoid_: "app", "client project".
+- **Study** — A project on the Dev persona built to learn or practice, with no users (inventory-api, task_manager, pente-portfolio-api). Being deployed does not make a Study a Product.
+- **Testimonial** — A recommendation submitted by a visitor about Felipe's audio work, shown only on the Audio persona. _Avoid_: "review", "recommendation" as a separate concept.

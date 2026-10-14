@@ -8,7 +8,7 @@ export function About() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="about" className="py-24 md:py-32">
+    <section id="about" className="bg-block-deep py-24 md:py-32">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
           <motion.div
@@ -28,7 +28,7 @@ export function About() {
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-block-deep/40 to-transparent" />
             </div>
           </motion.div>
 
@@ -46,17 +46,17 @@ export function About() {
             <h2 className="text-3xl md:text-4xl font-medium tracking-tight">
               {dict.about.title}
             </h2>
-            <p className="text-ink/60 leading-relaxed max-w-[55ch]">
+            <p className="text-ink/70 leading-relaxed max-w-[55ch]">
               {dict.about.p1}
             </p>
-            <p className="text-ink/60 leading-relaxed max-w-[55ch]">
+            <p className="text-ink/70 leading-relaxed max-w-[55ch]">
               {dict.about.p2}
             </p>
-            <p className="text-ink/60 leading-relaxed max-w-[55ch]">
+            <p className="text-ink/70 leading-relaxed max-w-[55ch]">
               {dict.about.p3}
             </p>
 
-            <blockquote className="border-l-2 border-accent pl-6 mt-8">
+            <blockquote className="border-l-2 border-highlight pl-6 mt-8">
               <p className="text-ink/80 italic leading-relaxed">
                 &ldquo;{dict.about.quote}&rdquo;
               </p>

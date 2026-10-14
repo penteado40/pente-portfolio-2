@@ -52,7 +52,7 @@ export function Hero() {
         />
       </motion.div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-block-deep via-block-deep/60 to-background/10" />
 
       <motion.div
         style={reduce ? undefined : { opacity: contentOpacity }}
@@ -66,7 +66,7 @@ export function Hero() {
         >
           <motion.p
             variants={reduce ? undefined : item}
-            className="text-sm font-mono text-accent tracking-wider"
+            className="text-sm font-mono text-highlight tracking-wider"
           >
             {dict.hero.role}
           </motion.p>
@@ -85,7 +85,7 @@ export function Hero() {
           <motion.div variants={reduce ? undefined : item}>
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-white/20 transition-colors active:scale-[0.98]"
+              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-full text-sm font-medium hover:scale-[1.02] hover:ring-2 hover:ring-highlight transition-[scale,box-shadow] active:scale-[0.98]"
             >
               {dict.hero.cta}
               <ArrowDown size={16} weight="bold" />

@@ -57,7 +57,7 @@ export function Photos() {
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-gradient-to-b from-background to-mist">
+    <section className="bg-block-mid py-24 md:py-32">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
           <motion.h2
@@ -70,15 +70,15 @@ export function Photos() {
             {dict.photos.title}
           </motion.h2>
 
-          <div className="flex gap-1 bg-mist p-1 rounded-full w-fit">
+          <div className="flex gap-1 bg-block-deep p-1 rounded-full w-fit">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight ${
                   activeTab === tab.key
                     ? 'text-ink'
-                    : 'text-ink/40 hover:text-ink/70'
+                    : 'text-ink/60 hover:text-ink/80'
                 }`}
               >
                 {activeTab === tab.key && (
