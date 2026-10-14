@@ -8,10 +8,7 @@
       "audio": "Audio",
       "dev": "Dev"
     },
-    "switchTo": {
-      "audio": "Switch to the Audio persona",
-      "dev": "Switch to the Dev persona"
-    }
+    "switchTo": "Switch to the {persona} persona"
   },
   "contact": {
     "title": "Working on something that needs to sound right?",

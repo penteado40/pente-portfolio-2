@@ -1,9 +1,7 @@
 {
   "nav": {
     "label": "Principal",
-    "home": "Início",
-    "audio": "Audio",
-    "dev": "Dev"
+    "home": "Início"
   },
   "intro": {
     "portraitAlt": "Felipe Penteado",

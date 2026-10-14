@@ -1,13 +1,18 @@
 import Image from "next/image";
-import { Code, Waveform } from "@phosphor-icons/react/dist/ssr";
 import { HubCard } from "@/components/HubCard";
 import { HubFooter } from "@/components/HubFooter";
 import { HubNavbar } from "@/components/HubNavbar";
 import { LegacyHashRedirect } from "@/components/LegacyHashRedirect";
+import { PERSONAS, type PersonaId } from "@/content/personas";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 // Set in next.config.ts: empty until the Dev photo is added to public/.
 const devPhoto = process.env.HUB_DEV_PHOTO;
+
+const PHOTOS: Record<PersonaId, { src: string; position: string } | null> = {
+  audio: { src: "/photos/pente-hub-audio-bg.jpg", position: "62% 40%" },
+  dev: devPhoto ? { src: devPhoto, position: "50% 50%" } : null,
+};
 
 export default async function Hub() {
   const dict = await getDictionary(await getLocale(), "hub");
@@ -38,20 +43,15 @@ export default async function Hub() {
         </section>
 
         <div className="flex flex-col md:flex-row gap-3 md:gap-6 pb-10 md:pb-[88px]">
-          <HubCard
-            persona="audio"
-            index={1}
-            Icon={Waveform}
-            photo={{ src: "/photos/pente-hub-audio-bg.jpg", position: "62% 40%" }}
-            copy={dict.cards.audio}
-          />
-          <HubCard
-            persona="dev"
-            index={2}
-            Icon={Code}
-            photo={devPhoto ? { src: devPhoto, position: "50% 50%" } : null}
-            copy={dict.cards.dev}
-          />
+          {PERSONAS.map((persona, i) => (
+            <HubCard
+              key={persona}
+              persona={persona}
+              index={i + 1}
+              photo={PHOTOS[persona]}
+              copy={dict.cards[persona]}
+            />
+          ))}
         </div>
       </main>
       <HubFooter dict={dict} />

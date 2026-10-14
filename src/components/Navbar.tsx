@@ -9,7 +9,7 @@ import {
   AnimatePresence,
 } from 'motion/react';
 import Link from 'next/link';
-import { useLocale } from '@/i18n/LocaleProvider';
+import { useLocale, useLocaleSwitch } from '@/i18n/LocaleProvider';
 import { List, X, type Icon } from '@phosphor-icons/react';
 import { useMagnetic } from './useMagnetic';
 import { useActiveSection } from './useActiveSection';
@@ -78,8 +78,12 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
   // Measured while it is mounted; the last width is kept while expanded.
   useEffect(() => {
     if (!compactEl) return;
-    // + the nav's border. A ResizeObserver also reports once on observe.
-    const observer = new ResizeObserver(() => setCompactWidth(compactEl.offsetWidth + 2));
+    // + the nav's own border, read off the nav (its parent) rather than
+    // assumed. A ResizeObserver also reports once on observe.
+    const nav = compactEl.parentElement!;
+    const observer = new ResizeObserver(() =>
+      setCompactWidth(compactEl.offsetWidth + nav.offsetWidth - nav.clientWidth),
+    );
     observer.observe(compactEl);
     return () => observer.disconnect();
   }, [compactEl]);
@@ -312,15 +316,15 @@ function Separator() {
 }
 
 function LocaleButton() {
-  const { locale, setLocale, dict } = useLocale();
+  const { label, ariaLabel, switchLocale } = useLocaleSwitch();
 
   return (
     <button
-      onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
-      aria-label={dict.navbar.switchLocale}
+      onClick={switchLocale}
+      aria-label={ariaLabel}
       className={`grid place-items-center h-11 min-w-11 px-2 rounded-full font-mono text-xs uppercase tracking-wider text-white/70 hover:text-white press ${focusRing}`}
     >
-      {locale === 'en' ? 'PT' : 'EN'}
+      {label}
     </button>
   );
 }

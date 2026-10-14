@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Icon } from '@phosphor-icons/react';
 import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
+import { personaHref, type PersonaId } from '@/content/personas';
 import type { HubDictionary } from '@/i18n/types';
+import { PERSONA_ICONS } from './personaIcons';
 
 type HubCardCopy = HubDictionary['cards'][keyof HubDictionary['cards']];
 
@@ -11,10 +12,9 @@ const backdropHover =
   'transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100';
 
 type HubCardProps = {
-  persona: 'audio' | 'dev';
+  persona: PersonaId;
   /** Position in the Hub, shown as "01 / AUDIO". */
   index: number;
-  Icon: Icon;
   /** Background photo; without one, the card shows the persona's hero glow. */
   photo: { src: string; position: string } | null;
   copy: HubCardCopy;
@@ -23,10 +23,12 @@ type HubCardProps = {
 // A standing card on desktop, a compact one on mobile, where both have to fit
 // above the fold. `data-persona-card` gives the card its persona's tokens
 // (accent, highlight, glow) while the Hub around it stays neutral.
-export function HubCard({ persona, index, Icon, photo, copy }: HubCardProps) {
+export function HubCard({ persona, index, photo, copy }: HubCardProps) {
+  const Icon = PERSONA_ICONS[persona];
+
   return (
     <Link
-      href={`/${persona}`}
+      href={personaHref(persona)}
       aria-label={copy.label}
       data-persona-card={persona}
       className="group relative isolate flex md:flex-1 flex-col justify-between h-[228px] md:h-auto md:min-h-[680px] rounded-3xl md:rounded-[28px] overflow-hidden p-4 md:p-7 bg-background text-white shadow-[0_20px_40px_color-mix(in_oklab,var(--brand-black)_45%,transparent)] md:shadow-[0_30px_60px_color-mix(in_oklab,var(--brand-black)_45%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-background"

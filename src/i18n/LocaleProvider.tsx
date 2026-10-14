@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useTransition, type ReactNode } from 'react';
 import { setLocaleCookie } from './actions';
-import type { Locale } from './locale';
+import { otherLocale, type Locale } from './locale';
 import type { CommonDictionary } from './types';
 
 type LocaleContextValue = {
@@ -47,4 +47,18 @@ export function useLocale<D extends CommonDictionary = CommonDictionary>() {
   const value = useContext(LocaleContext);
   if (!value) throw new Error('useLocale must be used inside a LocaleProvider');
   return value as Omit<LocaleContextValue, 'dict'> & { dict: D };
+}
+
+/**
+ * The language switcher, the same in every navbar however it is drawn: it
+ * offers the other locale, labelled "PT" or "EN".
+ */
+export function useLocaleSwitch() {
+  const { locale, setLocale, dict } = useLocale();
+  const next = otherLocale(locale);
+  return {
+    label: next.toUpperCase(),
+    ariaLabel: dict.navbar.switchLocale,
+    switchLocale: () => setLocale(next),
+  };
 }
