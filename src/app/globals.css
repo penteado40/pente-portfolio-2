@@ -29,8 +29,10 @@
 }
 
 /* Persona tokens. accent = fills only (never text); accent-dark = second
-   gradient stop and .color-block fill; highlight = focus/hover rings, active indicators, loose
-   icons, ::selection. The Hub is neutral and is also the fallback.
+   gradient stop, .color-block fill, and overlays that fade into a block
+   (Hero, About portrait); highlight = focus/hover rings, active
+   indicators, loose icons, ::selection. The Hub is neutral and is also
+   the fallback.
    Keep this block first: it compiles to :is(:root, :root:has(…)), the
    same specificity as the persona blocks, so they win by source order. */
 :root,
