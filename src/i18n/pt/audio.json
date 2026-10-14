@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Engenheiro de Áudio",
+    "description": "Mixagem de PA e de estúdio para música vocal: eventos ao vivo, gravações de DVD, bandas e artistas independentes."
+  },
   "nav": {
     "about": "Sobre",
     "projects": "Trabalhos",

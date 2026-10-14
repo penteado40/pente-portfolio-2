@@ -3,13 +3,14 @@ import { TestimonialModalProvider } from "@/components/TestimonialModalProvider"
 import { AudioNavbar } from "@/components/AudioNavbar";
 import { Footer } from "@/components/Footer";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
+import { routeMetadata } from "@/content/seo";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
-export const metadata: Metadata = {
-  title: "Audio Engineer",
-  description:
-    "Audio engineer portfolio. Mixing, mastering, and sound design.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const { meta } = await getDictionary(locale, "audio");
+  return routeMetadata("/audio", meta, locale);
+}
 
 export default async function AudioLayout({
   children,

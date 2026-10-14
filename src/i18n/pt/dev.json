@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Desenvolvedor de Sistemas",
+    "description": "Back-end que ninguém percebe, front-end que todo mundo entende. TypeScript, NestJS, Postgres, Next.js."
+  },
   "nav": {
     "about": "Sobre",
     "experience": "Experiência",
