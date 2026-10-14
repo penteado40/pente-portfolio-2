@@ -8,7 +8,7 @@ export function About() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="about" className="color-block py-24 md:py-32">
+    <section id="about" className="bg-block-deep py-24 md:py-32">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
           <motion.div
@@ -28,7 +28,7 @@ export function About() {
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-accent-dark/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-block-deep/40 to-transparent" />
             </div>
           </motion.div>
 

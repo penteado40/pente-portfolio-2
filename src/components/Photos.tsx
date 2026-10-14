@@ -57,7 +57,7 @@ export function Photos() {
   ];
 
   return (
-    <section className="color-block py-24 md:py-32">
+    <section className="bg-block-mid py-24 md:py-32">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
           <motion.h2
@@ -70,7 +70,7 @@ export function Photos() {
             {dict.photos.title}
           </motion.h2>
 
-          <div className="flex gap-1 bg-mist p-1 rounded-full w-fit">
+          <div className="flex gap-1 bg-block-deep p-1 rounded-full w-fit">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
