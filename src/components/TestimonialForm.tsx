@@ -63,7 +63,7 @@ export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void
             required
             disabled={status === 'sending'}
             placeholder={dict.testimonialForm.namePlaceholder}
-            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
+            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/60 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
           />
         </div>
         <div>
@@ -77,7 +77,7 @@ export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void
             required
             disabled={status === 'sending'}
             placeholder={dict.testimonialForm.rolePlaceholder}
-            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
+            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/60 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
           />
         </div>
         <div>
@@ -91,7 +91,7 @@ export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void
             required
             disabled={status === 'sending'}
             placeholder={dict.testimonialForm.messagePlaceholder}
-            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all resize-none disabled:opacity-50"
+            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/60 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all resize-none disabled:opacity-50"
           />
         </div>
 

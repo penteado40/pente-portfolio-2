@@ -8,7 +8,9 @@ import { useEffect } from 'react';
 // Firefox drop or garble it. So refraction is gated on `data-glass-refraction`
 // on <html>, set only where navigator.userAgentData exists (Chromium-only API,
 // absent from iOS Chrome, which runs WebKit). Everywhere else the material
-// renders without refraction.
+// renders without refraction. Setting the flag from an effect runs after
+// paint, which ADR 0003 rejected for persona colors; here the only cost is
+// the first frame drawing glass without refraction, so it is accepted.
 export function LiquidGlassFilter() {
   useEffect(() => {
     if ('userAgentData' in navigator) {

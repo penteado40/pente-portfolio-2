@@ -133,9 +133,10 @@ body {
  * 4.5:1 or more over every section background, and .glass-dark (Navbar)
  * keeps white/70 at 4.5:1 even over a white photo.
  *
- * The box-shadow keeps Tailwind's ring variables first, so ring utilities
- * (focus-visible:ring-*) still draw on a glass element; these rules are
- * unlayered and would otherwise override them.
+ * The box-shadow composes Tailwind's ring and shadow variables, so ring and
+ * shadow utilities (focus-visible:ring-*, shadow-lg) still draw on a glass
+ * element; these rules are unlayered and would otherwise override them.
+ * To change a glass element's drop shadow from CSS, set --glass-drop.
  */
 .glass,
 .glass-strong,
@@ -143,17 +144,20 @@ body {
   --glass-tint: color-mix(in oklab, var(--color-surface) 45%, transparent);
   --glass-sheen: color-mix(in oklab, var(--color-white) 6%, transparent);
   --glass-blur: 16px;
-  --glass-drop: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --glass-backdrop: blur(var(--glass-blur)) saturate(170%);
+  --glass-drop: 0 8px 32px color-mix(in oklab, var(--brand-black) 35%, transparent);
 
   background:
     linear-gradient(160deg, var(--glass-sheen), transparent 45%),
     var(--glass-tint);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(170%);
-  backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  backdrop-filter: var(--glass-backdrop);
   border: 1px solid color-mix(in oklab, var(--color-white) 14%, transparent);
   box-shadow:
     var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-inset-shadow, 0 0 #0000),
+    var(--tw-shadow, 0 0 #0000),
     inset 0 1px 0 color-mix(in oklab, var(--color-white) 22%, transparent),
     inset 0 -1px 0 color-mix(in oklab, var(--color-white) 5%, transparent),
     inset 0 0 16px color-mix(in oklab, var(--color-white) 4%, transparent),
@@ -163,14 +167,14 @@ body {
 .glass-strong {
   --glass-tint: color-mix(in oklab, var(--color-surface) 70%, transparent);
   --glass-blur: 24px;
-  --glass-drop: 0 12px 40px rgba(0, 0, 0, 0.4);
+  --glass-drop: 0 12px 40px color-mix(in oklab, var(--brand-black) 40%, transparent);
 }
 
 .glass-dark {
   --glass-tint: color-mix(in oklab, var(--color-background) 82%, transparent);
   --glass-sheen: color-mix(in oklab, var(--color-white) 4%, transparent);
   --glass-blur: 20px;
-  --glass-drop: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --glass-drop: 0 8px 32px color-mix(in oklab, var(--brand-black) 50%, transparent);
 }
 
 /* Refraction: an SVG displacement of the backdrop, Chromium only. The
@@ -178,8 +182,7 @@ body {
    LiquidGlassFilter. Behind no-preference so reduced transparency drops it. */
 @media (prefers-reduced-transparency: no-preference) {
   :root[data-glass-refraction] :is(.glass, .glass-strong, .glass-dark) {
-    backdrop-filter: url(#liquid-glass-refraction) blur(var(--glass-blur))
-      saturate(170%);
+    backdrop-filter: url(#liquid-glass-refraction) var(--glass-backdrop);
   }
 }
 
@@ -226,7 +229,7 @@ body {
 .production-card.is-active {
   transform: scale(1.18);
   z-index: 20;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  --glass-drop: 0 24px 60px color-mix(in oklab, var(--brand-black) 50%, transparent);
 }
 
 .productions-grid:has(.production-card.is-active) .production-card:not(.is-active) {
