@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { getLocale } from "@/i18n/dictionaries";
 import { LiquidGlassFilter } from "@/components/LiquidGlassFilter";
+import { SITE_NAME, SITE_URL, siteTitle } from "@/content/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,12 +15,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Each route's layout adds its title, description, canonical and a complete
+// openGraph (see routeMetadata); Twitter inherits those from openGraph.
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    template: "Felipe Penteado - %s",
-    default: "Felipe Penteado",
+    template: siteTitle("%s"),
+    default: SITE_NAME,
   },
-  description: "Felipe Penteado: audio engineer and systems developer.",
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {

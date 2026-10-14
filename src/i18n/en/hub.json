@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Audio & Software",
+    "description": "Audio engineer and systems developer. Choose a side: live and studio mixing, or back-end and web."
+  },
   "nav": {
     "label": "Main",
     "home": "Home"

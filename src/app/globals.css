@@ -7,6 +7,8 @@
  * block-mid, mist, surface via Tailwind utilities like `text-ink/70`,
  * `bg-accent`, `border-mist`),
  * never raw hex, so a palette change cascades everywhere automatically.
+ * Two exceptions can't read CSS variables and mirror these by hand:
+ * the root layout's themeColor and the OG images (src/lib/ogImage.tsx).
  *
  * Persona colors are redefined per persona on the root element, keyed off
  * the `data-persona` wrapper each route renders in its layout or page

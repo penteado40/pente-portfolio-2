@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
+import { routeMetadata } from "@/content/seo";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const { meta } = await getDictionary(locale, "hub");
+  return routeMetadata("/", meta, locale);
+}
 
 export default async function HubLayout({
   children,

@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Áudio & Software",
+    "description": "Engenheiro de áudio e desenvolvedor de sistemas. Escolha um lado: mixagem ao vivo e em estúdio, ou back-end e web."
+  },
   "nav": {
     "label": "Principal",
     "home": "Início"
