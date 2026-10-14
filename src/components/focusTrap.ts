@@ -1,3 +1,6 @@
+export const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 /**
  * Where a Tab press should send focus to keep it inside `items`, or null to
  * let the browser move it. Wraps at both ends, and pulls focus back in when

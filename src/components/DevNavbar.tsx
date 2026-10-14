@@ -21,6 +21,7 @@ export function DevNavbar() {
   const items: NavItem[] = [
     { label: dict.nav.about, href: '#about', Icon: User },
     { label: dict.nav.experience, href: '#experience', Icon: Briefcase },
+    // Not on the LP board's list; shows up only once there is a certification.
     ...(certifications.length > 0
       ? [{ label: dict.nav.certifications, href: '#certifications', Icon: Certificate }]
       : []),

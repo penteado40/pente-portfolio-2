@@ -13,7 +13,7 @@ import { useLocale } from '@/i18n/LocaleProvider';
 import { X, type Icon } from '@phosphor-icons/react';
 import { useActiveSection } from './useActiveSection';
 import { useLocaleSwitch } from './useLocaleSwitch';
-import { wrapFocus } from './focusTrap';
+import { FOCUSABLE_SELECTOR, wrapFocus } from './focusTrap';
 import type { PersonaSwitch } from './usePersonaSwitch';
 
 const HOVER_LEAVE_DELAY_MS = 400;
@@ -22,6 +22,10 @@ const EXPANDED_MAX_WIDTH = 1024;
 const COMPACT_FALLBACK_WIDTH = 520;
 // Tailwind's `lg`: the desktop island from here up, the mobile pill below.
 const DESKTOP_QUERY = '(min-width: 64rem)';
+
+// Both islands slide in from above on load.
+const ENTRANCE = { y: -20, opacity: 0 };
+const ENTRANCE_EASE = [0.23, 1, 0.32, 1] as const;
 
 // Every control is a 44px target; most draw a smaller shape inside it.
 const focusRing =
@@ -37,7 +41,7 @@ type NavbarProps = {
   items: NavItem[];
   /** Persona-specific buttons: icons in the compact island, entries in the mobile menu. */
   actions?: NavAction[];
-  /** The personas to switch between: a "go to" chip when compact, a segmented selector otherwise. */
+  /** The personas to switch between: the segmented selector, or the "go to" chip in the compact desktop island. */
   personas: PersonaSwitch;
 };
 
@@ -60,7 +64,6 @@ function MobileNavbar({ sections, actions, personas }: NavbarViewProps) {
   const { dict } = useLocale();
   const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
-  const navRef = useRef<HTMLElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
@@ -68,7 +71,7 @@ function MobileNavbar({ sections, actions, personas }: NavbarViewProps) {
   useEffect(() => {
     if (!open) return;
     const focusables = () =>
-      Array.from(panelRef.current?.querySelectorAll<HTMLElement>('a, button') ?? []);
+      Array.from(panelRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR) ?? []);
     focusables()[0]?.focus();
 
     function onKeyDown(event: KeyboardEvent) {
@@ -87,9 +90,12 @@ function MobileNavbar({ sections, actions, personas }: NavbarViewProps) {
         }
       }
     }
-    // The toggle button is inside the nav, so its own click closes the menu.
+    // Anywhere but the panel closes it, the pill's other controls included;
+    // the toggle button is left to its own click.
     function onPointerDown(event: PointerEvent) {
-      if (!navRef.current?.contains(event.target as Node)) setOpen(false);
+      const target = event.target as Node;
+      if (panelRef.current?.contains(target) || buttonRef.current?.contains(target)) return;
+      setOpen(false);
     }
     // The panel is hidden from `lg` up; a trap on hidden links would strand focus.
     const desktop = window.matchMedia(DESKTOP_QUERY);
@@ -109,28 +115,22 @@ function MobileNavbar({ sections, actions, personas }: NavbarViewProps) {
 
   return (
     <motion.nav
-      ref={navRef}
-      initial={reduce ? false : { y: -20, opacity: 0 }}
+      initial={reduce ? false : ENTRANCE}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+      transition={{ duration: 0.6, ease: ENTRANCE_EASE }}
       className="lg:hidden flex flex-col items-center gap-2 w-full pointer-events-auto"
     >
       <div className="flex items-center gap-1 h-12 px-0.5 rounded-full glass-dark shadow-lg shadow-black/25">
-        <Link
-          href="/"
-          aria-label={dict.navbar.home}
-          className={`grid place-items-center size-11 rounded-full ${focusRing}`}
-        >
-          <Logo />
-        </Link>
-        <PersonaSelector personas={personas} />
+        <HomeLink />
+        <PersonaSelector options={personas.options} />
         <LocaleButton />
         <button
           ref={buttonRef}
           onClick={() => setOpen(!open)}
           aria-label={dict.navbar.sectionMenu}
           aria-expanded={open}
-          aria-controls={panelId}
+          // The panel is only in the DOM while open.
+          aria-controls={open ? panelId : undefined}
           className={`group grid place-items-center size-11 rounded-full press ${focusRing}`}
         >
           <span className="grid place-items-center size-9 rounded-full bg-white/8 text-white group-hover:bg-white/12 transition-colors">
@@ -240,7 +240,7 @@ function DesktopNavbar({ sections, actions, personas }: NavbarViewProps) {
       ref={navRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      initial={reduce ? false : { y: -20, opacity: 0 }}
+      initial={reduce ? false : ENTRANCE}
       animate={{
         y: 0,
         opacity: 1,
@@ -248,7 +248,7 @@ function DesktopNavbar({ sections, actions, personas }: NavbarViewProps) {
         borderRadius: showExpanded ? 16 : 999,
       }}
       transition={{
-        y: { duration: 0.6, ease: [0.23, 1, 0.32, 1] },
+        y: { duration: 0.6, ease: ENTRANCE_EASE },
         opacity: { duration: 0.6 },
         maxWidth: { type: 'spring', duration: 0.5, bounce: 0.15 },
         borderRadius: { type: 'spring', duration: 0.4, bounce: 0.1 },
@@ -296,7 +296,7 @@ function DesktopNavbar({ sections, actions, personas }: NavbarViewProps) {
             </div>
 
             <div className="flex items-center gap-2 shrink-0">
-              <PersonaSelector personas={personas} />
+              <PersonaSelector options={personas.options} />
               <LocaleButton />
             </div>
           </motion.div>
@@ -310,13 +310,7 @@ function DesktopNavbar({ sections, actions, personas }: NavbarViewProps) {
             transition={{ duration: 0.12 }}
             className="flex items-center w-max mx-auto px-px h-11"
           >
-            <Link
-              href="/"
-              aria-label={dict.navbar.home}
-              className={`grid place-items-center size-11 rounded-full ${focusRing}`}
-            >
-              <Logo />
-            </Link>
+            <HomeLink />
             <Separator />
             {sections.map((item) => (
               <a
@@ -369,7 +363,7 @@ function DesktopNavbar({ sections, actions, personas }: NavbarViewProps) {
   );
 }
 
-function PersonaSelector({ personas }: { personas: PersonaSwitch }) {
+function PersonaSelector({ options }: { options: PersonaSwitch['options'] }) {
   const { dict } = useLocale();
 
   return (
@@ -378,7 +372,7 @@ function PersonaSelector({ personas }: { personas: PersonaSwitch }) {
       aria-label={dict.navbar.personaSwitch}
       className="flex items-center h-9 px-[3px] rounded-full bg-white/6 border border-white/10"
     >
-      {personas.options.map((option) => (
+      {options.map((option) => (
         <Link
           key={option.href}
           href={option.href}
@@ -397,6 +391,20 @@ function PersonaSelector({ personas }: { personas: PersonaSwitch }) {
         </Link>
       ))}
     </div>
+  );
+}
+
+function HomeLink() {
+  const { dict } = useLocale();
+
+  return (
+    <Link
+      href="/"
+      aria-label={dict.navbar.home}
+      className={`grid place-items-center size-11 rounded-full ${focusRing}`}
+    >
+      <Logo />
+    </Link>
   );
 }
 
