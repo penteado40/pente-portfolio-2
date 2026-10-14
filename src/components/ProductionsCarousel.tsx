@@ -148,7 +148,7 @@ export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
             key={i}
             onClick={() => goTo(i)}
             aria-label={`Go to project ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all ${
+            className={`h-1.5 rounded-full press transition-all ${
               i === activeIndex ? 'w-4 bg-highlight' : 'w-1.5 bg-ink/20'
             }`}
           />

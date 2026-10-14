@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, type PointerEvent } from 'react';
+import { useCallback, useEffect, type PointerEvent } from 'react';
 import {
   motion,
   useReducedMotion,
@@ -9,8 +9,9 @@ import {
   type HTMLMotionProps,
   type MotionStyle,
 } from 'motion/react';
+import { isFineMouse } from './finePointer';
 
-// Hover weight for glass cards (PROJ-129): the point under the cursor sinks,
+// Hover weight for glass cards: the point under the cursor sinks,
 // the opposite side rises, and the card grows slightly. Springs, not state,
 // carry the pointer, so nothing re-renders while the mouse moves.
 //
@@ -21,6 +22,8 @@ const MAX_TILT_DEG = 5;
 const HOVER_SCALE = 1.02;
 const SPRING = { stiffness: 180, damping: 18, mass: 0.8 };
 
+// style is merged, but the tilt owns the transform: a caller's scale or
+// rotate in style is overridden.
 type TiltCardProps = HTMLMotionProps<'div'> & {
   as?: 'div' | 'article';
   // The expanded ProductionCard keeps still.
@@ -53,27 +56,23 @@ export function TiltCard({
     '--glass-tilt': tiltStrength,
   } as MotionStyle;
 
-  const rest = () => {
+  const rest = useCallback(() => {
     rotateX.set(0);
     rotateY.set(0);
     scale.set(1);
-  };
+  }, [rotateX, rotateY, scale]);
 
   // A card that becomes disabled under a still mouse settles right away.
   useEffect(() => {
-    if (!disabled) return;
-    rotateX.set(0);
-    rotateY.set(0);
-    scale.set(1);
-  }, [disabled, rotateX, rotateY, scale]);
+    if (disabled) rest();
+  }, [disabled, rest]);
 
   const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
     onPointerMove?.(e);
-    if (disabled || reduce || e.pointerType !== 'mouse') {
+    if (disabled || reduce || !isFineMouse(e)) {
       rest();
       return;
     }
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
     // -1..1 from the center; positive is right / down.

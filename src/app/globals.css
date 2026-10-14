@@ -21,7 +21,7 @@
   --brand-mist: #1c1c1c;
   --brand-charcoal: #2b2b2b;
   --brand-offwhite: #f5f5f5;
-  --brand-black: #000; /* only for gradient starts and shadows, never a fill */
+  --brand-black: #000; /* only for gradient stops and shadows, never a fill */
   --brand-emerald: #10b981;
   --brand-crimson: #b91c1c;
 
@@ -219,7 +219,7 @@ body {
   }
 }
 
-/* Button press (PROJ-129): shrink on click, only for a fine mouse and without
+/* Button press: shrink on click, only for a fine mouse and without
    reduced motion, so touch and reduced motion keep just the color/ring
    change. Uses the `scale` property, which composes with useMagnetic's
    transform. Add `scale` to the button's transition-property. */
