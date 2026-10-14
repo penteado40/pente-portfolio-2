@@ -21,7 +21,7 @@ type YoutubeProject = {
   views?: string;
 };
 
-export function Projects() {
+export function Productions() {
   const { dict } = useLocale();
   const reduce = useReducedMotion();
 

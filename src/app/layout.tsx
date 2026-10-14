@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
@@ -14,9 +14,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Felipe Penteado - Audio Engineer",
-  description:
-    "Audio engineer portfolio. Mixing, mastering, and sound design.",
+  title: {
+    template: "Felipe Penteado - %s",
+    default: "Felipe Penteado",
+  },
+  description: "Felipe Penteado: audio engineer and systems developer.",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#141414", // --brand-onyx in globals.css; keep in sync by hand
 };
 
 export default function RootLayout({

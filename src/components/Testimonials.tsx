@@ -13,7 +13,7 @@ export function Testimonials({ items }: { items: ApprovedTestimonial[] }) {
   const { open } = useTestimonialModal();
 
   return (
-    <section className="py-24 md:py-32">
+    <section id="testimonials" className="py-24 md:py-32">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="flex items-center justify-between gap-4 mb-12">
           <motion.h2

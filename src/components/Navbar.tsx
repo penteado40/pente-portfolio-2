@@ -8,34 +8,24 @@ import {
   useReducedMotion,
   AnimatePresence,
 } from 'motion/react';
+import Link from 'next/link';
 import { useLocale } from '@/i18n/LocaleProvider';
-import { useTestimonialModal } from './TestimonialModalProvider';
-import {
-  User,
-  MusicNotes,
-  Clock,
-  Certificate,
-  GearSix,
-  Envelope,
-  List,
-  X,
-  ChatCircleText,
-} from '@phosphor-icons/react';
+import { List, X, type Icon } from '@phosphor-icons/react';
 
 const HOVER_LEAVE_DELAY_MS = 400;
 
-const navItems = [
-  { key: 'about' as const, href: '#about', Icon: User },
-  { key: 'timeline' as const, href: '#timeline', Icon: Clock },
-  { key: 'certifications' as const, href: '#certifications', Icon: Certificate },
-  { key: 'projects' as const, href: '#projects', Icon: MusicNotes },
-  { key: 'skills' as const, href: '#skills', Icon: GearSix },
-  { key: 'contact' as const, href: '#contact', Icon: Envelope },
-];
+export type NavItem = { label: string; href: string; Icon: Icon };
+export type NavAction = { label: string; Icon: Icon; onClick: () => void };
 
-export function Navbar() {
-  const { dict, locale, setLocale } = useLocale();
-  const { open: openTestimonialModal } = useTestimonialModal();
+type NavbarProps = {
+  /** Section anchors of the current page, shown as links (or icons when compact). */
+  items: NavItem[];
+  /** Persona-specific buttons, rendered after the links in every navbar state. */
+  actions?: NavAction[];
+};
+
+export function Navbar({ items, actions = [] }: NavbarProps) {
+  const { locale, setLocale } = useLocale();
   const { scrollY } = useScroll();
   const [inHero, setInHero] = useState(true);
   const [hovered, setHovered] = useState(false);
@@ -96,32 +86,35 @@ export function Navbar() {
               transition={{ duration: 0.12 }}
               className="flex items-center justify-between px-6 h-14"
             >
-              <a
-                href="#"
+              <Link
+                href="/"
                 className="font-medium text-sm tracking-tight text-white shrink-0"
               >
                 Felipe Penteado
-              </a>
+              </Link>
 
               <div className="hidden md:flex items-center gap-6">
-                {navItems.map((item) => (
+                {items.map((item) => (
                   <a
-                    key={item.key}
+                    key={item.href}
                     href={item.href}
                     className="text-sm text-white/70 hover:text-white transition-colors"
                   >
-                    {dict.nav[item.key]}
+                    {item.label}
                   </a>
                 ))}
               </div>
 
               <div className="flex items-center gap-3">
-                <button
-                  onClick={openTestimonialModal}
-                  className="hidden md:inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-medium hover:scale-[1.02] hover:ring-2 hover:ring-highlight transition-[scale,box-shadow] active:scale-[0.98] shrink-0"
-                >
-                  {dict.testimonials.cta}
-                </button>
+                {actions.map((action) => (
+                  <button
+                    key={action.label}
+                    onClick={action.onClick}
+                    className="hidden md:inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-medium hover:scale-[1.02] hover:ring-2 hover:ring-highlight transition-[scale,box-shadow] active:scale-[0.98] shrink-0"
+                  >
+                    {action.label}
+                  </button>
+                ))}
                 <button
                   onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
                   className="text-xs font-mono text-white/50 hover:text-white transition-colors uppercase tracking-wider px-2 py-1 rounded-lg"
@@ -147,24 +140,27 @@ export function Navbar() {
               transition={{ duration: 0.12 }}
               className="flex items-center justify-center gap-1 px-3 h-11"
             >
-              {navItems.map((item) => (
+              {items.map((item) => (
                 <a
-                  key={item.key}
+                  key={item.href}
                   href={item.href}
                   className="p-2 text-white/70 hover:text-white transition-colors rounded-full"
-                  aria-label={dict.nav[item.key]}
+                  aria-label={item.label}
                 >
                   <item.Icon size={16} />
                 </a>
               ))}
               <div className="w-px h-4 bg-white/20 mx-1" />
-              <button
-                onClick={openTestimonialModal}
-                className="p-2 text-white/70 hover:text-white transition-colors rounded-full"
-                aria-label={dict.testimonials.cta}
-              >
-                <ChatCircleText size={16} />
-              </button>
+              {actions.map((action) => (
+                <button
+                  key={action.label}
+                  onClick={action.onClick}
+                  className="p-2 text-white/70 hover:text-white transition-colors rounded-full"
+                  aria-label={action.label}
+                >
+                  <action.Icon size={16} />
+                </button>
+              ))}
               <button
                 onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
                 className="text-xs font-mono text-white/50 hover:text-white transition-colors uppercase tracking-wider px-2 py-1 rounded-full"
@@ -185,25 +181,28 @@ export function Navbar() {
               transition={{ duration: 0.2 }}
               className="md:hidden px-6 pb-4 flex flex-col gap-3 border-t border-white/10 overflow-hidden"
             >
-              {navItems.map((item) => (
+              {items.map((item) => (
                 <a
-                  key={item.key}
+                  key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
                   className="text-sm text-white/70 hover:text-white transition-colors py-1"
                 >
-                  {dict.nav[item.key]}
+                  {item.label}
                 </a>
               ))}
-              <button
-                onClick={() => {
-                  setMobileOpen(false);
-                  openTestimonialModal();
-                }}
-                className="text-sm text-white/70 hover:text-white transition-colors py-1 text-left"
-              >
-                {dict.testimonials.cta}
-              </button>
+              {actions.map((action) => (
+                <button
+                  key={action.label}
+                  onClick={() => {
+                    setMobileOpen(false);
+                    action.onClick();
+                  }}
+                  className="text-sm text-white/70 hover:text-white transition-colors py-1 text-left"
+                >
+                  {action.label}
+                </button>
+              ))}
             </motion.div>
           )}
         </AnimatePresence>
