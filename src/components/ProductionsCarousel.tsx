@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 
-type YoutubeProject = {
+type YoutubeProduction = {
   title: string;
   description: string;
   tags: string[];
@@ -14,7 +14,7 @@ type YoutubeProject = {
   views?: string;
 };
 
-export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
+export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
   const { dict } = useLocale();
   const reduce = useReducedMotion();
   const trackRef = useRef<HTMLDivElement>(null);

@@ -2,17 +2,17 @@
 
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
-import { ProjectsCarousel } from './ProjectsCarousel';
+import { ProductionsCarousel } from './ProductionsCarousel';
 import { ProductionCard } from './ProductionCard';
 
-type SpotifyProject = {
+type SpotifyProduction = {
   title: string;
   description: string;
   tags: string[];
   embedType: 'spotify';
   embedId: string;
 };
-type YoutubeProject = {
+type YoutubeProduction = {
   title: string;
   description: string;
   tags: string[];
@@ -26,10 +26,10 @@ export function Productions() {
   const reduce = useReducedMotion();
 
   const spotifyItem = dict.projects.items.find(
-    (p): p is SpotifyProject => p.embedType === 'spotify',
+    (p): p is SpotifyProduction => p.embedType === 'spotify',
   );
   const youtubeItems = dict.projects.items.filter(
-    (p): p is YoutubeProject => p.embedType === 'youtube',
+    (p): p is YoutubeProduction => p.embedType === 'youtube',
   );
 
   return (
@@ -79,7 +79,7 @@ export function Productions() {
       </div>
 
       <div className="mt-20 mb-20">
-        <ProjectsCarousel items={youtubeItems} />
+        <ProductionsCarousel items={youtubeItems} />
       </div>
 
       <div className="max-w-[1400px] mx-auto px-6">
