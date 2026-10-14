@@ -3,8 +3,9 @@
 /*
  * Brand palette — the only hex values in the whole codebase.
  * To reskin the site, edit these lines only; every component
- * consumes the semantic tokens below (ink/accent/highlight/mist/surface
- * via Tailwind utilities like `text-ink/70`, `bg-accent`, `border-mist`),
+ * consumes the semantic tokens below (ink, accent, highlight, block-deep,
+ * block-mid, mist, surface via Tailwind utilities like `text-ink/70`,
+ * `bg-accent`, `border-mist`),
  * never raw hex, so a palette change cascades everywhere automatically.
  *
  * Persona colors are redefined per persona on the root element, keyed off
@@ -31,11 +32,14 @@
 /* Persona tokens. accent = fills only (never text); accent-dark = second
    gradient stop only; highlight = focus/hover rings, active indicators,
    loose icons, ::selection; block-deep / block-mid = Color block fills
-   (block-deep also ends the Hero overlay, so the Hero runs into About
-   without a seam). The block tones are near-neutrals tinted with the
-   persona hue: block-deep sits at Onyx luminance, block-mid between Mist
-   and Charcoal. The Hub is neutral and is also the fallback, where the
-   blocks fall back into the normal neutral rhythm.
+   (see CONTEXT.md), plus overlays that fade into a block (Hero, About
+   portrait) and controls set into a block-mid block (Photos tab pill).
+   The block tones are near-neutrals tinted with the persona hue:
+   block-deep sits at Onyx luminance, block-mid between Mist and Charcoal,
+   so bg-accent inside a block contrasts as much as it does on Onyx. That
+   is under 3:1 (WCAG 1.4.11), so an accent fill must never carry meaning
+   on its own, inside a block or out. The Hub is neutral and is also the
+   fallback, where the blocks fall back into the normal neutral rhythm.
    Keep this block first: it compiles to :is(:root, :root:has(…)), the
    same specificity as the persona blocks, so they win by source order. */
 :root,
@@ -160,14 +164,6 @@ body {
     -webkit-backdrop-filter: none;
   }
 }
-
-/*
- * Color block: a section filled solid with bg-block-deep or bg-block-mid,
- * with hard edges against the neutral sections around it. At most three
- * per persona page; the Hero (a photo) never counts. bg-accent fills are
- * fine inside a block: both tones sit as close to neutral as the Onyx base.
- * The blocks are plain Tailwind utilities, so there is no class here.
- */
 
 .scrollbar-hide {
   scrollbar-width: none;
