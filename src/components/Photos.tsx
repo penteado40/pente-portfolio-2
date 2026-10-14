@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import type { AudioDictionary } from '@/i18n/types';
 import { Camera, InstagramLogo } from '@phosphor-icons/react';
 import { TiltCard } from './TiltCard';
 
@@ -48,7 +49,7 @@ const instagramPosts = [
 type Tab = 'photos' | 'instagram';
 
 export function Photos() {
-  const { dict } = useLocale();
+  const { dict } = useLocale<AudioDictionary>();
   const reduce = useReducedMotion();
   const [activeTab, setActiveTab] = useState<Tab>('photos');
 

@@ -26,7 +26,7 @@ type NavbarProps = {
 };
 
 export function Navbar({ items, actions = [] }: NavbarProps) {
-  const { locale, setLocale } = useLocale();
+  const { locale, setLocale, dict } = useLocale();
   const { scrollY } = useScroll();
   const [inHero, setInHero] = useState(true);
   const [hovered, setHovered] = useState(false);
@@ -113,14 +113,14 @@ export function Navbar({ items, actions = [] }: NavbarProps) {
                 <button
                   onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
                   className="text-xs font-mono text-white/70 hover:text-white press uppercase tracking-wider px-2 py-1 rounded-lg"
-                  aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
+                  aria-label={dict.navbar.switchLocale}
                 >
                   {locale === 'en' ? 'PT' : 'EN'}
                 </button>
                 <button
                   onClick={() => setMobileOpen(!mobileOpen)}
                   className="md:hidden text-white/80 p-1 press"
-                  aria-label="Toggle menu"
+                  aria-label={dict.navbar.toggleMenu}
                 >
                   {mobileOpen ? <X size={20} /> : <List size={20} />}
                 </button>
@@ -159,7 +159,7 @@ export function Navbar({ items, actions = [] }: NavbarProps) {
               <button
                 onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
                 className="text-xs font-mono text-white/70 hover:text-white press uppercase tracking-wider px-2 py-1 rounded-full"
-                aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
+                aria-label={dict.navbar.switchLocale}
               >
                 {locale === 'en' ? 'PT' : 'EN'}
               </button>

@@ -2,13 +2,14 @@
 
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import type { AudioDictionary } from '@/i18n/types';
 import { Modal } from './Modal';
 import { TestimonialForm } from './TestimonialForm';
 
 const TestimonialModalContext = createContext<{ open: () => void } | null>(null);
 
 export function TestimonialModalProvider({ children }: { children: ReactNode }) {
-  const { dict } = useLocale();
+  const { dict } = useLocale<AudioDictionary>();
   const [isOpen, setIsOpen] = useState(false);
   const close = () => setIsOpen(false);
 

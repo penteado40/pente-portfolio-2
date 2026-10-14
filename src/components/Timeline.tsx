@@ -3,6 +3,7 @@
 import { type ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import type { AudioDictionary } from '@/i18n/types';
 
 const LINKS: Record<string, string> = {
   'UNASP-HT': 'https://unasp.br',
@@ -34,7 +35,7 @@ function linkify(text: string): ReactNode {
 }
 
 export function Timeline() {
-  const { dict } = useLocale();
+  const { dict } = useLocale<AudioDictionary>();
   const reduce = useReducedMotion();
 
   return (
