@@ -75,10 +75,10 @@ export function Photos() {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight ${
                   activeTab === tab.key
                     ? 'text-ink'
-                    : 'text-ink/40 hover:text-ink/70'
+                    : 'text-ink/60 hover:text-ink/80'
                 }`}
               >
                 {activeTab === tab.key && (
