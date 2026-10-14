@@ -32,7 +32,10 @@
 
 /* Persona tokens. accent = fills only (never text); accent-dark = second
    gradient stop only; highlight = focus/hover rings, active indicators,
-   loose icons, ::selection; block-deep / block-mid = Color block fills
+   loose icons, ::selection (one contained exception: the Dev Hero's
+   primary CTA is a highlight fill with an ink ring, since a Deep Teal
+   primary would read weaker than its secondary, decided in GitHub
+   issue #14); block-deep / block-mid = Color block fills
    (see CONTEXT.md), plus overlays that fade into a block (Hero, About
    portrait) and controls set into a block-mid block (Photos tab pill).
    The block tones are near-neutrals tinted with the persona hue:
@@ -73,12 +76,23 @@
   --brand-highlight: #b6d298; /* Celadon */
   --brand-block-deep: #0c1815; /* Deep Forest */
   --brand-block-mid: #122b25; /* Pine */
+  --brand-beige: #dce2c8; /* gradients only, too close to ink for highlight */
   --persona-gradient: linear-gradient(
     135deg,
     var(--brand-black),
     var(--brand-accent),
     var(--brand-highlight),
-    #dce2c8 /* Beige: gradient only, too close to ink for highlight */
+    var(--brand-beige)
+  );
+  /* Hero glow (DevHero): the same stops read from a Beige core out to Deep
+     Teal, fading into the background so it has no edge. A gradient, never an
+     animated blur, so only its transform and opacity animate. */
+  --persona-glow: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--brand-beige) 85%, transparent),
+    color-mix(in oklab, var(--brand-highlight) 60%, transparent) 28%,
+    color-mix(in oklab, var(--brand-accent) 85%, transparent) 62%,
+    transparent
   );
 }
 
