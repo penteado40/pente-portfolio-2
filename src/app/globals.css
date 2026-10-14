@@ -44,6 +44,10 @@
    is under 3:1 (WCAG 1.4.11), so an accent fill must never carry meaning
    on its own, inside a block or out. The Hub is neutral and is also the
    fallback, where the blocks fall back into the normal neutral rhythm.
+   The Hub's persona cards carry their persona's tokens through
+   `data-persona-card`, a separate attribute so they recolor only
+   themselves: `data-persona` there would match :root:has() and theme
+   the whole Hub.
    Keep this block first: it compiles to :is(:root, :root:has(…)), the
    same specificity as the persona blocks, so they win by source order. */
 :root,
@@ -55,7 +59,8 @@
   --brand-block-mid: var(--brand-mist);
 }
 
-:root:has([data-persona="audio"]) {
+:root:has([data-persona="audio"]),
+[data-persona-card="audio"] {
   --brand-accent: #00638e; /* Dark Azure */
   --brand-accent-dark: #004a6b;
   --brand-highlight: #bfd8e3; /* Light Azure */
@@ -70,7 +75,8 @@
   );
 }
 
-:root:has([data-persona="dev"]) {
+:root:has([data-persona="dev"]),
+[data-persona-card="dev"] {
   --brand-accent: #0f3f3f; /* Deep Teal */
   --brand-accent-dark: #0a2c2c;
   --brand-highlight: #b6d298; /* Celadon */
@@ -245,6 +251,19 @@ body {
   .glass-dark {
     --glass-tint: var(--color-background);
   }
+}
+
+/* Hub persona card: the persona's tint over the photo, darkening to black
+   at the bottom, where the glass pane sits. Reads the card's own tokens
+   (data-persona-card), never the neutral Hub's. */
+.hub-card-tint {
+  background: linear-gradient(
+    0deg,
+    var(--brand-black),
+    color-mix(in oklab, var(--brand-accent-dark) 80%, transparent) 38%,
+    color-mix(in oklab, var(--brand-accent) 25%, transparent) 70%,
+    color-mix(in oklab, var(--brand-black) 30%, transparent)
+  );
 }
 
 /* Button press: shrink on click, only for a fine mouse and without

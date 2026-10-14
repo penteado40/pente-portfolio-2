@@ -31,3 +31,7 @@ The site was a single page at `/` presenting the Audio Engineer. It now has to p
 - A new kind of action (not an icon button) needs a Navbar change.
 - Persona metadata (title, description, OG image) lives in each persona's layout; the root only supplies the `title.template` and defaults.
 - The Hub briefly renders before forwarding an old anchor link.
+
+## Amendment (2026-10-14): the Hub's own bar and footer
+
+PROJ-137 gives the Hub a plain top bar (`HubNavbar`) and footer (`HubFooter`) instead of the shared Navbar and Footer. The Hub has no sections to jump between, only the routes, so the floating Navbar has nothing to show; the shared Navbar and Footer stay the personas'.
