@@ -39,7 +39,7 @@ type NavSection = NavItem & { active: boolean };
 type NavbarProps = {
   /** Section anchors of the current page: links when expanded or in the mobile menu, icons when compact. */
   items: NavItem[];
-  /** Persona-specific buttons: icons in the compact island, entries in the mobile menu. */
+  /** Persona-specific buttons, shown only as entries in the mobile menu. */
   actions?: NavAction[];
   /** The personas to switch between: the segmented selector, or the "go to" chip in the compact desktop island. */
   personas: PersonaSwitch;
@@ -52,15 +52,19 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
   return (
     <div className="fixed top-3 lg:top-4 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
       <MobileNavbar sections={sections} actions={actions} personas={personas} />
-      <DesktopNavbar sections={sections} actions={actions} personas={personas} />
+      <DesktopNavbar sections={sections} personas={personas} />
     </div>
   );
 }
 
-type NavbarViewProps = { sections: NavSection[]; actions: NavAction[]; personas: PersonaSwitch };
+type NavbarViewProps = { sections: NavSection[]; personas: PersonaSwitch };
 
 // Below `lg`: a pill that always stays compact, with the sections in a menu.
-function MobileNavbar({ sections, actions, personas }: NavbarViewProps) {
+function MobileNavbar({
+  sections,
+  actions,
+  personas,
+}: NavbarViewProps & { actions: NavAction[] }) {
   const { dict } = useLocale();
   const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
@@ -185,7 +189,7 @@ function MobileNavbar({ sections, actions, personas }: NavbarViewProps) {
 }
 
 // From `lg` up: compact over the Hero, expanded once scrolled past it or on hover.
-function DesktopNavbar({ sections, actions, personas }: NavbarViewProps) {
+function DesktopNavbar({ sections, personas }: NavbarViewProps) {
   const { dict } = useLocale();
   const { scrollY } = useScroll();
   const [inHero, setInHero] = useState(true);
@@ -332,16 +336,6 @@ function DesktopNavbar({ sections, actions, personas }: NavbarViewProps) {
               </a>
             ))}
             <Separator />
-            {actions.map((action) => (
-              <button
-                key={action.label}
-                onClick={action.onClick}
-                className={`grid place-items-center size-11 rounded-full text-white/70 hover:text-white press ${focusRing}`}
-                aria-label={action.label}
-              >
-                <action.Icon size={16} aria-hidden />
-              </button>
-            ))}
             <Link
               href={destination.href}
               aria-label={destination.switchLabel}
