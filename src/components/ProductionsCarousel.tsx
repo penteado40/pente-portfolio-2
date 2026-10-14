@@ -20,7 +20,7 @@ export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
   const { dict } = useLocale();
   const reduce = useReducedMotion();
   const trackRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const prevMagnet = useMagnetic<HTMLButtonElement>();
   const nextMagnet = useMagnetic<HTMLButtonElement>();
@@ -70,7 +70,7 @@ export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
           <TiltCard
             as="article"
             key={`${project.title}-${project.embedId}`}
-            ref={(el: HTMLDivElement | null) => {
+            ref={(el: HTMLElement | null) => {
               cardRefs.current[i] = el;
             }}
             initial={reduce ? false : { opacity: 0, y: 24 }}
@@ -128,7 +128,7 @@ export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
         onClick={() => goTo(activeIndex - 1)}
         disabled={isFirst}
         aria-label="Previous project"
-        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press transition-[color,scale,box-shadow] disabled:opacity-30 disabled:pointer-events-none"
+        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press disabled:opacity-30 disabled:pointer-events-none"
       >
         <CaretLeft size={18} weight="bold" />
       </motion.button>
@@ -137,18 +137,21 @@ export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
         onClick={() => goTo(activeIndex + 1)}
         disabled={isLast}
         aria-label="Next project"
-        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press transition-[color,scale,box-shadow] disabled:opacity-30 disabled:pointer-events-none"
+        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press disabled:opacity-30 disabled:pointer-events-none"
       >
         <CaretRight size={18} weight="bold" />
       </motion.button>
 
-      <div className="flex justify-center gap-2 mt-6">
+      {/* relative: the track's bottom padding (room for the card tilt) overlaps
+          the dots, and its mask makes it a stacking context painted above
+          static siblings. Positioned, the dots paint above it again. */}
+      <div className="relative flex justify-center gap-2 mt-6">
         {items.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
             aria-label={`Go to project ${i + 1}`}
-            className={`h-1.5 rounded-full press transition-all ${
+            className={`h-1.5 rounded-full press ${
               i === activeIndex ? 'w-4 bg-highlight' : 'w-1.5 bg-ink/20'
             }`}
           />

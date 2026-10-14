@@ -124,7 +124,10 @@ body {
 /*
  * Liquid Glass material (plan A, decided in GitHub issue #11). Every glass surface on
  * the site uses one of these three classes, and the material lives only
- * here: tint + backdrop blur + border + specular rim. It is neutral on
+ * here: tint + backdrop blur + border + specular rim. The refraction's own
+ * parameters sit in the SVG filter of LiquidGlassFilter, which needs a DOM
+ * node. The pill CTAs (Hero, Navbar actions, Testimonials) are not glass
+ * surfaces: they keep a lighter bg-white/10 + backdrop-blur-sm treatment. It is neutral on
  * purpose (no persona tint): the color comes from whatever sits behind it.
  * Plan B (glass only on controls, solid content cards) is a swap of the card
  * classes to bg-mist/bg-surface, with no change to component structure.
@@ -233,8 +236,14 @@ body {
 /* Button press: shrink on click, only for a fine mouse and without
    reduced motion, so touch and reduced motion keep just the color/ring
    change. Uses the `scale` property, which composes with useMagnetic's
-   transform. Add `scale` to the button's transition-property. */
+   transform. It owns the button's transition, so a `press` button takes no
+   transition-* utility: transition-all would also ease the magnet's inline
+   transform. width is listed for the carousel dots, which grow when active. */
 @utility press {
+  transition-property: color, background-color, border-color, box-shadow, opacity, scale, width;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     &:active {
       scale: 0.97;

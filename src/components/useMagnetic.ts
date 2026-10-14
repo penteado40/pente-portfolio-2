@@ -2,7 +2,7 @@
 
 import type { PointerEvent } from 'react';
 import { useReducedMotion, useSpring } from 'motion/react';
-import { isFineMouse } from './finePointer';
+import { isFineMouse } from './isFineMouse';
 
 // Magnetic pull for CTAs and carousel arrows: while a fine mouse
 // is over the element, it drifts up to MAX_PULL_PX toward the cursor on a

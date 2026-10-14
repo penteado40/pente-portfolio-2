@@ -101,7 +101,7 @@ export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void
           {...submitMagnet}
           type="submit"
           disabled={status === 'sending' || status === 'sent'}
-          className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium transition-all press disabled:pointer-events-none ${
+          className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium press disabled:pointer-events-none ${
             status === 'sent'
               ? 'bg-success text-background'
               : status === 'error'

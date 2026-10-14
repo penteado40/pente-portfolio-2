@@ -111,7 +111,7 @@ export function Productions() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
           className="mt-12"
         >
-          <h4 className="text-sm font-mono text-ink/40 tracking-wider mb-4">
+          <h4 className="text-sm font-mono text-ink/60 tracking-wider mb-4">
             {dict.projects.otherTitle}
           </h4>
           <div className="flex flex-wrap gap-2">

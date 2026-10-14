@@ -5,7 +5,10 @@ import Image from 'next/image';
 import { SpeakerHighIcon, SpeakerSlashIcon, XIcon } from '@phosphor-icons/react';
 import { TiltCard } from './TiltCard';
 
+// Long enough that the tilt reads before the card expands and goes still.
 const HOVER_DEBOUNCE_MS = 600;
+// Mirrors the blur rule in globals.css: blurred cards don't tilt.
+const BLURRED_CARD = '.productions-grid:has(.is-active) .production-card:not(.is-active)';
 
 type Production = {
   title: string;
@@ -96,6 +99,7 @@ export function ProductionCard({
     <TiltCard
       ref={cardRef}
       disabled={expanded}
+      stillWhen={BLURRED_CARD}
       className={`production-card glass rounded-2xl overflow-hidden ${expanded ? 'is-active' : ''}`}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
@@ -115,7 +119,7 @@ export function ProductionCard({
             <button
               onClick={toggleMute}
               aria-label={muted ? 'Unmute video' : 'Mute video'}
-              className="absolute bottom-3 right-3 z-10 glass-strong p-2 rounded-full text-ink/80 press transition-[scale]"
+              className="absolute bottom-3 right-3 z-10 glass-strong p-2 rounded-full text-ink/80 press"
             >
               {muted ? <SpeakerSlashIcon size={16} weight="bold" /> : <SpeakerHighIcon size={16} weight="bold" />}
             </button>
@@ -125,7 +129,7 @@ export function ProductionCard({
                 collapse();
               }}
               aria-label="Close preview"
-              className="absolute top-3 right-3 z-10 glass-strong p-1.5 rounded-full text-ink/80 press transition-[scale]"
+              className="absolute top-3 right-3 z-10 glass-strong p-1.5 rounded-full text-ink/80 press"
             >
               <XIcon size={16} weight="bold" />
             </button>

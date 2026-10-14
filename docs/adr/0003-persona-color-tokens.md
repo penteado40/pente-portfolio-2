@@ -43,3 +43,7 @@ The attribute is in the SSR HTML, and on client navigation React swaps it in the
 - Adding a persona means adding one CSS block and one wrapper; components don't change.
 - `accent` is fill-only. It never colors text (Dark Azure is 2.8:1 and Deep Teal 1.6:1 on Onyx); text uses `ink`, and emphasis uses `highlight`.
 - Per-persona values that must be literals outside CSS (`viewport.themeColor`) have to be kept in sync by hand.
+
+## Amendment (2026-10-14): Liquid Glass refraction flag
+
+PROJ-129 sets `data-glass-refraction` on `<html>` from a client effect (`LiquidGlassFilter`), the post-paint pattern rejected above for persona colors. It is accepted here because the cost is different: the first frame draws glass without refraction instead of in the wrong colors, and the flag can't be server-rendered, since only the browser knows whether it is Chromium (`navigator.userAgentData`). Persona colors still follow the decision above.
