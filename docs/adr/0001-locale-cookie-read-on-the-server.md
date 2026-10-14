@@ -14,15 +14,15 @@ The site is bilingual (EN / PT). Until now the locale lived in `localStorage` an
 - **The locale lives in a `locale` cookie read on the server** (`getLocale` in `src/i18n/dictionaries.ts`). The root layout renders `<html lang>` from it, and every page renders in that locale from the first byte. Pages are therefore rendered per request.
 - **First visit (no cookie):** if `Accept-Language` lists any `pt*` tag (`pt`, `pt-BR`, `pt-PT`, …) with a non-zero `q`, the locale is `pt`; anything else, or no header at all, is `en`. The rule is the pure function `resolveLocale` in `src/i18n/locale.ts`.
 - **The language switcher stores the choice** in the cookie for one year through a Server Action (`setLocaleCookie`). Setting the cookie in a Server Action re-renders the route in the same roundtrip, and the cookie wins over `Accept-Language` from then on. `localStorage` is no longer read; an old value there is ignored.
-- **Dictionaries are split per persona:** `src/i18n/{en,pt}/{common,hub,audio,dev}.json`. `common` holds the shared chrome (Navbar, Footer, Contact, persona and language switchers). Each layout loads `common` plus its own file in the request's locale and passes it to the client `LocaleProvider`, so a route only ships its own dictionary in one language.
-- **Metadata follows the request's locale** too (when it gets translated). Link-preview crawlers send no cookie and usually no `Accept-Language`, so previews come out in English.
+- **Dictionaries are split by route:** `src/i18n/{en,pt}/{common,hub,audio,dev}.json`, one file for the Hub and one per Persona. `common` holds the shared chrome (Navbar, Footer, Contact, persona and language switchers). Each layout loads `common` plus its own file (`getDictionary`) in the request's locale and passes it to the client `LocaleProvider`, so a route only ships its own dictionary in one language.
+- **Metadata follows the request's locale** too. It is still English-only; translating it is left to the SEO and metadata work. Link-preview crawlers send no cookie and usually no `Accept-Language`, so previews come out in English.
 
 ## Alternatives considered
 
 - **Locale in the URL (`/pt/dev`).** The portfolio is found by name, so ranking in two languages gains little. The cost would be a `[lang]` segment in every route, redirects from the current URLs, and a bigger migration. Revisit if indexing the PT version starts to matter.
 - **Keep `localStorage`.** It can't be read on the server, so the English flash and the wrong `<html lang>` would stay.
 - **Detection only, no stored choice.** A visitor whose browser prefers one language but who wants the other would have to switch on every visit.
-- **One dictionary per locale.** Every route would ship the copy of every persona.
+- **One dictionary per locale.** Every route would ship the copy of the Hub and both Personas.
 
 ## Consequences
 

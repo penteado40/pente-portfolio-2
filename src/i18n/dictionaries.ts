@@ -1,16 +1,16 @@
 import 'server-only';
 import { cookies, headers } from 'next/headers';
 import { LOCALE_COOKIE, resolveLocale, type Locale } from './locale';
-import type { Persona } from './types';
+import type { DictionaryName } from './types';
 
 // Loaders run on the server only; each layout passes its own slice to the
-// client, so a persona's bundle never carries the other personas' dictionaries.
+// client, so a route never ships the Hub's or another Persona's dictionary.
 const common = {
   en: () => import('./en/common.json').then((m) => m.default),
   pt: () => import('./pt/common.json').then((m) => m.default),
 };
 
-const personas = {
+const scoped = {
   hub: {
     en: () => import('./en/hub.json').then((m) => m.default),
     pt: () => import('./pt/hub.json').then((m) => m.default),
@@ -30,10 +30,10 @@ export async function getLocale(): Promise<Locale> {
   return resolveLocale(cookieStore.get(LOCALE_COOKIE)?.value, headerList.get('accept-language'));
 }
 
-export async function getDictionary<P extends Persona>(locale: Locale, persona: P) {
-  const [commonDict, personaDict] = await Promise.all([
+export async function getDictionary<N extends DictionaryName>(locale: Locale, name: N) {
+  const [commonDict, scopedDict] = await Promise.all([
     common[locale](),
-    personas[persona][locale]() as Promise<Awaited<ReturnType<(typeof personas)[P]['en']>>>,
+    scoped[name][locale]() as Promise<Awaited<ReturnType<(typeof scoped)[N]['en']>>>,
   ]);
-  return { ...commonDict, ...personaDict };
+  return { ...commonDict, ...scopedDict };
 }

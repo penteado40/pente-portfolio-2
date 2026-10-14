@@ -18,26 +18,11 @@
     "viewsLabel": "views",
     "streamsLabel": "streams",
     "items": [
-      {
-        "label": "Events",
-        "value": "250+"
-      },
-      {
-        "label": "Years Active",
-        "value": "7+"
-      },
-      {
-        "label": "Artists Served",
-        "value": "50+"
-      },
-      {
-        "label": "DVDs and LiveSessions Recorded",
-        "value": "5+"
-      },
-      {
-        "label": "Audio Systems Designed for Events",
-        "value": "25+"
-      }
+      { "label": "Events", "value": "250+" },
+      { "label": "Years Active", "value": "7+" },
+      { "label": "Artists Served", "value": "50+" },
+      { "label": "DVDs and LiveSessions Recorded", "value": "5+" },
+      { "label": "Audio Systems Designed for Events", "value": "25+" }
     ]
   },
   "about": {
@@ -53,21 +38,14 @@
       {
         "title": "Penteado's Mixes",
         "description": "A curated playlist of studio and live mixes across multiple projects and artists.",
-        "tags": [
-          "Playlist",
-          "Studio",
-          "Live"
-        ],
+        "tags": ["Playlist", "Studio", "Live"],
         "embedType": "spotify",
         "embedId": "playlist/0U64yQ2gcfF4di63dp9Gdt"
       },
       {
         "title": "Vocal Livre - Oh Come All Ye Faithful (Voctave Cover)",
         "description": "Mixing for Vocal Livre, cover of the song \"Oh Come All Ye Faithful\" by Voctave.",
-        "tags": [
-          "Mixing",
-          "Studio"
-        ],
+        "tags": ["Mixing", "Studio"],
         "embedType": "youtube",
         "embedId": "kClk9hDEPds",
         "views": "45K+"
@@ -75,10 +53,7 @@
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
-        "tags": [
-          "Live Sound",
-          "FOH"
-        ],
+        "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
         "embedId": "iuAzxiUe1GI",
         "views": "-"
@@ -86,10 +61,7 @@
       {
         "title": "EU CANTO PRA TI - VOCAL LIVRE | ACÚSTICO YAMAHA",
         "description": "Mixing for Vocal Livre, cover of the song \"EU CANTO PRA TI\" by Yamaha.",
-        "tags": [
-          "Mixing",
-          "Studio"
-        ],
+        "tags": ["Mixing", "Studio"],
         "embedType": "youtube",
         "embedId": "ylX_fWT_1Ts",
         "views": "81K+"
@@ -97,10 +69,7 @@
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
-        "tags": [
-          "Live Sound",
-          "FOH"
-        ],
+        "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
         "embedId": "JSHblD_li2Q",
         "views": "-"
@@ -108,10 +77,7 @@
       {
         "title": "KIRK FRANKLIN COVER (Wanna be Happy? / I Smile) - VOCAL LIVRE | Acústico Yamaha",
         "description": "Mixing for Vocal Livre, cover of the songs \"Wanna be Happy? / I Smile\" by Kirk Franklin.",
-        "tags": [
-          "Mixing",
-          "Studio"
-        ],
+        "tags": ["Mixing", "Studio"],
         "embedType": "youtube",
         "embedId": "gN31mnrysoo",
         "views": "54K+"
@@ -119,10 +85,7 @@
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
-        "tags": [
-          "Live Sound",
-          "FOH"
-        ],
+        "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
         "embedId": "up1XMdkS6Lw",
         "views": "-"
@@ -130,10 +93,7 @@
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
-        "tags": [
-          "Live Sound",
-          "FOH"
-        ],
+        "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
         "embedId": "xFA-36yV4Iw",
         "views": "-"
@@ -141,10 +101,7 @@
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
-        "tags": [
-          "Live Sound",
-          "FOH"
-        ],
+        "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
         "embedId": "vQ9FtkHUTW0",
         "views": "-"
@@ -152,10 +109,7 @@
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
-        "tags": [
-          "Live Sound",
-          "FOH"
-        ],
+        "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
         "embedId": "8cDzRdb7AdA",
         "views": "-"
@@ -163,10 +117,7 @@
       {
         "title": "FOH - Vocal Livre",
         "description": "Front-of-house mixing for Vocal Livre.",
-        "tags": [
-          "Live Sound",
-          "FOH"
-        ],
+        "tags": ["Live Sound", "FOH"],
         "embedType": "youtube",
         "embedId": "sV7bTqrZ9qE",
         "views": "-"
@@ -177,10 +128,7 @@
       {
         "title": "DVD Temporal - Vocal Livre",
         "description": "Audio recording and FOH mixing for Vocal Livre's live DVD recording.",
-        "roles": [
-          "Audio Recording",
-          "FOH"
-        ],
+        "roles": ["Audio Recording", "FOH"],
         "image": "/photos/photo_vltemporal.jpeg",
         "streams": "13mi+",
         "youtubeId": "j10ORL-xEu8",
@@ -189,10 +137,7 @@
       {
         "title": "DVD 15 Anos - Vocal Livre",
         "description": "Audio recording and FOH mixing for Vocal Livre's 15th anniversary concert, recorded live in Recife.",
-        "roles": [
-          "Audio Recording",
-          "FOH"
-        ],
+        "roles": ["Audio Recording", "FOH"],
         "image": "/photos/photo_vl15.jpeg",
         "streams": "6mi+",
         "youtubeId": "DXllcDBfu88",
@@ -201,10 +146,7 @@
       {
         "title": "Novo Tempo In Concert: 30 Anos",
         "description": "Monitor assistant and audio recording for Novo Tempo label's 30th anniversary DVD recording.",
-        "roles": [
-          "Monitor Assistant",
-          "Audio Recording"
-        ],
+        "roles": ["Monitor Assistant", "Audio Recording"],
         "image": "/photos/photo_nt30.jpg",
         "streams": "19mi+",
         "youtubeId": "gt-V6JlXxmc",
@@ -273,33 +215,15 @@
     "categories": [
       {
         "name": "Consoles",
-        "items": [
-          "Yamaha Rivage",
-          "Yamaha DM7",
-          "Yamaha CL Series",
-          "Waves eMotion LV1",
-          "Digico",
-          "Soundcraft"
-        ]
+        "items": ["Yamaha Rivage", "Yamaha DM7", "Yamaha CL Series", "Waves eMotion LV1", "Digico", "Soundcraft"]
       },
       {
         "name": "Studio",
-        "items": [
-          "Avid Pro Tools",
-          "Apogee Duet 3",
-          "Apple AirPods Max",
-          "Beyerdynamic DT 1990 Pro MKII"
-        ]
+        "items": ["Avid Pro Tools", "Apogee Duet 3", "Apple AirPods Max", "Beyerdynamic DT 1990 Pro MKII"]
       },
       {
         "name": "Services",
-        "items": [
-          "Mixing",
-          "Mastering",
-          "Recording",
-          "Live Sound",
-          "Technical Direction"
-        ]
+        "items": ["Mixing", "Mastering", "Recording", "Live Sound", "Technical Direction"]
       }
     ]
   },

@@ -85,7 +85,8 @@ All content is on one page, separated into anchored sections. This is deliberate
 src/
 ├── app/
 │   ├── layout.tsx          # Root layout: fonts, <html lang> from the locale cookie
-│   ├── page.tsx            # Single page: all sections composed here
+│   ├── (hub)/              # Hub at /: layout (dictionary) + page
+│   ├── audio/              # Audio persona at /audio: layout + page
 │   └── globals.css         # Tailwind v4 config + .glass utilities
 ├── components/
 │   ├── Navbar.tsx          # Dynamic Island — compact/expanded morph
