@@ -112,14 +112,14 @@ export function Navbar({ items, actions = [] }: NavbarProps) {
                 ))}
                 <button
                   onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
-                  className="text-xs font-mono text-white/70 hover:text-white press transition-[color,scale] uppercase tracking-wider px-2 py-1 rounded-lg"
+                  className="text-xs font-mono text-white/70 hover:text-white press uppercase tracking-wider px-2 py-1 rounded-lg"
                   aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
                 >
                   {locale === 'en' ? 'PT' : 'EN'}
                 </button>
                 <button
                   onClick={() => setMobileOpen(!mobileOpen)}
-                  className="md:hidden text-white/80 p-1 press transition-[scale]"
+                  className="md:hidden text-white/80 p-1 press"
                   aria-label="Toggle menu"
                 >
                   {mobileOpen ? <X size={20} /> : <List size={20} />}
@@ -150,7 +150,7 @@ export function Navbar({ items, actions = [] }: NavbarProps) {
                 <button
                   key={action.label}
                   onClick={action.onClick}
-                  className="p-2 text-white/70 hover:text-white press transition-[color,scale] rounded-full"
+                  className="p-2 text-white/70 hover:text-white press rounded-full"
                   aria-label={action.label}
                 >
                   <action.Icon size={16} />
@@ -158,7 +158,7 @@ export function Navbar({ items, actions = [] }: NavbarProps) {
               ))}
               <button
                 onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
-                className="text-xs font-mono text-white/70 hover:text-white press transition-[color,scale] uppercase tracking-wider px-2 py-1 rounded-full"
+                className="text-xs font-mono text-white/70 hover:text-white press uppercase tracking-wider px-2 py-1 rounded-full"
                 aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
               >
                 {locale === 'en' ? 'PT' : 'EN'}
@@ -193,7 +193,7 @@ export function Navbar({ items, actions = [] }: NavbarProps) {
                     setMobileOpen(false);
                     action.onClick();
                   }}
-                  className="text-sm text-white/70 hover:text-white press transition-[color,scale] py-1 text-left"
+                  className="text-sm text-white/70 hover:text-white press py-1 text-left"
                 >
                   {action.label}
                 </button>
@@ -213,7 +213,7 @@ function NavActionButton({ action }: { action: NavAction }) {
     <motion.button
       {...magnet}
       onClick={action.onClick}
-      className="hidden md:inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-medium hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press transition-[scale,box-shadow] shrink-0"
+      className="hidden md:inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-medium hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press shrink-0"
     >
       {action.label}
     </motion.button>

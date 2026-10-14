@@ -33,7 +33,7 @@ export function Testimonials({ items }: { items: ApprovedTestimonial[] }) {
             {...ctaMagnet}
             type="button"
             onClick={open}
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press transition-[scale,box-shadow] shrink-0"
+            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press shrink-0"
           >
             {dict.testimonials.cta}
           </motion.button>
@@ -258,7 +258,7 @@ function TestimonialsCarousel({
           goPrev();
         }}
         aria-label="Previous testimonial"
-        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press transition-[color,scale,box-shadow]"
+        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press"
       >
         <CaretLeft size={18} weight="bold" />
       </motion.button>
@@ -270,7 +270,7 @@ function TestimonialsCarousel({
           goNext();
         }}
         aria-label="Next testimonial"
-        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press transition-[color,scale,box-shadow]"
+        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press"
       >
         <CaretRight size={18} weight="bold" />
       </motion.button>

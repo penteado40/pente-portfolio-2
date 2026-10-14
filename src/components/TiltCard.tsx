@@ -9,7 +9,7 @@ import {
   type HTMLMotionProps,
   type MotionStyle,
 } from 'motion/react';
-import { isFineMouse } from './finePointer';
+import { isFineMouse } from './isFineMouse';
 
 // Hover weight for glass cards: the point under the cursor sinks,
 // the opposite side rises, and the card grows slightly. Springs, not state,
@@ -28,11 +28,16 @@ type TiltCardProps = HTMLMotionProps<'div'> & {
   as?: 'div' | 'article';
   // The expanded ProductionCard keeps still.
   disabled?: boolean;
+  // CSS selector: while the card matches it, it keeps still. Lets a card
+  // follow a state only CSS knows, like the ProductionCards blurred behind
+  // an expanded one.
+  stillWhen?: string;
 };
 
 export function TiltCard({
   as = 'div',
   disabled = false,
+  stillWhen,
   style,
   onPointerMove,
   onPointerLeave,
@@ -56,7 +61,7 @@ export function TiltCard({
     '--glass-tilt': tiltStrength,
   } as MotionStyle;
 
-  const rest = useCallback(() => {
+  const settle = useCallback(() => {
     rotateX.set(0);
     rotateY.set(0);
     scale.set(1);
@@ -64,13 +69,13 @@ export function TiltCard({
 
   // A card that becomes disabled under a still mouse settles right away.
   useEffect(() => {
-    if (disabled) rest();
-  }, [disabled, rest]);
+    if (disabled) settle();
+  }, [disabled, settle]);
 
   const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
     onPointerMove?.(e);
-    if (disabled || reduce || !isFineMouse(e)) {
-      rest();
+    if (disabled || reduce || !isFineMouse(e) || (stillWhen && e.currentTarget.matches(stillWhen))) {
+      settle();
       return;
     }
 
@@ -86,7 +91,7 @@ export function TiltCard({
 
   const handlePointerLeave = (e: PointerEvent<HTMLDivElement>) => {
     onPointerLeave?.(e);
-    rest();
+    settle();
   };
 
   const Component = as === 'article' ? motion.article : motion.div;
