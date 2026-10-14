@@ -23,6 +23,8 @@ export const metadata: Metadata = {
     template: siteTitle("%s"),
     default: SITE_NAME,
   },
+  // Fallback for a route without its own, such as the not-found page.
+  description: "Felipe Penteado: audio engineer and systems developer.",
   twitter: { card: "summary_large_image" },
 };
 

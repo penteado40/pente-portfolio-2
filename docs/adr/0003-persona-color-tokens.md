@@ -47,3 +47,7 @@ The attribute is in the SSR HTML, and on client navigation React swaps it in the
 ## Amendment (2026-10-14): Liquid Glass refraction flag
 
 PROJ-129 sets `data-glass-refraction` on `<html>` from a client effect (`LiquidGlassFilter`), the post-paint pattern rejected above for persona colors. It is accepted here because the cost is different: the first frame draws glass without refraction instead of in the wrong colors, and the flag can't be server-rendered, since only the browser knows whether it is Chromium (`navigator.userAgentData`). Persona colors still follow the decision above.
+
+## Amendment (2026-10-14): OG images mirror the palette
+
+PROJ-138's generated Open Graph images (`src/lib/ogImage.tsx`) are rendered by `ImageResponse`, which can't read CSS variables, so that file holds a hand-synced copy of the Onyx base and each persona's gradient stops and highlight. It joins `viewport.themeColor` as the second exception to "only `globals.css` holds hex values"; both are noted in the header of `globals.css`.

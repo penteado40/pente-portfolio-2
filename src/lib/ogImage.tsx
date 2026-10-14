@@ -62,13 +62,14 @@ export function ogImage({ persona, subtitle }: OgImageProps) {
               style={{
                 fontSize: colors ? 44 : 34,
                 lineHeight: 1.3,
-                color: colors ? colors.highlight : 'rgba(245, 245, 245, 0.72)',
+                color: colors ? colors.highlight : OFFWHITE,
+                opacity: colors ? 1 : 0.72,
               }}
             >
               {subtitle}
             </div>
           </div>
-          <div style={{ fontSize: 22, letterSpacing: '0.14em', color: 'rgba(245, 245, 245, 0.55)' }}>
+          <div style={{ fontSize: 22, letterSpacing: '0.14em', opacity: 0.55 }}>
             {new URL(SITE_URL).host.toUpperCase()}
           </div>
         </div>

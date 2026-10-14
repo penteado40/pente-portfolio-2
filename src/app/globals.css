@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
- * Brand palette — the only hex values in the whole codebase.
+ * Brand palette — the only hex values in the codebase (but see below).
  * To reskin the site, edit these lines only; every component
  * consumes the semantic tokens below (ink, accent, highlight, block-deep,
  * block-mid, mist, surface via Tailwind utilities like `text-ink/70`,

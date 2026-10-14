@@ -1,3 +1,4 @@
+// Relative, not `@/`: seo.test.ts runs under plain `node --test`, which has no path aliases.
 import type { Metadata } from 'next';
 import type { Locale } from '../i18n/locale';
 import { PERSONAS, personaHref } from './personas.ts';
@@ -17,8 +18,8 @@ export type RouteMeta = { title: string; description: string };
 const OG_LOCALES: Record<Locale, string> = { en: 'en_US', pt: 'pt_BR' };
 
 /** Matches the root layout's `title.template`. */
-export function siteTitle(role: string): string {
-  return `${SITE_NAME} · ${role}`;
+export function siteTitle(page: string): string {
+  return `${SITE_NAME} · ${page}`;
 }
 
 /**

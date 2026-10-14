@@ -15,7 +15,7 @@ The site is bilingual (EN / PT). Until now the locale lived in `localStorage` an
 - **First visit (no cookie):** if `Accept-Language` lists any `pt*` tag (`pt`, `pt-BR`, `pt-PT`, …) with a non-zero `q`, the locale is `pt`; anything else, or no header at all, is `en`. The rule is the pure function `resolveLocale` in `src/i18n/locale.ts`.
 - **The language switcher stores the choice** in the cookie for one year through a Server Action (`setLocaleCookie`). Setting the cookie in a Server Action re-renders the route in the same roundtrip, and the cookie wins over `Accept-Language` from then on. `localStorage` is no longer read; an old value there is ignored.
 - **Dictionaries are split by route:** `src/i18n/{en,pt}/{common,hub,audio,dev}.json`, one file for the Hub and one per Persona. `common` holds the shared chrome (Navbar, Footer, Contact, persona and language switchers). Each layout loads `common` plus its own file (`getDictionary`) in the request's locale and passes it to the client `LocaleProvider`, so a route only ships its own dictionary in one language.
-- **Metadata follows the request's locale** too. It is still English-only; translating it is left to the SEO and metadata work. Link-preview crawlers send no cookie and usually no `Accept-Language`, so previews come out in English.
+- **Metadata follows the request's locale** too: each layout's `generateMetadata` resolves it the same way and reads the route's `meta` section from its dictionary (PROJ-138). Link-preview crawlers send no cookie and usually no `Accept-Language`, so previews come out in English.
 
 ## Alternatives considered
 
