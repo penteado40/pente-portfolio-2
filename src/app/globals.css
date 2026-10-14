@@ -3,8 +3,9 @@
 /*
  * Brand palette — the only hex values in the whole codebase.
  * To reskin the site, edit these lines only; every component
- * consumes the semantic tokens below (ink/accent/highlight/mist/surface
- * via Tailwind utilities like `text-ink/70`, `bg-accent`, `border-mist`),
+ * consumes the semantic tokens below (ink, accent, highlight, block-deep,
+ * block-mid, mist, surface via Tailwind utilities like `text-ink/70`,
+ * `bg-accent`, `border-mist`),
  * never raw hex, so a palette change cascades everywhere automatically.
  *
  * Persona colors are redefined per persona on the root element, keyed off
@@ -29,8 +30,16 @@
 }
 
 /* Persona tokens. accent = fills only (never text); accent-dark = second
-   gradient stop; highlight = focus/hover rings, active indicators, loose
-   icons, ::selection. The Hub is neutral and is also the fallback.
+   gradient stop only; highlight = focus/hover rings, active indicators,
+   loose icons, ::selection; block-deep / block-mid = Color block fills
+   (see CONTEXT.md), plus overlays that fade into a block (Hero, About
+   portrait) and controls set into a block-mid block (Photos tab pill).
+   The block tones are near-neutrals tinted with the persona hue:
+   block-deep sits at Onyx luminance, block-mid between Mist and Charcoal,
+   so bg-accent inside a block contrasts as much as it does on Onyx. That
+   is under 3:1 (WCAG 1.4.11), so an accent fill must never carry meaning
+   on its own, inside a block or out. The Hub is neutral and is also the
+   fallback, where the blocks fall back into the normal neutral rhythm.
    Keep this block first: it compiles to :is(:root, :root:has(…)), the
    same specificity as the persona blocks, so they win by source order. */
 :root,
@@ -38,12 +47,16 @@
   --brand-accent: #3d3d3d;
   --brand-accent-dark: var(--brand-charcoal);
   --brand-highlight: var(--brand-offwhite);
+  --brand-block-deep: var(--brand-onyx);
+  --brand-block-mid: var(--brand-mist);
 }
 
 :root:has([data-persona="audio"]) {
   --brand-accent: #00638e; /* Dark Azure */
   --brand-accent-dark: #004a6b;
   --brand-highlight: #bfd8e3; /* Light Azure */
+  --brand-block-deep: #0b1521; /* Deep Navy */
+  --brand-block-mid: #13263b; /* Ocean Blue */
   --persona-gradient: linear-gradient(
     135deg,
     var(--brand-black),
@@ -57,6 +70,8 @@
   --brand-accent: #0f3f3f; /* Deep Teal */
   --brand-accent-dark: #0a2c2c;
   --brand-highlight: #b6d298; /* Celadon */
+  --brand-block-deep: #0c1815; /* Deep Forest */
+  --brand-block-mid: #122b25; /* Pine */
   --persona-gradient: linear-gradient(
     135deg,
     var(--brand-black),
@@ -79,6 +94,8 @@
   --color-accent: var(--brand-accent);
   --color-accent-dark: var(--brand-accent-dark);
   --color-highlight: var(--brand-highlight);
+  --color-block-deep: var(--brand-block-deep);
+  --color-block-mid: var(--brand-block-mid);
   --color-mist: var(--brand-mist);
   --color-surface: var(--brand-charcoal);
   --color-success: var(--state-success);
