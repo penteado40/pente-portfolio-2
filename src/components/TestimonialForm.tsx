@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import type { AudioDictionary } from '@/i18n/types';
 import { PaperPlaneTilt, Check, CircleNotch } from '@phosphor-icons/react';
 import { submitTestimonial } from '@/lib/submitTestimonial';
 import { useMagnetic } from './useMagnetic';
@@ -10,7 +11,7 @@ import { useMagnetic } from './useMagnetic';
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void }) {
-  const { dict } = useLocale();
+  const { dict } = useLocale<AudioDictionary>();
   const [status, setStatus] = useState<Status>('idle');
   const submitMagnet = useMagnetic<HTMLButtonElement>();
 

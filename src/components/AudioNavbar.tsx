@@ -1,6 +1,7 @@
 'use client';
 
 import { useLocale } from '@/i18n/LocaleProvider';
+import type { AudioDictionary } from '@/i18n/types';
 import { useTestimonialModal } from './TestimonialModalProvider';
 import { Navbar } from './Navbar';
 import {
@@ -14,7 +15,7 @@ import {
 } from '@phosphor-icons/react';
 
 export function AudioNavbar() {
-  const { dict } = useLocale();
+  const { dict } = useLocale<AudioDictionary>();
   const { open: openTestimonialModal } = useTestimonialModal();
 
   return (

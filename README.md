@@ -30,7 +30,7 @@ The site also embeds real productions: Spotify playlists and YouTube performance
 | Animations | motion/react |
 | Icons | Phosphor Icons |
 | Fonts | Geist + Geist Mono |
-| i18n | Custom client-side locale context |
+| i18n | Custom: locale cookie read on the server, per-persona JSON dictionaries |
 | Deploy | Vercel |
 
 ---
@@ -44,7 +44,7 @@ Starts as a compact icon pill floating over the hero. On scroll or hover, it spr
 Full-bleed studio photo with a dark gradient overlay. As the user scrolls, the background image zooms and the content fades out — creating a parallax depth effect tied to scroll position.
 
 ### Bilingual (EN / PT)
-Language toggle persisted to `localStorage`. All visible text lives in JSON dictionaries (`en.json`, `pt.json`) — no hardcoded copy in components. Switching language is instant with no page reload.
+The language lives in a cookie read on the server, so every page arrives already in the right language with a matching `<html lang>`. First visits follow `Accept-Language` (any `pt*` → PT, otherwise EN). All visible text lives in JSON dictionaries split per persona — no hardcoded copy in components. See [ADR 0001](docs/adr/0001-locale-cookie-read-on-the-server.md).
 
 ### Glassmorphism Design System
 Two utility classes — `.glass` and `.glass-strong` — built on `backdrop-filter`, layered borders, and inner shadows. Solid color fallback for `prefers-reduced-transparency`.
@@ -72,7 +72,7 @@ Tailwind v4 moves from a config file to CSS-first configuration. Custom design t
 The Dynamic Island effect relies on `layoutId` — Motion's mechanism for animating shared layout between component states. When the navbar switches between compact and expanded, Motion detects the layout change and smoothly interpolates the shape, position, and size. This would be extremely difficult to achieve with CSS transitions alone.
 
 ### Custom i18n over a library
-A full i18n library (next-intl, react-i18next) would be appropriate for a multi-route, server-rendered multilingual app. For a single-page portfolio with two languages and client-only rendering, a `LocaleProvider` context + two JSON files is the right scope — no unnecessary dependencies, no bundle overhead.
+A full i18n library (next-intl, react-i18next) would be appropriate for an app with many languages or locale-prefixed URLs. With two languages and no locale in the URL, a cookie read on the server, a few JSON files per persona and a small `LocaleProvider` are the right scope — no unnecessary dependencies, and each route ships only its own dictionary.
 
 ### Single-page architecture
 All content is on one page, separated into anchored sections. This is deliberate: a portfolio should be browsable in one continuous scroll, not navigated across routes. Next.js is still used for its image optimization, font loading, and Vercel deployment pipeline.
@@ -84,8 +84,9 @@ All content is on one page, separated into anchored sections. This is deliberate
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # Root layout: fonts, LocaleProvider
-│   ├── page.tsx            # Single page: all sections composed here
+│   ├── layout.tsx          # Root layout: fonts, <html lang> from the locale cookie
+│   ├── (hub)/              # Hub at /: layout (dictionary) + page
+│   ├── audio/              # Audio persona at /audio: layout + page
 │   └── globals.css         # Tailwind v4 config + .glass utilities
 ├── components/
 │   ├── Navbar.tsx          # Dynamic Island — compact/expanded morph
@@ -98,9 +99,12 @@ src/
 │   ├── Contact.tsx         # Glass card contact form
 │   └── Footer.tsx          # Social links
 └── i18n/
-    ├── LocaleProvider.tsx  # Locale context + useLocale hook
-    ├── en.json             # English dictionary
-    └── pt.json             # Portuguese dictionary
+    ├── locale.ts           # Locale type + cookie/Accept-Language resolution
+    ├── dictionaries.ts     # Server-only: getLocale, getDictionary(locale, persona)
+    ├── actions.ts          # Server Action that stores the locale cookie
+    ├── LocaleProvider.tsx  # Client context + useLocale hook
+    ├── en/                 # common.json, hub.json, audio.json, dev.json
+    └── pt/                 # same files, in Portuguese
 ```
 
 ---
@@ -128,7 +132,7 @@ Deploy the `.next` output to Vercel, Netlify, or any Node.js host.
 
 ## Content
 
-All text is in `src/i18n/en.json` and `src/i18n/pt.json`.
+All text is in `src/i18n/{en,pt}/{common,hub,audio,dev}.json`.
 Social links are in `Footer.tsx`.
 Photo list is in `Photos.tsx`.
 

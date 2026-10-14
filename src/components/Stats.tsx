@@ -2,10 +2,11 @@
 
 import { useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import type { AudioDictionary } from '@/i18n/types';
 import { TiltCard } from './TiltCard';
 
 export function Stats() {
-  const { dict } = useLocale();
+  const { dict } = useLocale<AudioDictionary>();
   const reduce = useReducedMotion();
 
   return (

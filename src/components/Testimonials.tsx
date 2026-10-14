@@ -4,13 +4,14 @@ import { useCallback, useEffect, useRef } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import type { AudioDictionary } from '@/i18n/types';
 import { useTestimonialModal } from './TestimonialModalProvider';
 import type { ApprovedTestimonial } from '@/lib/testimonial';
 import { TiltCard } from './TiltCard';
 import { useMagnetic } from './useMagnetic';
 
 export function Testimonials({ items }: { items: ApprovedTestimonial[] }) {
-  const { dict } = useLocale();
+  const { dict } = useLocale<AudioDictionary>();
   const reduce = useReducedMotion();
   const { open } = useTestimonialModal();
   const ctaMagnet = useMagnetic<HTMLButtonElement>();

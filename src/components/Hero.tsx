@@ -8,11 +8,12 @@ import {
   useReducedMotion,
 } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import type { AudioDictionary } from '@/i18n/types';
 import { ArrowDown } from '@phosphor-icons/react';
 import { useMagnetic } from './useMagnetic';
 
 export function Hero() {
-  const { dict } = useLocale();
+  const { dict } = useLocale<AudioDictionary>();
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const ctaMagnet = useMagnetic<HTMLAnchorElement>();

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { LocaleProvider } from "@/i18n/LocaleProvider";
+import { getLocale } from "@/i18n/dictionaries";
 import { LiquidGlassFilter } from "@/components/LiquidGlassFilter";
 
 const geistSans = Geist({
@@ -26,19 +26,19 @@ export const viewport: Viewport = {
   themeColor: "#141414", // --brand-onyx in globals.css; keep in sync by hand
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html
-      lang="en"
+      lang={await getLocale()}
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body>
         <LiquidGlassFilter />
-        <LocaleProvider>{children}</LocaleProvider>
+        {children}
       </body>
     </html>
   );
