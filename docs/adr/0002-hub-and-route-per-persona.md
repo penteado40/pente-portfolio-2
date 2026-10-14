@@ -13,7 +13,7 @@ The site was a single page at `/` presenting the Audio Engineer. It now has to p
 - `/` is the **Hub**. Each persona gets its own route: `/audio` and `/dev`.
 - All routes share one root layout (`src/app/layout.tsx`) with `<html>`, fonts, `LocaleProvider`, a `title.template` and the Onyx `themeColor`. Nothing persona-specific lives there.
 - Each persona has a nested layout (`src/app/<persona>/layout.tsx`) that renders the `data-persona` wrapper (see [ADR 0003](0003-persona-color-tokens.md)), the persona's metadata, its providers, the Navbar and the Footer. The page renders only the persona's sections.
-- The **Navbar** is shared and configured by props: `items` (section anchors) and optional `actions` (persona buttons, e.g. the Audio persona's testimonial button). It knows nothing about any persona. The **Footer** is shared without props.
+- The **Navbar** is shared and configured by props: `items` (section anchors) and optional `actions` (persona buttons, e.g. the Audio persona's testimonial button). It knows nothing about any persona. `actions` is a list of `{ label, Icon, onClick }` rather than a ReactNode slot, because the Navbar renders each action three ways (desktop pill, compact icon, mobile menu entry). Since labels come from the client-side dictionary and `onClick` can't cross from a server layout, each persona has a small client wrapper (e.g. `AudioNavbar`) that builds the props. The **Footer** is shared without props.
 - Old links: the Hub forwards `/#<anchor>` to `/audio#<anchor>` on the client when the anchor is one of the Audio page's sections (`about`, `timeline`, `certifications`, `projects`, `skills`, `contact`, `testimonials`, `photos`). A brief flash of the Hub is accepted. This can be removed once old links stop mattering.
 - API routes (`/api/contacts`, `/api/testimonials`) keep their paths.
 
@@ -28,5 +28,6 @@ The site was a single page at `/` presenting the Audio Engineer. It now has to p
 ## Consequences
 
 - Adding a persona means adding a route folder with a layout and a page, a `data-persona` block in `globals.css`, and the persona's nav items.
+- A new kind of action (not an icon button) needs a Navbar change.
 - Persona metadata (title, description, OG image) lives in each persona's layout; the root only supplies the `title.template` and defaults.
 - The Hub briefly renders before forwarding an old anchor link.

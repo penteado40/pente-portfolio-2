@@ -9,7 +9,8 @@
  * never raw hex, so a palette change cascades everywhere automatically.
  *
  * Persona colors are redefined per persona on the root element, keyed off
- * the `data-persona` wrapper the page renders (see docs/adr/0003). The
+ * the `data-persona` wrapper each route renders in its layout or page
+ * (see docs/adr/0003 and 0002). The
  * override must sit on :root: the --color-* tokens are declared there and
  * inherited already resolved, so body, ::selection and .glass* would ignore
  * an override placed only on the wrapper.
