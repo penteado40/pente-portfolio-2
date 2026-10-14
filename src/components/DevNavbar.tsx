@@ -24,8 +24,8 @@ export function DevNavbar() {
     ...(certifications.length > 0
       ? [{ label: dict.nav.certifications, href: '#certifications', Icon: Certificate }]
       : []),
-    { label: dict.nav.skills, href: '#skills', Icon: Wrench },
     { label: dict.nav.projects, href: '#projects', Icon: Code },
+    { label: dict.nav.skills, href: '#skills', Icon: Wrench },
     { label: dict.nav.contact, href: '#contact', Icon: Envelope },
   ];
 
