@@ -42,7 +42,7 @@ export function Contact() {
   }[status];
 
   return (
-    <section id="contact" className="py-24 md:py-32">
+    <section id="contact" className="py-24 md:py-32 bg-mist">
       <div className="max-w-2xl mx-auto px-6">
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 24 }}

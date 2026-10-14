@@ -10,7 +10,7 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className="py-24 md:py-32 bg-gradient-to-b from-mist to-background"
+      className="py-24 md:py-32 bg-mist"
     >
       <div className="max-w-[1400px] mx-auto px-6">
         <motion.h2

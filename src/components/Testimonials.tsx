@@ -13,7 +13,7 @@ export function Testimonials({ items }: { items: ApprovedTestimonial[] }) {
   const { open } = useTestimonialModal();
 
   return (
-    <section className="py-24 md:py-32 bg-gradient-to-b from-mist to-background">
+    <section className="color-block [--block-from:var(--color-mist)] py-24 md:py-32">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="flex items-center justify-between gap-4 mb-12">
           <motion.h2
@@ -276,7 +276,7 @@ function TestimonialCard({ item }: { item: ApprovedTestimonial }) {
       <p className="text-ink/70 leading-relaxed mb-4">&ldquo;{item.message}&rdquo;</p>
       <p className="text-sm">
         <span className="font-medium">{item.author}</span>
-        <span className="text-ink/40"> &mdash; {item.roleCompany}</span>
+        <span className="text-ink/60"> &mdash; {item.roleCompany}</span>
       </p>
     </div>
   );

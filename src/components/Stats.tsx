@@ -8,7 +8,7 @@ export function Stats() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="py-16 md:py-20">
+    <section className="color-block py-24 md:py-28">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {dict.stats.items.map((stat, i) => (
@@ -27,7 +27,7 @@ export function Stats() {
               <div className="text-3xl md:text-4xl font-mono text-ink">
                 {stat.value}
               </div>
-              <div className="text-sm text-ink/60 mt-2">{stat.label}</div>
+              <div className="text-sm text-ink/70 mt-2">{stat.label}</div>
             </motion.div>
           ))}
         </div>

@@ -57,7 +57,7 @@ export function Photos() {
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-gradient-to-b from-background to-mist">
+    <section className="py-24 md:py-32">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
           <motion.h2

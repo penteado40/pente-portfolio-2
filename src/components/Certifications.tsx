@@ -9,7 +9,7 @@ export function Certifications() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="certifications" className="py-24 md:py-32">
+    <section id="certifications" className="py-24 md:py-32 bg-mist">
       <div className="max-w-[1400px] mx-auto px-6">
         <motion.h2
           initial={reduce ? false : { opacity: 0, y: 20 }}

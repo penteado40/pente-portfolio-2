@@ -12,7 +12,7 @@ export function Footer() {
   const { dict } = useLocale();
 
   return (
-    <footer className="py-12 bg-mist border-t border-white/10">
+    <footer className="py-12 border-t border-white/10">
       <div className="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-sm text-white/50">
           {new Date().getFullYear()} Felipe Penteado. {dict.footer.rights}

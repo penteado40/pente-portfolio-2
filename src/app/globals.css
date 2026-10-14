@@ -148,6 +148,29 @@ body {
   }
 }
 
+/*
+ * Color block: a section filled with the persona's accent-dark, fading in
+ * from the neutral section above and out to the one below. Neighbours
+ * default to `background`; override per section with a utility such as
+ * [--block-from:var(--color-mist)] (hence @layer components, so utilities
+ * win). At most two per persona page, and never on a section with
+ * bg-accent fills (they'd vanish on the block).
+ */
+@layer components {
+  .color-block {
+    --block-from: var(--color-background);
+    --block-to: var(--color-background);
+    --block-fade: 96px;
+    background: linear-gradient(
+      to bottom,
+      var(--block-from),
+      var(--color-accent-dark) var(--block-fade),
+      var(--color-accent-dark) calc(100% - var(--block-fade)),
+      var(--block-to)
+    );
+  }
+}
+
 .scrollbar-hide {
   scrollbar-width: none;
   -ms-overflow-style: none;
