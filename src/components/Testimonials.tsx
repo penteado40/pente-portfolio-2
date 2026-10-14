@@ -29,7 +29,7 @@ export function Testimonials({ items }: { items: ApprovedTestimonial[] }) {
           <button
             type="button"
             onClick={open}
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:scale-[1.02] hover:ring-2 hover:ring-highlight transition-[scale,box-shadow] active:scale-[0.98] shrink-0"
+            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:scale-[1.02] hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight transition-[scale,box-shadow] active:scale-[0.98] shrink-0"
           >
             {dict.testimonials.cta}
           </button>
@@ -229,7 +229,7 @@ function TestimonialsCarousel({
         onPointerMove={handlePointerMove}
         onPointerUp={endDrag}
         onPointerCancel={endDrag}
-        className="carousel-fade flex gap-6 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide px-6 cursor-grab active:cursor-grabbing select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-highlight/50 rounded-2xl"
+        className="carousel-fade flex gap-6 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide px-6 cursor-grab active:cursor-grabbing select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-highlight rounded-2xl"
       >
         {extended.map((item, i) => (
           <div
@@ -251,7 +251,7 @@ function TestimonialsCarousel({
           goPrev();
         }}
         aria-label="Previous testimonial"
-        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink transition-colors"
+        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight transition-colors"
       >
         <CaretLeft size={18} weight="bold" />
       </button>
@@ -262,7 +262,7 @@ function TestimonialsCarousel({
           goNext();
         }}
         aria-label="Next testimonial"
-        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink transition-colors"
+        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight transition-colors"
       >
         <CaretRight size={18} weight="bold" />
       </button>

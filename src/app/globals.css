@@ -29,7 +29,7 @@
 }
 
 /* Persona tokens. accent = fills only (never text); accent-dark = second
-   gradient stop; highlight = focus/hover rings, active indicators, loose
+   gradient stop and .color-block fill; highlight = focus/hover rings, active indicators, loose
    icons, ::selection. The Hub is neutral and is also the fallback.
    Keep this block first: it compiles to :is(:root, :root:has(…)), the
    same specificity as the persona blocks, so they win by source order. */
@@ -154,7 +154,8 @@ body {
  * default to `background`; override per section with a utility such as
  * [--block-from:var(--color-mist)] (hence @layer components, so utilities
  * win). At most two per persona page, and never on a section with
- * bg-accent fills (they'd vanish on the block).
+ * bg-accent fills (they'd vanish on the block). Persona pages only: on
+ * the Hub, accent-dark falls back to charcoal, the card surface color.
  */
 @layer components {
   .color-block {
