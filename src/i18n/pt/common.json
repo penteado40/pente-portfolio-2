@@ -1,7 +1,17 @@
 {
   "navbar": {
     "toggleMenu": "Abrir ou fechar o menu",
-    "switchLocale": "Mudar para inglês"
+    "switchLocale": "Mudar para inglês",
+    "home": "Felipe Penteado, voltar ao Hub",
+    "personaSwitch": "Persona",
+    "personas": {
+      "audio": "Audio",
+      "dev": "Dev"
+    },
+    "switchTo": {
+      "audio": "Ir para a persona Audio",
+      "dev": "Ir para a persona Dev"
+    }
   },
   "contact": {
     "title": "Trabalhando em algo que precisa soar certo?",

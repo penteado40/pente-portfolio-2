@@ -44,10 +44,10 @@
    is under 3:1 (WCAG 1.4.11), so an accent fill must never carry meaning
    on its own, inside a block or out. The Hub is neutral and is also the
    fallback, where the blocks fall back into the normal neutral rhythm.
-   The Hub's persona cards carry their persona's tokens through
-   `data-persona-card`, a separate attribute so they recolor only
-   themselves: `data-persona` there would match :root:has() and theme
-   the whole Hub.
+   The Hub's persona cards, and the icon of the Navbar's "go to" chip,
+   carry their persona's tokens through `data-persona-card`, a separate
+   attribute so they recolor only themselves: `data-persona` there would
+   match :root:has() and theme the whole page.
    Keep this block first: it compiles to :is(:root, :root:has(…)), the
    same specificity as the persona blocks, so they win by source order. */
 :root,

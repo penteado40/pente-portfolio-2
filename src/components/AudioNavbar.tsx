@@ -4,6 +4,7 @@ import { useLocale } from '@/i18n/LocaleProvider';
 import type { AudioDictionary } from '@/i18n/types';
 import { useTestimonialModal } from './TestimonialModalProvider';
 import { Navbar } from './Navbar';
+import { usePersonaSwitch } from './usePersonaSwitch';
 import {
   User,
   MusicNotes,
@@ -17,6 +18,7 @@ import {
 export function AudioNavbar() {
   const { dict } = useLocale<AudioDictionary>();
   const { open: openTestimonialModal } = useTestimonialModal();
+  const personas = usePersonaSwitch('audio');
 
   return (
     <Navbar
@@ -31,6 +33,7 @@ export function AudioNavbar() {
       actions={[
         { label: dict.testimonials.cta, Icon: ChatCircleText, onClick: openTestimonialModal },
       ]}
+      personas={personas}
     />
   );
 }

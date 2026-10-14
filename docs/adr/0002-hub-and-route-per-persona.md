@@ -35,3 +35,7 @@ The site was a single page at `/` presenting the Audio Engineer. It now has to p
 ## Amendment (2026-10-14): the Hub's own bar and footer
 
 PROJ-137 gives the Hub a plain top bar (`HubNavbar`) and footer (`HubFooter`) instead of the shared Navbar and Footer. The Hub has no sections to jump between, only the routes, so the floating Navbar has nothing to show; the shared Navbar and Footer stay the personas'.
+
+## Amendment (2026-10-14): switching persona from the Navbar
+
+PROJ-136 adds a third Navbar prop, `personas`: every persona with the current one marked (the expanded state's segmented selector) and the destination of the compact state's "go to" chip. The Navbar still knows no persona by name; the wrappers build the prop with `usePersonaSwitch('<persona>')`, which takes the order and routes from `src/content/personas.ts` and the labels from `common.json`. The "FP" logo leads back to the Hub in both states. Adding a persona now also means adding it to `PERSONAS`, giving it an icon in `usePersonaSwitch`, and adding its labels under `navbar` in `common.json`; with more than two, the chip needs a rule for which persona it points at.

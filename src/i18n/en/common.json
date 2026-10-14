@@ -1,7 +1,17 @@
 {
   "navbar": {
     "toggleMenu": "Toggle menu",
-    "switchLocale": "Switch to Portuguese"
+    "switchLocale": "Switch to Portuguese",
+    "home": "Felipe Penteado, back to the Hub",
+    "personaSwitch": "Persona",
+    "personas": {
+      "audio": "Audio",
+      "dev": "Dev"
+    },
+    "switchTo": {
+      "audio": "Switch to the Audio persona",
+      "dev": "Switch to the Dev persona"
+    }
   },
   "contact": {
     "title": "Working on something that needs to sound right?",
