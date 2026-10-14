@@ -20,7 +20,8 @@ const EXPANDED_MAX_WIDTH = 1120;
 // Until the compact pill is measured on the client.
 const COMPACT_FALLBACK_WIDTH = 520;
 
-// Every control is a 44px target; most draw a smaller shape inside it.
+// Every control is a 44px target; most draw a smaller shape inside it, and
+// those whose ring belongs on that shape (NavActionButton) draw their own.
 const focusRing =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight';
 
@@ -37,7 +38,7 @@ type NavbarProps = {
 };
 
 export function Navbar({ items, actions = [], personas }: NavbarProps) {
-  const { locale, setLocale, dict } = useLocale();
+  const { dict } = useLocale();
   const { scrollY } = useScroll();
   const [inHero, setInHero] = useState(true);
   const [hovered, setHovered] = useState(false);
@@ -47,6 +48,7 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
   const reduce = useReducedMotion();
   const hoverLeaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const active = useActiveSection(items.map((item) => item.href));
+  const sections = items.map((item) => ({ ...item, active: item.href === active }));
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const hero = latest < window.innerHeight * 0.85;
@@ -82,7 +84,6 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
     return () => observer.disconnect();
   }, [compactEl]);
 
-  const switchLocale = () => setLocale(locale === 'en' ? 'pt' : 'en');
   const { destination } = personas;
 
   return (
@@ -125,18 +126,18 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
               </Link>
 
               <div className="hidden lg:flex items-center gap-5">
-                {items.map((item) => (
+                {sections.map((item) => (
                   <a
                     key={item.href}
                     href={item.href}
-                    aria-current={active === item.href ? 'true' : undefined}
+                    aria-current={item.active ? 'true' : undefined}
                     className={`flex items-center justify-center h-11 min-w-11 text-sm whitespace-nowrap transition-colors ${focusRing} ${
-                      active === item.href ? 'text-white' : 'text-white/70 hover:text-white'
+                      item.active ? 'text-white' : 'text-white/70 hover:text-white'
                     }`}
                   >
                     <span
                       className={`py-1.5 ${
-                        active === item.href ? 'shadow-[inset_0_-2px_0_var(--color-highlight)]' : ''
+                        item.active ? 'shadow-[inset_0_-2px_0_var(--color-highlight)]' : ''
                       }`}
                     >
                       {item.label}
@@ -159,12 +160,12 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
                       key={option.href}
                       href={option.href}
                       aria-current={option.current ? 'page' : undefined}
-                      className={`group flex items-center h-11 rounded-full ${focusRing}`}
+                      className={`group flex items-center justify-center h-11 min-w-11 rounded-full ${focusRing}`}
                     >
                       <span
                         className={`flex items-center h-7 px-3 rounded-full text-xs font-medium transition-colors ${
                           option.current
-                            ? 'bg-accent text-white ring-1 ring-highlight/40'
+                            ? 'bg-accent text-white ring-1 ring-highlight'
                             : 'text-white/70 group-hover:text-white'
                         }`}
                       >
@@ -173,9 +174,7 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
                     </Link>
                   ))}
                 </div>
-                <LocaleButton onClick={switchLocale} label={dict.navbar.switchLocale}>
-                  {locale === 'en' ? 'PT' : 'EN'}
-                </LocaleButton>
+                <LocaleButton />
                 <button
                   onClick={() => setMobileOpen(!mobileOpen)}
                   className={`lg:hidden grid place-items-center size-11 rounded-full text-white/80 press ${focusRing}`}
@@ -206,17 +205,17 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
               <Separator />
               {/* Section icons don't fit a phone's width; the expanded menu has them. */}
               <div className="hidden sm:flex items-center">
-                {items.map((item) => (
+                {sections.map((item) => (
                   <a
                     key={item.href}
                     href={item.href}
                     aria-label={item.label}
-                    aria-current={active === item.href ? 'true' : undefined}
+                    aria-current={item.active ? 'true' : undefined}
                     className={`group grid place-items-center size-11 rounded-full ${focusRing}`}
                   >
                     <span
                       className={`grid place-items-center size-8 rounded-full transition-colors ${
-                        active === item.href
+                        item.active
                           ? 'text-highlight bg-highlight/14'
                           : 'text-white/70 group-hover:text-white'
                       }`}
@@ -250,9 +249,7 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
                   {destination.label}
                 </span>
               </Link>
-              <LocaleButton onClick={switchLocale} label={dict.navbar.switchLocale}>
-                {locale === 'en' ? 'PT' : 'EN'}
-              </LocaleButton>
+              <LocaleButton />
             </motion.div>
           )}
         </AnimatePresence>
@@ -266,14 +263,14 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
               transition={{ duration: 0.2 }}
               className="lg:hidden px-6 pb-2 flex flex-col border-t border-white/10 overflow-hidden"
             >
-              {items.map((item) => (
+              {sections.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  aria-current={active === item.href ? 'true' : undefined}
+                  aria-current={item.active ? 'true' : undefined}
                   className={`text-sm py-3 transition-colors ${
-                    active === item.href ? 'text-highlight' : 'text-white/70 hover:text-white'
+                    item.active ? 'text-highlight' : 'text-white/70 hover:text-white'
                   }`}
                 >
                   {item.label}
@@ -314,22 +311,16 @@ function Separator() {
   return <span aria-hidden className="w-px h-4 mx-1 bg-white/20 shrink-0" />;
 }
 
-function LocaleButton({
-  onClick,
-  label,
-  children,
-}: {
-  onClick: () => void;
-  label: string;
-  children: React.ReactNode;
-}) {
+function LocaleButton() {
+  const { locale, setLocale, dict } = useLocale();
+
   return (
     <button
-      onClick={onClick}
-      aria-label={label}
+      onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
+      aria-label={dict.navbar.switchLocale}
       className={`grid place-items-center h-11 min-w-11 px-2 rounded-full font-mono text-xs uppercase tracking-wider text-white/70 hover:text-white press ${focusRing}`}
     >
-      {children}
+      {locale === 'en' ? 'PT' : 'EN'}
     </button>
   );
 }

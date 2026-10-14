@@ -12,10 +12,11 @@ const READING_BAND = '-40% 0px -55% 0px';
  */
 export function useActiveSection(hrefs: string[]) {
   const [active, setActive] = useState<string | null>(null);
-  const key = hrefs.join(' ');
+  // A string, so a new array with the same anchors doesn't re-observe.
+  const hrefsKey = hrefs.join(' ');
 
   useEffect(() => {
-    const sections = key
+    const sections = hrefsKey
       .split(' ')
       .map((href) => document.getElementById(href.slice(1)))
       .filter((section) => section !== null);
@@ -34,7 +35,7 @@ export function useActiveSection(hrefs: string[]) {
     );
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, [key]);
+  }, [hrefsKey]);
 
   return active;
 }
