@@ -32,7 +32,10 @@
 
 /* Persona tokens. accent = fills only (never text); accent-dark = second
    gradient stop only; highlight = focus/hover rings, active indicators,
-   loose icons, ::selection; block-deep / block-mid = Color block fills
+   loose icons, ::selection (one contained exception: the Dev Hero's
+   primary CTA is a highlight fill with an ink ring, since a Deep Teal
+   primary would read weaker than its secondary, decided in GitHub
+   issue #14); block-deep / block-mid = Color block fills
    (see CONTEXT.md), plus overlays that fade into a block (Hero, About
    portrait) and controls set into a block-mid block (Photos tab pill).
    The block tones are near-neutrals tinted with the persona hue:

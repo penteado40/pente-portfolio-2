@@ -1,3 +1,4 @@
+// Relative, not `@/`: cv.test.ts runs under plain `node --test`, which has no path aliases.
 import type { Locale } from '../i18n/locale';
 
 /**
