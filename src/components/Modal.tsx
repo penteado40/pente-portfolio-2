@@ -98,7 +98,7 @@ export function Modal({ isOpen, onClose, closeLabel, children }: ModalProps) {
               type="button"
               onClick={onClose}
               aria-label={closeLabel}
-              className="absolute top-4 right-4 glass-strong p-1.5 rounded-full text-ink/80 hover:text-ink transition-colors"
+              className="absolute top-4 right-4 glass-strong p-1.5 rounded-full text-ink/80 hover:text-ink press transition-[color,scale]"
             >
               <XIcon size={16} weight="bold" />
             </button>

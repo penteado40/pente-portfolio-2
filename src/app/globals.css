@@ -21,7 +21,7 @@
   --brand-mist: #1c1c1c;
   --brand-charcoal: #2b2b2b;
   --brand-offwhite: #f5f5f5;
-  --brand-black: #000; /* only for gradient starts and shadows, never a fill */
+  --brand-black: #000; /* only for gradient stops and shadows, never a fill */
   --brand-emerald: #10b981;
   --brand-crimson: #b91c1c;
 
@@ -121,48 +121,124 @@ body {
   color: var(--color-background);
 }
 
-.glass {
-  background: color-mix(in oklab, var(--color-surface) 55%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--color-white) 10%, transparent);
+/*
+ * Liquid Glass material (plan A, decided in GitHub issue #11). Every glass surface on
+ * the site uses one of these three classes, and the material lives only
+ * here: tint + backdrop blur + border + specular rim. It is neutral on
+ * purpose (no persona tint): the color comes from whatever sits behind it.
+ * Plan B (glass only on controls, solid content cards) is a swap of the card
+ * classes to bg-mist/bg-surface, with no change to component structure.
+ *
+ * Text on glass stays at ink/60 or stronger: the tints below keep that at
+ * 4.5:1 or more over every section background, and .glass-dark (Navbar)
+ * keeps white/70 at 4.5:1 even over a white photo.
+ *
+ * The box-shadow composes Tailwind's ring and shadow variables, so ring and
+ * shadow utilities (focus-visible:ring-*, shadow-lg) still draw on a glass
+ * element; these rules are unlayered and would otherwise override them.
+ * To change a glass element's drop shadow from CSS, set --glass-drop.
+ *
+ * Tilt sheen: TiltCard (hover tilt on cards) sets --glass-tilt-angle, the
+ * direction toward the side that sinks under the cursor, and --glass-tilt,
+ * its strength from 0 (flat) to 1. The first background layer lights the
+ * rising side and shades the sinking one; at rest it is fully transparent.
+ * The light tops out at 6% white over the static sheen, which keeps ink/60
+ * at 4.5:1 even at the lit edge over a block-mid section (Ocean Blue: 4.6:1).
+ */
+.glass,
+.glass-strong,
+.glass-dark {
+  --glass-tint: color-mix(in oklab, var(--color-surface) 45%, transparent);
+  --glass-sheen: color-mix(in oklab, var(--color-white) 6%, transparent);
+  --glass-blur: 16px;
+  --glass-backdrop: blur(var(--glass-blur)) saturate(170%);
+  --glass-drop: 0 8px 32px color-mix(in oklab, var(--brand-black) 35%, transparent);
+  --glass-tilt-angle: 0deg;
+  --glass-tilt: 0;
+
+  background:
+    linear-gradient(
+      var(--glass-tilt-angle),
+      color-mix(in oklab, var(--color-white) calc(var(--glass-tilt) * 6%), transparent),
+      transparent 50%,
+      color-mix(in oklab, var(--brand-black) calc(var(--glass-tilt) * 14%), transparent)
+    ),
+    linear-gradient(160deg, var(--glass-sheen), transparent 45%),
+    var(--glass-tint);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  backdrop-filter: var(--glass-backdrop);
+  border: 1px solid color-mix(in oklab, var(--color-white) 14%, transparent);
   box-shadow:
-    inset 0 1px 0 color-mix(in oklab, var(--color-white) 8%, transparent),
-    0 8px 32px rgba(0, 0, 0, 0.35);
+    var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-inset-shadow, 0 0 #0000),
+    var(--tw-shadow, 0 0 #0000),
+    inset 0 1px 0 color-mix(in oklab, var(--color-white) 22%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, var(--color-white) 5%, transparent),
+    inset 0 0 16px color-mix(in oklab, var(--color-white) 4%, transparent),
+    var(--glass-drop);
 }
 
 .glass-strong {
-  background: color-mix(in oklab, var(--color-surface) 75%, transparent);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--color-white) 12%, transparent);
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklab, var(--color-white) 10%, transparent),
-    0 12px 40px rgba(0, 0, 0, 0.4);
+  --glass-tint: color-mix(in oklab, var(--color-surface) 70%, transparent);
+  --glass-blur: 24px;
+  --glass-drop: 0 12px 40px color-mix(in oklab, var(--brand-black) 40%, transparent);
 }
 
 .glass-dark {
-  background: color-mix(in oklab, var(--color-background) 80%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--color-white) 8%, transparent);
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklab, var(--color-white) 6%, transparent),
-    0 8px 32px rgba(0, 0, 0, 0.5);
+  --glass-tint: color-mix(in oklab, var(--color-background) 82%, transparent);
+  --glass-sheen: color-mix(in oklab, var(--color-white) 4%, transparent);
+  --glass-blur: 20px;
+  --glass-drop: 0 8px 32px color-mix(in oklab, var(--brand-black) 50%, transparent);
+}
+
+/* Refraction: an SVG displacement of the backdrop, Chromium only. The
+   attribute and the #liquid-glass-refraction filter come from
+   LiquidGlassFilter. Behind no-preference so reduced transparency drops it. */
+@media (prefers-reduced-transparency: no-preference) {
+  :root[data-glass-refraction] :is(.glass, .glass-strong, .glass-dark):not(:has(iframe)) {
+    backdrop-filter: url(#liquid-glass-refraction) var(--glass-backdrop);
+  }
+}
+
+/* Glass that holds an iframe (YouTube and Instagram embeds) drops its own
+   backdrop. Chrome composites a backdrop-filter around an iframe wrongly: it
+   smears a blurred copy of the video around overlays (the expanded
+   ProductionCard's close and mute buttons) and paints a lighter box behind
+   the text below the player. These cards keep their tint, border and tilt
+   sheen; glass laid on top of the iframe keeps the full material. */
+:is(.glass, .glass-strong, .glass-dark):has(iframe) {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .glass,
-  .glass-strong {
-    background: color-mix(in oklab, var(--color-surface) 95%, transparent);
-    backdrop-filter: none;
+  .glass-strong,
+  .glass-dark {
     -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .glass,
+  .glass-strong {
+    --glass-tint: var(--color-surface);
   }
 
   .glass-dark {
-    background: color-mix(in oklab, var(--color-background) 96%, transparent);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    --glass-tint: var(--color-background);
+  }
+}
+
+/* Button press: shrink on click, only for a fine mouse and without
+   reduced motion, so touch and reduced motion keep just the color/ring
+   change. Uses the `scale` property, which composes with useMagnetic's
+   transform. Add `scale` to the button's transition-property. */
+@utility press {
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    &:active {
+      scale: 0.97;
+    }
   }
 }
 
@@ -179,19 +255,22 @@ body {
   isolation: isolate;
 }
 
+/* The expanded card grows through the `scale` property, not `transform`:
+   TiltCard writes an inline transform for the hover tilt, and the two
+   compose instead of the inline one winning. */
 .production-card {
   position: relative;
   transform-origin: center;
   transition:
-    transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    scale 300ms cubic-bezier(0.16, 1, 0.3, 1),
     opacity 300ms ease,
     filter 300ms ease;
 }
 
 .production-card.is-active {
-  transform: scale(1.18);
+  scale: 1.18;
   z-index: 20;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  --glass-drop: 0 24px 60px color-mix(in oklab, var(--brand-black) 50%, transparent);
 }
 
 .productions-grid:has(.production-card.is-active) .production-card:not(.is-active) {
@@ -207,7 +286,7 @@ body {
   }
 
   .production-card.is-active {
-    transform: none;
+    scale: none;
   }
 }
 

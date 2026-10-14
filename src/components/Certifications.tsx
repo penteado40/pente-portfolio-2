@@ -3,6 +3,7 @@
 import { Certificate } from '@phosphor-icons/react';
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { TiltCard } from './TiltCard';
 
 export function Certifications() {
   const { dict } = useLocale();
@@ -23,7 +24,7 @@ export function Certifications() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {dict.certifications.items.map((item, i) => (
-            <motion.div
+            <TiltCard
               key={`${item.title}-${item.year}`}
               initial={reduce ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -41,14 +42,12 @@ export function Certifications() {
             >
               {item.image ? (
                 <>
-                  <div className="group relative w-full hover:z-10">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-auto block transition-transform duration-500 ease-out group-hover:scale-110 group-hover:drop-shadow-2xl"
-                      loading="lazy"
-                    />
-                  </div>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-auto block rounded-t-2xl"
+                    loading="lazy"
+                  />
                   <div className="p-6">
                     <h3 className="text-lg font-medium">{item.title}</h3>
                     <p className="text-sm text-ink/60 mt-1">{item.issuer}</p>
@@ -69,7 +68,7 @@ export function Certifications() {
                   </span>
                 </>
               )}
-            </motion.div>
+            </TiltCard>
           ))}
         </div>
       </div>
