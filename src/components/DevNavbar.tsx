@@ -21,11 +21,12 @@ export function DevNavbar() {
   const items: NavItem[] = [
     { label: dict.nav.about, href: '#about', Icon: User },
     { label: dict.nav.experience, href: '#experience', Icon: Briefcase },
+    // Not on the LP board's list; shows up only once there is a certification.
     ...(certifications.length > 0
       ? [{ label: dict.nav.certifications, href: '#certifications', Icon: Certificate }]
       : []),
-    { label: dict.nav.skills, href: '#skills', Icon: Wrench },
     { label: dict.nav.projects, href: '#projects', Icon: Code },
+    { label: dict.nav.skills, href: '#skills', Icon: Wrench },
     { label: dict.nav.contact, href: '#contact', Icon: Envelope },
   ];
 

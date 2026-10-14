@@ -31,7 +31,7 @@ export function AudioNavbar() {
         { label: dict.nav.contact, href: '#contact', Icon: Envelope },
       ]}
       actions={[
-        { label: dict.testimonials.cta, Icon: ChatCircleText, onClick: openTestimonialModal },
+        { label: dict.nav.testimonial, Icon: ChatCircleText, onClick: openTestimonialModal },
       ]}
       personas={personas}
     />
