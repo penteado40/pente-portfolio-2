@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import { Camera, InstagramLogo } from '@phosphor-icons/react';
+import { TiltCard } from './TiltCard';
 
 const photos = [
   { src: '/photos/photo_1.jpg', span: 'row-span-2' },
@@ -139,7 +140,7 @@ export function Photos() {
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {instagramPosts.map((postId, i) => (
-                <motion.div
+                <TiltCard
                   key={postId}
                   initial={reduce ? false : { opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -159,7 +160,7 @@ export function Photos() {
                     loading="lazy"
                     title={`Instagram post ${i + 1}`}
                   />
-                </motion.div>
+                </TiltCard>
               ))}
             </motion.div>
           )}

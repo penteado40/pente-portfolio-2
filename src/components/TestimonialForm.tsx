@@ -5,12 +5,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import { PaperPlaneTilt, Check, CircleNotch } from '@phosphor-icons/react';
 import { submitTestimonial } from '@/lib/submitTestimonial';
+import { useMagnetic } from './useMagnetic';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void }) {
   const { dict } = useLocale();
   const [status, setStatus] = useState<Status>('idle');
+  const submitMagnet = useMagnetic<HTMLButtonElement>();
 
   useEffect(() => {
     if (status !== 'sent') return;
@@ -95,15 +97,16 @@ export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void
           />
         </div>
 
-        <button
+        <motion.button
+        {...submitMagnet}
           type="submit"
           disabled={status === 'sending' || status === 'sent'}
-          className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium transition-all active:scale-[0.98] disabled:pointer-events-none ${
+          className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium transition-all press disabled:pointer-events-none ${
             status === 'sent'
               ? 'bg-success text-background'
               : status === 'error'
-                ? 'bg-danger text-ink hover:scale-[1.02] hover:ring-2 hover:ring-highlight'
-                : 'bg-accent text-ink hover:scale-[1.02] hover:ring-2 hover:ring-highlight'
+                ? 'bg-danger text-ink hover:ring-2 hover:ring-highlight'
+                : 'bg-accent text-ink hover:ring-2 hover:ring-highlight'
           }`}
         >
           <AnimatePresence mode="wait" initial={false}>
@@ -123,7 +126,7 @@ export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void
               />
             </motion.span>
           </AnimatePresence>
-        </button>
+        </motion.button>
       </form>
     </div>
   );

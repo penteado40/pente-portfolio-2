@@ -11,6 +11,7 @@ import {
 import Link from 'next/link';
 import { useLocale } from '@/i18n/LocaleProvider';
 import { List, X, type Icon } from '@phosphor-icons/react';
+import { useMagnetic } from './useMagnetic';
 
 const HOVER_LEAVE_DELAY_MS = 400;
 
@@ -107,13 +108,7 @@ export function Navbar({ items, actions = [] }: NavbarProps) {
 
               <div className="flex items-center gap-3">
                 {actions.map((action) => (
-                  <button
-                    key={action.label}
-                    onClick={action.onClick}
-                    className="hidden md:inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-medium hover:scale-[1.02] hover:ring-2 hover:ring-highlight transition-[scale,box-shadow] active:scale-[0.98] shrink-0"
-                  >
-                    {action.label}
-                  </button>
+                  <NavActionButton key={action.label} action={action} />
                 ))}
                 <button
                   onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
@@ -208,5 +203,19 @@ export function Navbar({ items, actions = [] }: NavbarProps) {
         </AnimatePresence>
       </motion.nav>
     </div>
+  );
+}
+
+function NavActionButton({ action }: { action: NavAction }) {
+  const magnet = useMagnetic<HTMLButtonElement>();
+
+  return (
+    <motion.button
+      {...magnet}
+      onClick={action.onClick}
+      className="hidden md:inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-medium hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press transition-[scale,box-shadow] shrink-0"
+    >
+      {action.label}
+    </motion.button>
   );
 }

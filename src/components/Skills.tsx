@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import { TiltCard } from './TiltCard';
 
 export function Skills() {
   const { dict } = useLocale();
@@ -25,7 +26,7 @@ export function Skills() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {dict.skills.categories.map((category, i) => (
-            <motion.div
+            <TiltCard
               key={category.name}
               initial={reduce ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -52,7 +53,7 @@ export function Skills() {
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </TiltCard>
           ))}
         </div>
       </div>
