@@ -1,4 +1,5 @@
 import { Envelope, GithubLogo, LinkedinLogo } from '@phosphor-icons/react/dist/ssr';
+import { links } from '@/content/links';
 import type { HubDictionary } from '@/i18n/types';
 
 const pill =
@@ -12,12 +13,12 @@ export function HubFooter({ dict }: { dict: HubDictionary }) {
           Felipe Penteado · {dict.footer.rights}
         </p>
         <div className="flex gap-2 md:gap-2.5">
-          <a href="mailto:flpenteado@gmail.com" className={pill}>
+          <a href={links.email} className={pill}>
             <Envelope size={16} aria-hidden />
             {dict.links.contact}
           </a>
           <a
-            href="https://www.linkedin.com/in/penteado-felipe"
+            href={links.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className={pill}
@@ -26,7 +27,7 @@ export function HubFooter({ dict }: { dict: HubDictionary }) {
             LinkedIn
           </a>
           <a
-            href="https://github.com/penteado40"
+            href={links.github}
             target="_blank"
             rel="noopener noreferrer"
             className={pill}

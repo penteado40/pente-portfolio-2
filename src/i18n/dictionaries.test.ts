@@ -1,10 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import type { Locale } from './locale.ts';
 
 const NAMES = ['common', 'hub', 'audio', 'dev'] as const;
 
-function load(locale: 'en' | 'pt', name: string): Record<string, unknown> {
+function load(locale: Locale, name: string): Record<string, unknown> {
   return JSON.parse(readFileSync(new URL(`./${locale}/${name}.json`, import.meta.url), 'utf8'));
 }
 
