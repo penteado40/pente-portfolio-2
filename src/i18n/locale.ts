@@ -7,6 +7,11 @@ export function isLocale(value: unknown): value is Locale {
   return value === 'en' || value === 'pt';
 }
 
+/** The locale the language switcher offers: always the one not in use. */
+export function otherLocale(locale: Locale): Locale {
+  return locale === 'en' ? 'pt' : 'en';
+}
+
 /**
  * The cookie (set by the language switcher) wins. Without it, any `pt*`
  * language the browser accepts gives `pt`; everything else, including a

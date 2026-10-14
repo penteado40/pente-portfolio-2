@@ -1,10 +1,14 @@
 {
   "navbar": {
     "toggleMenu": "Abrir ou fechar o menu",
-    "switchLocale": "Mudar para inglês"
-  },
-  "personas": {
-    "audio": "Engenheiro de Áudio"
+    "switchLocale": "Mudar para inglês",
+    "home": "Felipe Penteado, voltar ao Hub",
+    "personaSwitch": "Persona",
+    "personas": {
+      "audio": "Audio",
+      "dev": "Dev"
+    },
+    "switchTo": "Ir para a persona {persona}"
   },
   "contact": {
     "title": "Trabalhando em algo que precisa soar certo?",

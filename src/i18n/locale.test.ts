@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { resolveLocale } from './locale.ts';
+import { otherLocale, resolveLocale } from './locale.ts';
 
 test('a valid cookie wins over Accept-Language', () => {
   assert.equal(resolveLocale('en', 'pt-BR,pt;q=0.9'), 'en');
@@ -36,4 +36,9 @@ test('pt with q=0 is a refusal, not a preference', () => {
 test('an unknown cookie value falls back to detection', () => {
   assert.equal(resolveLocale('fr', 'pt-BR'), 'pt');
   assert.equal(resolveLocale('', null), 'en');
+});
+
+test('the language switcher always offers the other locale', () => {
+  assert.equal(otherLocale('en'), 'pt');
+  assert.equal(otherLocale('pt'), 'en');
 });

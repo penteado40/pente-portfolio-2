@@ -1,10 +1,14 @@
 {
   "navbar": {
     "toggleMenu": "Toggle menu",
-    "switchLocale": "Switch to Portuguese"
-  },
-  "personas": {
-    "audio": "Audio Engineer"
+    "switchLocale": "Switch to Portuguese",
+    "home": "Felipe Penteado, back to the Hub",
+    "personaSwitch": "Persona",
+    "personas": {
+      "audio": "Audio",
+      "dev": "Dev"
+    },
+    "switchTo": "Switch to the {persona} persona"
   },
   "contact": {
     "title": "Working on something that needs to sound right?",

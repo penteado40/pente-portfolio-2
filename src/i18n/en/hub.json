@@ -1,1 +1,29 @@
-{}
+{
+  "nav": {
+    "label": "Main",
+    "home": "Home"
+  },
+  "intro": {
+    "portraitAlt": "Felipe Penteado",
+    "tagline": "I build backend systems and mix live sound, two fields driven by the same instinct for invisible precision."
+  },
+  "cards": {
+    "audio": {
+      "title": "Audio Engineer",
+      "description": "Live sound, DVD recordings and studio mixing for vocal music.",
+      "short": "Live, DVDs and studio",
+      "enter": "Enter /audio",
+      "label": "Audio Engineer: see the Audio page"
+    },
+    "dev": {
+      "title": "Systems Developer",
+      "description": "Back-end for billing, payments and APIs: Node.js, TypeScript, PostgreSQL.",
+      "short": "Back-end, payments and APIs",
+      "enter": "Enter /dev",
+      "label": "Systems Developer: see the Dev page"
+    }
+  },
+  "links": {
+    "contact": "Contact"
+  }
+}

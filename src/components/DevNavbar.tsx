@@ -4,6 +4,7 @@ import { useLocale } from '@/i18n/LocaleProvider';
 import type { DevDictionary } from '@/i18n/types';
 import { certifications } from '@/content/dev';
 import { Navbar, type NavItem } from './Navbar';
+import { usePersonaSwitch } from './usePersonaSwitch';
 import {
   User,
   Briefcase,
@@ -15,6 +16,7 @@ import {
 
 export function DevNavbar() {
   const { dict } = useLocale<DevDictionary>();
+  const personas = usePersonaSwitch('dev');
 
   const items: NavItem[] = [
     { label: dict.nav.about, href: '#about', Icon: User },
@@ -27,5 +29,5 @@ export function DevNavbar() {
     { label: dict.nav.contact, href: '#contact', Icon: Envelope },
   ];
 
-  return <Navbar items={items} />;
+  return <Navbar items={items} personas={personas} />;
 }

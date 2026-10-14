@@ -31,3 +31,13 @@ The site was a single page at `/` presenting the Audio Engineer. It now has to p
 - A new kind of action (not an icon button) needs a Navbar change.
 - Persona metadata (title, description, OG image) lives in each persona's layout; the root only supplies the `title.template` and defaults.
 - The Hub briefly renders before forwarding an old anchor link.
+
+## Amendment (2026-10-14): the Hub's own bar and footer
+
+PROJ-137 gives the Hub a plain top bar (`HubNavbar`) and footer (`HubFooter`) instead of the shared Navbar and Footer. The Hub has no sections to jump between, only the routes, so the floating Navbar has nothing to show; the shared Navbar and Footer stay the personas'.
+
+## Amendment (2026-10-14): switching persona from the Navbar
+
+PROJ-136 adds a third Navbar prop, `personas`: every persona with the current one marked (the expanded state's segmented selector) and the destination of the compact state's "go to" chip. The Navbar still knows no persona by name; the wrappers build the prop with `usePersonaSwitch('<persona>')`, which takes the order and routes from `src/content/personas.ts` and the labels from `common.json`. The "FP" logo leads back to the Hub in both states. Adding a persona now also means adding it to `PERSONAS`, giving it an icon in `PERSONA_ICONS` (`src/components/personaIcons.ts`), and adding its name under `navbar.personas` in `common.json`; with more than two, the chip needs a rule for which persona it points at.
+
+PROJ-142 makes `src/content/personas.ts` the only source of persona ids and routes (`PersonaId`, `personaHref`): the Hub's cards and top bar iterate `PERSONAS` instead of naming `/audio` and `/dev`, and the legacy `/#anchor` redirect and `DictionaryName` build on them too. One icon map, `PERSONA_ICONS`, serves both the Hub (server components) and the Navbar; it imports from `@phosphor-icons/react/dist/ssr`, which client components can render as well. A persona's name lives only in `common.json` (`navbar.personas`), which every layout loads, and the chip's accessible name is one template, `navbar.switchTo`, with a `{persona}` slot. Both top bars switch language through `useLocaleSwitch`. A new persona also needs its Hub card copy (`cards.<persona>` in `hub.json`) and an entry in the Hub page's `PHOTOS`; TypeScript flags any of these maps that misses it.

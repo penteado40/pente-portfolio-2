@@ -7,6 +7,7 @@ import {
   Envelope,
   GithubLogo,
 } from '@phosphor-icons/react';
+import { links } from '@/content/links';
 
 export function Footer() {
   const { dict } = useLocale();
@@ -19,14 +20,14 @@ export function Footer() {
         </p>
         <div className="flex items-center gap-4">
           <a
-            href="mailto:flpenteado@gmail.com"
+            href={links.email}
             className="text-white/50 hover:text-white transition-colors"
             aria-label="Email"
           >
             <Envelope size={20} />
           </a>
           <a
-            href="https://instagram.com/penteado_fe"
+            href={links.instagram}
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/50 hover:text-white transition-colors"
@@ -35,7 +36,7 @@ export function Footer() {
             <InstagramLogo size={20} />
           </a>
           <a
-            href="https://www.linkedin.com/in/penteado-felipe"
+            href={links.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/50 hover:text-white transition-colors"
@@ -44,7 +45,7 @@ export function Footer() {
             <LinkedinLogo size={20} />
           </a>
           <a
-            href="https://github.com/penteado40"
+            href={links.github}
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/50 hover:text-white transition-colors"
