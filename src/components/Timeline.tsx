@@ -23,7 +23,7 @@ function linkify(text: string): ReactNode {
         href={LINKS[part]}
         target="_blank"
         rel="noopener noreferrer"
-        className="underline decoration-accent/60 underline-offset-2 hover:decoration-accent transition-colors"
+        className="underline decoration-highlight/60 underline-offset-2 hover:decoration-highlight transition-colors"
       >
         {part}
       </a>
@@ -74,7 +74,7 @@ export function Timeline() {
                 </div>
 
                 <div className="pb-2">
-                  <span className="text-xs font-mono text-accent tracking-wider">
+                  <span className="text-xs font-mono text-ink tracking-wider">
                     {entry.year}
                   </span>
                   <h3 className="text-lg font-medium mt-1">{linkify(entry.title)}</h3>

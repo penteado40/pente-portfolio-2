@@ -108,7 +108,7 @@ export function Navbar() {
                   <a
                     key={item.key}
                     href={item.href}
-                    className="text-sm text-white/70 hover:text-accent transition-colors"
+                    className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {dict.nav[item.key]}
                   </a>
@@ -118,13 +118,13 @@ export function Navbar() {
               <div className="flex items-center gap-3">
                 <button
                   onClick={openTestimonialModal}
-                  className="hidden md:inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-medium hover:bg-white/20 transition-colors active:scale-[0.98] shrink-0"
+                  className="hidden md:inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-3.5 py-1.5 rounded-full text-xs font-medium hover:scale-[1.02] hover:ring-2 hover:ring-highlight transition-[scale,box-shadow] active:scale-[0.98] shrink-0"
                 >
                   {dict.testimonials.cta}
                 </button>
                 <button
                   onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
-                  className="text-xs font-mono text-white/50 hover:text-accent transition-colors uppercase tracking-wider px-2 py-1 rounded-lg hover:bg-white/10"
+                  className="text-xs font-mono text-white/50 hover:text-white transition-colors uppercase tracking-wider px-2 py-1 rounded-lg"
                   aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
                 >
                   {locale === 'en' ? 'PT' : 'EN'}
@@ -151,7 +151,7 @@ export function Navbar() {
                 <a
                   key={item.key}
                   href={item.href}
-                  className="p-2 text-white/70 hover:text-accent transition-colors rounded-full hover:bg-white/10"
+                  className="p-2 text-white/70 hover:text-white transition-colors rounded-full"
                   aria-label={dict.nav[item.key]}
                 >
                   <item.Icon size={16} />
@@ -160,14 +160,14 @@ export function Navbar() {
               <div className="w-px h-4 bg-white/20 mx-1" />
               <button
                 onClick={openTestimonialModal}
-                className="p-2 text-white/70 hover:text-accent transition-colors rounded-full hover:bg-white/10"
+                className="p-2 text-white/70 hover:text-white transition-colors rounded-full"
                 aria-label={dict.testimonials.cta}
               >
                 <ChatCircleText size={16} />
               </button>
               <button
                 onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
-                className="text-xs font-mono text-white/50 hover:text-accent transition-colors uppercase tracking-wider px-2 py-1 rounded-full hover:bg-white/10"
+                className="text-xs font-mono text-white/50 hover:text-white transition-colors uppercase tracking-wider px-2 py-1 rounded-full"
                 aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
               >
                 {locale === 'en' ? 'PT' : 'EN'}
@@ -190,7 +190,7 @@ export function Navbar() {
                   key={item.key}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-sm text-white/70 hover:text-accent transition-colors py-1"
+                  className="text-sm text-white/70 hover:text-white transition-colors py-1"
                 >
                   {dict.nav[item.key]}
                 </a>
@@ -200,7 +200,7 @@ export function Navbar() {
                   setMobileOpen(false);
                   openTestimonialModal();
                 }}
-                className="text-sm text-white/70 hover:text-accent transition-colors py-1 text-left"
+                className="text-sm text-white/70 hover:text-white transition-colors py-1 text-left"
               >
                 {dict.testimonials.cta}
               </button>

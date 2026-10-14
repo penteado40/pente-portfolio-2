@@ -24,7 +24,7 @@ export function Stats() {
               }}
               className="glass rounded-2xl p-6 text-center"
             >
-              <div className="text-3xl md:text-4xl font-mono text-accent">
+              <div className="text-3xl md:text-4xl font-mono text-ink">
                 {stat.value}
               </div>
               <div className="text-sm text-ink/60 mt-2">{stat.label}</div>

@@ -122,7 +122,7 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
         onClick={() => goTo(activeIndex - 1)}
         disabled={isFirst}
         aria-label="Previous project"
-        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-accent transition-colors disabled:opacity-30 disabled:pointer-events-none"
+        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink transition-colors disabled:opacity-30 disabled:pointer-events-none"
       >
         <CaretLeft size={18} weight="bold" />
       </button>
@@ -130,7 +130,7 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
         onClick={() => goTo(activeIndex + 1)}
         disabled={isLast}
         aria-label="Next project"
-        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-accent transition-colors disabled:opacity-30 disabled:pointer-events-none"
+        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink transition-colors disabled:opacity-30 disabled:pointer-events-none"
       >
         <CaretRight size={18} weight="bold" />
       </button>
@@ -142,7 +142,7 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
             onClick={() => goTo(i)}
             aria-label={`Go to project ${i + 1}`}
             className={`h-1.5 rounded-full transition-all ${
-              i === activeIndex ? 'w-4 bg-accent' : 'w-1.5 bg-ink/20'
+              i === activeIndex ? 'w-4 bg-highlight' : 'w-1.5 bg-ink/20'
             }`}
           />
         ))}

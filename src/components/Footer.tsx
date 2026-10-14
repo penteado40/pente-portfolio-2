@@ -20,7 +20,7 @@ export function Footer() {
         <div className="flex items-center gap-4">
           <a
             href="mailto:flpenteado@gmail.com"
-            className="text-white/50 hover:text-accent transition-colors"
+            className="text-white/50 hover:text-white transition-colors"
             aria-label="Email"
           >
             <Envelope size={20} />
@@ -29,7 +29,7 @@ export function Footer() {
             href="https://instagram.com/penteado_fe"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/50 hover:text-accent transition-colors"
+            className="text-white/50 hover:text-white transition-colors"
             aria-label="Instagram"
           >
             <InstagramLogo size={20} />
@@ -38,7 +38,7 @@ export function Footer() {
             href="https://www.linkedin.com/in/penteado-felipe"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/50 hover:text-accent transition-colors"
+            className="text-white/50 hover:text-white transition-colors"
             aria-label="LinkedIn"
           >
             <LinkedinLogo size={20} />
@@ -47,7 +47,7 @@ export function Footer() {
             href="https://github.com/penteado40"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/50 hover:text-accent transition-colors"
+            className="text-white/50 hover:text-white transition-colors"
             aria-label="GitHub"
           >
             <GithubLogo size={20} />

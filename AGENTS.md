@@ -17,3 +17,7 @@ Default label vocabulary (needs-triage, needs-info, ready-for-agent, ready-for-h
 ### Domain docs
 
 Single-context repo. See `docs/agents/domain.md`.
+
+### Branches
+
+Before implementing a task, create a new branch named `feat/proj-<n>`, where `<n>` is the Jira task number (e.g. `feat/proj-127` for PROJ-127). Implement and commit on that branch only.

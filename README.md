@@ -43,9 +43,6 @@ Starts as a compact icon pill floating over the hero. On scroll or hover, it spr
 ### Scroll-driven Hero
 Full-bleed studio photo with a dark gradient overlay. As the user scrolls, the background image zooms and the content fades out — creating a parallax depth effect tied to scroll position.
 
-### Cursor Glow
-An amber spotlight that follows the mouse using spring physics and `mix-blend-mode: screen`. Desktop only. Fully respects `prefers-reduced-motion`.
-
 ### Bilingual (EN / PT)
 Language toggle persisted to `localStorage`. All visible text lives in JSON dictionaries (`en.json`, `pt.json`) — no hardcoded copy in components. Switching language is instant with no page reload.
 
@@ -99,8 +96,7 @@ src/
 │   ├── Skills.tsx          # Studio gear + dev skills (glass cards)
 │   ├── Photos.tsx          # Masonry photo grid (27 photos)
 │   ├── Contact.tsx         # Glass card contact form
-│   ├── Footer.tsx          # Social links
-│   └── CursorGlow.tsx      # Mouse-following amber spotlight
+│   └── Footer.tsx          # Social links
 └── i18n/
     ├── LocaleProvider.tsx  # Locale context + useLocale hook
     ├── en.json             # English dictionary

@@ -1,5 +1,4 @@
 import { Navbar } from "@/components/Navbar";
-import { CursorGlow } from "@/components/CursorGlow";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Stats } from "@/components/Stats";
@@ -18,22 +17,23 @@ export default async function Home() {
   const testimonials = await getTestimonials();
 
   return (
-    <TestimonialModalProvider>
-      <CursorGlow />
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Stats />
-        <Timeline />
-        <Certifications />
-        <Projects />
-        <Skills />
-        <Testimonials items={testimonials} />
-        <Photos />
-        <Contact />
-      </main>
-      <Footer />
-    </TestimonialModalProvider>
+    <div data-persona="audio">
+      <TestimonialModalProvider>
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Stats />
+          <Timeline />
+          <Certifications />
+          <Projects />
+          <Skills />
+          <Testimonials items={testimonials} />
+          <Photos />
+          <Contact />
+        </main>
+        <Footer />
+      </TestimonialModalProvider>
+    </div>
   );
 }
