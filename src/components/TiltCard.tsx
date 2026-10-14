@@ -18,8 +18,8 @@ import { isFineMouse } from './finePointer';
 // The sheen itself stays in globals.css: this only feeds it the tilt
 // direction (--glass-tilt-angle, pointing at the side that sinks) and its
 // strength (--glass-tilt, 0..1).
-const MAX_TILT_DEG = 5;
-const HOVER_SCALE = 1.02;
+const MAX_TILT_DEG = 8;
+const HOVER_SCALE = 1.04;
 const SPRING = { stiffness: 180, damping: 18, mass: 0.8 };
 
 // style is merged, but the tilt owns the transform: a caller's scale or

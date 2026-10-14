@@ -235,7 +235,7 @@ function TestimonialsCarousel({
         onPointerMove={handlePointerMove}
         onPointerUp={endDrag}
         onPointerCancel={endDrag}
-        className="carousel-fade flex gap-6 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide px-6 py-6 -my-6 cursor-grab active:cursor-grabbing select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-highlight rounded-2xl"
+        className="carousel-fade flex gap-6 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide px-6 py-10 -my-10 cursor-grab active:cursor-grabbing select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-highlight rounded-2xl"
       >
         {extended.map((item, i) => (
           <div

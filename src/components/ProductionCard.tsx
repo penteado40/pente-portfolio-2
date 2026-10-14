@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { SpeakerHighIcon, SpeakerSlashIcon, XIcon } from '@phosphor-icons/react';
 import { TiltCard } from './TiltCard';
 
-const HOVER_DEBOUNCE_MS = 200;
+const HOVER_DEBOUNCE_MS = 600;
 
 type Production = {
   title: string;

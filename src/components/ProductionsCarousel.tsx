@@ -64,7 +64,7 @@ export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
     <div className="relative">
       <div
         ref={trackRef}
-        className="carousel-fade flex gap-6 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide px-6 py-6 -my-6"
+        className="carousel-fade flex gap-6 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide px-6 py-10 -my-10"
       >
         {items.map((project, i) => (
           <TiltCard
