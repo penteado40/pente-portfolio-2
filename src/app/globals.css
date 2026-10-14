@@ -121,48 +121,83 @@ body {
   color: var(--color-background);
 }
 
-.glass {
-  background: color-mix(in oklab, var(--color-surface) 55%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--color-white) 10%, transparent);
+/*
+ * Liquid Glass material (plan A, decided in GitHub issue #11). Every glass surface on
+ * the site uses one of these three classes, and the material lives only
+ * here: tint + backdrop blur + border + specular rim. It is neutral on
+ * purpose (no persona tint): the color comes from whatever sits behind it.
+ * Plan B (glass only on controls, solid content cards) is a swap of the card
+ * classes to bg-mist/bg-surface, with no change to component structure.
+ *
+ * Text on glass stays at ink/60 or stronger: the tints below keep that at
+ * 4.5:1 or more over every section background, and .glass-dark (Navbar)
+ * keeps white/70 at 4.5:1 even over a white photo.
+ *
+ * The box-shadow keeps Tailwind's ring variables first, so ring utilities
+ * (focus-visible:ring-*) still draw on a glass element; these rules are
+ * unlayered and would otherwise override them.
+ */
+.glass,
+.glass-strong,
+.glass-dark {
+  --glass-tint: color-mix(in oklab, var(--color-surface) 45%, transparent);
+  --glass-sheen: color-mix(in oklab, var(--color-white) 6%, transparent);
+  --glass-blur: 16px;
+  --glass-drop: 0 8px 32px rgba(0, 0, 0, 0.35);
+
+  background:
+    linear-gradient(160deg, var(--glass-sheen), transparent 45%),
+    var(--glass-tint);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+  border: 1px solid color-mix(in oklab, var(--color-white) 14%, transparent);
   box-shadow:
-    inset 0 1px 0 color-mix(in oklab, var(--color-white) 8%, transparent),
-    0 8px 32px rgba(0, 0, 0, 0.35);
+    var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000),
+    inset 0 1px 0 color-mix(in oklab, var(--color-white) 22%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, var(--color-white) 5%, transparent),
+    inset 0 0 16px color-mix(in oklab, var(--color-white) 4%, transparent),
+    var(--glass-drop);
 }
 
 .glass-strong {
-  background: color-mix(in oklab, var(--color-surface) 75%, transparent);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--color-white) 12%, transparent);
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklab, var(--color-white) 10%, transparent),
-    0 12px 40px rgba(0, 0, 0, 0.4);
+  --glass-tint: color-mix(in oklab, var(--color-surface) 70%, transparent);
+  --glass-blur: 24px;
+  --glass-drop: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
 .glass-dark {
-  background: color-mix(in oklab, var(--color-background) 80%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--color-white) 8%, transparent);
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklab, var(--color-white) 6%, transparent),
-    0 8px 32px rgba(0, 0, 0, 0.5);
+  --glass-tint: color-mix(in oklab, var(--color-background) 82%, transparent);
+  --glass-sheen: color-mix(in oklab, var(--color-white) 4%, transparent);
+  --glass-blur: 20px;
+  --glass-drop: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Refraction: an SVG displacement of the backdrop, Chromium only. The
+   attribute and the #liquid-glass-refraction filter come from
+   LiquidGlassFilter. Behind no-preference so reduced transparency drops it. */
+@media (prefers-reduced-transparency: no-preference) {
+  :root[data-glass-refraction] :is(.glass, .glass-strong, .glass-dark) {
+    backdrop-filter: url(#liquid-glass-refraction) blur(var(--glass-blur))
+      saturate(170%);
+  }
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .glass,
-  .glass-strong {
-    background: color-mix(in oklab, var(--color-surface) 95%, transparent);
-    backdrop-filter: none;
+  .glass-strong,
+  .glass-dark {
     -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .glass,
+  .glass-strong {
+    --glass-tint: var(--color-surface);
   }
 
   .glass-dark {
-    background: color-mix(in oklab, var(--color-background) 96%, transparent);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    --glass-tint: var(--color-background);
   }
 }
 

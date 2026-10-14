@@ -117,7 +117,7 @@ export function Navbar({ items, actions = [] }: NavbarProps) {
                 ))}
                 <button
                   onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
-                  className="text-xs font-mono text-white/50 hover:text-white transition-colors uppercase tracking-wider px-2 py-1 rounded-lg"
+                  className="text-xs font-mono text-white/70 hover:text-white transition-colors uppercase tracking-wider px-2 py-1 rounded-lg"
                   aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
                 >
                   {locale === 'en' ? 'PT' : 'EN'}
@@ -163,7 +163,7 @@ export function Navbar({ items, actions = [] }: NavbarProps) {
               ))}
               <button
                 onClick={() => setLocale(locale === 'en' ? 'pt' : 'en')}
-                className="text-xs font-mono text-white/50 hover:text-white transition-colors uppercase tracking-wider px-2 py-1 rounded-full"
+                className="text-xs font-mono text-white/70 hover:text-white transition-colors uppercase tracking-wider px-2 py-1 rounded-full"
                 aria-label={`Switch to ${locale === 'en' ? 'Portuguese' : 'English'}`}
               >
                 {locale === 'en' ? 'PT' : 'EN'}

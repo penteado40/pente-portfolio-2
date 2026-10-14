@@ -184,7 +184,7 @@ function ProductionCardText({ prod, streamsLabel }: { prod: Production; streamsL
           <h4 className="font-medium">{prod.title}</h4>
         )}
         {prod.streams && (
-          <span className="text-xs font-mono text-ink/40">
+          <span className="text-xs font-mono text-ink/60">
             {prod.streams} {streamsLabel}
           </span>
         )}

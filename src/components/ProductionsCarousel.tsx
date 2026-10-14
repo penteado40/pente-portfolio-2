@@ -96,7 +96,7 @@ export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
             <div className="flex items-center gap-2 mb-2">
               <h3 className="text-xl font-medium">{project.title}</h3>
               {'views' in project && (
-                <span className="text-xs font-mono text-ink/40">
+                <span className="text-xs font-mono text-ink/60">
                   {project.views} {dict.stats.viewsLabel}
                 </span>
               )}
@@ -108,7 +108,7 @@ export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs font-mono text-ink/50 bg-mist px-3 py-1 rounded-full"
+                  className="text-xs font-mono text-ink/60 bg-mist px-3 py-1 rounded-full"
                 >
                   {tag}
                 </span>
