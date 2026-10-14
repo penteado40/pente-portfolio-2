@@ -196,17 +196,18 @@ body {
    attribute and the #liquid-glass-refraction filter come from
    LiquidGlassFilter. Behind no-preference so reduced transparency drops it. */
 @media (prefers-reduced-transparency: no-preference) {
-  :root[data-glass-refraction] :is(.glass, .glass-strong, .glass-dark):not(:has(iframe ~ *)) {
+  :root[data-glass-refraction] :is(.glass, .glass-strong, .glass-dark):not(:has(iframe)) {
     backdrop-filter: url(#liquid-glass-refraction) var(--glass-backdrop);
   }
 }
 
-/* Glass that holds an iframe with something laid over it (the expanded
-   ProductionCard: YouTube player plus close and mute buttons) drops its own
-   backdrop. Chrome composites that case wrongly and smears a blurred copy of
-   the video into a strip around the overlays. The card keeps its tint and
-   border; the buttons on top keep the full material. */
-:is(.glass, .glass-strong, .glass-dark):has(iframe ~ *) {
+/* Glass that holds an iframe (YouTube and Instagram embeds) drops its own
+   backdrop. Chrome composites a backdrop-filter around an iframe wrongly: it
+   smears a blurred copy of the video around overlays (the expanded
+   ProductionCard's close and mute buttons) and paints a lighter box behind
+   the text below the player. These cards keep their tint, border and tilt
+   sheen; glass laid on top of the iframe keeps the full material. */
+:is(.glass, .glass-strong, .glass-dark):has(iframe) {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
