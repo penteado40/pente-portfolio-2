@@ -38,6 +38,21 @@
   "experience": {
     "title": "Financial systems in production",
     "current": "present",
+    "months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "monthFormat": "{month} {year}",
     "items": {
       "freelance": {
         "role": "Full Stack Developer",

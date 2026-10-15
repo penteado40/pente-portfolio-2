@@ -38,6 +38,21 @@
   "experience": {
     "title": "Sistemas financeiros em produção",
     "current": "atual",
+    "months": [
+      "jan",
+      "fev",
+      "mar",
+      "abr",
+      "mai",
+      "jun",
+      "jul",
+      "ago",
+      "set",
+      "out",
+      "nov",
+      "dez"
+    ],
+    "monthFormat": "{month}/{year}",
     "items": {
       "freelance": {
         "role": "Desenvolvedor Full Stack",

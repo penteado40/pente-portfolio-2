@@ -81,21 +81,25 @@ export const education: readonly EducationEntry[] = [
   { id: 'it-technician', institution: 'UNASP-HT', end: '2019-12', inProgress: false },
 ];
 
-/** `2025-12` as `12/2025`, the CV's format. */
-export function formatMonth(month: YearMonth) {
+/** The dictionary's month names and the pattern that joins one to a year. */
+export type MonthText = { months: readonly string[]; monthFormat: string };
+
+/** `2025-12` as `dez/2025` (PT) or `Dec 2025` (EN), from the dictionary. */
+export function formatMonth(month: YearMonth, text: MonthText) {
   const [year, mm] = month.split('-');
-  return `${mm}/${year}`;
+  return text.monthFormat.replace('{month}', text.months[Number(mm) - 1]).replace('{year}', year);
 }
 
-/** `12/2025 – 11/2026`, or `12/2025 – {current}` while still open. */
-export function formatPeriod({ start, end }: Period, current: string) {
-  return `${formatMonth(start)} – ${end ? formatMonth(end) : current}`;
+/** `dez/2025 – nov/2026`, or `dez/2025 – {current}` while still open. */
+export function formatPeriod({ start, end }: Period, current: string, text: MonthText) {
+  return `${formatMonth(start, text)} – ${end ? formatMonth(end, text) : current}`;
 }
 
-/** `2019` once finished; `{expected} 12/2026` while in progress. */
+/** `2019` once finished; `{expected} dez/2026` while in progress. */
 export function formatGraduation(
   { end, inProgress }: Pick<EducationEntry, 'end' | 'inProgress'>,
   expected: string,
+  text: MonthText,
 ) {
-  return inProgress ? `${expected} ${formatMonth(end)}` : end.slice(0, 4);
+  return inProgress ? `${expected} ${formatMonth(end, text)}` : end.slice(0, 4);
 }

@@ -1,26 +1,36 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { education, experience, formatGraduation, formatPeriod } from './dev.ts';
+import { education, experience, formatGraduation, formatMonth, formatPeriod } from './dev.ts';
 
 function devDictionary(locale: 'en' | 'pt') {
   return JSON.parse(readFileSync(new URL(`../i18n/${locale}/dev.json`, import.meta.url), 'utf8'));
 }
 
-test('a period reads month/year to month/year', () => {
-  assert.equal(formatPeriod({ start: '2023-04', end: '2025-11' }, 'present'), '04/2023 – 11/2025');
+const pt = devDictionary('pt').experience;
+const en = devDictionary('en').experience;
+
+test('a period reads month/year to month/year, in the locale', () => {
+  assert.equal(formatPeriod({ start: '2023-04', end: '2025-11' }, 'atual', pt), 'abr/2023 – nov/2025');
+  assert.equal(formatPeriod({ start: '2023-04', end: '2025-11' }, 'present', en), 'Apr 2023 – Nov 2025');
 });
 
 test('an open period ends with the current label', () => {
-  assert.equal(formatPeriod({ start: '2025-12', end: null }, 'atual'), '12/2025 – atual');
+  assert.equal(formatPeriod({ start: '2025-12', end: null }, 'atual', pt), 'dez/2025 – atual');
+});
+
+test('every month has its short name, from the dictionary', () => {
+  const months = Array.from({ length: 12 }, (_, i) => formatMonth(`2020-${i + 1}` as const, pt));
+  assert.deepEqual(months, ['jan/2020', 'fev/2020', 'mar/2020', 'abr/2020', 'mai/2020', 'jun/2020', 'jul/2020', 'ago/2020', 'set/2020', 'out/2020', 'nov/2020', 'dez/2020']);
+  assert.equal(formatMonth('2020-05', en), 'May 2020');
 });
 
 test('a finished course shows its year', () => {
-  assert.equal(formatGraduation({ end: '2019-12', inProgress: false }, 'expected'), '2019');
+  assert.equal(formatGraduation({ end: '2019-12', inProgress: false }, 'expected', en), '2019');
 });
 
 test('a course in progress shows when it is expected', () => {
-  assert.equal(formatGraduation({ end: '2026-12', inProgress: true }, 'previsão'), 'previsão 12/2026');
+  assert.equal(formatGraduation({ end: '2026-12', inProgress: true }, 'previsão', pt), 'previsão dez/2026');
 });
 
 test('experience lists the CV entries newest first, with the CV dates', () => {

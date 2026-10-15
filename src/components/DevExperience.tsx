@@ -31,7 +31,7 @@ export function DevExperience() {
         <ol className="border-b border-white/10">
           {experience.map((job) => {
             const { role, context, bullets } = text.items[job.id as keyof ExperienceText];
-            const period = formatPeriod(job, text.current);
+            const period = formatPeriod(job, text.current, text);
             const current = job.end === null;
             return (
               <motion.li
@@ -100,7 +100,7 @@ export function DevExperience() {
                         {course}
                       </span>
                       <span className="text-[13px] md:text-[15px] text-ink/75">
-                        {entry.institution} · {formatGraduation(entry, text.education.expected)}
+                        {entry.institution} · {formatGraduation(entry, text.education.expected, text)}
                       </span>
                     </TiltCard>
                   </li>
