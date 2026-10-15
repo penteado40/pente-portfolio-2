@@ -1,22 +1,25 @@
 # felipepenteado.com.br
 
-> Personal portfolio site — bilingual (EN/PT), single-page, with a Dynamic Island navbar, scroll-driven animations, glassmorphism design, and embedded real-world productions. Built with Next.js 16, React 19, and Tailwind v4.
+> A bilingual (EN / PT) site with a Hub and two Personas, Audio Engineer and Systems Developer, each on its own page. Built with Next.js 16, React 19 and Tailwind v4.
 
 ![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat&logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)
 ![Tailwind v4](https://img.shields.io/badge/Tailwind_v4-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
 ![Motion](https://img.shields.io/badge/motion%2Freact-8B5CF6?style=flat)
-![Deployed](https://img.shields.io/badge/deployed-live-brightgreen)
 
-**[felipepenteado.com.br](https://felipepenteado.com.br)** — live
+**[felipepenteado.com.br](https://felipepenteado.com.br)**
 
 ---
 
 ## Overview
 
-This site presents both sides of my professional background — software engineering and audio engineering — in a single, bilingual experience. Rather than a generic template, every visual detail was designed and built from scratch: a Dynamic Island navbar that morphs on scroll, a full-bleed hero with scroll-driven zoom, glassmorphism cards, a cursor spotlight, and section reveals with staggered motion.
+| Route | What it shows |
+|-------|---------------|
+| `/` | The **Hub**: name, portrait, a tagline and one card per Persona to choose where to go. Old links like `/#projects` are forwarded to the same anchor on `/audio`. |
+| `/audio` | The **Audio persona**: hero, stats, about, timeline, certifications, Productions (Spotify and YouTube embeds, DVD cards), gear, Testimonials, photos and contact. |
+| `/dev` | The **Dev persona**: hero with the CV, about, experience and education, certifications (hidden while empty), Projects split into Products and Studies, stack and contact. |
 
-The site also embeds real productions: Spotify playlists and YouTube performances from Vocal Livre, a Brazilian vocal ensemble I've served as Technical Director since 2022.
+The domain terms (Persona, Hub, Production, Product, Study, Color block, Chip…) are defined in [CONTEXT.md](CONTEXT.md).
 
 ---
 
@@ -24,131 +27,144 @@ The site also embeds real productions: Spotify playlists and YouTube performance
 
 | Layer | Technology |
 |-------|------------|
-| Framework | Next.js 16 (App Router) |
-| UI | React 19 |
-| Styling | Tailwind CSS v4 |
+| Framework | Next.js 16 (App Router), React 19 |
+| Styling | Tailwind CSS v4, per-persona color tokens in `globals.css` |
 | Animations | motion/react |
-| Icons | Phosphor Icons |
-| Fonts | Geist + Geist Mono |
-| i18n | Custom: locale cookie read on the server, per-persona JSON dictionaries |
+| Icons / fonts | Phosphor Icons, Geist + Geist Mono |
+| i18n | Locale cookie read on the server, JSON dictionaries per route |
+| Backend | API routes that proxy contact messages and testimonials to an external API |
+| Social previews | Open Graph images generated per route with `next/og` |
 | Deploy | Vercel |
 
 ---
 
 ## Features
 
-### Dynamic Island Navbar
-Starts as a compact icon pill floating over the hero. On scroll or hover, it spring-morphs into a full navigation bar. Collapses back automatically when the cursor leaves. Built with `motion/react` layout animations — no fixed width transitions, just smooth shape morphing driven by spring physics.
-
-### Scroll-driven Hero
-Full-bleed studio photo with a dark gradient overlay. As the user scrolls, the background image zooms and the content fades out — creating a parallax depth effect tied to scroll position.
-
-### Bilingual (EN / PT)
-The language lives in a cookie read on the server, so every page arrives already in the right language with a matching `<html lang>`. First visits follow `Accept-Language` (any `pt*` → PT, otherwise EN). All visible text lives in JSON dictionaries split per persona — no hardcoded copy in components. See [ADR 0001](docs/adr/0001-locale-cookie-read-on-the-server.md).
-
-### Glassmorphism Design System
-Two utility classes — `.glass` and `.glass-strong` — built on `backdrop-filter`, layered borders, and inner shadows. Solid color fallback for `prefers-reduced-transparency`.
-
-### Scroll Reveal Animations
-Section content reveals using Motion's `whileInView` with staggered entry per element. All animations are gated by `useReducedMotion()` — users who prefer reduced motion get a clean, static experience.
-
-### Photo Gallery
-27 optimized photographs in a masonry-style grid (max 1600px, quality 75). Hover zoom on each image.
-
-### Embedded Real Productions
-Spotify playlist and YouTube videos from actual Vocal Livre performances — including a 30-year anniversary concert and a live DVD production.
+- **Dynamic Island Navbar with a persona switch.** A compact pill over the hero that springs open into the full section menu, with a segmented selector to jump between the Audio and Dev personas.
+- **Per-persona tokens.** One Onyx base for the whole site; each Persona brings its own accent, highlight and Color block tones, and components only use semantic tokens (`bg-accent`, `text-highlight`).
+- **Liquid Glass.** Glass surfaces with blur, sheen and a tilt-following highlight, plus SVG refraction on Chromium. Falls back to solid fills under `prefers-reduced-transparency`.
+- **Scroll reveal.** Sections and items enter with staggered motion; everything is static under `prefers-reduced-motion`.
 
 ---
 
-## Key Technical Decisions
+## Technical decisions
 
-### Next.js 16 + App Router + React 19
-App Router enables per-segment layouts and streaming without the overhead of a separate server setup. React 19's concurrent features (transitions, deferred updates) pair naturally with scroll-driven and physics-based animations. Using the latest stable versions also demonstrates active engagement with the current ecosystem.
+The decisions that are hard to reverse have their own ADR:
 
-### Tailwind v4
-Tailwind v4 moves from a config file to CSS-first configuration. Custom design tokens (colors, shadows, blur values for glassmorphism) are declared directly in `globals.css` rather than `tailwind.config.js` — co-locating design decisions with the styles that use them.
+- [0001. Locale in a cookie read on the server, not in the URL](docs/adr/0001-locale-cookie-read-on-the-server.md)
+- [0002. Hub at `/` and one route per persona](docs/adr/0002-hub-and-route-per-persona.md)
+- [0003. Per-persona color tokens via `data-persona` and `:root:has()`](docs/adr/0003-persona-color-tokens.md)
+- [0004. Dev persona data in a typed content file, copy in the dictionary](docs/adr/0004-dev-data-separate-from-copy.md)
 
-### motion/react for layout animations
-The Dynamic Island effect relies on `layoutId` — Motion's mechanism for animating shared layout between component states. When the navbar switches between compact and expanded, Motion detects the layout change and smoothly interpolates the shape, position, and size. This would be extremely difficult to achieve with CSS transitions alone.
+Smaller notes:
 
-### Custom i18n over a library
-A full i18n library (next-intl, react-i18next) would be appropriate for an app with many languages or locale-prefixed URLs. With two languages and no locale in the URL, a cookie read on the server, a few JSON files per persona and a small `LocaleProvider` are the right scope — no unnecessary dependencies, and each route ships only its own dictionary.
-
-### Single-page architecture
-All content is on one page, separated into anchored sections. This is deliberate: a portfolio should be browsable in one continuous scroll, not navigated across routes. Next.js is still used for its image optimization, font loading, and Vercel deployment pipeline.
+- **Liquid Glass, plan A:** glass on every `.glass` surface, content cards included. Plan B (glass only on controls, solid content cards) stays possible as a CSS swap in `globals.css`.
+- **Navbar by props:** one shared Navbar takes `items` (section anchors) and `actions` (persona buttons, such as the testimonial button); a small client wrapper per persona (`AudioNavbar`, `DevNavbar`) builds them.
+- **Static OG images, text in English:** each route's `opengraph-image` is rendered once, so its text stays in English while the page metadata follows the request's locale.
+- **Testimonials only on the Audio persona, and contact without an origin:** the Dev page has no Testimonials, and the contact form sends the same payload from both personas.
+- **Removed:** the cursor glow, and the Stats section on the Dev persona.
 
 ---
 
-## Project Structure
+## Project structure
 
 ```
 src/
-├── app/
-│   ├── layout.tsx          # Root layout: fonts, <html lang> from the locale cookie
-│   ├── (hub)/              # Hub at /: layout (dictionary) + page
-│   ├── audio/              # Audio persona at /audio: layout + page
-│   └── globals.css         # Tailwind v4 config + .glass utilities
-├── components/
-│   ├── Navbar.tsx          # Dynamic Island — compact/expanded morph
-│   ├── Hero.tsx            # Full-bleed photo + scroll zoom + fade
-│   ├── About.tsx           # Photo + bio + quote
-│   ├── Projects.tsx        # Software projects + audio productions
-│   ├── Timeline.tsx        # Career milestones (vertical timeline)
-│   ├── Skills.tsx          # Studio gear + dev skills (glass cards)
-│   ├── Photos.tsx          # Masonry photo grid (27 photos)
-│   ├── Contact.tsx         # Glass card contact form
-│   └── Footer.tsx          # Social links
-└── i18n/
-    ├── locale.ts           # Locale type + cookie/Accept-Language resolution
-    ├── dictionaries.ts     # Server-only: getLocale, getDictionary(locale, persona)
-    ├── actions.ts          # Server Action that stores the locale cookie
-    ├── LocaleProvider.tsx  # Client context + useLocale hook
-    ├── en/                 # common.json, hub.json, audio.json, dev.json
-    └── pt/                 # same files, in Portuguese
+├── app/         # Routes: (hub) at /, audio/, dev/, api/ (proxy routes), root layout, globals.css
+├── components/  # UI components and hooks, shared by the three routes
+├── content/     # Typed data and helpers: Dev content, personas, links, SEO, CV
+├── i18n/        # Locale resolution, dictionary loading, en/ and pt/ JSON dictionaries
+└── lib/         # Server helpers: OG image, contact and testimonial requests
+public/photos/   # Photos, production covers and badges
+docs/adr/        # Architecture decision records
 ```
 
 ---
 
-## Local Setup
+## Editing content
+
+All visible text lives in the dictionaries, in both languages: change `src/i18n/en/<file>.json` and `src/i18n/pt/<file>.json` together. `npm test` fails if the two files stop having the same keys.
+
+### Hub (`/`)
+
+| I want to change… | I edit… |
+|-------------------|---------|
+| Tagline, card copy, page title and description | `src/i18n/{en,pt}/hub.json` |
+| Portrait (also the Audio About photo) | `public/photos/pente-portrait.jpg` |
+| Audio card photo | `public/photos/pente-hub-audio-bg.jpg` |
+| Dev card photo | Add `public/photos/pente-hub-dev-bg.jpg` (until then the card shows the Dev glow) |
+| Card order | `PERSONAS` in `src/content/personas.ts` |
+
+### Audio (`/audio`)
+
+| I want to change… | I edit… |
+|-------------------|---------|
+| Any text: hero, stats, about, timeline, gear, Productions, other work | `src/i18n/{en,pt}/audio.json` |
+| Certifications (with their badge image) | `certifications.items` in `src/i18n/{en,pt}/audio.json` |
+| Hero photo | The image `src` in `src/components/Hero.tsx` (a file in `public/photos/`) |
+| Photo grid and Instagram posts | The `photos` and `instagramPosts` lists in `src/components/Photos.tsx` |
+| Testimonials | Approved in the external API; the page reads them on the server |
+
+### Dev (`/dev`)
+
+| I want to change… | I edit… |
+|-------------------|---------|
+| Text: hero, about, section titles, Experience, Projects, stack notes | `src/i18n/{en,pt}/dev.json` |
+| Experience and education dates, companies, stack tags | `experience` and `education` in `src/content/dev.ts` |
+| Projects: kind, status, stack, repos, demo, screenshot | `projects` in `src/content/dev.ts` |
+| Stack lists | `skills` in `src/content/dev.ts` |
+| Certifications | `certifications` in `src/content/dev.ts` (the section shows up with the first one) |
+| CV PDF | Add `public/cv/felipe-penteado-pt.pdf` (the hero's CV button links to it); for a translation, add `public/cv/felipe-penteado-en.pdf` and `'en'` to `cvLocales` in `src/content/dev.ts` |
+| Hero and about photos | Add `public/photos/pente-dev-hero.jpg` and `public/photos/pente-dev-portrait.jpg` (until then the Dev glow stands in) |
+
+### Common
+
+| I want to change… | I edit… |
+|-------------------|---------|
+| Navbar labels, contact form, footer | `src/i18n/{en,pt}/common.json` |
+| Email and social links | `src/content/links.ts` |
+| Site name and URL | `src/content/seo.ts` |
+| Persona colors | The `[data-persona=…]` blocks in `src/app/globals.css`, and `PERSONA_COLORS` in `src/lib/ogImage.tsx`, which mirrors them by hand |
+
+A new photo (Hub Dev card, Dev hero, Dev portrait) is picked up when the build or `npm run dev` starts; restart the dev server after adding one.
+
+### Add a Project (Dev)
+
+1. Decide the kind (see [CONTEXT.md](CONTEXT.md)): a **Product** has real users or clients; a **Study** was built to learn.
+2. Add its id to `ProjectId` in `src/content/dev.ts`.
+3. Add an entry to `projects` in `src/content/dev.ts`. Products go before Studies; the first Product is the large card.
+   - Product: `kind: 'product'`, `status` (`'active'` or `'building'`), `stack`, `repos` (a repo without `url` is shown as private), and optionally `demo` and `image`.
+   - Study: `kind: 'study'`, `stack` and exactly one public repo.
+4. Add the text under `projects.items.<id>` in both `src/i18n/en/dev.json` and `src/i18n/pt/dev.json`: `title` and `summary`, plus `highlights` for a Product.
+5. For a Product, add a 16:10 screenshot to `public/` and set `image` to its path. Until then the card shows the persona gradient.
+6. Update the project list in `src/content/dev.test.ts`, which pins the order, and run `npm test`.
+
+### Add a Production (Audio)
+
+1. Add the cover image to `public/photos/`.
+2. Add an entry to `projects.productions` in both `src/i18n/en/audio.json` and `src/i18n/pt/audio.json`, in the same position: `title`, `description`, `roles`, `image` (the path from step 1), `streams`, `youtubeId` (the video embedded in the card) and `youtubeUrl` (the link out).
+3. A smaller job goes elsewhere in the same files: an embedded video or playlist in `projects.items`, or a name only in `projects.otherItems`.
+
+---
+
+## Local setup
 
 ```bash
-# Install dependencies
 npm install
-
-# Start dev server
-npm run dev
+cp .env.example .env.local   # then fill in API_URL and API_KEY
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+| Variable | What it is |
+|----------|------------|
+| `API_URL` | Base URL of the external API for contact messages and testimonials. Without it the site runs, but the forms fail and no testimonials show. |
+| `API_KEY` | Sent to that API as `X-API-Key`. |
 
-```bash
-# Production build
-npm run build
-```
-
-Deploy the `.next` output to Vercel, Netlify, or any Node.js host.
-
----
-
-## Content
-
-All text is in `src/i18n/{en,pt}/{common,hub,audio,dev}.json`.
-Social links are in `Footer.tsx`.
-Photo list is in `Photos.tsx`.
-
-Photos are optimized JPEGs — max 1600px wide, quality 75 — for fast loading without perceptible quality loss.
-
----
-
-## Related
-
-- **[inventory-api](https://github.com/penteado40/inventory-api)** — Multi-tenant inventory REST API (Hono · TypeScript · Prisma · PostgreSQL)
-- **[fa-wedding](https://github.com/penteado40/fa-wedding)** — Wedding site frontend (React · TypeScript · Vite · GitHub Pages)
-- **[fawedding-api](https://github.com/penteado40/fawedding-api)** — Wedding site API with AWS SQS + Lambda + SES (Hono · CDK)
+Other scripts: `npm test` (unit tests with `node --test`), `npm run lint`, `npm run build`.
 
 ---
 
 ## Author
 
-**Felipe Penteado** — Full Stack Engineer & Audio Engineer
-[felipepenteado.com.br](https://felipepenteado.com.br) · [LinkedIn](https://linkedin.com/in/felipepenteado) · [GitHub](https://github.com/penteado40)
+**Felipe Penteado**, Systems Developer and Audio Engineer
+[felipepenteado.com.br](https://felipepenteado.com.br) · [LinkedIn](https://www.linkedin.com/in/penteado-felipe) · [GitHub](https://github.com/penteado40)
