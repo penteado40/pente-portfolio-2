@@ -28,7 +28,7 @@ export function About() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, ease: EASE_OUT }}
-          className="hidden lg:block relative aspect-[4/5] rounded-[28px] overflow-hidden bg-background shadow-card"
+          className="hidden lg:block relative isolate aspect-[4/5] rounded-[28px] overflow-hidden bg-background shadow-card"
         >
           <Image
             src={PORTRAIT}
@@ -37,10 +37,7 @@ export function About() {
             sizes="(min-width: 1200px) 440px, 36vw"
             className="object-cover object-[50%_25%]"
           />
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-block-deep/60 to-transparent to-40%"
-          />
+          <div aria-hidden className="absolute inset-0 portrait-fade" />
         </motion.div>
 
         <motion.div
@@ -51,7 +48,7 @@ export function About() {
           className="flex flex-col gap-[18px] md:gap-[22px] lg:pt-2"
         >
           <div className="flex items-center gap-3.5">
-            <div className="lg:hidden relative size-16 shrink-0 rounded-full overflow-hidden border border-ink/14">
+            <div className="lg:hidden relative isolate size-16 shrink-0 rounded-full overflow-hidden border border-ink/14">
               <Image
                 src={PORTRAIT}
                 alt={about.portraitAlt}
