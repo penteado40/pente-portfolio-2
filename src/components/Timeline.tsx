@@ -39,9 +39,10 @@ function linkify(text: string): ReactNode {
 }
 
 // The dictionary lists the milestones newest first, the order of the mobile
-// list: the year in a narrow mono column, thin rules between the rows. From md
-// up the row is reversed into a horizontal timeline, oldest on the left, each
-// milestone a dot on a thin line; the newest one is drawn in highlight.
+// list: the year in a narrow mono column, thin rules between the rows. From lg
+// up, where five columns fit, the row is reversed into a horizontal timeline,
+// oldest on the left, each milestone a dot on a thin line; the newest one is
+// drawn in highlight.
 export function Timeline() {
   const { dict } = useLocale<AudioDictionary>();
   const reduce = useReducedMotion();
@@ -52,7 +53,7 @@ export function Timeline() {
         {/* 01 is the Hero, 02 the About. */}
         <SectionHeader index={3} label={dict.nav.timeline} title={dict.timeline.title} />
 
-        <ol className="flex flex-col md:flex-row-reverse md:gap-4 border-b border-white/10 md:border-b-0">
+        <ol className="flex flex-col lg:flex-row-reverse lg:gap-4 border-b border-white/10 lg:border-b-0">
           {dict.timeline.items.map((entry, i) => {
             const latest = i === 0;
             return (
@@ -62,30 +63,30 @@ export function Timeline() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.6, ease: EASE_OUT }}
-                className={`relative grid grid-cols-[52px_1fr] gap-3 py-[18px] border-t border-white/10 md:flex-1 md:flex md:flex-col md:gap-3.5 md:pt-7 md:pb-0 ${
-                  latest ? 'md:border-t-2 md:border-highlight' : 'md:border-ink/14'
+                className={`relative grid grid-cols-[52px_1fr] gap-3 py-[18px] border-t border-white/10 lg:flex-1 lg:min-w-0 lg:flex lg:flex-col lg:gap-3.5 lg:pt-7 lg:pb-0 ${
+                  latest ? 'lg:border-t-2 lg:border-highlight' : 'lg:border-white/14'
                 }`}
               >
                 <span
                   aria-hidden
-                  className={`hidden md:block absolute left-0 rounded-full ${
+                  className={`hidden lg:block absolute left-0 rounded-full ${
                     latest
                       ? '-top-[7px] size-3 bg-highlight'
                       : '-top-1.5 size-[11px] bg-background ring-2 ring-ink/40'
                   }`}
                 />
                 <span
-                  className={`pt-[3px] md:pt-0 font-mono text-[13px] md:text-sm ${
+                  className={`pt-[3px] lg:pt-0 font-mono text-[13px] lg:text-sm ${
                     latest ? 'text-highlight' : 'text-ink/60'
                   }`}
                 >
                   {entry.year}
                 </span>
-                <div className="flex flex-col gap-1.5 md:gap-3.5">
-                  <h3 className="text-[17px] md:text-xl font-medium md:tracking-[-0.02em] text-white">
+                <div className="flex flex-col gap-1.5 lg:gap-3.5">
+                  <h3 className="text-[17px] lg:text-xl font-medium lg:tracking-[-0.02em] text-white">
                     {linkify(entry.title)}
                   </h3>
-                  <p className="text-sm leading-[1.5] md:leading-[1.55] text-ink/65">
+                  <p className="text-sm leading-[1.5] lg:leading-[1.55] text-ink/65">
                     {linkify(entry.description)}
                   </p>
                 </div>
