@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { DevDictionary } from '@/i18n/types';
 import { sectionIndex, skills } from '@/content/dev';
-import { Chip } from './Chip';
 import { Container } from './Container';
 import { SectionHeader } from './SectionHeader';
 import { TiltCard } from './TiltCard';
@@ -13,8 +12,9 @@ const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
 // A block-mid Color block: one darker glass card per category, three to a
 // row on desktop (cards in a row share its height), stacked on mobile. The
-// items are Chips in the card's tone; an optional note under the name
-// carries what isn't a name, so the Chips stay untranslated.
+// items are outline pills, transparent like the Audio Gear's, so the glass
+// stays on the card; an optional note under the name carries what isn't a
+// name, so the pills stay untranslated.
 export function DevSkills() {
   const { dict } = useLocale<DevDictionary>();
   const reduce = useReducedMotion();
@@ -48,7 +48,9 @@ export function DevSkills() {
                   <ul className="flex flex-wrap gap-1.5">
                     {category.items.map((item) => (
                       <li key={item}>
-                        <Chip tone="block-deep">{item}</Chip>
+                        <span className="inline-flex items-center h-8 px-3 rounded-full border border-ink/15 font-mono text-xs text-ink/80 hover:border-ink/30 transition-colors">
+                          {item}
+                        </span>
                       </li>
                     ))}
                   </ul>

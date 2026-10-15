@@ -22,7 +22,7 @@ type ChipProps = {
    * Inside a Color block, the .glass-block-* tint of the pane it sits on
    * (see globals.css); `neutral` elsewhere.
    */
-  tone?: 'neutral' | 'block-mid' | 'block-deep';
+  tone?: 'neutral' | 'block-mid';
   /** A short link: highlight text, with the magnetic pull and the press. */
   href?: string;
   /** Drawn after the text; only for a link. */
@@ -35,7 +35,6 @@ const base =
 const tints = {
   neutral: '',
   'block-mid': 'glass-block-mid',
-  'block-deep': 'glass-block-deep',
 } as const;
 
 // A Chip (see CONTEXT.md): a small glass pill. Under a fine mouse the side

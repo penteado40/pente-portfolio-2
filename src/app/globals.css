@@ -233,10 +233,10 @@ body {
    quote) and reads as a lighter pane. Its tint is darker than Charcoal (the
    plain glass tint), so ink/60 on it keeps at least the 4.5:1 it has on
    plain glass.
-   .glass-block-deep sits in a block-mid block (the Dev Stack cards and their
-   Chips) and reads as a darker pane, with a faint highlight rim. Being
-   darker than the block, it only raises contrast: with the tilt light on,
-   ink/60 keeps 5:1 and highlight 7:1, even on a Chip over a card. */
+   .glass-block-deep sits in a block-mid block (the Dev Stack cards) and
+   reads as a darker pane, with a faint highlight rim. Being darker than the
+   block, it only raises contrast: with the tilt light on, ink/60 keeps 5:1
+   and highlight 7:1. */
 .glass-block-mid {
   --glass-tint: color-mix(in oklab, var(--color-block-mid) 75%, transparent);
 }
