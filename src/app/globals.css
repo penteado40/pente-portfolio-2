@@ -150,7 +150,9 @@ body {
  * here: tint + backdrop blur + border + specular rim. The refraction's own
  * parameters sit in the SVG filter of LiquidGlassFilter, which needs a DOM
  * node. The pill CTAs (Hero, Navbar actions, Testimonials) are not glass
- * surfaces: they keep a lighter bg-white/8–12 + backdrop-blur-sm treatment. It is neutral on
+ * surfaces: they keep a lighter bg-white/8–12 + backdrop-blur-sm treatment.
+ * Chips (CONTEXT.md: small pills holding one short piece of information)
+ * are glass, through the Chip component. It is neutral on
  * purpose (no persona tint): the color comes from whatever sits behind it,
  * except .glass-block, which a Color block needs to set a pane apart from
  * its own flat fill.

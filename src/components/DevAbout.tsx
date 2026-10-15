@@ -5,15 +5,15 @@ import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { DevDictionary } from '@/i18n/types';
 import { ArrowDown } from '@phosphor-icons/react';
+import { Chip } from './Chip';
 import { Container } from './Container';
 import { SectionLabel } from './SectionHeader';
+import { TiltCard } from './TiltCard';
 
 // Set in next.config.ts: empty until the Dev portrait is added to public/.
 const photo = process.env.DEV_PORTRAIT_PHOTO;
 
 const EASE_OUT = [0.16, 1, 0.3, 1] as const;
-
-const pill = 'inline-flex items-center h-8 px-3 rounded-full border bg-white/4 font-mono text-xs';
 
 // The portrait, or the persona glow standing in for it; `sizes` is the
 // rendered width, for the photo.
@@ -31,7 +31,7 @@ function Portrait({ sizes, alt }: { sizes: string; alt: string }) {
 
 // A Color block: the portrait card on the left from lg up, a 64px avatar
 // beside the label below that. The first sentence is the title; the quote
-// sits in a block-mid glass pane, and the pills close it, the availability
+// sits in a block-mid glass pane, and Chips close it, the availability
 // one leading to Contact.
 export function DevAbout() {
   const { dict } = useLocale<DevDictionary>();
@@ -73,32 +73,30 @@ export function DevAbout() {
             </p>
           ))}
 
-          <blockquote className="glass glass-block relative mt-2 p-6 md:p-8 rounded-[20px] md:rounded-[22px] max-w-[620px]">
-            <span
-              aria-hidden
-              className="block -mb-3 md:-mb-4 font-serif text-6xl md:text-7xl leading-none text-highlight"
-            >
-              &ldquo;
-            </span>
-            <p className="text-lg md:text-2xl leading-snug font-medium tracking-[-0.02em] text-white">
-              {about.quote}
-            </p>
-          </blockquote>
+          <TiltCard className="glass glass-block mt-2 p-6 md:p-8 rounded-[20px] md:rounded-[22px] max-w-[620px]">
+            <blockquote>
+              <span
+                aria-hidden
+                className="block -mb-3 md:-mb-4 font-serif text-6xl md:text-7xl leading-none text-highlight"
+              >
+                &ldquo;
+              </span>
+              <p className="text-lg md:text-2xl leading-snug font-medium tracking-[-0.02em] text-white">
+                {about.quote}
+              </p>
+            </blockquote>
+          </TiltCard>
 
           <ul className="flex flex-wrap gap-1.5 md:gap-2 mt-1 md:mt-2">
             {[about.location, ...about.languages].map((text) => (
-              <li key={text} className={`${pill} border-white/14 text-ink/80`}>
-                {text}
+              <li key={text}>
+                <Chip tone="block">{text}</Chip>
               </li>
             ))}
             <li>
-              <a
-                href="#contact"
-                className={`${pill} gap-1.5 text-highlight border-highlight/40 hover:bg-highlight/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press`}
-              >
+              <Chip tone="block" href="#contact" Icon={ArrowDown}>
                 {about.availability}
-                <ArrowDown size={12} weight="bold" aria-hidden />
-              </a>
+              </Chip>
             </li>
           </ul>
         </motion.div>
