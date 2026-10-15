@@ -49,14 +49,16 @@ export function Hero() {
 
   return (
     <section className="pt-[76px] md:pt-24 pb-2 md:pb-8">
-      <Container>
+      <Container wide>
         <div
           ref={cardRef}
           data-hero
           className="relative isolate flex flex-col justify-between gap-6 min-h-[min(640px,calc(100svh-92px))] md:min-h-[760px] p-4 md:p-8 rounded-3xl md:rounded-[28px] overflow-hidden bg-background text-white shadow-card"
         >
+          {/* On desktop the photo runs 8% past the card's right edge, which nudges
+              the face right, clear of the text pane. */}
           <motion.div
-            className="absolute inset-0 -z-10"
+            className="absolute inset-y-0 left-0 right-0 md:-right-[8%] -z-10"
             style={reduce ? undefined : { scale: imgScale }}
           >
             <Image
@@ -64,8 +66,8 @@ export function Hero() {
               alt={dict.hero.photoAlt}
               fill
               preload
-              sizes="(min-width: 1200px) 1136px, 100vw"
-              className="object-cover object-[55%_30%] md:object-[50%_30%]"
+              sizes="(min-width: 1600px) 1650px, 100vw"
+              className="object-cover object-[55%_40%] md:object-[50%_40%]"
             />
           </motion.div>
           <div aria-hidden className="absolute inset-0 -z-10 persona-card-tint" />
