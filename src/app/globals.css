@@ -149,7 +149,7 @@ body {
  * here: tint + backdrop blur + border + specular rim. The refraction's own
  * parameters sit in the SVG filter of LiquidGlassFilter, which needs a DOM
  * node. The pill CTAs (Hero, Navbar actions, Testimonials) are not glass
- * surfaces: they keep a lighter bg-white/10 + backdrop-blur-sm treatment. It is neutral on
+ * surfaces: they keep a lighter bg-white/8–12 + backdrop-blur-sm treatment. It is neutral on
  * purpose (no persona tint): the color comes from whatever sits behind it.
  * Plan B (glass only on controls, solid content cards) is a swap of the card
  * classes to bg-mist/bg-surface, with no change to component structure.
@@ -255,10 +255,11 @@ body {
   }
 }
 
-/* Hub persona card: the persona's tint over the photo, darkening to black
-   at the bottom, where the glass pane sits. Reads the card's own tokens
-   (data-persona-card), never the neutral Hub's. */
-.hub-card-tint {
+/* Persona photo card (Hub persona cards, persona Hero): the persona's tint
+   over the photo, darkening to black at the bottom, where the glass pane
+   sits. On the Hub it reads the card's own tokens (data-persona-card), never
+   the neutral Hub's. */
+.persona-card-tint {
   background: linear-gradient(
     0deg,
     var(--brand-black),
@@ -266,6 +267,32 @@ body {
     color-mix(in oklab, var(--brand-accent) 25%, transparent) 70%,
     color-mix(in oklab, var(--brand-black) 30%, transparent)
   );
+}
+
+/* The photo cards' drop shadow, deeper from md up. */
+@utility shadow-card {
+  box-shadow: 0 20px 40px color-mix(in oklab, var(--brand-black) 45%, transparent);
+
+  @media (width >= 48rem) {
+    box-shadow: 0 30px 60px color-mix(in oklab, var(--brand-black) 45%, transparent);
+  }
+}
+
+/* A soft persona glow laid behind glass cards on Onyx (the Stats strip), so
+   the glass has a color to refract. Blurred once, never animated. */
+.persona-ambient {
+  background:
+    radial-gradient(
+      ellipse at 25% 50%,
+      color-mix(in oklab, var(--brand-accent) 45%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 80% 50%,
+      color-mix(in oklab, var(--brand-highlight) 18%, transparent),
+      transparent 55%
+    );
+  filter: blur(24px);
 }
 
 /* Button press: shrink on click, only for a fine mouse and without

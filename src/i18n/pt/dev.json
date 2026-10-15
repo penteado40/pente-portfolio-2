@@ -12,9 +12,11 @@
     "contact": "Contato"
   },
   "hero": {
-    "role": "Desenvolvedor Full Stack · foco em back-end",
-    "headline": "Back-end que ninguém percebe, front-end que todo mundo entende.",
-    "subtitle": "APIs e sistemas financeiros em produção (faturamento, pagamentos e Pix) com Node.js, TypeScript e PHP/Laravel.",
+    "role": "Desenvolvedor de Sistemas",
+    "headline": "Construo o back-end por onde o dinheiro passa",
+    "subtitle": "Full stack com foco em back-end: mais de 4 anos em APIs e sistemas financeiros em produção, com faturamento, rateio de custos e pagamentos por cartão, boleto e Pix.",
+    "location": "Remoto",
+    "hiring": "CLT ou PJ",
     "ctaProjects": "Ver projetos",
     "ctaCv": "Baixar CV",
     "ctaCvFallback": "CV (PT)"
