@@ -34,7 +34,7 @@ export function Hero() {
           className="object-cover object-[55%_40%] md:object-[50%_40%]"
         />
       }
-      role={dict.hero.role}
+      eyebrow={dict.hero.role}
       headline={dict.hero.headline}
       subtitle={dict.hero.subtitle}
       actions={

@@ -9,12 +9,12 @@ import { cvLocales } from '@/content/dev';
 import { ArrowDown, DownloadSimple } from '@phosphor-icons/react';
 import { HeroCard } from './HeroCard';
 import { PillButton } from './PillButton';
-import { useMagnetic } from './useMagnetic';
 
 // Set in next.config.ts: empty until the Dev hero photo is added to public/.
 const photo = process.env.DEV_HERO_PHOTO;
 
 const GLOW_DURATION = 1;
+const GLOW_EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
 // The Audio Hero's card, with a request window beside the glass pane on
 // desktop. Until the photo lands, the persona glow stands in for it, from
@@ -22,7 +22,6 @@ const GLOW_DURATION = 1;
 export function DevHero() {
   const { locale, dict } = useLocale<DevDictionary>();
   const reduce = useReducedMotion();
-  const cvMagnet = useMagnetic<HTMLAnchorElement>();
   const cv = cvLink(locale, cvLocales);
 
   return (
@@ -35,7 +34,6 @@ export function DevHero() {
           <span className="hidden md:inline"> · {dict.hero.hiring}</span>
         </>
       }
-      backdropClassName="inset-0"
       backdrop={
         photo ? (
           <Image
@@ -55,7 +53,7 @@ export function DevHero() {
             <motion.div
               initial={{ opacity: 0, scale: reduce ? 1 : 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: GLOW_DURATION, ease: [0.23, 1, 0.32, 1] }}
+              transition={{ duration: GLOW_DURATION, ease: GLOW_EASE_OUT }}
               className="size-full rounded-full"
               style={{ backgroundImage: 'var(--persona-glow)' }}
             />
@@ -63,7 +61,7 @@ export function DevHero() {
         )
       }
       delay={photo ? 0 : GLOW_DURATION * 0.4}
-      role={dict.hero.role}
+      eyebrow={dict.hero.role}
       headline={dict.hero.headline}
       subtitle={dict.hero.subtitle}
       actions={
@@ -71,15 +69,9 @@ export function DevHero() {
           <PillButton href="#projects" Icon={ArrowDown} className="w-full md:w-auto">
             {dict.hero.ctaProjects}
           </PillButton>
-          <motion.a
-            {...cvMagnet}
-            href={cv.href}
-            download
-            className="inline-flex items-center justify-center gap-2 h-[52px] px-[22px] rounded-full border border-white/20 text-white text-[15px] font-medium hover:bg-white/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press"
-          >
+          <PillButton href={cv.href} download Icon={DownloadSimple} variant="outline">
             {cv.fallback ? dict.hero.ctaCvFallback : dict.hero.ctaCv}
-            <DownloadSimple size={16} weight="bold" aria-hidden />
-          </motion.a>
+          </PillButton>
         </div>
       }
       aside={<RequestWindow />}
@@ -87,8 +79,8 @@ export function DevHero() {
   );
 }
 
-// Decorative: a request to the events API the Projects section shows,
-// left untranslated like the code it stands for.
+// Decorative: an RSVP request to the events API of the event-sites
+// platform, left untranslated like the code it stands for.
 function RequestWindow() {
   return (
     <div

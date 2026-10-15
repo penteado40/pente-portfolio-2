@@ -10,6 +10,8 @@ import {
 import { Container } from './Container';
 import { SectionLabel } from './SectionHeader';
 
+const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+
 type HeroCardProps = {
   /** Position on the page and persona name, shown as "01 / AUDIO". */
   index: number;
@@ -18,9 +20,10 @@ type HeroCardProps = {
   meta: ReactNode;
   /** The photo, or what stands in for it, under the persona tint. */
   backdrop: ReactNode;
-  /** Where the backdrop layer sits in the card; it grows a little on scroll. */
-  backdropClassName: string;
-  role: string;
+  /** Where the backdrop layer sits in the card (the whole card by default); it grows a little on scroll. */
+  backdropClassName?: string;
+  /** The mono line above the headline, in highlight. */
+  eyebrow: string;
   headline: string;
   subtitle: string;
   actions: ReactNode;
@@ -41,8 +44,8 @@ export function HeroCard({
   label,
   meta,
   backdrop,
-  backdropClassName,
-  role,
+  backdropClassName = 'inset-0',
+  eyebrow,
   headline,
   subtitle,
   actions,
@@ -58,9 +61,10 @@ export function HeroCard({
   });
   const backdropScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
+  const paneDelay = reduce ? 0 : delay;
   const container = {
     hidden: {},
-    show: { transition: { delayChildren: reduce ? 0 : delay, staggerChildren: 0.15 } },
+    show: { transition: { delayChildren: paneDelay, staggerChildren: 0.15 } },
   };
 
   // With reduced motion the entrance keeps its fade but drops the slide.
@@ -69,7 +73,7 @@ export function HeroCard({
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+      transition: { duration: 0.8, ease: EASE_OUT },
     },
   };
 
@@ -107,7 +111,7 @@ export function HeroCard({
                 variants={item}
                 className="font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase text-highlight"
               >
-                {role}
+                {eyebrow}
               </motion.p>
               <motion.h1
                 variants={item}
@@ -128,7 +132,7 @@ export function HeroCard({
             {aside && (
               <motion.div
                 initial={item.hidden}
-                animate={{ ...item.show, transition: { ...item.show.transition, delay: (reduce ? 0 : delay) + 0.6 } }}
+                animate={{ ...item.show, transition: { ...item.show.transition, delay: paneDelay + 0.6 } }}
                 className="hidden lg:block shrink-0"
               >
                 {aside}
