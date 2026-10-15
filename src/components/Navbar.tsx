@@ -13,6 +13,10 @@ import type { PersonaOption } from '@/content/personas';
 
 const HOVER_LEAVE_DELAY_MS = 400;
 const EXPANDED_MAX_WIDTH = 920;
+// The desktop island's heights, border included: a 44px row of targets when
+// compact, the LP boards' 56px when expanded.
+const COMPACT_HEIGHT = 46;
+const EXPANDED_HEIGHT = 56;
 // Until the compact pill is measured on the client.
 const COMPACT_FALLBACK_WIDTH = 380;
 // The desktop island's bottom edge (top-4 + h-14): it expands once the hero
@@ -194,7 +198,9 @@ function MobileNavbar({
 }
 
 // From `lg` up: the island is compact over the Hero, expanded once scrolled
-// past it or on hover (of the island or the persona pill).
+// past it or on hover. Only the island starts the hover; the persona pill
+// keeps it expanded on the way over, so the pill doesn't slide away from the
+// pointer.
 // The page's hero carries `data-hero` (see useInHero).
 function DesktopNavbar({ sections, personas }: NavbarViewProps) {
   const { dict } = useLocale();
@@ -212,8 +218,12 @@ function DesktopNavbar({ sections, personas }: NavbarViewProps) {
     };
   }, []);
 
-  function handleMouseEnter() {
+  function cancelHoverLeave() {
     if (hoverLeaveTimeoutRef.current) clearTimeout(hoverLeaveTimeoutRef.current);
+  }
+
+  function handleMouseEnter() {
+    cancelHoverLeave();
     setHovered(true);
   }
 
@@ -241,26 +251,29 @@ function DesktopNavbar({ sections, personas }: NavbarViewProps) {
 
   return (
     <motion.nav
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       initial={reduce ? false : ENTRANCE}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: ENTRANCE_EASE }}
       // The island grows into the free space up to its max width; the pill
-      // sits beside it, so it follows the island as it shrinks and expands.
+      // sits beside it and stretches to its height, so it follows the island
+      // as it shrinks and expands.
       className="hidden lg:flex w-full justify-center gap-2.5"
     >
       <motion.div
         ref={islandRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         animate={{
           maxWidth: showExpanded ? EXPANDED_MAX_WIDTH : compactWidth,
+          height: showExpanded ? EXPANDED_HEIGHT : COMPACT_HEIGHT,
           borderRadius: showExpanded ? 16 : 999,
         }}
         transition={{
           maxWidth: { type: 'spring', duration: 0.5, bounce: 0.15 },
+          height: { type: 'spring', duration: 0.5, bounce: 0.15 },
           borderRadius: { type: 'spring', duration: 0.4, bounce: 0.1 },
         }}
-        className={`flex-1 min-w-0 h-14 ${glass} pointer-events-auto overflow-hidden`}
+        className={`flex-1 min-w-0 ${glass} pointer-events-auto overflow-hidden`}
       >
         <AnimatePresence mode="wait" initial={false}>
           {showExpanded ? (
@@ -343,17 +356,37 @@ function DesktopNavbar({ sections, personas }: NavbarViewProps) {
           )}
         </AnimatePresence>
       </motion.div>
-      <PersonaPill personas={personas} className="h-14 shrink-0" />
+      <PersonaPill
+        personas={personas}
+        className="shrink-0"
+        // Holds a hover expansion, never starts one.
+        onMouseEnter={cancelHoverLeave}
+        onMouseLeave={() => {
+          if (hovered) handleMouseLeave();
+        }}
+      />
     </motion.nav>
   );
 }
 
 // The segmented selector in its own glass pill, beside the island.
-function PersonaPill({ personas, className }: { personas: PersonaOption[]; className: string }) {
+function PersonaPill({
+  personas,
+  className,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  personas: PersonaOption[];
+  className: string;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}) {
   const { dict } = useLocale();
 
   return (
     <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       role="group"
       aria-label={dict.navbar.personaSwitch}
       className={`flex items-center px-1 rounded-full ${glass} pointer-events-auto ${className}`}
