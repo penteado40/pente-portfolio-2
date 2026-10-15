@@ -9,25 +9,28 @@ import { useActiveSection } from './useActiveSection';
 import { useInHero } from './useInHero';
 import { useLocaleSwitch } from './useLocaleSwitch';
 import { FOCUSABLE_SELECTOR, wrapFocus } from './focusTrap';
-import type { PersonaSwitch } from './usePersonaSwitch';
+import type { PersonaOption } from '@/content/personas';
 
 const HOVER_LEAVE_DELAY_MS = 400;
-const EXPANDED_MAX_WIDTH = 1024;
+const EXPANDED_MAX_WIDTH = 920;
 // Until the compact pill is measured on the client.
-const COMPACT_FALLBACK_WIDTH = 520;
+const COMPACT_FALLBACK_WIDTH = 380;
 // The desktop island's bottom edge (top-4 + h-14): it expands once the hero
 // has scrolled up past it.
 const ISLAND_BOTTOM = 72;
 // Tailwind's `lg`: the desktop island from here up, the mobile pill below.
 const DESKTOP_QUERY = '(min-width: 64rem)';
 
-// Both islands slide in from above on load.
+// Both navbars slide in from above on load.
 const ENTRANCE = { y: -20, opacity: 0 };
 const ENTRANCE_EASE = [0.23, 1, 0.32, 1] as const;
 
 // Every control is a 44px target; most draw a smaller shape inside it.
 const focusRing =
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight';
+
+// The islands, the persona pill and the mobile menu share one material.
+const glass = 'glass-dark shadow-lg shadow-black/25';
 
 export type NavItem = { label: string; href: string; Icon: Icon };
 export type NavAction = { label: string; Icon: Icon; onClick: () => void };
@@ -39,8 +42,8 @@ type NavbarProps = {
   items: NavItem[];
   /** Persona-specific buttons, shown only as entries in the mobile menu. */
   actions?: NavAction[];
-  /** The personas to switch between: the segmented selector, or the "go to" chip in the compact desktop island. */
-  personas: PersonaSwitch;
+  /** The personas to switch between, in the segmented selector beside the island. */
+  personas: PersonaOption[];
 };
 
 export function Navbar({ items, actions = [], personas }: NavbarProps) {
@@ -55,9 +58,10 @@ export function Navbar({ items, actions = [], personas }: NavbarProps) {
   );
 }
 
-type NavbarViewProps = { sections: NavSection[]; personas: PersonaSwitch };
+type NavbarViewProps = { sections: NavSection[]; personas: PersonaOption[] };
 
-// Below `lg`: a pill that always stays compact, with the sections in a menu.
+// Below `lg`: an island that always stays compact, with the sections in a
+// menu, and the persona pill beside it.
 function MobileNavbar({
   sections,
   actions,
@@ -92,8 +96,8 @@ function MobileNavbar({
         }
       }
     }
-    // Anywhere but the panel closes it, the pill's other controls included;
-    // the toggle button is left to its own click.
+    // Anywhere but the panel closes it, the persona pill and the island's
+    // other controls included; the toggle button is left to its own click.
     function onPointerDown(event: PointerEvent) {
       const target = event.target as Node;
       if (panelRef.current?.contains(target) || buttonRef.current?.contains(target)) return;
@@ -120,11 +124,10 @@ function MobileNavbar({
       initial={reduce ? false : ENTRANCE}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: ENTRANCE_EASE }}
-      className="lg:hidden flex flex-col items-center gap-2 w-full pointer-events-auto"
+      className="lg:hidden relative flex items-center gap-2 pointer-events-auto"
     >
-      <div className="flex items-center gap-1 h-12 px-0.5 rounded-full glass-dark shadow-lg shadow-black/25">
+      <div className={`flex items-center h-12 px-0.5 rounded-full ${glass}`}>
         <HomeLink />
-        <PersonaSelector options={personas.options} />
         <LocaleButton />
         <button
           ref={buttonRef}
@@ -140,17 +143,21 @@ function MobileNavbar({
           </span>
         </button>
       </div>
+      <PersonaPill personas={personas} className="h-12" />
 
       <AnimatePresence>
         {open && (
           <motion.div
             ref={panelRef}
             id={panelId}
+            role="group"
+            aria-label={dict.navbar.sectionMenu}
             initial={reduce ? false : { opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.16 }}
-            className="flex flex-col w-full max-w-xs p-2 rounded-2xl glass-dark shadow-lg shadow-black/25"
+            // Under the island, as wide as both pills.
+            className={`absolute top-full left-0 mt-2 flex flex-col w-full min-w-60 p-2 rounded-2xl ${glass}`}
           >
             {sections.map((item) => (
               <a
@@ -186,7 +193,8 @@ function MobileNavbar({
   );
 }
 
-// From `lg` up: compact over the Hero, expanded once scrolled past it or on hover.
+// From `lg` up: the island is compact over the Hero, expanded once scrolled
+// past it or on hover (of the island or the persona pill).
 // The page's hero carries `data-hero` (see useInHero).
 function DesktopNavbar({ sections, personas }: NavbarViewProps) {
   const { dict } = useLocale();
@@ -195,7 +203,7 @@ function DesktopNavbar({ sections, personas }: NavbarViewProps) {
   const [compactWidth, setCompactWidth] = useState(COMPACT_FALLBACK_WIDTH);
   const [compactEl, setCompactEl] = useState<HTMLDivElement | null>(null);
   const reduce = useReducedMotion();
-  const navRef = useRef<HTMLElement>(null);
+  const islandRef = useRef<HTMLDivElement>(null);
   const hoverLeaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -215,152 +223,142 @@ function DesktopNavbar({ sections, personas }: NavbarViewProps) {
 
   const showExpanded = !inHero || hovered;
 
-  // The compact pill hugs its content, which changes with the persona and the
-  // locale (chip label). Measured while it is mounted; the last width is kept
-  // while expanded.
+  // The compact island hugs its content, which changes with the persona's
+  // sections. Measured while it is mounted; the last width is kept while
+  // expanded.
   useEffect(() => {
     if (!compactEl) return;
-    // + the nav's own border, read off the nav rather than assumed. A
+    // + the island's own border, read off the island rather than assumed. A
     // ResizeObserver also reports once on observe.
     const observer = new ResizeObserver(() => {
-      const nav = navRef.current;
-      const border = nav ? nav.offsetWidth - nav.clientWidth : 0;
+      const island = islandRef.current;
+      const border = island ? island.offsetWidth - island.clientWidth : 0;
       setCompactWidth(compactEl.offsetWidth + border);
     });
     observer.observe(compactEl);
     return () => observer.disconnect();
   }, [compactEl]);
 
-  const { destination } = personas;
-
   return (
     <motion.nav
-      ref={navRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       initial={reduce ? false : ENTRANCE}
-      animate={{
-        y: 0,
-        opacity: 1,
-        maxWidth: showExpanded ? EXPANDED_MAX_WIDTH : compactWidth,
-        borderRadius: showExpanded ? 16 : 999,
-      }}
-      transition={{
-        y: { duration: 0.6, ease: ENTRANCE_EASE },
-        opacity: { duration: 0.6 },
-        maxWidth: { type: 'spring', duration: 0.5, bounce: 0.15 },
-        borderRadius: { type: 'spring', duration: 0.4, bounce: 0.1 },
-      }}
-      className="hidden lg:block w-full glass-dark shadow-lg shadow-black/25 pointer-events-auto overflow-hidden"
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: ENTRANCE_EASE }}
+      // The island grows into the free space up to its max width; the pill
+      // sits beside it, so it follows the island as it shrinks and expands.
+      className="hidden lg:flex w-full justify-center gap-2.5"
     >
-      <AnimatePresence mode="wait" initial={false}>
-        {showExpanded ? (
-          <motion.div
-            key="expanded"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.12 }}
-            className="flex items-center justify-between gap-4 px-2.5 h-14"
-          >
-            <Link
-              href="/"
-              aria-label={dict.navbar.home}
-              className={`flex items-center gap-2.5 h-11 min-w-11 pr-1.5 rounded-full shrink-0 text-sm font-medium tracking-tight text-white ${focusRing}`}
+      <motion.div
+        ref={islandRef}
+        animate={{
+          maxWidth: showExpanded ? EXPANDED_MAX_WIDTH : compactWidth,
+          borderRadius: showExpanded ? 16 : 999,
+        }}
+        transition={{
+          maxWidth: { type: 'spring', duration: 0.5, bounce: 0.15 },
+          borderRadius: { type: 'spring', duration: 0.4, bounce: 0.1 },
+        }}
+        className={`flex-1 min-w-0 h-14 ${glass} pointer-events-auto overflow-hidden`}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          {showExpanded ? (
+            <motion.div
+              key="expanded"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
+              className="flex items-center justify-between gap-4 px-2.5 h-full"
             >
-              <Logo />
-              <span>Felipe Penteado</span>
-            </Link>
+              <Link
+                href="/"
+                aria-label={dict.navbar.home}
+                className={`flex items-center gap-2.5 h-11 min-w-11 pr-1.5 rounded-full shrink-0 text-sm font-medium tracking-tight whitespace-nowrap text-white ${focusRing}`}
+              >
+                <Logo />
+                <span>Felipe Penteado</span>
+              </Link>
 
-            <div className="flex items-center gap-5">
+              <div className="flex items-center gap-5">
+                {sections.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    aria-current={item.active ? 'true' : undefined}
+                    className={`flex items-center justify-center h-11 min-w-11 text-sm whitespace-nowrap transition-colors ${focusRing} ${
+                      item.active ? 'text-white' : 'text-white/70 hover:text-white'
+                    }`}
+                  >
+                    <span
+                      className={`py-1.5 ${
+                        item.active ? 'shadow-[inset_0_-2px_0_var(--color-highlight)]' : ''
+                      }`}
+                    >
+                      {item.label}
+                    </span>
+                  </a>
+                ))}
+              </div>
+
+              <div className="shrink-0">
+                <LocaleButton />
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="compact"
+              ref={setCompactEl}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.12 }}
+              className="flex items-center w-max mx-auto px-px h-full"
+            >
+              <HomeLink />
+              <Separator />
               {sections.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
+                  aria-label={item.label}
                   aria-current={item.active ? 'true' : undefined}
-                  className={`flex items-center justify-center h-11 min-w-11 text-sm whitespace-nowrap transition-colors ${focusRing} ${
-                    item.active ? 'text-white' : 'text-white/70 hover:text-white'
-                  }`}
+                  className={`group grid place-items-center size-11 rounded-full ${focusRing}`}
                 >
                   <span
-                    className={`py-1.5 ${
-                      item.active ? 'shadow-[inset_0_-2px_0_var(--color-highlight)]' : ''
+                    className={`grid place-items-center size-8 rounded-full transition-colors ${
+                      item.active
+                        ? 'text-highlight bg-highlight/14'
+                        : 'text-white/70 group-hover:text-white'
                     }`}
                   >
-                    {item.label}
+                    <item.Icon size={16} aria-hidden />
                   </span>
                 </a>
               ))}
-            </div>
-
-            <div className="flex items-center gap-2 shrink-0">
-              <PersonaSelector options={personas.options} />
+              <Separator />
               <LocaleButton />
-            </div>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="compact"
-            ref={setCompactEl}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.12 }}
-            className="flex items-center w-max mx-auto px-px h-11"
-          >
-            <HomeLink />
-            <Separator />
-            {sections.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                aria-label={item.label}
-                aria-current={item.active ? 'true' : undefined}
-                className={`group grid place-items-center size-11 rounded-full ${focusRing}`}
-              >
-                <span
-                  className={`grid place-items-center size-8 rounded-full transition-colors ${
-                    item.active
-                      ? 'text-highlight bg-highlight/14'
-                      : 'text-white/70 group-hover:text-white'
-                  }`}
-                >
-                  <item.Icon size={16} aria-hidden />
-                </span>
-              </a>
-            ))}
-            <Separator />
-            <Link
-              href={destination.href}
-              aria-label={destination.switchLabel}
-              className={`group flex items-center h-11 px-1 rounded-full ${focusRing}`}
-            >
-              <span className="flex items-center gap-1.5 h-8 pl-2.5 pr-3 rounded-full text-xs font-medium text-white bg-white/8 border border-white/14 group-hover:bg-white/12 transition-colors">
-                {/* The destination's own highlight, through its persona tokens. */}
-                <span data-persona-card={destination.id} className="text-highlight">
-                  <destination.Icon size={16} weight="bold" aria-hidden />
-                </span>
-                {destination.label}
-              </span>
-            </Link>
-            <LocaleButton />
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+      <PersonaPill personas={personas} className="h-14 shrink-0" />
     </motion.nav>
   );
 }
 
-function PersonaSelector({ options }: { options: PersonaSwitch['options'] }) {
+// The segmented selector in its own glass pill, beside the island.
+function PersonaPill({ personas, className }: { personas: PersonaOption[]; className: string }) {
   const { dict } = useLocale();
 
   return (
     <div
       role="group"
       aria-label={dict.navbar.personaSwitch}
-      className="flex items-center h-9 px-[3px] rounded-full bg-white/6 border border-white/10"
+      className={`flex items-center px-1 rounded-full ${glass} pointer-events-auto ${className}`}
     >
-      {options.map((option) => (
+      {personas.map((option) => (
         <Link
           key={option.href}
           href={option.href}
@@ -368,7 +366,7 @@ function PersonaSelector({ options }: { options: PersonaSwitch['options'] }) {
           className={`group flex items-center justify-center h-11 min-w-11 rounded-full ${focusRing}`}
         >
           <span
-            className={`flex items-center h-7 px-3 rounded-full text-xs font-medium transition-colors ${
+            className={`flex items-center h-8 px-3.5 rounded-full text-xs font-medium transition-colors ${
               option.current
                 ? 'bg-accent text-white ring-1 ring-highlight'
                 : 'text-white/70 group-hover:text-white'

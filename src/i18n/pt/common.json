@@ -7,8 +7,7 @@
     "personas": {
       "audio": "Audio",
       "dev": "Dev"
-    },
-    "switchTo": "Ir para a persona {persona}"
+    }
   },
   "contact": {
     "title": "Trabalhando em algo que precisa soar certo?",
