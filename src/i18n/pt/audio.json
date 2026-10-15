@@ -34,11 +34,12 @@
     ]
   },
   "about": {
-    "title": "Sobre",
-    "p1": "Sou Felipe Penteado, engenheiro de áudio especializado em música vocal. Trabalho com eventos ao vivo, DVDs e mixagem de estúdio, atuando ao lado de grupos vocais, corais, bandas e artistas independentes.",
+    "title": "Sou o Felipe, engenheiro de áudio especializado em música vocal.",
+    "p1": "Trabalho com eventos ao vivo, DVDs e mixagem de estúdio, atuando ao lado de grupos vocais, corais, bandas e artistas independentes.",
     "p2": "Desde os 12 anos eu ja mexia em cabos e ficava curioso com os equipamentos de som da igreja. Não sei exatamente quando isso virou vocação, acho que sempre foi. Aos 15, no colégio interno, já estava ajudando nos eventos da escola e da universidade. Aos 18, dei meu primeiro passo profissional integrando a equipe de áudio do Ministério VOX.",
     "p3": "Pra mim, o papel do engenheiro de áudio é ser invisível. Ninguém no público precisa reparar que eu estou ali. O meu trabalho é amplificar o que o palco entrega, e deixar a mensagem chegar com ainda mais força. Quando a mixagem está boa, eu consigo vibrar junto com o público, me emocionar com as músicas. E nesse momento que eu me desligo de tudo ao redor e simplesmente curto o show.",
-    "quote": "As músicas tocam os corações. Mas quando o som está bom, a mensagem consegue ser ainda mais amplificada."
+    "quote": "As músicas tocam os corações. Mas quando o som está bom, a mensagem consegue ser ainda mais amplificada.",
+    "portraitAlt": "Retrato de Felipe Penteado"
   },
   "projects": {
     "title": "Trabalhos Selecionados",
