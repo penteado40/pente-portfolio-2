@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "title": "Áudio & Software",
+    "description": "Engenheiro de áudio e desenvolvedor de sistemas. Escolha um lado: mixagem ao vivo e em estúdio, ou back-end e web."
+  },
+  "nav": {
+    "label": "Principal",
+    "home": "Início"
+  },
+  "intro": {
+    "portraitAlt": "Felipe Penteado",
+    "tagline": "Construo sistemas de backend e mixo som ao vivo, duas áreas movidas pelo mesmo instinto de precisão invisível."
+  },
+  "cards": {
+    "audio": {
+      "title": "Engenheiro de Áudio",
+      "description": "Som ao vivo, gravação de DVDs e mixagem de estúdio para música vocal.",
+      "short": "Ao vivo, DVDs e estúdio",
+      "enter": "Entrar em /audio",
+      "label": "Engenheiro de Áudio: ver a página Audio"
+    },
+    "dev": {
+      "title": "Desenvolvedor de Sistemas",
+      "description": "Back-end para faturamento, pagamentos e APIs: Node.js, TypeScript, PostgreSQL.",
+      "short": "Back-end, pagamentos e APIs",
+      "enter": "Entrar em /dev",
+      "label": "Desenvolvedor de Sistemas: ver a página Dev"
+    }
+  },
+  "links": {
+    "contact": "Contato"
+  }
+}

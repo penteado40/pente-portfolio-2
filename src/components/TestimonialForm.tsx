@@ -3,14 +3,17 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import type { AudioDictionary } from '@/i18n/types';
 import { PaperPlaneTilt, Check, CircleNotch } from '@phosphor-icons/react';
 import { submitTestimonial } from '@/lib/submitTestimonial';
+import { useMagnetic } from './useMagnetic';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void }) {
-  const { dict } = useLocale();
+  const { dict } = useLocale<AudioDictionary>();
   const [status, setStatus] = useState<Status>('idle');
+  const submitMagnet = useMagnetic<HTMLButtonElement>();
 
   useEffect(() => {
     if (status !== 'sent') return;
@@ -63,7 +66,7 @@ export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void
             required
             disabled={status === 'sending'}
             placeholder={dict.testimonialForm.namePlaceholder}
-            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
+            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/60 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
           />
         </div>
         <div>
@@ -77,7 +80,7 @@ export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void
             required
             disabled={status === 'sending'}
             placeholder={dict.testimonialForm.rolePlaceholder}
-            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
+            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/60 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
           />
         </div>
         <div>
@@ -91,19 +94,20 @@ export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void
             required
             disabled={status === 'sending'}
             placeholder={dict.testimonialForm.messagePlaceholder}
-            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all resize-none disabled:opacity-50"
+            className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/60 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all resize-none disabled:opacity-50"
           />
         </div>
 
-        <button
+        <motion.button
+          {...submitMagnet}
           type="submit"
           disabled={status === 'sending' || status === 'sent'}
-          className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium transition-all active:scale-[0.98] disabled:pointer-events-none ${
+          className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium press disabled:pointer-events-none ${
             status === 'sent'
               ? 'bg-success text-background'
               : status === 'error'
-                ? 'bg-danger text-ink hover:scale-[1.02] hover:ring-2 hover:ring-highlight'
-                : 'bg-accent text-ink hover:scale-[1.02] hover:ring-2 hover:ring-highlight'
+                ? 'bg-danger text-ink hover:ring-2 hover:ring-highlight'
+                : 'bg-accent text-ink hover:ring-2 hover:ring-highlight'
           }`}
         >
           <AnimatePresence mode="wait" initial={false}>
@@ -123,7 +127,7 @@ export function TestimonialForm({ onSuccessClose }: { onSuccessClose: () => void
               />
             </motion.span>
           </AnimatePresence>
-        </button>
+        </motion.button>
       </form>
     </div>
   );

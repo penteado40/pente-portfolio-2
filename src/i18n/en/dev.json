@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "title": "Systems Developer",
+    "description": "Back-end that nobody notices, front-end that everybody gets. TypeScript, NestJS, Postgres, Next.js."
+  },
+  "nav": {
+    "about": "About",
+    "experience": "Journey",
+    "certifications": "Certifications",
+    "skills": "Stack",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "role": "Full Stack Developer · back-end focus",
+    "headline": "Back-end nobody notices, front-end everybody understands.",
+    "subtitle": "APIs and financial systems in production (billing, payments, and Pix) with Node.js, TypeScript, and PHP/Laravel.",
+    "ctaProjects": "See projects",
+    "ctaCv": "Download CV",
+    "ctaCvFallback": "CV (PT)"
+  }
+}

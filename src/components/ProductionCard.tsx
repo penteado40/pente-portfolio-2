@@ -3,8 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { SpeakerHighIcon, SpeakerSlashIcon, XIcon } from '@phosphor-icons/react';
+import { TiltCard } from './TiltCard';
 
-const HOVER_DEBOUNCE_MS = 200;
+// Long enough that the tilt reads before the card expands and goes still.
+const HOVER_DEBOUNCE_MS = 600;
+// Mirrors the blur rule in globals.css: blurred cards don't tilt.
+const BLURRED_CARD = '.productions-grid:has(.is-active) .production-card:not(.is-active)';
 
 type Production = {
   title: string;
@@ -92,8 +96,10 @@ export function ProductionCard({
   };
 
   return (
-    <div
+    <TiltCard
       ref={cardRef}
+      disabled={expanded}
+      stillWhen={BLURRED_CARD}
       className={`production-card glass rounded-2xl overflow-hidden ${expanded ? 'is-active' : ''}`}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
@@ -113,7 +119,7 @@ export function ProductionCard({
             <button
               onClick={toggleMute}
               aria-label={muted ? 'Unmute video' : 'Mute video'}
-              className="absolute bottom-3 right-3 z-10 glass-strong p-2 rounded-full text-ink/80"
+              className="absolute bottom-3 right-3 z-10 glass-strong p-2 rounded-full text-ink/80 press"
             >
               {muted ? <SpeakerSlashIcon size={16} weight="bold" /> : <SpeakerHighIcon size={16} weight="bold" />}
             </button>
@@ -123,7 +129,7 @@ export function ProductionCard({
                 collapse();
               }}
               aria-label="Close preview"
-              className="absolute top-3 right-3 z-10 glass-strong p-1.5 rounded-full text-ink/80"
+              className="absolute top-3 right-3 z-10 glass-strong p-1.5 rounded-full text-ink/80 press"
             >
               <XIcon size={16} weight="bold" />
             </button>
@@ -141,13 +147,13 @@ export function ProductionCard({
         )}
       </div>
       <ProductionCardText prod={prod} streamsLabel={streamsLabel} />
-    </div>
+    </TiltCard>
   );
 }
 
 function ProductionCardBody({ prod, streamsLabel }: { prod: Production; streamsLabel: string }) {
   return (
-    <div className="glass rounded-2xl overflow-hidden">
+    <TiltCard className="glass rounded-2xl overflow-hidden">
       {prod.image && (
         <div className="relative aspect-[16/9]">
           <Image
@@ -160,7 +166,7 @@ function ProductionCardBody({ prod, streamsLabel }: { prod: Production; streamsL
         </div>
       )}
       <ProductionCardText prod={prod} streamsLabel={streamsLabel} />
-    </div>
+    </TiltCard>
   );
 }
 
@@ -184,7 +190,7 @@ function ProductionCardText({ prod, streamsLabel }: { prod: Production; streamsL
           <h4 className="font-medium">{prod.title}</h4>
         )}
         {prod.streams && (
-          <span className="text-xs font-mono text-ink/40">
+          <span className="text-xs font-mono text-ink/60">
             {prod.streams} {streamsLabel}
           </span>
         )}

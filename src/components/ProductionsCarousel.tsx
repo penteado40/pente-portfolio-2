@@ -4,8 +4,11 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import type { AudioDictionary } from '@/i18n/types';
+import { TiltCard } from './TiltCard';
+import { useMagnetic } from './useMagnetic';
 
-type YoutubeProject = {
+type YoutubeProduction = {
   title: string;
   description: string;
   tags: string[];
@@ -14,12 +17,14 @@ type YoutubeProject = {
   views?: string;
 };
 
-export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
-  const { dict } = useLocale();
+export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
+  const { dict } = useLocale<AudioDictionary>();
   const reduce = useReducedMotion();
   const trackRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const prevMagnet = useMagnetic<HTMLButtonElement>();
+  const nextMagnet = useMagnetic<HTMLButtonElement>();
 
   useEffect(() => {
     const root = trackRef.current;
@@ -60,12 +65,13 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
     <div className="relative">
       <div
         ref={trackRef}
-        className="carousel-fade flex gap-6 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide px-6"
+        className="carousel-fade flex gap-6 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide px-6 py-10 -my-10"
       >
         {items.map((project, i) => (
-          <motion.article
+          <TiltCard
+            as="article"
             key={`${project.title}-${project.embedId}`}
-            ref={(el: HTMLDivElement | null) => {
+            ref={(el: HTMLElement | null) => {
               cardRefs.current[i] = el;
             }}
             initial={reduce ? false : { opacity: 0, y: 24 }}
@@ -96,7 +102,7 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
             <div className="flex items-center gap-2 mb-2">
               <h3 className="text-xl font-medium">{project.title}</h3>
               {'views' in project && (
-                <span className="text-xs font-mono text-ink/40">
+                <span className="text-xs font-mono text-ink/60">
                   {project.views} {dict.stats.viewsLabel}
                 </span>
               )}
@@ -108,40 +114,45 @@ export function ProjectsCarousel({ items }: { items: YoutubeProject[] }) {
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs font-mono text-ink/50 bg-mist px-3 py-1 rounded-full"
+                  className="text-xs font-mono text-ink/60 bg-mist px-3 py-1 rounded-full"
                 >
                   {tag}
                 </span>
               ))}
             </div>
-          </motion.article>
+          </TiltCard>
         ))}
       </div>
 
-      <button
+      <motion.button
+        {...prevMagnet}
         onClick={() => goTo(activeIndex - 1)}
         disabled={isFirst}
         aria-label="Previous project"
-        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink transition-colors disabled:opacity-30 disabled:pointer-events-none"
+        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press disabled:opacity-30 disabled:pointer-events-none"
       >
         <CaretLeft size={18} weight="bold" />
-      </button>
-      <button
+      </motion.button>
+      <motion.button
+        {...nextMagnet}
         onClick={() => goTo(activeIndex + 1)}
         disabled={isLast}
         aria-label="Next project"
-        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink transition-colors disabled:opacity-30 disabled:pointer-events-none"
+        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press disabled:opacity-30 disabled:pointer-events-none"
       >
         <CaretRight size={18} weight="bold" />
-      </button>
+      </motion.button>
 
-      <div className="flex justify-center gap-2 mt-6">
+      {/* relative: the track's bottom padding (room for the card tilt) overlaps
+          the dots, and its mask makes it a stacking context painted above
+          static siblings. Positioned, the dots paint above it again. */}
+      <div className="relative flex justify-center gap-2 mt-6">
         {items.map((_, i) => (
           <button
             key={i}
             onClick={() => goTo(i)}
             aria-label={`Go to project ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all ${
+            className={`h-1.5 rounded-full press ${
               i === activeIndex ? 'w-4 bg-highlight' : 'w-1.5 bg-ink/20'
             }`}
           />

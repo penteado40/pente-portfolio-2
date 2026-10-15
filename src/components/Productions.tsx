@@ -2,17 +2,18 @@
 
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
-import { ProjectsCarousel } from './ProjectsCarousel';
+import type { AudioDictionary } from '@/i18n/types';
+import { ProductionsCarousel } from './ProductionsCarousel';
 import { ProductionCard } from './ProductionCard';
 
-type SpotifyProject = {
+type SpotifyProduction = {
   title: string;
   description: string;
   tags: string[];
   embedType: 'spotify';
   embedId: string;
 };
-type YoutubeProject = {
+type YoutubeProduction = {
   title: string;
   description: string;
   tags: string[];
@@ -21,15 +22,15 @@ type YoutubeProject = {
   views?: string;
 };
 
-export function Projects() {
-  const { dict } = useLocale();
+export function Productions() {
+  const { dict } = useLocale<AudioDictionary>();
   const reduce = useReducedMotion();
 
   const spotifyItem = dict.projects.items.find(
-    (p): p is SpotifyProject => p.embedType === 'spotify',
+    (p): p is SpotifyProduction => p.embedType === 'spotify',
   );
   const youtubeItems = dict.projects.items.filter(
-    (p): p is YoutubeProject => p.embedType === 'youtube',
+    (p): p is YoutubeProduction => p.embedType === 'youtube',
   );
 
   return (
@@ -79,7 +80,7 @@ export function Projects() {
       </div>
 
       <div className="mt-20 mb-20">
-        <ProjectsCarousel items={youtubeItems} />
+        <ProductionsCarousel items={youtubeItems} />
       </div>
 
       <div className="max-w-[1400px] mx-auto px-6">
@@ -111,7 +112,7 @@ export function Projects() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
           className="mt-12"
         >
-          <h4 className="text-sm font-mono text-ink/40 tracking-wider mb-4">
+          <h4 className="text-sm font-mono text-ink/60 tracking-wider mb-4">
             {dict.projects.otherTitle}
           </h4>
           <div className="flex flex-wrap gap-2">

@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
 /*
- * Brand palette — the only hex values in the whole codebase.
+ * Brand palette — the only hex values in the codebase (but see below).
  * To reskin the site, edit these lines only; every component
  * consumes the semantic tokens below (ink, accent, highlight, block-deep,
  * block-mid, mist, surface via Tailwind utilities like `text-ink/70`,
  * `bg-accent`, `border-mist`),
  * never raw hex, so a palette change cascades everywhere automatically.
+ * Two exceptions can't read CSS variables and mirror these by hand:
+ * the root layout's themeColor and the OG images (src/lib/ogImage.tsx).
  *
  * Persona colors are redefined per persona on the root element, keyed off
- * the `data-persona` wrapper the page renders (see docs/adr/0003). The
+ * the `data-persona` wrapper each route renders in its layout or page
+ * (see docs/adr/0003 and 0002). The
  * override must sit on :root: the --color-* tokens are declared there and
  * inherited already resolved, so body, ::selection and .glass* would ignore
  * an override placed only on the wrapper.
@@ -20,7 +23,7 @@
   --brand-mist: #1c1c1c;
   --brand-charcoal: #2b2b2b;
   --brand-offwhite: #f5f5f5;
-  --brand-black: #000; /* only for gradient starts and shadows, never a fill */
+  --brand-black: #000; /* only for gradient stops and shadows, never a fill */
   --brand-emerald: #10b981;
   --brand-crimson: #b91c1c;
 
@@ -31,7 +34,10 @@
 
 /* Persona tokens. accent = fills only (never text); accent-dark = second
    gradient stop only; highlight = focus/hover rings, active indicators,
-   loose icons, ::selection; block-deep / block-mid = Color block fills
+   loose icons, ::selection (one contained exception: the Dev Hero's
+   primary CTA is a highlight fill with an ink ring, since a Deep Teal
+   primary would read weaker than its secondary, decided in GitHub
+   issue #14); block-deep / block-mid = Color block fills
    (see CONTEXT.md), plus overlays that fade into a block (Hero, About
    portrait) and controls set into a block-mid block (Photos tab pill).
    The block tones are near-neutrals tinted with the persona hue:
@@ -40,6 +46,10 @@
    is under 3:1 (WCAG 1.4.11), so an accent fill must never carry meaning
    on its own, inside a block or out. The Hub is neutral and is also the
    fallback, where the blocks fall back into the normal neutral rhythm.
+   The Hub's persona cards, and the icon of the Navbar's "go to" chip,
+   carry their persona's tokens through `data-persona-card`, a separate
+   attribute so they recolor only themselves: `data-persona` there would
+   match :root:has() and theme the whole page.
    Keep this block first: it compiles to :is(:root, :root:has(…)), the
    same specificity as the persona blocks, so they win by source order. */
 :root,
@@ -51,7 +61,8 @@
   --brand-block-mid: var(--brand-mist);
 }
 
-:root:has([data-persona="audio"]) {
+:root:has([data-persona="audio"]),
+[data-persona-card="audio"] {
   --brand-accent: #00638e; /* Dark Azure */
   --brand-accent-dark: #004a6b;
   --brand-highlight: #bfd8e3; /* Light Azure */
@@ -66,18 +77,30 @@
   );
 }
 
-:root:has([data-persona="dev"]) {
+:root:has([data-persona="dev"]),
+[data-persona-card="dev"] {
   --brand-accent: #0f3f3f; /* Deep Teal */
   --brand-accent-dark: #0a2c2c;
   --brand-highlight: #b6d298; /* Celadon */
   --brand-block-deep: #0c1815; /* Deep Forest */
   --brand-block-mid: #122b25; /* Pine */
+  --brand-beige: #dce2c8; /* gradients only, too close to ink for highlight */
   --persona-gradient: linear-gradient(
     135deg,
     var(--brand-black),
     var(--brand-accent),
     var(--brand-highlight),
-    #dce2c8 /* Beige: gradient only, too close to ink for highlight */
+    var(--brand-beige)
+  );
+  /* Hero glow (DevHero): the same stops read from a Beige core out to Deep
+     Teal, fading into the background so it has no edge. A gradient, never an
+     animated blur, so only its transform and opacity animate. */
+  --persona-glow: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--brand-beige) 85%, transparent),
+    color-mix(in oklab, var(--brand-highlight) 60%, transparent) 28%,
+    color-mix(in oklab, var(--brand-accent) 85%, transparent) 62%,
+    transparent
   );
 }
 
@@ -120,48 +143,146 @@ body {
   color: var(--color-background);
 }
 
-.glass {
-  background: color-mix(in oklab, var(--color-surface) 55%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--color-white) 10%, transparent);
+/*
+ * Liquid Glass material (plan A, decided in GitHub issue #11). Every glass surface on
+ * the site uses one of these three classes, and the material lives only
+ * here: tint + backdrop blur + border + specular rim. The refraction's own
+ * parameters sit in the SVG filter of LiquidGlassFilter, which needs a DOM
+ * node. The pill CTAs (Hero, Navbar actions, Testimonials) are not glass
+ * surfaces: they keep a lighter bg-white/10 + backdrop-blur-sm treatment. It is neutral on
+ * purpose (no persona tint): the color comes from whatever sits behind it.
+ * Plan B (glass only on controls, solid content cards) is a swap of the card
+ * classes to bg-mist/bg-surface, with no change to component structure.
+ *
+ * Text on glass stays at ink/60 or stronger: the tints below keep that at
+ * 4.5:1 or more over every section background, and .glass-dark (Navbar)
+ * keeps white/70 at 4.5:1 even over a white photo.
+ *
+ * The box-shadow composes Tailwind's ring and shadow variables, so ring and
+ * shadow utilities (focus-visible:ring-*, shadow-lg) still draw on a glass
+ * element; these rules are unlayered and would otherwise override them.
+ * To change a glass element's drop shadow from CSS, set --glass-drop.
+ *
+ * Tilt sheen: TiltCard (hover tilt on cards) sets --glass-tilt-angle, the
+ * direction toward the side that sinks under the cursor, and --glass-tilt,
+ * its strength from 0 (flat) to 1. The first background layer lights the
+ * rising side and shades the sinking one; at rest it is fully transparent.
+ * The light tops out at 6% white over the static sheen, which keeps ink/60
+ * at 4.5:1 even at the lit edge over a block-mid section (Ocean Blue: 4.6:1).
+ */
+.glass,
+.glass-strong,
+.glass-dark {
+  --glass-tint: color-mix(in oklab, var(--color-surface) 45%, transparent);
+  --glass-sheen: color-mix(in oklab, var(--color-white) 6%, transparent);
+  --glass-blur: 16px;
+  --glass-backdrop: blur(var(--glass-blur)) saturate(170%);
+  --glass-drop: 0 8px 32px color-mix(in oklab, var(--brand-black) 35%, transparent);
+  --glass-tilt-angle: 0deg;
+  --glass-tilt: 0;
+
+  background:
+    linear-gradient(
+      var(--glass-tilt-angle),
+      color-mix(in oklab, var(--color-white) calc(var(--glass-tilt) * 6%), transparent),
+      transparent 50%,
+      color-mix(in oklab, var(--brand-black) calc(var(--glass-tilt) * 14%), transparent)
+    ),
+    linear-gradient(160deg, var(--glass-sheen), transparent 45%),
+    var(--glass-tint);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  backdrop-filter: var(--glass-backdrop);
+  border: 1px solid color-mix(in oklab, var(--color-white) 14%, transparent);
   box-shadow:
-    inset 0 1px 0 color-mix(in oklab, var(--color-white) 8%, transparent),
-    0 8px 32px rgba(0, 0, 0, 0.35);
+    var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-inset-shadow, 0 0 #0000),
+    var(--tw-shadow, 0 0 #0000),
+    inset 0 1px 0 color-mix(in oklab, var(--color-white) 22%, transparent),
+    inset 0 -1px 0 color-mix(in oklab, var(--color-white) 5%, transparent),
+    inset 0 0 16px color-mix(in oklab, var(--color-white) 4%, transparent),
+    var(--glass-drop);
 }
 
 .glass-strong {
-  background: color-mix(in oklab, var(--color-surface) 75%, transparent);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--color-white) 12%, transparent);
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklab, var(--color-white) 10%, transparent),
-    0 12px 40px rgba(0, 0, 0, 0.4);
+  --glass-tint: color-mix(in oklab, var(--color-surface) 70%, transparent);
+  --glass-blur: 24px;
+  --glass-drop: 0 12px 40px color-mix(in oklab, var(--brand-black) 40%, transparent);
 }
 
 .glass-dark {
-  background: color-mix(in oklab, var(--color-background) 80%, transparent);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid color-mix(in oklab, var(--color-white) 8%, transparent);
-  box-shadow:
-    inset 0 1px 0 color-mix(in oklab, var(--color-white) 6%, transparent),
-    0 8px 32px rgba(0, 0, 0, 0.5);
+  --glass-tint: color-mix(in oklab, var(--color-background) 82%, transparent);
+  --glass-sheen: color-mix(in oklab, var(--color-white) 4%, transparent);
+  --glass-blur: 20px;
+  --glass-drop: 0 8px 32px color-mix(in oklab, var(--brand-black) 50%, transparent);
+}
+
+/* Refraction: an SVG displacement of the backdrop, Chromium only. The
+   attribute and the #liquid-glass-refraction filter come from
+   LiquidGlassFilter. Behind no-preference so reduced transparency drops it. */
+@media (prefers-reduced-transparency: no-preference) {
+  :root[data-glass-refraction] :is(.glass, .glass-strong, .glass-dark):not(:has(iframe)) {
+    backdrop-filter: url(#liquid-glass-refraction) var(--glass-backdrop);
+  }
+}
+
+/* Glass that holds an iframe (YouTube and Instagram embeds) drops its own
+   backdrop. Chrome composites a backdrop-filter around an iframe wrongly: it
+   smears a blurred copy of the video around overlays (the expanded
+   ProductionCard's close and mute buttons) and paints a lighter box behind
+   the text below the player. These cards keep their tint, border and tilt
+   sheen; glass laid on top of the iframe keeps the full material. */
+:is(.glass, .glass-strong, .glass-dark):has(iframe) {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .glass,
-  .glass-strong {
-    background: color-mix(in oklab, var(--color-surface) 95%, transparent);
-    backdrop-filter: none;
+  .glass-strong,
+  .glass-dark {
     -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .glass,
+  .glass-strong {
+    --glass-tint: var(--color-surface);
   }
 
   .glass-dark {
-    background: color-mix(in oklab, var(--color-background) 96%, transparent);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    --glass-tint: var(--color-background);
+  }
+}
+
+/* Hub persona card: the persona's tint over the photo, darkening to black
+   at the bottom, where the glass pane sits. Reads the card's own tokens
+   (data-persona-card), never the neutral Hub's. */
+.hub-card-tint {
+  background: linear-gradient(
+    0deg,
+    var(--brand-black),
+    color-mix(in oklab, var(--brand-accent-dark) 80%, transparent) 38%,
+    color-mix(in oklab, var(--brand-accent) 25%, transparent) 70%,
+    color-mix(in oklab, var(--brand-black) 30%, transparent)
+  );
+}
+
+/* Button press: shrink on click, only for a fine mouse and without
+   reduced motion, so touch and reduced motion keep just the color/ring
+   change. Uses the `scale` property, which composes with useMagnetic's
+   transform. It owns the button's transition, so a `press` button takes no
+   transition-* utility: transition-all would also ease the magnet's inline
+   transform. width is listed for the carousel dots, which grow when active. */
+@utility press {
+  transition-property: color, background-color, border-color, box-shadow, opacity, scale, width;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    &:active {
+      scale: 0.97;
+    }
   }
 }
 
@@ -178,19 +299,22 @@ body {
   isolation: isolate;
 }
 
+/* The expanded card grows through the `scale` property, not `transform`:
+   TiltCard writes an inline transform for the hover tilt, and the two
+   compose instead of the inline one winning. */
 .production-card {
   position: relative;
   transform-origin: center;
   transition:
-    transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    scale 300ms cubic-bezier(0.16, 1, 0.3, 1),
     opacity 300ms ease,
     filter 300ms ease;
 }
 
 .production-card.is-active {
-  transform: scale(1.18);
+  scale: 1.18;
   z-index: 20;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  --glass-drop: 0 24px 60px color-mix(in oklab, var(--brand-black) 50%, transparent);
 }
 
 .productions-grid:has(.production-card.is-active) .production-card:not(.is-active) {
@@ -206,7 +330,7 @@ body {
   }
 
   .production-card.is-active {
-    transform: none;
+    scale: none;
   }
 }
 

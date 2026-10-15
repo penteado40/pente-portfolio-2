@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
+import type { AudioDictionary } from '@/i18n/types';
 import { Camera, InstagramLogo } from '@phosphor-icons/react';
+import { TiltCard } from './TiltCard';
 
 const photos = [
   { src: '/photos/photo_1.jpg', span: 'row-span-2' },
@@ -47,7 +49,7 @@ const instagramPosts = [
 type Tab = 'photos' | 'instagram';
 
 export function Photos() {
-  const { dict } = useLocale();
+  const { dict } = useLocale<AudioDictionary>();
   const reduce = useReducedMotion();
   const [activeTab, setActiveTab] = useState<Tab>('photos');
 
@@ -57,7 +59,7 @@ export function Photos() {
   ];
 
   return (
-    <section className="bg-block-mid py-24 md:py-32">
+    <section id="photos" className="bg-block-mid py-24 md:py-32">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
           <motion.h2
@@ -75,7 +77,7 @@ export function Photos() {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight ${
+                className={`relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium press focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight ${
                   activeTab === tab.key
                     ? 'text-ink'
                     : 'text-ink/60 hover:text-ink/80'
@@ -139,7 +141,7 @@ export function Photos() {
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {instagramPosts.map((postId, i) => (
-                <motion.div
+                <TiltCard
                   key={postId}
                   initial={reduce ? false : { opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -159,7 +161,7 @@ export function Photos() {
                     loading="lazy"
                     title={`Instagram post ${i + 1}`}
                   />
-                </motion.div>
+                </TiltCard>
               ))}
             </motion.div>
           )}

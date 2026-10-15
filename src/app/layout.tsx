@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { LocaleProvider } from "@/i18n/LocaleProvider";
+import { getLocale } from "@/i18n/dictionaries";
+import { LiquidGlassFilter } from "@/components/LiquidGlassFilter";
+import { SITE_NAME, SITE_URL, siteTitle } from "@/content/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,24 +15,36 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Each route's layout adds its title, description, canonical and a complete
+// openGraph (see routeMetadata); Twitter inherits those from openGraph.
 export const metadata: Metadata = {
-  title: "Felipe Penteado - Audio Engineer",
-  description:
-    "Audio engineer portfolio. Mixing, mastering, and sound design.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    template: siteTitle("%s"),
+    default: SITE_NAME,
+  },
+  // Fallback for a route without its own, such as the not-found page.
+  description: "Felipe Penteado: audio engineer and systems developer.",
+  twitter: { card: "summary_large_image" },
 };
 
-export default function RootLayout({
+export const viewport: Viewport = {
+  themeColor: "#141414", // --brand-onyx in globals.css; keep in sync by hand
+};
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html
-      lang="en"
+      lang={await getLocale()}
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body>
-        <LocaleProvider>{children}</LocaleProvider>
+        <LiquidGlassFilter />
+        {children}
       </body>
     </html>
   );

@@ -1,11 +1,16 @@
 {
+  "meta": {
+    "title": "Engenheiro de Áudio",
+    "description": "Mixagem de PA e de estúdio para música vocal: eventos ao vivo, gravações de DVD, bandas e artistas independentes."
+  },
   "nav": {
     "about": "Sobre",
     "projects": "Trabalhos",
     "timeline": "Trajetória",
     "certifications": "Certificações",
     "skills": "Equipamentos",
-    "contact": "Contato"
+    "contact": "Contato",
+    "testimonial": "Deixar depoimento"
   },
   "hero": {
     "role": "Engenheiro de Áudio",
@@ -264,19 +269,5 @@
     "title": "Fotos",
     "tabPhotos": "Fotos",
     "tabInstagram": "Instagram"
-  },
-  "contact": {
-    "title": "Trabalhando em algo que precisa soar certo?",
-    "subtitle": "Estou disponível para mixagem, masterização e som ao vivo. Me conta sobre o seu projeto.",
-    "namePlaceholder": "Seu nome",
-    "emailPlaceholder": "Seu email",
-    "messagePlaceholder": "Conte-me sobre seu projeto",
-    "send": "Enviar Mensagem",
-    "sending": "Enviando...",
-    "sent": "Mensagem enviada!",
-    "error": "Algo deu errado. Tente novamente."
-  },
-  "footer": {
-    "rights": "Todos os direitos reservados."
   }
 }

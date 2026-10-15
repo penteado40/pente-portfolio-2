@@ -4,6 +4,7 @@ import { useEffect, useRef, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { XIcon } from '@phosphor-icons/react';
+import { FOCUSABLE_SELECTOR, wrapFocus } from './focusTrap';
 
 type ModalProps = {
   isOpen: boolean;
@@ -11,9 +12,6 @@ type ModalProps = {
   closeLabel: string;
   children: ReactNode;
 };
-
-const FOCUSABLE_SELECTOR =
-  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export function Modal({ isOpen, onClose, closeLabel, children }: ModalProps) {
   const reduce = useReducedMotion();
@@ -37,18 +35,11 @@ export function Modal({ isOpen, onClose, closeLabel, children }: ModalProps) {
 
       if (e.key !== 'Tab' || !cardRef.current) return;
 
-      const items = cardRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
-      if (items.length === 0) return;
-
-      const first = items[0];
-      const last = items[items.length - 1];
-
-      if (e.shiftKey && document.activeElement === first) {
+      const items = Array.from(cardRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR));
+      const target = wrapFocus(items, document.activeElement as HTMLElement | null, e.shiftKey);
+      if (target) {
         e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
+        target.focus();
       }
     }
 
@@ -98,7 +89,7 @@ export function Modal({ isOpen, onClose, closeLabel, children }: ModalProps) {
               type="button"
               onClick={onClose}
               aria-label={closeLabel}
-              className="absolute top-4 right-4 glass-strong p-1.5 rounded-full text-ink/80 hover:text-ink transition-colors"
+              className="absolute top-4 right-4 glass-strong p-1.5 rounded-full text-ink/80 hover:text-ink press"
             >
               <XIcon size={16} weight="bold" />
             </button>

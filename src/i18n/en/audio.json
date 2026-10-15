@@ -1,11 +1,16 @@
 {
+  "meta": {
+    "title": "Audio Engineer",
+    "description": "FOH and studio mixing for vocal music: live events, DVD productions, bands and independent artists."
+  },
   "nav": {
     "about": "About",
     "projects": "Work",
     "timeline": "Journey",
     "certifications": "Certifications",
     "skills": "Gear",
-    "contact": "Contact"
+    "contact": "Contact",
+    "testimonial": "Leave a testimonial"
   },
   "hero": {
     "role": "Audio Engineer",
@@ -264,19 +269,5 @@
     "title": "Photos",
     "tabPhotos": "Photos",
     "tabInstagram": "Instagram"
-  },
-  "contact": {
-    "title": "Working on something that needs to sound right?",
-    "subtitle": "I'm open to mixing, mastering, and live sound work. Tell me about your project.",
-    "namePlaceholder": "Your name",
-    "emailPlaceholder": "Your email",
-    "messagePlaceholder": "Tell me about your project",
-    "send": "Send Message",
-    "sending": "Sending...",
-    "sent": "Message sent!",
-    "error": "Something went wrong. Try again."
-  },
-  "footer": {
-    "rights": "All rights reserved."
   }
 }

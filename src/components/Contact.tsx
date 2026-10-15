@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import { PaperPlaneTilt, Check, CircleNotch } from '@phosphor-icons/react';
 import { submitContact } from '@/lib/submitContact';
+import { useMagnetic } from './useMagnetic';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -12,6 +13,7 @@ export function Contact() {
   const { dict } = useLocale();
   const reduce = useReducedMotion();
   const [status, setStatus] = useState<Status>('idle');
+  const submitMagnet = useMagnetic<HTMLButtonElement>();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -68,7 +70,7 @@ export function Contact() {
                 required
                 disabled={status === 'sending'}
                 placeholder={dict.contact.namePlaceholder}
-                className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
+                className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/60 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
               />
             </div>
             <div>
@@ -82,7 +84,7 @@ export function Contact() {
                 required
                 disabled={status === 'sending'}
                 placeholder={dict.contact.emailPlaceholder}
-                className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
+                className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/60 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all disabled:opacity-50"
               />
             </div>
             <div>
@@ -96,19 +98,20 @@ export function Contact() {
                 required
                 disabled={status === 'sending'}
                 placeholder={dict.contact.messagePlaceholder}
-                className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all resize-none disabled:opacity-50"
+                className="w-full bg-white/5 border border-ink/15 rounded-xl px-4 py-3.5 text-sm text-ink placeholder:text-ink/60 focus:outline-none focus:ring-2 focus:ring-highlight/30 focus:border-highlight transition-all resize-none disabled:opacity-50"
               />
             </div>
 
-            <button
+            <motion.button
+              {...submitMagnet}
               type="submit"
               disabled={status === 'sending' || status === 'sent'}
-              className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium transition-all active:scale-[0.98] disabled:pointer-events-none ${
+              className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium press disabled:pointer-events-none ${
                 status === 'sent'
                   ? 'bg-success text-background'
                   : status === 'error'
-                    ? 'bg-danger text-ink hover:scale-[1.02] hover:ring-2 hover:ring-highlight'
-                    : 'bg-accent text-ink hover:scale-[1.02] hover:ring-2 hover:ring-highlight'
+                    ? 'bg-danger text-ink hover:ring-2 hover:ring-highlight'
+                    : 'bg-accent text-ink hover:ring-2 hover:ring-highlight'
               }`}
             >
               <AnimatePresence mode="wait" initial={false}>
@@ -128,7 +131,7 @@ export function Contact() {
                   />
                 </motion.span>
               </AnimatePresence>
-            </button>
+            </motion.button>
           </form>
         </motion.div>
       </div>
