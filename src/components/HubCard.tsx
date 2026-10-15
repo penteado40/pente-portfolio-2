@@ -31,7 +31,7 @@ export function HubCard({ persona, index, photo, copy }: HubCardProps) {
       href={personaHref(persona)}
       aria-label={copy.label}
       data-persona-card={persona}
-      className="group relative isolate flex md:flex-1 flex-col justify-between h-[228px] md:h-auto md:min-h-[680px] rounded-3xl md:rounded-[28px] overflow-hidden p-4 md:p-7 bg-background text-white shadow-[0_20px_40px_color-mix(in_oklab,var(--brand-black)_45%,transparent)] md:shadow-[0_30px_60px_color-mix(in_oklab,var(--brand-black)_45%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="group relative isolate flex md:flex-1 flex-col justify-between h-[228px] md:h-auto md:min-h-[680px] rounded-3xl md:rounded-[28px] overflow-hidden p-4 md:p-7 bg-background text-white shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       {photo ? (
         <Image
@@ -50,7 +50,7 @@ export function HubCard({ persona, index, photo, copy }: HubCardProps) {
           style={{ backgroundImage: 'var(--persona-glow)' }}
         />
       )}
-      <div aria-hidden className="absolute inset-0 -z-10 hub-card-tint" />
+      <div aria-hidden className="absolute inset-0 -z-10 persona-card-tint" />
 
       <div className="flex items-center justify-between px-1 pt-1 md:p-0 font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase">
         <span>

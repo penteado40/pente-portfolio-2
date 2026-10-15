@@ -58,6 +58,7 @@ export function DevHero() {
   return (
     <section
       ref={sectionRef}
+      data-hero
       className="relative min-h-[100dvh] flex items-end overflow-hidden"
     >
       {/* Scroll fade and growth on the outer layer, entrance on the inner one,

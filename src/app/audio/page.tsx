@@ -16,8 +16,8 @@ export default async function AudioPage() {
   return (
     <main>
       <Hero />
-      <About />
       <Stats />
+      <About />
       <Timeline />
       <Certifications />
       <Productions />

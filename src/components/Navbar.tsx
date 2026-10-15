@@ -1,17 +1,12 @@
 'use client';
 
 import { useEffect, useId, useRef, useState } from 'react';
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useReducedMotion,
-  AnimatePresence,
-} from 'motion/react';
+import { motion, useReducedMotion, AnimatePresence } from 'motion/react';
 import Link from 'next/link';
 import { useLocale } from '@/i18n/LocaleProvider';
 import { X, type Icon } from '@phosphor-icons/react';
 import { useActiveSection } from './useActiveSection';
+import { useInHero } from './useInHero';
 import { useLocaleSwitch } from './useLocaleSwitch';
 import { FOCUSABLE_SELECTOR, wrapFocus } from './focusTrap';
 import type { PersonaSwitch } from './usePersonaSwitch';
@@ -20,6 +15,9 @@ const HOVER_LEAVE_DELAY_MS = 400;
 const EXPANDED_MAX_WIDTH = 1024;
 // Until the compact pill is measured on the client.
 const COMPACT_FALLBACK_WIDTH = 520;
+// The desktop island's bottom edge (top-4 + h-14): it expands once the hero
+// has scrolled up past it.
+const ISLAND_BOTTOM = 72;
 // Tailwind's `lg`: the desktop island from here up, the mobile pill below.
 const DESKTOP_QUERY = '(min-width: 64rem)';
 
@@ -189,20 +187,16 @@ function MobileNavbar({
 }
 
 // From `lg` up: compact over the Hero, expanded once scrolled past it or on hover.
+// The page's hero carries `data-hero` (see useInHero).
 function DesktopNavbar({ sections, personas }: NavbarViewProps) {
   const { dict } = useLocale();
-  const { scrollY } = useScroll();
-  const [inHero, setInHero] = useState(true);
+  const inHero = useInHero(ISLAND_BOTTOM);
   const [hovered, setHovered] = useState(false);
   const [compactWidth, setCompactWidth] = useState(COMPACT_FALLBACK_WIDTH);
   const [compactEl, setCompactEl] = useState<HTMLDivElement | null>(null);
   const reduce = useReducedMotion();
   const navRef = useRef<HTMLElement>(null);
   const hoverLeaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    setInHero(latest < window.innerHeight * 0.85);
-  });
 
   useEffect(() => {
     return () => {
