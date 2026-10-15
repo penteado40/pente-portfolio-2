@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { DevDictionary } from '@/i18n/types';
-import { education, experience, formatMonth, formatPeriod } from '@/content/dev';
+import { education, experience, formatGraduation, formatPeriod } from '@/content/dev';
 import { Container } from './Container';
 import { SectionHeader } from './SectionHeader';
 
@@ -88,9 +88,6 @@ export function DevExperience() {
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
             {education.map((entry) => {
               const { course, detail } = text.education.items[entry.id as keyof EducationText];
-              const date = entry.inProgress
-                ? `${text.education.expected} ${formatMonth(entry.end)}`
-                : entry.end.slice(0, 4);
               return (
                 <li
                   key={entry.id}
@@ -103,7 +100,7 @@ export function DevExperience() {
                     {course}
                   </span>
                   <span className="text-[13px] md:text-[15px] text-ink/65">
-                    {entry.institution} · {date}
+                    {entry.institution} · {formatGraduation(entry, text.education.expected)}
                   </span>
                 </li>
               );

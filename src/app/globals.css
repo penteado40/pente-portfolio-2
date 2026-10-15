@@ -39,7 +39,8 @@
    primary would read weaker than its secondary, decided in GitHub
    issue #14); block-deep / block-mid = Color block fills
    (see CONTEXT.md), plus overlays that fade into a block (Hero, About
-   portrait) and controls set into a block-mid block (Photos tab pill).
+   portrait), controls set into a block-mid block (Photos tab pill) and
+   the .glass-block tint (a glass pane set into a block-deep block).
    The block tones are near-neutrals tinted with the persona hue:
    block-deep sits at Onyx luminance, block-mid between Mist and Charcoal,
    so bg-accent inside a block contrasts as much as it does on Onyx. That
@@ -144,12 +145,15 @@ body {
 
 /*
  * Liquid Glass material (plan A, decided in GitHub issue #11). Every glass surface on
- * the site uses one of these three classes, and the material lives only
+ * the site uses one of these three classes (plus the .glass-block tint
+ * modifier below), and the material lives only
  * here: tint + backdrop blur + border + specular rim. The refraction's own
  * parameters sit in the SVG filter of LiquidGlassFilter, which needs a DOM
  * node. The pill CTAs (Hero, Navbar actions, Testimonials) are not glass
  * surfaces: they keep a lighter bg-white/8–12 + backdrop-blur-sm treatment. It is neutral on
- * purpose (no persona tint): the color comes from whatever sits behind it.
+ * purpose (no persona tint): the color comes from whatever sits behind it,
+ * except .glass-block, which a Color block needs to set a pane apart from
+ * its own flat fill.
  * Plan B (glass only on controls, solid content cards) is a swap of the card
  * classes to bg-mist/bg-surface, with no change to component structure.
  *
@@ -217,7 +221,9 @@ body {
 }
 
 /* Glass set into a Color block (the persona pages' About quote): tinted
-   with block-mid, so it reads as a lighter pane over block-deep. */
+   with block-mid, so it reads as a lighter pane over block-deep. The tint
+   is darker than Charcoal (the plain glass tint), so ink/60 on it keeps
+   at least the 4.5:1 it has on plain glass. */
 .glass-block {
   --glass-tint: color-mix(in oklab, var(--color-block-mid) 75%, transparent);
 }

@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { education, experience, formatPeriod } from './dev.ts';
+import { education, experience, formatGraduation, formatPeriod } from './dev.ts';
 
 function devDictionary(locale: 'en' | 'pt') {
   return JSON.parse(readFileSync(new URL(`../i18n/${locale}/dev.json`, import.meta.url), 'utf8'));
@@ -13,6 +13,14 @@ test('a period reads month/year to month/year', () => {
 
 test('an open period ends with the current label', () => {
   assert.equal(formatPeriod({ start: '2025-12', end: null }, 'atual'), '12/2025 – atual');
+});
+
+test('a finished course shows its year', () => {
+  assert.equal(formatGraduation({ end: '2019-12', inProgress: false }, 'expected'), '2019');
+});
+
+test('a course in progress shows when it is expected', () => {
+  assert.equal(formatGraduation({ end: '2026-12', inProgress: true }, 'previsão'), 'previsão 12/2026');
 });
 
 test('experience lists the CV entries newest first, with the CV dates', () => {

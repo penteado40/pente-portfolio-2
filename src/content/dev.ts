@@ -91,3 +91,11 @@ export function formatMonth(month: YearMonth) {
 export function formatPeriod({ start, end }: Period, current: string) {
   return `${formatMonth(start)} – ${end ? formatMonth(end) : current}`;
 }
+
+/** `2019` once finished; `{expected} 12/2026` while in progress. */
+export function formatGraduation(
+  { end, inProgress }: Pick<EducationEntry, 'end' | 'inProgress'>,
+  expected: string,
+) {
+  return inProgress ? `${expected} ${formatMonth(end)}` : end.slice(0, 4);
+}
