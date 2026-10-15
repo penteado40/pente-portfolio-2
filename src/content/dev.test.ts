@@ -1,7 +1,15 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { education, experience, formatGraduation, formatMonth, formatPeriod } from './dev.ts';
+import {
+  devSections,
+  education,
+  experience,
+  formatGraduation,
+  formatMonth,
+  formatPeriod,
+  skills,
+} from './dev.ts';
 
 function devDictionary(locale: 'en' | 'pt') {
   return JSON.parse(readFileSync(new URL(`../i18n/${locale}/dev.json`, import.meta.url), 'utf8'));
@@ -50,10 +58,27 @@ test('every experience entry has stack tags', () => {
   for (const job of experience) assert.ok(job.stack.length > 0, job.id);
 });
 
+test('without certifications, the page has no Certifications section', () => {
+  assert.deepEqual(devSections([]), ['about', 'experience', 'projects', 'skills', 'contact']);
+});
+
+test('one certification brings the section back, after Experience', () => {
+  const sections = devSections([{ title: 'Test', issuer: 'Issuer', year: '2026' }]);
+  assert.deepEqual(sections, ['about', 'experience', 'certifications', 'projects', 'skills', 'contact']);
+});
+
+test('skills lists the six categories in order, each with items', () => {
+  assert.deepEqual(
+    skills.map(({ id }) => id),
+    ['back-end', 'front-end', 'databases', 'cloud', 'integrations', 'practices'],
+  );
+  for (const category of skills) assert.ok(category.items.length > 0, category.id);
+});
+
 // ADR 0004: the dictionary type comes from the EN file only, so nothing
 // else catches an id in dev.ts without its text.
 for (const locale of ['en', 'pt'] as const) {
-  test(`${locale}: every experience and education id has its text`, () => {
+  test(`${locale}: every experience, education and skills id has its text`, () => {
     const dict = devDictionary(locale);
     for (const { id } of experience) {
       const text = dict.experience.items[id];
@@ -62,6 +87,9 @@ for (const locale of ['en', 'pt'] as const) {
     for (const { id } of education) {
       const text = dict.experience.education.items[id];
       assert.ok(text?.course, `experience.education.items.${id}`);
+    }
+    for (const { id } of skills) {
+      assert.ok(dict.skills.categories[id]?.name, `skills.categories.${id}`);
     }
   });
 }

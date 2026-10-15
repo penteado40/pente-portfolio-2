@@ -8,6 +8,7 @@ import { ArrowDown } from '@phosphor-icons/react';
 import { Chip } from './Chip';
 import { Container } from './Container';
 import { SectionLabel } from './SectionHeader';
+import { sectionIndex } from '@/content/dev';
 import { TiltCard } from './TiltCard';
 
 // Set in next.config.ts: empty until the Dev portrait is added to public/.
@@ -62,7 +63,7 @@ export function DevAbout() {
             <div className="lg:hidden relative isolate size-16 shrink-0 rounded-full overflow-hidden bg-background">
               <Portrait sizes="64px" alt={about.portraitAlt} />
             </div>
-            <SectionLabel index={1} label={dict.nav.about} />
+            <SectionLabel index={sectionIndex('about')} label={dict.nav.about} />
           </div>
           <h2 className="text-[34px] md:text-5xl leading-[1.05] md:leading-[1.02] font-medium tracking-[-0.035em] text-white">
             {about.title}
@@ -73,7 +74,7 @@ export function DevAbout() {
             </p>
           ))}
 
-          <TiltCard className="glass glass-block mt-2 p-6 md:p-8 rounded-[20px] md:rounded-[22px] max-w-[620px]">
+          <TiltCard className="glass glass-block-mid mt-2 p-6 md:p-8 rounded-[20px] md:rounded-[22px] max-w-[620px]">
             <blockquote>
               <span
                 aria-hidden
@@ -90,11 +91,11 @@ export function DevAbout() {
           <ul className="flex flex-wrap gap-1.5 md:gap-2 mt-1 md:mt-2">
             {[about.location, ...about.languages].map((text) => (
               <li key={text}>
-                <Chip tone="block">{text}</Chip>
+                <Chip tone="block-mid">{text}</Chip>
               </li>
             ))}
             <li>
-              <Chip tone="block" href="#contact" Icon={ArrowDown}>
+              <Chip tone="block-mid" href="#contact" Icon={ArrowDown}>
                 {about.availability}
               </Chip>
             </li>

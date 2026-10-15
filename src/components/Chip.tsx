@@ -18,8 +18,11 @@ const HOVER_SCALE = 1.04;
 
 type ChipProps = {
   children: ReactNode;
-  /** `block` inside a Color block (the .glass-block tint), `neutral` elsewhere. */
-  tone?: 'neutral' | 'block';
+  /**
+   * Inside a Color block, the .glass-block-* tint of the pane it sits on
+   * (see globals.css); `neutral` elsewhere.
+   */
+  tone?: 'neutral' | 'block-mid';
   /** A short link: highlight text, with the magnetic pull and the press. */
   href?: string;
   /** Drawn after the text; only for a link. */
@@ -28,6 +31,11 @@ type ChipProps = {
 
 const base =
   'glass inline-flex items-center h-8 px-3 rounded-full font-mono text-xs';
+
+const tints = {
+  neutral: '',
+  'block-mid': 'glass-block-mid',
+} as const;
 
 // A Chip (see CONTEXT.md): a small glass pill. Under a fine mouse the side
 // of the glass under the cursor lights up and the chip grows a little; it
@@ -68,7 +76,7 @@ export function Chip({ children, tone = 'neutral', href, Icon }: ChipProps) {
     '--glass-tilt': strength,
   } as MotionStyle;
 
-  const className = tone === 'block' ? `${base} glass-block` : base;
+  const className = `${base} ${tints[tone]}`;
   const handlers = { onPointerMove, onPointerLeave, style };
 
   if (href) {

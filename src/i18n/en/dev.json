@@ -111,5 +111,31 @@
         }
       }
     }
+  },
+  "skills": {
+    "title": "What I build with",
+    "categories": {
+      "back-end": {
+        "name": "Back-end"
+      },
+      "front-end": {
+        "name": "Front-end & Mobile"
+      },
+      "databases": {
+        "name": "Databases",
+        "note": "Data modeling, indexes and query tuning."
+      },
+      "cloud": {
+        "name": "Cloud & DevOps"
+      },
+      "integrations": {
+        "name": "Integrations",
+        "note": "Payment gateways, Pix, email and media."
+      },
+      "practices": {
+        "name": "Practices",
+        "note": "Unit and integration tests, AI-assisted development."
+      }
+    }
   }
 }
