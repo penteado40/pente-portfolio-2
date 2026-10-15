@@ -189,7 +189,6 @@ body {
   --glass-drop: 0 8px 32px color-mix(in oklab, var(--brand-black) 35%, transparent);
   --glass-tilt-angle: 0deg;
   --glass-tilt: 0;
-  --glass-border: color-mix(in oklab, var(--color-white) 14%, transparent);
 
   background:
     linear-gradient(
@@ -202,7 +201,7 @@ body {
     var(--glass-tint);
   -webkit-backdrop-filter: var(--glass-backdrop);
   backdrop-filter: var(--glass-backdrop);
-  border: 1px solid var(--glass-border);
+  border: 1px solid color-mix(in oklab, var(--color-white) 14%, transparent);
   box-shadow:
     var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000),
@@ -233,18 +232,12 @@ body {
    quote) and reads as a lighter pane. Its tint is darker than Charcoal (the
    plain glass tint), so ink/60 on it keeps at least the 4.5:1 it has on
    plain glass.
-   .glass-block-deep sits in a block-mid block (the Dev Stack cards) and
-   reads as a darker pane, with a faint highlight rim. Being darker than the
-   block, it only raises contrast: with the tilt light on, ink/60 keeps 5:1
-   and highlight 7:1. */
+   (Glass set into a block-mid block, like the Dev Stack cards, stays
+   neutral: the block shows through it, as Audio's sections do.) */
 .glass-block-mid {
   --glass-tint: color-mix(in oklab, var(--color-block-mid) 75%, transparent);
 }
 
-.glass-block-deep {
-  --glass-tint: color-mix(in oklab, var(--color-block-deep) 75%, transparent);
-  --glass-border: color-mix(in oklab, var(--color-highlight) 18%, transparent);
-}
 
 /* Refraction: an SVG displacement of the backdrop, Chromium only. The
    attribute and the #liquid-glass-refraction filter come from
@@ -287,9 +280,6 @@ body {
     --glass-tint: var(--color-block-mid);
   }
 
-  .glass.glass-block-deep {
-    --glass-tint: var(--color-block-deep);
-  }
 }
 
 /* Persona photo card (Hub persona cards, persona Hero): the persona's tint

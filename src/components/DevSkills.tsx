@@ -10,11 +10,11 @@ import { TiltCard } from './TiltCard';
 
 const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
-// A block-mid Color block: one darker glass card per category, three to a
-// row on desktop (cards in a row share its height), stacked on mobile. The
-// items are outline pills, transparent like the Audio Gear's, so the glass
-// stays on the card; an optional note under the name carries what isn't a
-// name, so the pills stay untranslated.
+// A block-mid Color block: one neutral glass card per category, showing the
+// block through it like the Audio Gear's, three to a row on desktop (cards
+// in a row share its height), stacked on mobile. The items are the Audio
+// Gear's plain pills, not glass; an optional note under the name carries
+// what isn't a name, so the pills stay untranslated.
 export function DevSkills() {
   const { dict } = useLocale<DevDictionary>();
   const reduce = useReducedMotion();
@@ -38,17 +38,17 @@ export function DevSkills() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, delay: (i % 3) * 0.06, ease: EASE_OUT }}
               >
-                <TiltCard className="glass glass-block-deep h-full flex flex-col gap-4 p-5 md:p-7 rounded-[22px]">
+                <TiltCard className="glass h-full flex flex-col gap-4 p-5 md:p-7 rounded-[22px]">
                   <div className="flex flex-col gap-1.5">
                     <h3 className="font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase text-highlight">
                       {name}
                     </h3>
                     {note && <p className="text-[13px] md:text-sm leading-[1.5] text-ink/70">{note}</p>}
                   </div>
-                  <ul className="flex flex-wrap gap-1.5">
+                  <ul className="flex flex-wrap gap-2">
                     {category.items.map((item) => (
                       <li key={item}>
-                        <span className="inline-flex items-center h-8 px-3 rounded-full border border-ink/15 font-mono text-xs text-ink/80 hover:border-ink/30 transition-colors">
+                        <span className="inline-block text-sm text-ink/70 bg-surface/70 border border-ink/10 px-4 py-2 rounded-full hover:bg-surface hover:border-ink/25 transition-colors cursor-default">
                           {item}
                         </span>
                       </li>
