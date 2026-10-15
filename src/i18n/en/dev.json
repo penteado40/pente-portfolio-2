@@ -12,9 +12,11 @@
     "contact": "Contact"
   },
   "hero": {
-    "role": "Full Stack Developer · back-end focus",
-    "headline": "Back-end nobody notices, front-end everybody understands.",
-    "subtitle": "APIs and financial systems in production (billing, payments, and Pix) with Node.js, TypeScript, and PHP/Laravel.",
+    "role": "Systems Developer",
+    "headline": "I build the back-end the money flows through",
+    "subtitle": "Full stack with a back-end focus: 4+ years on APIs and financial systems in production, covering billing, cost allocation, and card, boleto, and Pix payments.",
+    "location": "Remote",
+    "hiring": "Full-time or contract",
     "ctaProjects": "See projects",
     "ctaCv": "Download CV",
     "ctaCvFallback": "CV (PT)"
