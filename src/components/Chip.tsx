@@ -10,11 +10,11 @@ import {
 } from 'motion/react';
 import type { Icon } from '@phosphor-icons/react';
 import { isFineMouse } from './isFineMouse';
+import { pointerOffset } from './pointerOffset';
+import { TILT_SPRING } from './TiltCard';
 import { useMagnetic } from './useMagnetic';
 
 const HOVER_SCALE = 1.04;
-// TiltCard's spring, so a chip settles like the cards around it.
-const SPRING = { stiffness: 180, damping: 18, mass: 0.8 };
 
 type ChipProps = {
   children: ReactNode;
@@ -40,16 +40,13 @@ export function Chip({ children, tone = 'neutral', href, Icon }: ChipProps) {
   // The sheen's direction follows the pointer right away; only its
   // strength and the scale spring, so the light never spins around.
   const angle = useMotionValue('0deg');
-  const strength = useSpring(0, SPRING);
-  const scale = useSpring(1, SPRING);
+  const strength = useSpring(0, TILT_SPRING);
+  const scale = useSpring(1, TILT_SPRING);
 
   const onPointerMove = (e: PointerEvent<HTMLElement>) => {
     if (href) magnet.onPointerMove(e);
     if (reduce || !isFineMouse(e)) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    // -1..1 from the center; positive is right / down.
-    const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    const { nx, ny } = pointerOffset(e);
     // The sheen lights the side opposite --glass-tilt-angle (globals.css),
     // so point it away from the cursor.
     angle.set(`${(Math.atan2(-nx, ny) * 180) / Math.PI}deg`);
@@ -71,7 +68,7 @@ export function Chip({ children, tone = 'neutral', href, Icon }: ChipProps) {
     '--glass-tilt': strength,
   } as MotionStyle;
 
-  const className = `${base} ${tone === 'block' ? 'glass-block' : ''}`;
+  const className = tone === 'block' ? `${base} glass-block` : base;
   const handlers = { onPointerMove, onPointerLeave, style };
 
   if (href) {

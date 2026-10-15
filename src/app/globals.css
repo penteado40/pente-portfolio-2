@@ -161,7 +161,9 @@ body {
  *
  * Text on glass stays at ink/60 or stronger: the tints below keep that at
  * 4.5:1 or more over every section background, and .glass-dark (Navbar)
- * keeps white/70 at 4.5:1 even over a white photo.
+ * keeps white/70 at 4.5:1 even over a white photo. Over the persona-ambient
+ * glow the floor is ink/75 (Audio, at the glow's peak with the tilt light
+ * on: 4.7:1). Highlight text on .glass-block stays above 6.5:1.
  *
  * The box-shadow composes Tailwind's ring and shadow variables, so ring and
  * shadow utilities (focus-visible:ring-*, shadow-lg) still draw on a glass
@@ -172,6 +174,8 @@ body {
  * direction toward the side that sinks under the cursor, and --glass-tilt,
  * its strength from 0 (flat) to 1. The first background layer lights the
  * rising side and shades the sinking one; at rest it is fully transparent.
+ * Chip writes the same two variables without tilting, pointing the angle
+ * away from the cursor, so the side under it is the lit one.
  * The light tops out at 6% white over the static sheen, which keeps ink/60
  * at 4.5:1 even at the lit edge over a block-mid section (Ocean Blue: 4.6:1).
  */

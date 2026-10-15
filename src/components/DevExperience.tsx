@@ -44,10 +44,10 @@ export function DevExperience() {
               >
                 <div className="flex flex-wrap gap-x-2 md:flex-col md:gap-2 font-mono text-xs md:font-sans md:text-[15px] text-ink/60">
                   <span className={`md:font-mono md:text-[13px] ${current ? 'text-highlight' : ''}`}>{period}</span>
-                  <span aria-hidden className={`md:hidden ${current ? 'text-highlight' : ''}`}>
+                  <span aria-hidden className="md:hidden">
                     ·
                   </span>
-                  <span className={current ? 'max-md:text-highlight' : ''}>{job.company}</span>
+                  <span>{job.company}</span>
                 </div>
 
                 <div className="flex flex-col gap-3 md:gap-4">
@@ -93,13 +93,13 @@ export function DevExperience() {
                 return (
                   <li key={entry.id}>
                     <TiltCard className="glass h-full flex flex-col gap-2 md:gap-3 p-5 md:px-8 md:py-7 rounded-[20px]">
-                      <span className="font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase text-ink/60">
+                      <span className="font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase text-ink/75">
                         {detail}
                       </span>
                       <span className="text-[19px] md:text-2xl font-medium tracking-[-0.02em] text-white">
                         {course}
                       </span>
-                      <span className="text-[13px] md:text-[15px] text-ink/65">
+                      <span className="text-[13px] md:text-[15px] text-ink/75">
                         {entry.institution} · {formatGraduation(entry, text.education.expected)}
                       </span>
                     </TiltCard>
