@@ -112,6 +112,64 @@
       }
     }
   },
+  "projects": {
+    "title": "Produtos",
+    "lead": "Projetos com usuários reais, no ar ou em construção.",
+    "product": "Produto",
+    "status": {
+      "active": "no ar",
+      "building": "em construção"
+    },
+    "studies": {
+      "title": "Estudos",
+      "lead": "Feitos para aprender e praticar, sem usuários."
+    },
+    "repos": "Repositórios",
+    "private": "privado",
+    "openDemo": "Abrir {demo}",
+    "openRepo": "{repo} no GitHub",
+    "screenshot": "Tela do {title}",
+    "items": {
+      "fawedding": {
+        "title": "FAWedding",
+        "summary": "Sites de casamento com RSVP, lista de presentes e um e-mail de confirmação para cada convidado. Nasceu como o site do meu casamento e hoje atende outros casais.",
+        "highlights": [
+          "API multi-tenant: cada casamento tem seu front-end, domínio e template de e-mail.",
+          "Confirmação por e-mail com Resend e React Email, com o status de entrega no RSVP e reenvio manual.",
+          "3 clientes em produção e cerca de 200 RSVPs processados."
+        ]
+      },
+      "events": {
+        "title": "Events",
+        "summary": "A sucessora da fawedding-api, para qualquer evento: RSVP, lista de presentes paga com Pix e e-mails para convidados, com um app em Expo para quem organiza.",
+        "highlights": [
+          "Clean Architecture com DDD pragmático no NestJS, com a regra de dependência imposta pelo ESLint.",
+          "PRD, glossário e ADRs antes do código.",
+          "CI com testes de integração em Postgres, checagem de drift nas migrations e varredura de segredos."
+        ]
+      },
+      "portfolio": {
+        "title": "Portfólio",
+        "summary": "Este site: um Hub que leva às minhas duas personas, áudio e desenvolvimento, em português e inglês.",
+        "highlights": [
+          "Cores por persona em tokens, com cards de vidro sobre cada uma.",
+          "API própria de contato e depoimentos, com login JWT e chaves de API."
+        ]
+      },
+      "inventory-api": {
+        "title": "inventory-api",
+        "summary": "API REST multi-tenant de estoque: cada loja isolada por middleware, com JWT de curta duração e papéis por loja."
+      },
+      "task-manager": {
+        "title": "task_manager",
+        "summary": "API REST de tarefas com status personalizados, documentada com OpenAPI e testada com JUnit e Mockito."
+      },
+      "pente-portfolio-api": {
+        "title": "pente-portfolio-api",
+        "summary": "Primeira API do portfólio: recebe mensagens de contato e depoimentos, com login JWT e limite de requisições por IP."
+      }
+    }
+  },
   "skills": {
     "title": "Com o que eu construo",
     "categories": {

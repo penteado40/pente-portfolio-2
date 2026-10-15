@@ -69,6 +69,88 @@ export const skills: readonly SkillCategory[] = [
   },
 ];
 
+export type ProjectId =
+  | 'fawedding'
+  | 'events'
+  | 'portfolio'
+  | 'inventory-api'
+  | 'task-manager'
+  | 'pente-portfolio-api';
+
+/** A repo with no `url` is private: shown with a lock, without a link. */
+export type Repo = { label: string; url?: string };
+
+type ProjectBase = {
+  /** Keys `projects.items` in dev.json: title, summary and, for a Product, highlights. */
+  id: ProjectId;
+  /** Names, so the same in every language. */
+  stack: readonly string[];
+  repos: readonly Repo[];
+  demo?: string;
+};
+
+/** See CONTEXT.md: a project with real users, live or being built. */
+export type Product = ProjectBase & {
+  kind: 'product';
+  status: 'active' | 'building';
+  /**
+   * A 16:10 screenshot in public/; until it lands, the card shows the
+   * persona gradient in its place, so adding it is the file and this path.
+   */
+  image?: string;
+};
+
+/** See CONTEXT.md: a project built to learn or practice; no image, no status. */
+export type Study = ProjectBase & { kind: 'study' };
+
+export type Project = Product | Study;
+
+const github = (repo: string): Repo => ({ label: repo, url: `https://github.com/penteado40/${repo}` });
+
+/** Products first, the lead one (the large card) at the top; then Studies. */
+export const projects: readonly Project[] = [
+  {
+    id: 'fawedding',
+    kind: 'product',
+    status: 'active',
+    stack: ['React', 'TypeScript', 'Hono', 'Prisma', 'PostgreSQL', 'Resend'],
+    repos: [github('fawedding'), github('fawedding-api')],
+    demo: 'https://fawedding.com.br',
+  },
+  {
+    id: 'events',
+    kind: 'product',
+    status: 'building',
+    stack: ['NestJS', 'Prisma', 'PostgreSQL', 'Redis', 'Expo'],
+    repos: [github('events-api'), github('events-expo')],
+  },
+  {
+    id: 'portfolio',
+    kind: 'product',
+    status: 'active',
+    stack: ['Next.js', 'Tailwind v4', 'Motion', 'Express', 'Prisma'],
+    repos: [github('pente-portfolio-2'), { label: 'portfolio-api' }],
+  },
+  {
+    id: 'inventory-api',
+    kind: 'study',
+    stack: ['Hono', 'Zod', 'Prisma', 'PostgreSQL'],
+    repos: [github('inventory-api')],
+  },
+  {
+    id: 'task-manager',
+    kind: 'study',
+    stack: ['Java 21', 'Spring Boot', 'PostgreSQL'],
+    repos: [github('task_manager')],
+  },
+  {
+    id: 'pente-portfolio-api',
+    kind: 'study',
+    stack: ['Java 21', 'Spring Boot', 'Spring Security', 'PostgreSQL'],
+    repos: [github('pente-portfolio-api')],
+  },
+];
+
 /** A month as `YYYY-MM`. */
 type YearMonth = `${number}-${number}`;
 
