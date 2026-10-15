@@ -85,13 +85,13 @@ type ProjectBase = {
   id: ProjectId;
   /** Names, so the same in every language. */
   stack: readonly string[];
-  repos: readonly Repo[];
-  demo?: string;
 };
 
 /** See CONTEXT.md: a project with real users, live or being built. */
 export type Product = ProjectBase & {
   kind: 'product';
+  repos: readonly Repo[];
+  demo?: string;
   status: 'active' | 'building';
   /**
    * A 16:10 screenshot in public/; until it lands, the card shows the
@@ -101,11 +101,15 @@ export type Product = ProjectBase & {
 };
 
 /** See CONTEXT.md: a project built to learn or practice; no image, no status. */
-export type Study = ProjectBase & { kind: 'study' };
+export type Study = ProjectBase & {
+  kind: 'study';
+  /** One public repo: the tile links to it as a whole. */
+  repos: readonly [Repo & { url: string }];
+};
 
 export type Project = Product | Study;
 
-const github = (repo: string): Repo => ({ label: repo, url: `https://github.com/penteado40/${repo}` });
+const github = (repo: string) => ({ label: repo, url: `https://github.com/penteado40/${repo}` });
 
 /** Products first, the lead one (the large card) at the top; then Studies. */
 export const projects: readonly Project[] = [

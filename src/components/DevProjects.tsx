@@ -18,7 +18,7 @@ type ProjectText = { title: string; summary: string; highlights?: string[] };
 const products = projects.filter((p): p is Product => p.kind === 'product');
 const studies = projects.filter((p): p is Study => p.kind === 'study');
 
-const fill = (template: string, values: Record<string, string>) =>
+const interpolate = (template: string, values: Record<string, string>) =>
   template.replace(/\{(\w+)\}/g, (_, key: string) => values[key] ?? '');
 
 /** `https://fawedding.com.br/` as `fawedding.com.br`. */
@@ -52,7 +52,7 @@ function RepoPills({ repos, text }: { repos: readonly Repo[]; text: ProjectsText
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={fill(text.openRepo, { repo: label })}
+              aria-label={interpolate(text.openRepo, { repo: label })}
               className={`${pill} border-highlight/30 text-highlight hover:border-highlight/60 hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight`}
             >
               <GithubLogo size={12} weight="bold" aria-hidden />
@@ -92,10 +92,13 @@ function Screenshot({ product, alt, sizes }: { product: Product; alt: string; si
   return product.image ? (
     <Image src={product.image} alt={alt} fill sizes={sizes} className="object-cover" />
   ) : (
-    <div
-      aria-hidden
-      className="absolute inset-0 bg-[linear-gradient(160deg,var(--color-accent),var(--color-block-deep)_55%,var(--brand-black))]"
-    />
+    <div aria-hidden className="absolute inset-0 screenshot-placeholder" />
+  );
+}
+
+function DemoHost({ demo }: { demo: string }) {
+  return (
+    <span className="font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase text-highlight">{host(demo)}</span>
   );
 }
 
@@ -113,14 +116,13 @@ function StatusLabel({ product, text }: { product: Product; text: ProjectsText }
 // accent dot leading to the demo.
 function LeadProduct({ product, text }: { product: Product; text: ProjectsText }) {
   const item: ProjectText = text.items[product.id];
-  const cta = product.demo ?? product.repos.find((r) => r.url)?.url;
 
   return (
-    <article className="relative isolate overflow-hidden flex flex-col justify-between gap-6 min-h-[440px] md:min-h-[560px] p-4 md:p-7 rounded-[28px] shadow-card lg:sticky lg:top-28 lg:self-start">
+    <article className="relative isolate overflow-hidden flex flex-col justify-between gap-6 min-h-[440px] md:min-h-[560px] p-4 md:p-7 rounded-[28px] shadow-card">
       <div className="absolute inset-0 -z-10">
         <Screenshot
           product={product}
-          alt={fill(text.screenshot, { title: item.title })}
+          alt={interpolate(text.screenshot, { title: item.title })}
           sizes="(min-width: 1024px) 660px, 100vw"
         />
       </div>
@@ -128,11 +130,7 @@ function LeadProduct({ product, text }: { product: Product; text: ProjectsText }
 
       <div className="flex justify-between items-center gap-4 px-1 pt-1 md:p-0 text-ink">
         <StatusLabel product={product} text={text} />
-        {product.demo && (
-          <span className="font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase text-highlight">
-            {host(product.demo)}
-          </span>
-        )}
+        {product.demo && <DemoHost demo={product.demo} />}
       </div>
 
       <div className="glass flex flex-col gap-3 md:gap-4 p-[18px] md:p-6 rounded-[16px] md:rounded-[20px]">
@@ -146,12 +144,12 @@ function LeadProduct({ product, text }: { product: Product; text: ProjectsText }
             <StackPills stack={product.stack} />
             <RepoPills repos={product.repos} text={text} />
           </div>
-          {cta && (
+          {product.demo && (
             <a
-              href={cta}
+              href={product.demo}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={fill(text.openDemo, { demo: host(cta) })}
+              aria-label={interpolate(text.openDemo, { demo: host(product.demo) })}
               className="grid place-items-center size-11 shrink-0 rounded-full bg-accent text-white ring-1 ring-highlight/40 hover:ring-2 hover:ring-highlight transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight"
             >
               <ArrowUpRight size={18} aria-hidden />
@@ -172,16 +170,12 @@ function ProductTile({ product, text }: { product: Product; text: ProjectsText }
     <TiltCard as="article" className="glass h-full flex flex-col gap-4 p-5 md:p-7 rounded-[20px]">
       <div className="flex justify-between items-center gap-4 text-ink/75">
         <StatusLabel product={product} text={text} />
-        {product.demo && (
-          <span className="font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase text-highlight">
-            {host(product.demo)}
-          </span>
-        )}
+        {product.demo && <DemoHost demo={product.demo} />}
       </div>
       <div className="relative aspect-[16/10] overflow-hidden rounded-[12px]">
         <Screenshot
           product={product}
-          alt={fill(text.screenshot, { title: item.title })}
+          alt={interpolate(text.screenshot, { title: item.title })}
           sizes="(min-width: 1024px) 420px, 100vw"
         />
       </div>
@@ -201,7 +195,7 @@ function ProductTile({ product, text }: { product: Product; text: ProjectsText }
 // A Study: a glass tile linking to its repo as a whole, through the name.
 function StudyTile({ study, text }: { study: Study; text: ProjectsText }) {
   const item: ProjectText = text.items[study.id];
-  const repo = study.repos[0];
+  const [repo] = study.repos;
 
   return (
     <TiltCard as="article" className="glass relative h-full flex flex-col gap-3.5 p-6 rounded-[20px]">
@@ -238,7 +232,7 @@ export function DevProjects() {
   const reveal = (delay = 0) => ({
     initial: reduce ? false : { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.2 },
+    viewport: { once: true, amount: 0.3 },
     transition: { duration: 0.6, delay, ease: EASE_OUT },
   });
 
@@ -254,7 +248,7 @@ export function DevProjects() {
 
         <div className="relative isolate grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-3.5 md:gap-6">
           <div aria-hidden className="absolute -inset-y-5 md:-inset-y-8 inset-x-0 md:inset-x-[4%] -z-10 persona-ambient" />
-          <motion.div {...reveal()}>
+          <motion.div {...reveal()} className="lg:sticky lg:top-28 lg:self-start">
             <LeadProduct product={lead} text={text} />
           </motion.div>
           <ul className="flex flex-col gap-3.5 md:gap-6">
