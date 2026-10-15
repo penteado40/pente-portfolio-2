@@ -112,6 +112,64 @@
       }
     }
   },
+  "projects": {
+    "title": "Products",
+    "lead": "Projects with real users, live or being built.",
+    "product": "Product",
+    "status": {
+      "active": "live",
+      "building": "in progress"
+    },
+    "studies": {
+      "title": "Studies",
+      "lead": "Built to learn and practice, with no users."
+    },
+    "repos": "Repositories",
+    "private": "private",
+    "openDemo": "Open {demo}",
+    "openRepo": "{repo} on GitHub",
+    "screenshot": "{title} screenshot",
+    "items": {
+      "fawedding": {
+        "title": "FAWedding",
+        "summary": "Wedding websites with RSVP, a gift registry and a confirmation email for every guest. It started as my own wedding's site and now serves other couples.",
+        "highlights": [
+          "Multi-tenant API: each wedding has its own front-end, domain and email template.",
+          "Email confirmation with Resend and React Email, with the delivery status on the RSVP and a manual resend.",
+          "3 clients in production and about 200 RSVPs processed."
+        ]
+      },
+      "events": {
+        "title": "Events",
+        "summary": "The successor to fawedding-api, for any kind of event: RSVP, a gift registry paid with Pix and guest emails, with an Expo app for the organizers.",
+        "highlights": [
+          "Clean Architecture with pragmatic DDD on NestJS, the dependency rule enforced by ESLint.",
+          "PRD, glossary and ADRs before the code.",
+          "CI with integration tests on Postgres, a migration drift check and secret scanning."
+        ]
+      },
+      "portfolio": {
+        "title": "Portfolio",
+        "summary": "This site: a Hub leading to my two personas, audio and development, in English and Portuguese.",
+        "highlights": [
+          "Per-persona colors as tokens, with glass cards over each.",
+          "Its own contact and testimonials API, with JWT login and API keys."
+        ]
+      },
+      "inventory-api": {
+        "title": "inventory-api",
+        "summary": "Multi-tenant inventory REST API: each store isolated by middleware, with short-lived JWTs and per-store roles."
+      },
+      "task-manager": {
+        "title": "task_manager",
+        "summary": "Task REST API with custom statuses, documented with OpenAPI and tested with JUnit and Mockito."
+      },
+      "pente-portfolio-api": {
+        "title": "pente-portfolio-api",
+        "summary": "The portfolio's first API: takes contact messages and testimonials, with JWT login and per-IP rate limiting."
+      }
+    }
+  },
   "skills": {
     "title": "What I build with",
     "categories": {

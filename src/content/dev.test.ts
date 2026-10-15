@@ -8,6 +8,7 @@ import {
   formatGraduation,
   formatMonth,
   formatPeriod,
+  projects,
   skills,
 } from './dev.ts';
 
@@ -75,10 +76,49 @@ test('skills lists the six categories in order, each with items', () => {
   for (const category of skills) assert.ok(category.items.length > 0, category.id);
 });
 
+test('projects lists the three Products, then the three Studies', () => {
+  assert.deepEqual(
+    projects.map(({ id, kind }) => [id, kind]),
+    [
+      ['fawedding', 'product'],
+      ['events', 'product'],
+      ['portfolio', 'product'],
+      ['inventory-api', 'study'],
+      ['task-manager', 'study'],
+      ['pente-portfolio-api', 'study'],
+    ],
+  );
+});
+
+test('every project has stack tags and at least one repo', () => {
+  for (const project of projects) {
+    assert.ok(project.stack.length > 0, project.id);
+    assert.ok(project.repos.length > 0, project.id);
+  }
+});
+
+test('Events is the only Product being built', () => {
+  const building = projects.filter((p) => p.kind === 'product' && p.status === 'building');
+  assert.deepEqual(building.map(({ id }) => id), ['events']);
+});
+
+test('portfolio-api is private: listed without a link', () => {
+  const portfolio = projects.find(({ id }) => id === 'portfolio');
+  assert.deepEqual(portfolio?.repos.find(({ label }) => label === 'portfolio-api'), { label: 'portfolio-api' });
+});
+
+test('every public repo links to GitHub', () => {
+  for (const { repos } of projects) {
+    for (const { label, url } of repos) {
+      if (label !== 'portfolio-api') assert.equal(url, `https://github.com/penteado40/${label}`);
+    }
+  }
+});
+
 // ADR 0004: the dictionary type comes from the EN file only, so nothing
 // else catches an id in dev.ts without its text.
 for (const locale of ['en', 'pt'] as const) {
-  test(`${locale}: every experience, education and skills id has its text`, () => {
+  test(`${locale}: every experience, education, skills and project id has its text`, () => {
     const dict = devDictionary(locale);
     for (const { id } of experience) {
       const text = dict.experience.items[id];
@@ -90,6 +130,14 @@ for (const locale of ['en', 'pt'] as const) {
     }
     for (const { id } of skills) {
       assert.ok(dict.skills.categories[id]?.name, `skills.categories.${id}`);
+    }
+    for (const project of projects) {
+      const text = dict.projects.items[project.id];
+      assert.ok(text?.title && text.summary, `projects.items.${project.id}`);
+      // Highlights are for Products only, two or three of them.
+      const highlights = text.highlights?.length ?? 0;
+      if (project.kind === 'product') assert.ok(highlights >= 2 && highlights <= 3, `projects.items.${project.id}.highlights`);
+      else assert.equal(highlights, 0, `projects.items.${project.id}.highlights`);
     }
   });
 }

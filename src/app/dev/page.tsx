@@ -2,6 +2,7 @@ import { DevHero } from "@/components/DevHero";
 import { DevAbout } from "@/components/DevAbout";
 import { DevExperience } from "@/components/DevExperience";
 import { Certifications } from "@/components/Certifications";
+import { DevProjects } from "@/components/DevProjects";
 import { DevSkills } from "@/components/DevSkills";
 import { Contact } from "@/components/Contact";
 import { certifications } from "@/content/dev";
@@ -16,6 +17,7 @@ export default async function DevPage() {
       <DevAbout />
       <DevExperience />
       <Certifications items={certifications} title={dict.nav.certifications} />
+      <DevProjects />
       <DevSkills />
       <Contact />
     </main>

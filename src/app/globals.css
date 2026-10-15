@@ -296,6 +296,12 @@ body {
   );
 }
 
+/* A Product's screenshot until the file lands (Dev Projects): the persona
+   fading through block-deep to black, like the photo cards' tint. */
+.screenshot-placeholder {
+  background: linear-gradient(160deg, var(--color-accent), var(--color-block-deep) 55%, var(--brand-black));
+}
+
 /* The photo cards' drop shadow, deeper from md up. */
 @utility shadow-card {
   box-shadow: 0 20px 40px color-mix(in oklab, var(--brand-black) 45%, transparent);
