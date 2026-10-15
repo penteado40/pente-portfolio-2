@@ -11,8 +11,6 @@ import { TiltCard } from './TiltCard';
 
 const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
-type CategoryText = DevDictionary['skills']['categories'];
-
 // A block-mid Color block: one darker glass card per category, three to a
 // row on desktop (cards in a row share its height), stacked on mobile. The
 // items are Chips in the card's tone; an optional note under the name
@@ -29,10 +27,9 @@ export function DevSkills() {
 
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
           {skills.map((category, i) => {
-            const { name, note } = text.categories[category.id as keyof CategoryText] as {
-              name: string;
-              note?: string;
-            };
+            const categoryText = text.categories[category.id];
+            const name = categoryText.name;
+            const note = 'note' in categoryText ? categoryText.note : undefined;
             return (
               <motion.li
                 key={category.id}

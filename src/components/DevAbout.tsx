@@ -8,6 +8,7 @@ import { ArrowDown } from '@phosphor-icons/react';
 import { Chip } from './Chip';
 import { Container } from './Container';
 import { SectionLabel } from './SectionHeader';
+import { sectionIndex } from '@/content/dev';
 import { TiltCard } from './TiltCard';
 
 // Set in next.config.ts: empty until the Dev portrait is added to public/.
@@ -62,7 +63,7 @@ export function DevAbout() {
             <div className="lg:hidden relative isolate size-16 shrink-0 rounded-full overflow-hidden bg-background">
               <Portrait sizes="64px" alt={about.portraitAlt} />
             </div>
-            <SectionLabel index={1} label={dict.nav.about} />
+            <SectionLabel index={sectionIndex('about')} label={dict.nav.about} />
           </div>
           <h2 className="text-[34px] md:text-5xl leading-[1.05] md:leading-[1.02] font-medium tracking-[-0.035em] text-white">
             {about.title}

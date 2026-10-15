@@ -42,9 +42,11 @@ export function sectionIndex(id: DevSection) {
   return devSections(certifications).indexOf(id) + 1;
 }
 
+export type SkillCategoryId = 'back-end' | 'front-end' | 'databases' | 'cloud' | 'integrations' | 'practices';
+
 export type SkillCategory = {
   /** Keys `skills.categories` in dev.json: the category's name and note. */
-  id: string;
+  id: SkillCategoryId;
   /** Names, so the same in every language. */
   items: readonly string[];
 };

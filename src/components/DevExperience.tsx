@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { DevDictionary } from '@/i18n/types';
-import { education, experience, formatGraduation, formatPeriod } from '@/content/dev';
+import { education, experience, formatGraduation, formatPeriod, sectionIndex } from '@/content/dev';
 import { Chip } from './Chip';
 import { Container } from './Container';
 import { SectionHeader } from './SectionHeader';
@@ -26,7 +26,7 @@ export function DevExperience() {
   return (
     <section id="experience" className="py-[72px] md:py-[120px]">
       <Container>
-        <SectionHeader index={2} label={dict.nav.experience} title={text.title} />
+        <SectionHeader index={sectionIndex('experience')} label={dict.nav.experience} title={text.title} />
 
         <ol className="border-b border-white/10">
           {experience.map((job) => {
