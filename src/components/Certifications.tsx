@@ -2,13 +2,21 @@
 
 import { Certificate } from '@phosphor-icons/react';
 import { motion, useReducedMotion } from 'motion/react';
-import { useLocale } from '@/i18n/LocaleProvider';
-import type { AudioDictionary } from '@/i18n/types';
+import type { Certification } from '@/content/certification';
 import { TiltCard } from './TiltCard';
 
-export function Certifications() {
-  const { dict } = useLocale<AudioDictionary>();
+type CertificationsProps = {
+  /** The persona's own list; empty renders nothing. */
+  items: readonly Certification[];
+  title: string;
+};
+
+// Shared by the personas, each passing its own list. A persona hides the
+// Navbar anchor on its own while its list is empty.
+export function Certifications({ items, title }: CertificationsProps) {
   const reduce = useReducedMotion();
+
+  if (items.length === 0) return null;
 
   return (
     <section id="certifications" className="py-24 md:py-32 bg-mist">
@@ -20,11 +28,11 @@ export function Certifications() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-3xl md:text-4xl font-medium tracking-tight mb-12"
         >
-          {dict.certifications.title}
+          {title}
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {dict.certifications.items.map((item, i) => (
+          {items.map((item, i) => (
             <TiltCard
               key={`${item.title}-${item.year}`}
               initial={reduce ? false : { opacity: 0, y: 20 }}

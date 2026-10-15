@@ -1,4 +1,5 @@
 import type { Locale } from '@/i18n/locale';
+import type { Certification } from './certification';
 
 /*
  * Structured data of the Dev persona: ids, dates, links and lists that
@@ -12,8 +13,59 @@ import type { Locale } from '@/i18n/locale';
  */
 export const cvLocales: readonly Locale[] = ['pt'];
 
-/** Empty until there is one to show; the section and its Navbar anchor stay hidden. */
-export const certifications: readonly { id: string }[] = [];
+/**
+ * Empty until there is one to show; the section and its Navbar anchor stay
+ * hidden. Names, issuers and years read the same in both languages.
+ */
+export const certifications: readonly Certification[] = [];
+
+/** Section ids (and anchors) of the page, in order; see `devSections`. */
+export type DevSection = 'about' | 'experience' | 'certifications' | 'projects' | 'skills' | 'contact';
+
+/**
+ * The page's sections in order, for the Navbar anchors and the "NN /"
+ * labels. Certifications is there only once it has an item.
+ */
+export function devSections(certs: readonly Certification[]): DevSection[] {
+  return [
+    'about',
+    'experience',
+    ...(certs.length > 0 ? (['certifications'] as const) : []),
+    'projects',
+    'skills',
+    'contact',
+  ];
+}
+
+/** "02 / Experience": a section's position on the page, from 1. */
+export function sectionIndex(id: DevSection) {
+  return devSections(certifications).indexOf(id) + 1;
+}
+
+export type SkillCategory = {
+  /** Keys `skills.categories` in dev.json: the category's name and note. */
+  id: string;
+  /** Names, so the same in every language. */
+  items: readonly string[];
+};
+
+export const skills: readonly SkillCategory[] = [
+  {
+    id: 'back-end',
+    items: ['Node.js', 'TypeScript', 'NestJS', 'Hono', 'PHP 8/Laravel', 'Java/Spring Boot', 'Prisma', 'Zod', 'REST', 'JWT'],
+  },
+  { id: 'front-end', items: ['React', 'Next.js', 'Expo/React Native', 'TanStack Query'] },
+  { id: 'databases', items: ['PostgreSQL', 'SQL Server', 'MySQL', 'Redis'] },
+  {
+    id: 'cloud',
+    items: ['AWS (S3, SQS, Lambda, SES, CDK)', 'Vercel', 'Terraform', 'Docker', 'GitHub Actions', 'Datadog'],
+  },
+  { id: 'integrations', items: ['ASAAS', 'Getnet', 'Stone', 'Pix', 'Resend', 'Cloudinary'] },
+  {
+    id: 'practices',
+    items: ['Clean Architecture/DDD', 'ADRs', 'Vitest', 'Claude Code', 'MCP', 'Scrum/Kanban'],
+  },
+];
 
 /** A month as `YYYY-MM`. */
 type YearMonth = `${number}-${number}`;

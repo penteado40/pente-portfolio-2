@@ -73,7 +73,7 @@ export function DevAbout() {
             </p>
           ))}
 
-          <TiltCard className="glass glass-block mt-2 p-6 md:p-8 rounded-[20px] md:rounded-[22px] max-w-[620px]">
+          <TiltCard className="glass glass-block-mid mt-2 p-6 md:p-8 rounded-[20px] md:rounded-[22px] max-w-[620px]">
             <blockquote>
               <span
                 aria-hidden
@@ -90,11 +90,11 @@ export function DevAbout() {
           <ul className="flex flex-wrap gap-1.5 md:gap-2 mt-1 md:mt-2">
             {[about.location, ...about.languages].map((text) => (
               <li key={text}>
-                <Chip tone="block">{text}</Chip>
+                <Chip tone="block-mid">{text}</Chip>
               </li>
             ))}
             <li>
-              <Chip tone="block" href="#contact" Icon={ArrowDown}>
+              <Chip tone="block-mid" href="#contact" Icon={ArrowDown}>
                 {about.availability}
               </Chip>
             </li>

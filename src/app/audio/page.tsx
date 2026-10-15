@@ -9,9 +9,13 @@ import { Testimonials } from "@/components/Testimonials";
 import { Photos } from "@/components/Photos";
 import { Contact } from "@/components/Contact";
 import { getTestimonials } from "@/lib/getTestimonials";
+import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function AudioPage() {
-  const testimonials = await getTestimonials();
+  const [testimonials, dict] = await Promise.all([
+    getTestimonials(),
+    getLocale().then((locale) => getDictionary(locale, "audio")),
+  ]);
 
   return (
     <main>
@@ -19,7 +23,7 @@ export default async function AudioPage() {
       <Stats />
       <About />
       <Timeline />
-      <Certifications />
+      <Certifications items={dict.certifications.items} title={dict.certifications.title} />
       <Productions />
       <Skills />
       <Testimonials items={testimonials} />

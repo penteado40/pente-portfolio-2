@@ -40,7 +40,7 @@
    issue #14); block-deep / block-mid = Color block fills
    (see CONTEXT.md), plus overlays that fade into a block (Hero, About
    portrait), controls set into a block-mid block (Photos tab pill) and
-   the .glass-block tint (a glass pane set into a block-deep block).
+   the .glass-block-* tints (a glass pane set into a Color block).
    The block tones are near-neutrals tinted with the persona hue:
    block-deep sits at Onyx luminance, block-mid between Mist and Charcoal,
    so bg-accent inside a block contrasts as much as it does on Onyx. That
@@ -145,8 +145,8 @@ body {
 
 /*
  * Liquid Glass material (plan A, decided in GitHub issue #11). Every glass surface on
- * the site uses one of these three classes (plus the .glass-block tint
- * modifier below), and the material lives only
+ * the site uses one of these three classes (plus the .glass-block-* tint
+ * modifiers below), and the material lives only
  * here: tint + backdrop blur + border + specular rim. The refraction's own
  * parameters sit in the SVG filter of LiquidGlassFilter, which needs a DOM
  * node. The pill CTAs (Hero, Navbar actions, Testimonials) are not glass
@@ -154,7 +154,7 @@ body {
  * Chips (CONTEXT.md: small pills holding one short piece of information)
  * are glass, through the Chip component. It is neutral on
  * purpose (no persona tint): the color comes from whatever sits behind it,
- * except .glass-block, which a Color block needs to set a pane apart from
+ * except .glass-block-*, which a Color block needs to set a pane apart from
  * its own flat fill.
  * Plan B (glass only on controls, solid content cards) is a swap of the card
  * classes to bg-mist/bg-surface, with no change to component structure.
@@ -163,7 +163,7 @@ body {
  * 4.5:1 or more over every section background, and .glass-dark (Navbar)
  * keeps white/70 at 4.5:1 even over a white photo. Over the persona-ambient
  * glow the floor is ink/75 (Audio, at the glow's peak with the tilt light
- * on: 4.7:1). Highlight text on .glass-block stays above 6.5:1.
+ * on: 4.7:1). Highlight text on .glass-block-mid stays above 6.5:1.
  *
  * The box-shadow composes Tailwind's ring and shadow variables, so ring and
  * shadow utilities (focus-visible:ring-*, shadow-lg) still draw on a glass
@@ -189,6 +189,7 @@ body {
   --glass-drop: 0 8px 32px color-mix(in oklab, var(--brand-black) 35%, transparent);
   --glass-tilt-angle: 0deg;
   --glass-tilt: 0;
+  --glass-border: color-mix(in oklab, var(--color-white) 14%, transparent);
 
   background:
     linear-gradient(
@@ -201,7 +202,7 @@ body {
     var(--glass-tint);
   -webkit-backdrop-filter: var(--glass-backdrop);
   backdrop-filter: var(--glass-backdrop);
-  border: 1px solid color-mix(in oklab, var(--color-white) 14%, transparent);
+  border: 1px solid var(--glass-border);
   box-shadow:
     var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000),
@@ -226,12 +227,23 @@ body {
   --glass-drop: 0 8px 32px color-mix(in oklab, var(--brand-black) 50%, transparent);
 }
 
-/* Glass set into a Color block (the persona pages' About quote): tinted
-   with block-mid, so it reads as a lighter pane over block-deep. The tint
-   is darker than Charcoal (the plain glass tint), so ink/60 on it keeps
-   at least the 4.5:1 it has on plain glass. */
-.glass-block {
+/* Glass set into a Color block, tinted with the other block tone so the
+   pane stands apart from the block's flat fill.
+   .glass-block-mid sits in a block-deep block (the persona pages' About
+   quote) and reads as a lighter pane. Its tint is darker than Charcoal (the
+   plain glass tint), so ink/60 on it keeps at least the 4.5:1 it has on
+   plain glass.
+   .glass-block-deep sits in a block-mid block (the Dev Stack cards and their
+   Chips) and reads as a darker pane, with a faint highlight rim. Being
+   darker than the block, it only raises contrast: with the tilt light on,
+   ink/60 keeps 5:1 and highlight 7:1, even on a Chip over a card. */
+.glass-block-mid {
   --glass-tint: color-mix(in oklab, var(--color-block-mid) 75%, transparent);
+}
+
+.glass-block-deep {
+  --glass-tint: color-mix(in oklab, var(--color-block-deep) 75%, transparent);
+  --glass-border: color-mix(in oklab, var(--color-highlight) 18%, transparent);
 }
 
 /* Refraction: an SVG displacement of the backdrop, Chromium only. The
@@ -271,8 +283,12 @@ body {
     --glass-tint: var(--color-background);
   }
 
-  .glass.glass-block {
+  .glass.glass-block-mid {
     --glass-tint: var(--color-block-mid);
+  }
+
+  .glass.glass-block-deep {
+    --glass-tint: var(--color-block-deep);
   }
 }
 

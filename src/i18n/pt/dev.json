@@ -111,5 +111,31 @@
         }
       }
     }
+  },
+  "skills": {
+    "title": "Com o que eu construo",
+    "categories": {
+      "back-end": {
+        "name": "Back-end"
+      },
+      "front-end": {
+        "name": "Front-end & Mobile"
+      },
+      "databases": {
+        "name": "Bancos de dados",
+        "note": "Modelagem, índices e otimização de queries."
+      },
+      "cloud": {
+        "name": "Cloud & DevOps"
+      },
+      "integrations": {
+        "name": "Integrações",
+        "note": "Gateways de pagamento, Pix, e-mail e mídia."
+      },
+      "practices": {
+        "name": "Práticas",
+        "note": "Testes unitários e de integração, desenvolvimento com IA assistida."
+      }
+    }
   }
 }
