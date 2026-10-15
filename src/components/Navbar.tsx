@@ -266,14 +266,12 @@ function DesktopNavbar({ sections, personas }: NavbarViewProps) {
         animate={{
           maxWidth: showExpanded ? EXPANDED_MAX_WIDTH : compactWidth,
           height: showExpanded ? EXPANDED_HEIGHT : COMPACT_HEIGHT,
-          borderRadius: showExpanded ? 16 : 999,
         }}
         transition={{
           maxWidth: { type: 'spring', duration: 0.5, bounce: 0.15 },
           height: { type: 'spring', duration: 0.5, bounce: 0.15 },
-          borderRadius: { type: 'spring', duration: 0.4, bounce: 0.1 },
         }}
-        className={`flex-1 min-w-0 ${glass} pointer-events-auto overflow-hidden`}
+        className={`flex-1 min-w-0 rounded-full ${glass} pointer-events-auto overflow-hidden`}
       >
         <AnimatePresence mode="wait" initial={false}>
           {showExpanded ? (
@@ -389,17 +387,18 @@ function PersonaPill({
       onMouseLeave={onMouseLeave}
       role="group"
       aria-label={dict.navbar.personaSwitch}
-      className={`flex items-center px-1 rounded-full ${glass} pointer-events-auto ${className}`}
+      // The current persona's fill keeps a 6px inset, so it grows with the pill.
+      className={`flex items-stretch px-1 rounded-full ${glass} pointer-events-auto ${className}`}
     >
       {personas.map((option) => (
         <Link
           key={option.href}
           href={option.href}
           aria-current={option.current ? 'page' : undefined}
-          className={`group flex items-center justify-center h-11 min-w-11 rounded-full ${focusRing}`}
+          className={`group flex items-stretch min-w-11 py-1.5 rounded-full ${focusRing}`}
         >
           <span
-            className={`flex items-center h-8 px-3.5 rounded-full text-xs font-medium transition-colors ${
+            className={`flex items-center px-3.5 rounded-full text-xs font-medium transition-colors ${
               option.current
                 ? 'bg-accent text-white ring-1 ring-highlight'
                 : 'text-white/70 group-hover:text-white'
