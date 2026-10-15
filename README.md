@@ -99,7 +99,7 @@ All visible text lives in the dictionaries, in both languages: change `src/i18n/
 
 | I want to change… | I edit… |
 |-------------------|---------|
-| Any text: hero, stats, about, timeline, gear, Productions, other work | `src/i18n/{en,pt}/audio.json` |
+| Any text: hero, stats, about, timeline, gear, Productions | `src/i18n/{en,pt}/audio.json` |
 | Certifications (with their badge image) | `certifications.items` in `src/i18n/{en,pt}/audio.json` |
 | Hero photo | The image `src` in `src/components/Hero.tsx` (a file in `public/photos/`) |
 | Photo grid and Instagram posts | The `photos` and `instagramPosts` lists in `src/components/Photos.tsx` |
@@ -114,7 +114,7 @@ All visible text lives in the dictionaries, in both languages: change `src/i18n/
 | Projects: kind, status, stack, repos, demo, screenshot | `projects` in `src/content/dev.ts` |
 | Stack lists | `skills` in `src/content/dev.ts` |
 | Certifications | `certifications` in `src/content/dev.ts` (the section shows up with the first one) |
-| CV PDF | Add `public/cv/felipe-penteado-pt.pdf` (the hero's CV button links to it); for a translation, add `public/cv/felipe-penteado-en.pdf` and `'en'` to `cvLocales` in `src/content/dev.ts` |
+| CV PDF | Add `public/cv/felipe-penteado-pt.pdf`: the hero's CV button links to it and returns a 404 until it exists. For a translation, add `public/cv/felipe-penteado-en.pdf` and `'en'` to `cvLocales` in `src/content/dev.ts` |
 | Hero and about photos | Add `public/photos/pente-dev-hero.jpg` and `public/photos/pente-dev-portrait.jpg` (until then the Dev glow stands in) |
 
 ### Common
@@ -132,7 +132,7 @@ A new photo (Hub Dev card, Dev hero, Dev portrait) is picked up when the build o
 
 1. Decide the kind (see [CONTEXT.md](CONTEXT.md)): a **Product** has real users or clients; a **Study** was built to learn.
 2. Add its id to `ProjectId` in `src/content/dev.ts`.
-3. Add an entry to `projects` in `src/content/dev.ts`. Products go before Studies; the first Product is the large card.
+3. Add an entry to `projects` in `src/content/dev.ts`. The page splits the list by kind; among the Products, the first one is the large card.
    - Product: `kind: 'product'`, `status` (`'active'` or `'building'`), `stack`, `repos` (a repo without `url` is shown as private), and optionally `demo` and `image`.
    - Study: `kind: 'study'`, `stack` and exactly one public repo.
 4. Add the text under `projects.items.<id>` in both `src/i18n/en/dev.json` and `src/i18n/pt/dev.json`: `title` and `summary`, plus `highlights` for a Product.
@@ -143,7 +143,7 @@ A new photo (Hub Dev card, Dev hero, Dev portrait) is picked up when the build o
 
 1. Add the cover image to `public/photos/`.
 2. Add an entry to `projects.productions` in both `src/i18n/en/audio.json` and `src/i18n/pt/audio.json`, in the same position: `title`, `description`, `roles`, `image` (the path from step 1), `streams`, `youtubeId` (the video embedded in the card) and `youtubeUrl` (the link out).
-3. A smaller job goes elsewhere in the same files: an embedded video or playlist in `projects.items`, or a name only in `projects.otherItems`.
+3. A Production without a card goes elsewhere in the same files: as an embedded video or playlist in `projects.items`, or by name only in `projects.otherItems`.
 
 ---
 
@@ -157,7 +157,7 @@ npm run dev                  # http://localhost:3000
 
 | Variable | What it is |
 |----------|------------|
-| `API_URL` | Base URL of the external API for contact messages and testimonials. Without it the site runs, but the forms fail and no testimonials show. |
+| `API_URL` | Base URL of the external API for contact messages and testimonials. Without it the site runs, but the contact and testimonial forms answer 500 and no Testimonials show. |
 | `API_KEY` | Sent to that API as `X-API-Key`. |
 
 Other scripts: `npm test` (unit tests with `node --test`), `npm run lint`, `npm run build`.
