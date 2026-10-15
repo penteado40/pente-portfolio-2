@@ -4,22 +4,24 @@ type SectionLabelProps = {
   /** Position on the page, shown as "02 / About". */
   index: number;
   label: string;
-  className?: string;
+  /** Highlight above a section title; ink over a photo (Hero, Hub cards). */
+  tone?: 'highlight' | 'ink';
 };
 
-// The mono "NN / Section" label. Highlight by default; the Hero sets it in
-// ink over its photo.
-export function SectionLabel({ index, label, className = 'text-highlight' }: SectionLabelProps) {
+// The mono "NN / Section" label.
+export function SectionLabel({ index, label, tone = 'highlight' }: SectionLabelProps) {
   return (
     <span
-      className={`font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase ${className}`}
+      className={`font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase ${
+        tone === 'highlight' ? 'text-highlight' : 'text-ink'
+      }`}
     >
       {String(index).padStart(2, '0')} / {label}
     </span>
   );
 }
 
-type SectionHeaderProps = Omit<SectionLabelProps, 'className'> & {
+type SectionHeaderProps = Omit<SectionLabelProps, 'tone'> & {
   title: ReactNode;
   /** Text or an action aligned to the right of the title (below it on mobile). */
   aside?: ReactNode;

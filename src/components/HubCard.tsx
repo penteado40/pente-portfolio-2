@@ -4,6 +4,7 @@ import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
 import { personaHref, type PersonaId } from '@/content/personas';
 import type { HubDictionary } from '@/i18n/types';
 import { PERSONA_ICONS } from './personaIcons';
+import { SectionLabel } from './SectionHeader';
 
 type HubCardCopy = HubDictionary['cards'][keyof HubDictionary['cards']];
 
@@ -52,10 +53,8 @@ export function HubCard({ persona, index, photo, copy }: HubCardProps) {
       )}
       <div aria-hidden className="absolute inset-0 -z-10 persona-card-tint" />
 
-      <div className="flex items-center justify-between px-1 pt-1 md:p-0 font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase">
-        <span>
-          {String(index).padStart(2, '0')} / {persona}
-        </span>
+      <div className="flex items-center justify-between px-1 pt-1 md:p-0">
+        <SectionLabel index={index} label={persona} tone="ink" />
         <Icon aria-hidden className="size-[22px] md:size-7" />
       </div>
 

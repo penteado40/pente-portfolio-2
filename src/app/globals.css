@@ -149,7 +149,7 @@ body {
  * here: tint + backdrop blur + border + specular rim. The refraction's own
  * parameters sit in the SVG filter of LiquidGlassFilter, which needs a DOM
  * node. The pill CTAs (Hero, Navbar actions, Testimonials) are not glass
- * surfaces: they keep a lighter bg-white/8–10 + backdrop-blur-sm treatment. It is neutral on
+ * surfaces: they keep a lighter bg-white/8–12 + backdrop-blur-sm treatment. It is neutral on
  * purpose (no persona tint): the color comes from whatever sits behind it.
  * Plan B (glass only on controls, solid content cards) is a swap of the card
  * classes to bg-mist/bg-surface, with no change to component structure.

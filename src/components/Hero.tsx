@@ -70,9 +70,9 @@ export function Hero() {
           </motion.div>
           <div aria-hidden className="absolute inset-0 -z-10 persona-card-tint" />
 
-          <div className="flex items-center justify-between px-1 pt-1 md:px-0 md:pt-[72px] font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase">
-            <SectionLabel index={1} label="Audio" className="text-white" />
-            <span>
+          <div className="flex items-center justify-between px-1 pt-1 md:px-0 md:pt-[72px]">
+            <SectionLabel index={1} label={dict.navbar.personas.audio} tone="ink" />
+            <span className="font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase">
               {dict.hero.city}
               <span className="hidden md:inline"> · {dict.hero.country}</span>
             </span>
