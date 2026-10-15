@@ -20,5 +20,81 @@
     "ctaProjects": "See projects",
     "ctaCv": "Download CV",
     "ctaCvFallback": "CV (PT)"
+  },
+  "about": {
+    "title": "The back-end the money flows through, and the front-end people use to keep track of it.",
+    "p1": "I'm a full stack developer with 4+ years building APIs and financial systems in production: billing, cost allocation and payments. My strength is the back-end, in Node.js, TypeScript, PHP/Laravel and PostgreSQL, with React and Next.js on the front-end.",
+    "p2": "I started in IT support at UNASP-HT, looking after 6 computer labs. I joined IATec as an intern and was hired as a trainee within 8 months; then I built the billing core of an education fintech and went back to IATec as a mid-level developer on its billing systems. Today, as a freelancer, I build and run my own event website platform.",
+    "p3": "I use AI with a method: a PRD, a glossary and ADRs before any code, and a Claude Code skill of my own in events-api. I like architecture you can verify, with Clean Architecture and DDD and the dependency rule enforced by ESLint and covered by tests. And quality in delivery: CI against a real Postgres, migration drift checks, gitleaks, and a build that fails without the OpenAPI docs. The right tool for the scale.",
+    "quote": "The right tool for the scale.",
+    "location": "Cotia, SP",
+    "languages": [
+      "Portuguese (native)",
+      "English (advanced)"
+    ],
+    "availability": "Open to remote roles",
+    "portraitAlt": "Felipe Penteado"
+  },
+  "experience": {
+    "title": "Financial systems in production",
+    "current": "present",
+    "items": {
+      "freelance": {
+        "role": "Full Stack Developer",
+        "context": "Multi-client event website platform, for weddings and birthdays.",
+        "bullets": [
+          "3 clients in production and ~200 RSVPs processed.",
+          "End to end: a React invitation with RSVP, a Hono API with Prisma, PostgreSQL and JWT, and a dashboard for clients to manage their guests.",
+          "Moved email from SQS → Lambda → SES (AWS CDK) to Resend, cutting cost and infrastructure."
+        ]
+      },
+      "iatec-mid": {
+        "role": "Software Engineer (mid-level)",
+        "context": "Rehired to work on the organization's billing and cost allocation systems.",
+        "bullets": [
+          "Cut the main billing queries by 67% (90s → 30s) by rewriting SQL and adding indexes.",
+          "Restructured billing and PDF generation, from 5+ min to about 2 min.",
+          "Automated the export to the accounting system, with documents stored on AWS S3.",
+          "Co-built two corporate systems from conception: contract management and license distribution."
+        ]
+      },
+      "youpay": {
+        "role": "Software Engineer (mid-level)",
+        "context": "Payments startup for education.",
+        "bullets": [
+          "Critical APIs for the billing core of a platform used by ~15 schools (card, boleto and Pix).",
+          "Integrated 3 gateways (ASAAS, Getnet and Stone) in a microservices architecture and built the delinquency control."
+        ]
+      },
+      "iatec-trainee": {
+        "role": "Development Intern → Trainee",
+        "context": "Maintaining legacy PHP systems.",
+        "bullets": [
+          "Hired as a trainee within 8 months, moving on to new features in financial systems."
+        ]
+      },
+      "unasp": {
+        "role": "IT Support Intern",
+        "context": "Support for the university's computer labs, on a team of three interns.",
+        "bullets": [
+          "6 labs and 300 workstations, serving ~200 students and faculty per semester.",
+          "Led lab preparation for exam periods with zero downtime."
+        ]
+      }
+    },
+    "education": {
+      "title": "Education",
+      "expected": "expected",
+      "items": {
+        "information-systems": {
+          "course": "Information Systems",
+          "detail": "Bachelor's · online"
+        },
+        "it-technician": {
+          "course": "IT Technician",
+          "detail": "Technical school"
+        }
+      }
+    }
   }
 }

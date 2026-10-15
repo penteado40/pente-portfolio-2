@@ -216,6 +216,12 @@ body {
   --glass-drop: 0 8px 32px color-mix(in oklab, var(--brand-black) 50%, transparent);
 }
 
+/* Glass set into a Color block (the persona pages' About quote): tinted
+   with block-mid, so it reads as a lighter pane over block-deep. */
+.glass-block {
+  --glass-tint: color-mix(in oklab, var(--color-block-mid) 75%, transparent);
+}
+
 /* Refraction: an SVG displacement of the backdrop, Chromium only. The
    attribute and the #liquid-glass-refraction filter come from
    LiquidGlassFilter. Behind no-preference so reduced transparency drops it. */
@@ -251,6 +257,10 @@ body {
 
   .glass-dark {
     --glass-tint: var(--color-background);
+  }
+
+  .glass.glass-block {
+    --glass-tint: var(--color-block-mid);
   }
 }
 
