@@ -1,6 +1,5 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import {
   devSections,
   education,
@@ -11,10 +10,9 @@ import {
   projects,
   skills,
 } from './dev.ts';
+import { readDictionary } from '../i18n/readDictionary.ts';
 
-function devDictionary(locale: 'en' | 'pt') {
-  return JSON.parse(readFileSync(new URL(`../i18n/${locale}/dev.json`, import.meta.url), 'utf8'));
-}
+const devDictionary = (locale: 'en' | 'pt') => readDictionary(locale, 'dev');
 
 const pt = devDictionary('pt').experience;
 const en = devDictionary('en').experience;

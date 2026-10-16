@@ -236,23 +236,20 @@
   "skills": {
     "label": "Studio & gear",
     "title": "What I work with",
-    "categories": [
-      {
-        "id": "consoles",
+    "categories": {
+      "consoles": {
         "name": "Consoles",
         "items": ["Yamaha Rivage", "Yamaha DM7", "Yamaha CL Series", "Waves eMotion LV1", "Digico", "Soundcraft"]
       },
-      {
-        "id": "studio",
+      "studio": {
         "name": "Studio",
         "items": ["Avid Pro Tools", "Apogee Duet 3", "Apple AirPods Max", "Beyerdynamic DT 1990 Pro MKII"]
       },
-      {
-        "id": "services",
+      "services": {
         "name": "Services",
         "items": ["Mixing", "Mastering", "Recording", "Live Sound", "Technical Direction"]
       }
-    ]
+    }
   },
   "testimonials": {
     "title": "What They Say",

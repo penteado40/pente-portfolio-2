@@ -1,13 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import { gearCategories, sectionIndex } from './audio.ts';
-
-type GearCategory = { id: string; name: string; items: string[] };
-
-function loadAudio(locale: 'en' | 'pt'): { skills: { categories: GearCategory[] } } {
-  return JSON.parse(readFileSync(new URL(`../i18n/${locale}/audio.json`, import.meta.url), 'utf8'));
-}
+import { readDictionary } from '../i18n/readDictionary.ts';
 
 test('the Hero is 01, so About is 02 and the Journey 03', () => {
   assert.equal(sectionIndex('hero'), 1);
@@ -25,23 +19,18 @@ test('the Gear is 06, after the Productions', () => {
   assert.equal(sectionIndex('skills'), 6);
 });
 
+// The dictionary type comes from the EN file only, so nothing else catches
+// a category in audio.ts without its text in pt.
 for (const locale of ['en', 'pt'] as const) {
-  test(`${locale}: the Gear has the three categories in order`, () => {
-    const { skills } = loadAudio(locale);
-    assert.deepEqual(
-      skills.categories.map(({ id }) => id),
-      gearCategories,
-    );
+  test(`${locale}: every Gear category has its name and items`, () => {
+    const { categories } = readDictionary(locale, 'audio').skills;
+    for (const id of gearCategories) {
+      assert.ok(categories[id]?.name && categories[id].items?.length, `skills.categories.${id}`);
+    }
   });
 }
 
 test('equipment names are the same in both languages; only Services translate', () => {
-  const [en, pt] = (['en', 'pt'] as const).map((locale) => loadAudio(locale).skills.categories);
-  for (const id of ['consoles', 'studio']) {
-    assert.deepEqual(
-      pt.find((c) => c.id === id)?.items,
-      en.find((c) => c.id === id)?.items,
-      id,
-    );
-  }
+  const [en, pt] = (['en', 'pt'] as const).map((locale) => readDictionary(locale, 'audio').skills.categories);
+  for (const id of ['consoles', 'studio']) assert.deepEqual(pt[id].items, en[id].items, id);
 });

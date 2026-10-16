@@ -24,8 +24,8 @@ export function sectionIndex(id: AudioSection) {
 }
 
 /**
- * The `id`s of the Gear's categories in audio.json, in order (the test holds
- * both languages to it); the Gear picks each card's icon by id.
+ * The Gear's categories in page order, keying `skills.categories` in
+ * audio.json (the name and items) and each card's icon.
  */
 export const gearCategories = ['consoles', 'studio', 'services'] as const;
 
