@@ -195,5 +195,12 @@
         "note": "Testes unitários e de integração, desenvolvimento com IA assistida."
       }
     }
+  },
+  "contact": {
+    "title": "Precisa de uma API que aguente o dinheiro passando?",
+    "subtitle": "Aberto a vagas remotas CLT ou PJ, no Brasil ou no exterior, e a projetos freelance: APIs, integrações e aplicações web.",
+    "namePlaceholder": "Seu nome",
+    "emailPlaceholder": "voce@empresa.com",
+    "messagePlaceholder": "Conte sobre a vaga ou o projeto"
   }
 }

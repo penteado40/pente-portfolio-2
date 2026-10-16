@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DevNavbar } from "@/components/DevNavbar";
 import { Footer } from "@/components/Footer";
+import { footerLinks } from "@/content/dev";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
 import { routeMetadata } from "@/content/seo";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
@@ -24,7 +25,7 @@ export default async function DevLayout({
       <LocaleProvider locale={locale} dict={dict}>
         <DevNavbar />
         {children}
-        <Footer />
+        <Footer links={footerLinks} />
       </LocaleProvider>
     </div>
   );

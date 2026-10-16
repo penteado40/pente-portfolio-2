@@ -40,7 +40,7 @@ export function Stats() {
                   {stat.value}
                 </span>
                 <span
-                  className={`font-mono text-[11px] md:text-xs tracking-[0.1em] uppercase leading-normal text-ink/70 ${
+                  className={`font-mono text-[11px] md:text-xs tracking-[0.1em] uppercase leading-normal text-ink/75 ${
                     wide ? 'max-lg:text-right' : ''
                   }`}
                 >

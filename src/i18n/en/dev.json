@@ -195,5 +195,12 @@
         "note": "Unit and integration tests, AI-assisted development."
       }
     }
+  },
+  "contact": {
+    "title": "Need an API that holds up with money flowing through it?",
+    "subtitle": "Open to remote full-time or contract roles, in Brazil or abroad, and to freelance projects: APIs, integrations, and web applications.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "you@company.com",
+    "messagePlaceholder": "Tell me about the role or the project"
   }
 }

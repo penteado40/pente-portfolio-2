@@ -9,18 +9,18 @@
       "dev": "Dev"
     }
   },
-  "contact": {
-    "title": "Trabalhando em algo que precisa soar certo?",
-    "subtitle": "Estou disponível para mixagem, masterização e som ao vivo. Me conta sobre o seu projeto.",
-    "namePlaceholder": "Seu nome",
-    "emailPlaceholder": "Seu email",
-    "messagePlaceholder": "Conte-me sobre seu projeto",
-    "send": "Enviar Mensagem",
+  "contactForm": {
+    "name": "Nome",
+    "email": "Email",
+    "message": "Mensagem",
+    "send": "Enviar mensagem",
     "sending": "Enviando...",
     "sent": "Mensagem enviada!",
     "error": "Algo deu errado. Tente novamente."
   },
   "footer": {
-    "rights": "Todos os direitos reservados."
+    "rights": "Todos os direitos reservados.",
+    "backToHub": "Voltar ao Hub",
+    "hub": "Hub"
   }
 }
