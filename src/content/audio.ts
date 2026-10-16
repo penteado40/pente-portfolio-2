@@ -23,7 +23,10 @@ export function sectionIndex(id: AudioSection) {
   return audioSections.indexOf(id) + 1;
 }
 
-/** Keys the Gear's categories in audio.json, in order: each card's icon. */
+/**
+ * The `id`s of the Gear's categories in audio.json, in order (the test holds
+ * both languages to it); the Gear picks each card's icon by id.
+ */
 export const gearCategories = ['consoles', 'studio', 'services'] as const;
 
 export type GearCategoryId = (typeof gearCategories)[number];
