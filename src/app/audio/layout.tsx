@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { TestimonialModalProvider } from "@/components/TestimonialModalProvider";
 import { AudioNavbar } from "@/components/AudioNavbar";
 import { Footer } from "@/components/Footer";
+import { footerLinks } from "@/content/audio";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
 import { routeMetadata } from "@/content/seo";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
@@ -26,7 +27,7 @@ export default async function AudioLayout({
         <TestimonialModalProvider>
           <AudioNavbar />
           {children}
-          <Footer />
+          <Footer links={footerLinks} />
         </TestimonialModalProvider>
       </LocaleProvider>
     </div>

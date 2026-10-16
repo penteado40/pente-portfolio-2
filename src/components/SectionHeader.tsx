@@ -25,10 +25,19 @@ type SectionHeaderProps = Omit<SectionLabelProps, 'tone'> & {
   title: ReactNode;
   /** Text or an action aligned to the right of the title (below it on mobile). */
   aside?: ReactNode;
+  /** Shows the aside from md up only, when the phone has it elsewhere. */
+  asideFromMd?: boolean;
   className?: string;
 };
 
-export function SectionHeader({ index, label, title, aside, className = '' }: SectionHeaderProps) {
+export function SectionHeader({
+  index,
+  label,
+  title,
+  aside,
+  asideFromMd = false,
+  className = '',
+}: SectionHeaderProps) {
   const heading = (
     <div className="flex flex-col gap-3 md:gap-3.5">
       <SectionLabel index={index} label={label} />
@@ -43,7 +52,7 @@ export function SectionHeader({ index, label, title, aside, className = '' }: Se
       {aside ? (
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-8">
           {heading}
-          <div className="md:max-w-[420px] md:shrink-0">{aside}</div>
+          <div className={`md:max-w-[420px] md:shrink-0 ${asideFromMd ? 'hidden md:block' : ''}`}>{aside}</div>
         </div>
       ) : (
         heading

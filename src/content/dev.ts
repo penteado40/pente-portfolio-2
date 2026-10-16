@@ -1,5 +1,6 @@
 import type { Locale } from '@/i18n/locale';
 import type { Certification } from './certification';
+import type { LinkId } from './links';
 
 /*
  * Structured data of the Dev persona: ids, dates, links and lists that
@@ -243,3 +244,9 @@ export function formatGraduation(
 ) {
   return inProgress ? `${expected} ${formatMonth(end, text)}` : end.slice(0, 4);
 }
+
+/** The direct channels beside the Contact form, in order. */
+export const contactLinks: readonly LinkId[] = ['email', 'linkedin', 'github'];
+
+/** The Footer's Chips after "Back to the Hub", in order. */
+export const footerLinks: readonly LinkId[] = ['linkedin', 'github'];

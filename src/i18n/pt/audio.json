@@ -251,8 +251,10 @@
     }
   },
   "testimonials": {
-    "title": "O Que Dizem",
+    "label": "Depoimentos",
+    "title": "O que dizem",
     "cta": "Deixe o seu",
+    "ctaFull": "Deixe o seu depoimento",
     "items": [
       {
         "quote": "A mixagem ficou impecavel, cada vocal encaixou exatamente onde precisava. O Felipe tem um ouvido pra detalhe que poucos engenheiros tem.",
@@ -284,8 +286,17 @@
     "close": "Fechar"
   },
   "photos": {
-    "title": "Fotos",
+    "label": "Fotos",
+    "title": "Por trás da mesa",
+    "tabsLabel": "Galeria",
     "tabPhotos": "Fotos",
     "tabInstagram": "Instagram"
+  },
+  "contact": {
+    "title": "Trabalhando em algo que precisa soar certo?",
+    "subtitle": "Estou disponível para mixagem, masterização e som ao vivo. Me conta sobre o seu projeto.",
+    "namePlaceholder": "Seu nome",
+    "emailPlaceholder": "voce@email.com",
+    "messagePlaceholder": "Conte sobre o seu projeto"
   }
 }

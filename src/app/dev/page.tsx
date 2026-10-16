@@ -5,7 +5,7 @@ import { Certifications } from "@/components/Certifications";
 import { DevProjects } from "@/components/DevProjects";
 import { DevSkills } from "@/components/DevSkills";
 import { Contact } from "@/components/Contact";
-import { certifications, sectionIndex } from "@/content/dev";
+import { certifications, contactLinks, sectionIndex } from "@/content/dev";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function DevPage() {
@@ -23,7 +23,7 @@ export default async function DevPage() {
       />
       <DevProjects />
       <DevSkills />
-      <Contact />
+      <Contact index={sectionIndex("contact")} links={contactLinks} />
     </main>
   );
 }

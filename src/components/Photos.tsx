@@ -1,126 +1,128 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState, type KeyboardEvent } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { galleryPhotos, instagramPosts, sectionIndex, type PhotoShape } from '@/content/audio';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { AudioDictionary } from '@/i18n/types';
-import { Camera, InstagramLogo } from '@phosphor-icons/react';
+import { Container } from './Container';
+import { SectionHeader } from './SectionHeader';
 import { TiltCard } from './TiltCard';
+import { EASE_OUT } from './easing';
 
-const photos = [
-  { src: '/photos/photo_1.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_16.jpg', span: '' },
-  { src: '/photos/photo_3.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_11.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_5.jpg', span: '' },
-  { src: '/photos/photo_4.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_8.jpg', span: '' },
-  { src: '/photos/photo_22.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_14.jpg', span: '' },
-  { src: '/photos/photo_10.jpg', span: '' },
-  { src: '/photos/photo_6.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_12.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_7.jpg', span: '' },
-  { src: '/photos/photo_24.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_2.jpg', span: '' },
-  { src: '/photos/photo_9.jpg', span: '' },
-  { src: '/photos/photo_13.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_17.jpg', span: '' },
-  { src: '/photos/photo_18.jpg', span: '' },
-  { src: '/photos/photo_15.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_20.jpg', span: '' },
-  { src: '/photos/photo_19.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_21.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_23.jpg', span: 'row-span-2' },
-  { src: '/photos/photo_25.jpg', span: '' },
-  { src: '/photos/photo_26.jpg', span: '' },
-  { src: '/photos/photo_27.jpg', span: '' },
-];
-
-const instagramPosts = [
-  'https://www.instagram.com/p/DZJC0njx_kQ/',
-  'https://www.instagram.com/p/DXecvK-Alxw/',
-  'https://www.instagram.com/p/DSco_6sjtyV/',
-  'https://www.instagram.com/p/DOT6zzlEaB3/',
-  'https://www.instagram.com/p/DBr1f1vxw7g/',
-  'https://www.instagram.com/p/DZ-2kO4i3R2/',
-];
+const SHAPE_SPAN: Record<PhotoShape, string> = {
+  single: '',
+  tall: 'row-span-2',
+  wide: 'col-span-2',
+};
 
 type Tab = 'photos' | 'instagram';
+const TABS: Tab[] = ['photos', 'instagram'];
 
+// The gallery under a segmented control, Photos or Instagram. The photos
+// are a mosaic of four columns on desktop and two on a phone, packed dense:
+// galleryPhotos' order is what fills every row (see audio.test.ts).
 export function Photos() {
   const { dict } = useLocale<AudioDictionary>();
   const reduce = useReducedMotion();
   const [activeTab, setActiveTab] = useState<Tab>('photos');
+  const tabRefs = useRef<Partial<Record<Tab, HTMLButtonElement | null>>>({});
+  const text = dict.photos;
+  const labels: Record<Tab, string> = { photos: text.tabPhotos, instagram: text.tabInstagram };
 
-  const tabs: { key: Tab; label: string; Icon: typeof Camera }[] = [
-    { key: 'photos', label: dict.photos.tabPhotos, Icon: Camera },
-    { key: 'instagram', label: dict.photos.tabInstagram, Icon: InstagramLogo },
-  ];
+  // A tablist is one tab stop: the arrows, Home and End move between the
+  // tabs and select as they go.
+  const onKeyDown = (e: KeyboardEvent) => {
+    const i = TABS.indexOf(activeTab);
+    const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: TABS.length - 1 }[e.key];
+    if (next === undefined) return;
+    e.preventDefault();
+    const tab = TABS[(next + TABS.length) % TABS.length];
+    setActiveTab(tab);
+    tabRefs.current[tab]?.focus();
+  };
+
+  const tabs = (
+    <div
+      role="tablist"
+      aria-label={text.tabsLabel}
+      onKeyDown={onKeyDown}
+      className="inline-flex items-center h-11 p-1 rounded-full bg-ink/6 border border-ink/10"
+    >
+      {TABS.map((tab) => {
+        const selected = tab === activeTab;
+        return (
+          <button
+            key={tab}
+            ref={(el) => {
+              tabRefs.current[tab] = el;
+            }}
+            type="button"
+            role="tab"
+            id={`photos-tab-${tab}`}
+            aria-selected={selected}
+            // Only the active panel is mounted, so only its tab points at one.
+            aria-controls={selected ? `photos-panel-${tab}` : undefined}
+            tabIndex={selected ? 0 : -1}
+            onClick={() => setActiveTab(tab)}
+            className={`relative h-[34px] px-4 rounded-full text-[13px] font-medium press focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight ${
+              selected ? 'text-ink' : 'text-ink/70 hover:text-ink'
+            }`}
+          >
+            {selected && (
+              <motion.span
+                layoutId="photos-tab"
+                aria-hidden
+                className="absolute inset-0 rounded-full bg-accent ring-1 ring-highlight/40"
+                transition={reduce ? { duration: 0 } : { type: 'spring', duration: 0.4, bounce: 0.15 }}
+              />
+            )}
+            <span className="relative">{labels[tab]}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+
+  const panelProps = {
+    role: 'tabpanel',
+    id: `photos-panel-${activeTab}`,
+    'aria-labelledby': `photos-tab-${activeTab}`,
+    initial: reduce ? false : { opacity: 0, y: 12 },
+    animate: { opacity: 1, y: 0 },
+    exit: reduce ? undefined : { opacity: 0, y: -12 },
+    transition: { duration: 0.25, ease: EASE_OUT },
+  } as const;
 
   return (
-    <section id="photos" className="bg-block-mid py-24 md:py-32">
-      <div className="max-w-[1400px] mx-auto px-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
-          <motion.h2
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-            className="text-3xl md:text-4xl font-medium tracking-tight"
-          >
-            {dict.photos.title}
-          </motion.h2>
-
-          <div className="flex gap-1 bg-block-deep p-1 rounded-full w-fit">
-            {tabs.map((tab) => (
-              <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className={`relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium press focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight ${
-                  activeTab === tab.key
-                    ? 'text-ink'
-                    : 'text-ink/60 hover:text-ink/80'
-                }`}
-              >
-                {activeTab === tab.key && (
-                  <motion.div
-                    layoutId="photos-tab-bg"
-                    className="absolute inset-0 bg-surface rounded-full shadow-sm"
-                    transition={{ type: 'spring', duration: 0.4, bounce: 0.15 }}
-                  />
-                )}
-                <span className="relative flex items-center gap-2">
-                  <tab.Icon size={16} />
-                  {tab.label}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
+    // No top padding: the Testimonials above end on the same ground, and
+    // their bottom padding is the gap between the two.
+    <section id="photos" className="pb-[72px] md:pb-[120px]">
+      <Container>
+        <SectionHeader
+          index={sectionIndex('photos')}
+          label={text.label}
+          title={text.title}
+          aside={tabs}
+        />
 
         <AnimatePresence mode="wait">
           {activeTab === 'photos' ? (
             <motion.div
               key="photos"
-              initial={reduce ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 auto-rows-[200px] md:auto-rows-[240px]"
+              {...panelProps}
+              // Nothing inside takes focus, so the panel itself is the stop after the tabs.
+              tabIndex={0}
+              className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight rounded-[20px] grid grid-cols-2 md:grid-cols-4 grid-flow-dense auto-rows-[150px] md:auto-rows-[180px] lg:auto-rows-[220px] gap-2.5 md:gap-4"
             >
-              {photos.map((photo, i) => (
+              {galleryPhotos.map((photo, i) => (
                 <motion.div
                   key={photo.src}
                   initial={reduce ? false : { opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: i * 0.04,
-                    ease: [0.16, 1, 0.3, 1] as const,
-                  }}
-                  className={`rounded-xl overflow-hidden ${photo.span}`}
+                  transition={{ duration: 0.5, delay: (i % 4) * 0.04, ease: EASE_OUT }}
+                  className={`rounded-2xl md:rounded-[20px] overflow-hidden bg-mist ${SHAPE_SPAN[photo.shape]}`}
                 >
                   <img
                     src={photo.src}
@@ -134,27 +136,20 @@ export function Photos() {
           ) : (
             <motion.div
               key="instagram"
-              initial={reduce ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              {...panelProps}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
             >
-              {instagramPosts.map((postId, i) => (
+              {instagramPosts.map((post, i) => (
                 <TiltCard
-                  key={postId}
+                  key={post}
                   initial={reduce ? false : { opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: i * 0.06,
-                    ease: [0.16, 1, 0.3, 1] as const,
-                  }}
-                  className="rounded-xl overflow-hidden glass"
+                  transition={{ duration: 0.5, delay: i * 0.06, ease: EASE_OUT }}
+                  className="rounded-[20px] overflow-hidden glass"
                 >
                   <iframe
-                    src={`${postId}embed/`}
+                    src={`${post}embed/`}
                     width="100%"
                     height="480"
                     className="border-0"
@@ -166,7 +161,7 @@ export function Photos() {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </Container>
     </section>
   );
 }
