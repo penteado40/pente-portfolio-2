@@ -302,6 +302,12 @@ body {
   background: linear-gradient(160deg, var(--color-accent), var(--color-block-deep) 55%, var(--brand-black));
 }
 
+/* The Audio About portrait card: its bottom melts into the block-deep
+   Color block around it. */
+.portrait-fade {
+  background: linear-gradient(0deg, color-mix(in oklab, var(--color-block-deep) 60%, transparent), transparent 40%);
+}
+
 /* The photo cards' drop shadow, deeper from md up. */
 @utility shadow-card {
   box-shadow: 0 20px 40px color-mix(in oklab, var(--brand-black) 45%, transparent);
