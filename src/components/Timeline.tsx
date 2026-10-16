@@ -2,12 +2,12 @@
 
 import { type ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
+import { sectionIndex } from '@/content/audio';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { AudioDictionary } from '@/i18n/types';
 import { Container } from './Container';
 import { SectionHeader } from './SectionHeader';
-
-const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+import { EASE_OUT } from './easing';
 
 const LINKS: Record<string, string> = {
   'UNASP-HT': 'https://unasp.br',
@@ -50,8 +50,7 @@ export function Timeline() {
   return (
     <section id="timeline" className="py-[72px] md:py-[120px]">
       <Container>
-        {/* 01 is the Hero, 02 the About. */}
-        <SectionHeader index={3} label={dict.nav.timeline} title={dict.timeline.title} />
+        <SectionHeader index={sectionIndex('timeline')} label={dict.nav.timeline} title={dict.timeline.title} />
 
         <ol className="flex flex-col lg:flex-row-reverse lg:gap-4 border-b border-white/10 lg:border-b-0">
           {dict.timeline.items.map((entry, i) => {

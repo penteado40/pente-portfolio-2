@@ -7,8 +7,7 @@ import { sectionIndex, skills } from '@/content/dev';
 import { Container } from './Container';
 import { SectionHeader } from './SectionHeader';
 import { TiltCard } from './TiltCard';
-
-const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+import { EASE_OUT } from './easing';
 
 // A block-mid Color block: one neutral glass card per category, showing the
 // block through it like the Audio Gear's, three to a row on desktop (cards

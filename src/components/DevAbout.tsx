@@ -10,11 +10,10 @@ import { Container } from './Container';
 import { SectionLabel } from './SectionHeader';
 import { sectionIndex } from '@/content/dev';
 import { TiltCard } from './TiltCard';
+import { EASE_OUT } from './easing';
 
 // Set in next.config.ts: empty until the Dev portrait is added to public/.
 const photo = process.env.DEV_PORTRAIT_PHOTO;
-
-const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
 // The portrait, or the persona glow standing in for it; `sizes` is the
 // rendered width, for the photo.

@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { sectionIndex } from '@/content/audio';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { AudioDictionary } from '@/i18n/types';
 import { ArrowDown } from '@phosphor-icons/react';
@@ -12,7 +13,7 @@ export function Hero() {
 
   return (
     <HeroCard
-      index={1}
+      index={sectionIndex('hero')}
       label={dict.navbar.personas.audio}
       meta={
         <>
