@@ -3,7 +3,7 @@
 import { ArrowLeft } from '@phosphor-icons/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { LinkId } from '@/content/links';
-import { channels } from './channels';
+import { ChannelChip } from './ChannelChip';
 import { Chip } from './Chip';
 import { Container } from './Container';
 
@@ -19,18 +19,13 @@ export function Footer({ links }: { links: readonly LinkId[] }) {
           Felipe Penteado · {dict.footer.rights}
         </p>
         <div className="flex gap-2 md:gap-2.5">
-          <Chip href="/" Icon={ArrowLeft} iconAt="start" fill>
+          <Chip href="/" Icon={ArrowLeft} iconAt="start" tall stretch>
             <span className="md:hidden">{dict.footer.hub}</span>
             <span className="hidden md:inline">{dict.footer.backToHub}</span>
           </Chip>
-          {links.map((id) => {
-            const { href, label, Icon } = channels[id];
-            return (
-              <Chip key={id} href={href} Icon={Icon} iconAt="start" fill>
-                {label}
-              </Chip>
-            );
-          })}
+          {links.map((id) => (
+            <ChannelChip key={id} id={id} tall stretch />
+          ))}
         </div>
       </Container>
     </footer>

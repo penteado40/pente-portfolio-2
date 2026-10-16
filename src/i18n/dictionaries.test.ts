@@ -35,8 +35,8 @@ for (const name of NAMES.filter((n) => n !== 'common')) {
 // Contact is shared by both persona pages, but each asks its own question.
 for (const locale of ['en', 'pt'] as const) {
   test(`${locale}: each persona has its own Contact title and subtitle`, () => {
-    const audio = load(locale, 'audio').contact as Record<string, string> | undefined;
-    const dev = load(locale, 'dev').contact as Record<string, string> | undefined;
+    const audio = readDictionary(locale, 'audio').contact;
+    const dev = readDictionary(locale, 'dev').contact;
     assert.ok(audio?.title && audio.subtitle, 'audio.contact');
     assert.ok(dev?.title && dev.subtitle, 'dev.contact');
     assert.notEqual(audio.title, dev.title);

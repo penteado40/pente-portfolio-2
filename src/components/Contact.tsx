@@ -7,8 +7,7 @@ import type { AudioDictionary, DevDictionary } from '@/i18n/types';
 import type { LinkId } from '@/content/links';
 import { ArrowUpRight, Check, CircleNotch } from '@phosphor-icons/react';
 import { submitContact } from '@/lib/submitContact';
-import { channels } from './channels';
-import { Chip } from './Chip';
+import { ChannelChip } from './ChannelChip';
 import { Container } from './Container';
 import { PillButton } from './PillButton';
 import { SectionLabel } from './SectionHeader';
@@ -34,14 +33,14 @@ export function Contact({ index, links }: ContactProps) {
   const { dict } = useLocale<AudioDictionary | DevDictionary>();
   const reduce = useReducedMotion();
   const [status, setStatus] = useState<Status>('idle');
-  const { contact, contactForm: form } = dict;
+  const { contact, contactForm: formText } = dict;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus('sending');
 
-    const target = e.currentTarget;
-    const data = new FormData(target);
+    const form = e.currentTarget;
+    const data = new FormData(form);
 
     const result = await submitContact({
       name: String(data.get('name') ?? ''),
@@ -51,7 +50,7 @@ export function Contact({ index, links }: ContactProps) {
 
     if (result.ok) {
       setStatus('sent');
-      target.reset();
+      form.reset();
     } else {
       setStatus('error');
     }
@@ -63,10 +62,10 @@ export function Contact({ index, links }: ContactProps) {
   };
 
   const button = {
-    idle: { label: form.send, Icon: ArrowUpRight },
-    sending: { label: form.sending, Icon: CircleNotch },
-    sent: { label: form.sent, Icon: Check },
-    error: { label: form.error, Icon: ArrowUpRight },
+    idle: { label: formText.send, Icon: ArrowUpRight },
+    sending: { label: formText.sending, Icon: CircleNotch },
+    sent: { label: formText.sent, Icon: Check },
+    error: { label: formText.error, Icon: ArrowUpRight },
   }[status];
 
   return (
@@ -87,16 +86,11 @@ export function Contact({ index, links }: ContactProps) {
             {contact.subtitle}
           </p>
           <ul className="flex flex-wrap gap-1.5 md:gap-2.5 md:mt-2">
-            {links.map((id) => {
-              const { href, label, Icon } = channels[id];
-              return (
-                <li key={id}>
-                  <Chip tone="block-mid" href={href} Icon={Icon} iconAt="start">
-                    {label}
-                  </Chip>
-                </li>
-              );
-            })}
+            {links.map((id) => (
+              <li key={id}>
+                <ChannelChip id={id} tone="block-mid" tall />
+              </li>
+            ))}
           </ul>
         </motion.div>
 
@@ -110,7 +104,7 @@ export function Contact({ index, links }: ContactProps) {
           className="glass glass-block-mid flex flex-col gap-4 md:gap-[18px] p-5 md:p-8 rounded-[20px] md:rounded-[24px]"
         >
           <label className={field}>
-            {form.name}
+            {formText.name}
             <input
               name="name"
               type="text"
@@ -122,7 +116,7 @@ export function Contact({ index, links }: ContactProps) {
             />
           </label>
           <label className={field}>
-            {form.email}
+            {formText.email}
             <input
               name="email"
               type="email"
@@ -134,7 +128,7 @@ export function Contact({ index, links }: ContactProps) {
             />
           </label>
           <label className={field}>
-            {form.message}
+            {formText.message}
             <textarea
               name="message"
               required
@@ -165,7 +159,7 @@ export function Contact({ index, links }: ContactProps) {
           </PillButton>
           {/* The button's label shows the result; this reads it out. */}
           <p role="status" className="sr-only">
-            {status === 'sent' ? form.sent : status === 'error' ? form.error : ''}
+            {status === 'sent' ? formText.sent : status === 'error' ? formText.error : ''}
           </p>
         </motion.form>
       </Container>

@@ -17,7 +17,7 @@ import { useMagnetic } from './useMagnetic';
 
 const HOVER_SCALE = 1.04;
 
-type ChipProps = {
+export type ChipProps = {
   children: ReactNode;
   /**
    * Inside a Color block, the .glass-block-* tint of the pane it sits on
@@ -33,17 +33,18 @@ type ChipProps = {
   Icon?: Icon;
   /** Where the Icon sits: after the text (an action), or before it (a channel). */
   iconAt?: 'start' | 'end';
+  /** 44px on a phone, for the thumb; the usual 32px from md up. Only for a link. */
+  tall?: boolean;
   /**
-   * Shares a row with its siblings on a phone, 44px tall for the thumb;
-   * its own width from md up (the persona Footer).
+   * Shares a row with its siblings on a phone, dropping its Icon to fit;
+   * its own width, Icon back, from md up (the persona Footer).
    */
-  fill?: boolean;
+  stretch?: boolean;
 };
 
 // min-h, not h: a longer item (Audio's other work) wraps on a phone and
 // grows to a second line instead of spilling out.
-const base =
-  'glass inline-flex items-center min-h-8 px-3 py-1.5 rounded-full font-mono text-xs';
+const base = 'glass inline-flex items-center px-3 py-1.5 rounded-full font-mono text-xs';
 
 const MotionLink = motion.create(Link);
 
@@ -63,7 +64,8 @@ export function Chip({
   href,
   Icon,
   iconAt = 'end',
-  fill = false,
+  tall = false,
+  stretch = false,
 }: ChipProps) {
   const reduce = useReducedMotion();
   const magnet = useMagnetic<HTMLElement>();
@@ -98,13 +100,20 @@ export function Chip({
     '--glass-tilt': strength,
   } as MotionStyle;
 
-  const className = `${base} ${tints[tone]} ${
-    fill ? 'flex-1 md:flex-none justify-center min-h-11 md:min-h-8' : ''
+  const className = `${base} ${tints[tone]} ${tall ? 'min-h-11 md:min-h-8' : 'min-h-8'} ${
+    stretch ? 'flex-1 md:flex-none justify-center' : ''
   }`;
   const handlers = { onPointerMove, onPointerLeave, style };
 
   if (href) {
-    const icon = Icon && <Icon size={12} weight="bold" aria-hidden className="shrink-0" />;
+    const icon = Icon && (
+      <Icon
+        size={12}
+        weight="bold"
+        aria-hidden
+        className={`shrink-0 ${stretch ? 'hidden md:block' : ''}`}
+      />
+    );
     const props = {
       ...handlers,
       className: `${className} gap-1.5 text-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press`,
