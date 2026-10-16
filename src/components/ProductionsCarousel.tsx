@@ -95,7 +95,7 @@ export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
           dots, and as a positioned element it paints above them. */}
       <div className="relative z-[1] flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-6 mb-4 md:mb-5">
         <div className="flex flex-col gap-2">
-          <h3 className="text-2xl font-medium tracking-[-0.025em] text-white">
+          <h3 className="text-2xl md:text-[32px] font-medium tracking-[-0.03em] text-white">
             {projects.videosTitle}
           </h3>
           <p className="text-[15px] text-ink/72">{projects.videosLead}</p>
