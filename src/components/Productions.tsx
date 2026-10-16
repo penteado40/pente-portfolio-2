@@ -105,7 +105,10 @@ export function Productions() {
           <h3 className="mb-4 md:mb-[18px] font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase text-ink/60">
             {dict.projects.otherTitle}
           </h3>
-          <ul className="flex flex-wrap gap-2">
+          {/* Justified across two full lines once the column reaches its
+              1136px. The order in the dictionary is what packs them into two:
+              a long item moved changes the break. */}
+          <ul className="flex flex-wrap gap-2 xl:justify-between">
             {dict.projects.otherItems.map((item) => (
               <li key={item}>
                 <Chip>{item}</Chip>
