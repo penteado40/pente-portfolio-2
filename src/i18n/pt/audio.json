@@ -234,19 +234,23 @@
     ]
   },
   "skills": {
-    "title": "Estúdio & Equipamentos",
+    "label": "Estúdio e equipamentos",
+    "title": "Com o que eu trabalho",
     "categories": [
       {
+        "id": "consoles",
         "name": "Mesas de Som",
         "items": ["Yamaha Rivage", "Yamaha DM7", "Yamaha CL Series", "Waves eMotion LV1", "Digico", "Soundcraft"]
       },
       {
+        "id": "studio",
         "name": "Estúdio",
         "items": ["Avid Pro Tools", "Apogee Duet 3", "Apple AirPods Max", "Beyerdynamic DT 1990 Pro MKII"]
       },
       {
+        "id": "services",
         "name": "Serviços",
-        "items": ["Mixagem", "Masterização", "Gravacao", "Som ao Vivo", "Direção Tecnica"]
+        "items": ["Mixagem", "Masterização", "Gravação", "Som ao Vivo", "Direção Técnica"]
       }
     ]
   },

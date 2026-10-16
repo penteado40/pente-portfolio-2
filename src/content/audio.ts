@@ -22,3 +22,8 @@ export type AudioSection = (typeof audioSections)[number];
 export function sectionIndex(id: AudioSection) {
   return audioSections.indexOf(id) + 1;
 }
+
+/** Keys the Gear's categories in audio.json, in order: each card's icon. */
+export const gearCategories = ['consoles', 'studio', 'services'] as const;
+
+export type GearCategoryId = (typeof gearCategories)[number];
