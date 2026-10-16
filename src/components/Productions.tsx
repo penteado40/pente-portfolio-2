@@ -89,25 +89,26 @@ export function Productions() {
             </div>
           </motion.div>
         )}
-      </Container>
 
-      <div className="mt-20 mb-20">
-        <ProductionsCarousel items={youtubeItems} />
-      </div>
+        <div className="mt-12 md:mt-16">
+          <ProductionsCarousel items={youtubeItems} />
+        </div>
 
-      <Container>
         {/* Other work */}
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: EASE_OUT }}
-          className="mt-12"
+          className="mt-10 md:mt-[72px]"
         >
           <h3 className="mb-4 md:mb-[18px] font-mono text-[11px] md:text-xs tracking-[0.14em] uppercase text-ink/60">
             {dict.projects.otherTitle}
           </h3>
-          <ul className="flex flex-wrap gap-2">
+          {/* Justified across two full lines once the column reaches its
+              1136px. The order in the dictionary is what packs them into two:
+              a long item moved changes the break. */}
+          <ul className="flex flex-wrap gap-2 xl:justify-between">
             {dict.projects.otherItems.map((item) => (
               <li key={item}>
                 <Chip>{item}</Chip>
