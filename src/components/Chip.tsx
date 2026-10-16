@@ -37,7 +37,7 @@ export type ChipProps = {
   tall?: boolean;
   /**
    * Shares a row with its siblings on a phone, dropping its Icon to fit;
-   * its own width, Icon back, from md up (the persona Footer).
+   * its own width, Icon back, from md up (the footers).
    */
   stretch?: boolean;
 };

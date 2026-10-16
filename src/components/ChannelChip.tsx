@@ -18,15 +18,19 @@ const channels: Record<LinkId, { label: string; Icon: Icon }> = {
   github: { label: 'GitHub', Icon: GithubLogo },
 };
 
-type ChannelChipProps = { id: LinkId } & Pick<ChipProps, 'tone' | 'tall' | 'stretch'>;
+type ChannelChipProps = {
+  id: LinkId;
+  /** In place of the channel's name, e.g. a word for the email instead of its address. */
+  label?: string;
+} & Pick<ChipProps, 'tone' | 'tall' | 'stretch'>;
 
-// A link from `links` as a persona page shows it: a link Chip with the
-// channel's icon before its name.
-export function ChannelChip({ id, ...chip }: ChannelChipProps) {
-  const { label, Icon } = channels[id];
+// A link from `links` as a page shows it: a link Chip with the channel's
+// icon before its name.
+export function ChannelChip({ id, label, ...chip }: ChannelChipProps) {
+  const channel = channels[id];
   return (
-    <Chip href={links[id]} Icon={Icon} iconAt="start" {...chip}>
-      {label}
+    <Chip href={links[id]} Icon={channel.Icon} iconAt="start" {...chip}>
+      {label ?? channel.label}
     </Chip>
   );
 }
