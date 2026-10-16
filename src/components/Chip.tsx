@@ -30,7 +30,7 @@ type ChipProps = {
 };
 
 const base =
-  'glass inline-flex items-center h-8 px-3 rounded-full font-mono text-xs';
+  'glass inline-flex items-center min-h-8 px-3 py-1.5 rounded-full font-mono text-xs';
 
 const tints = {
   neutral: '',

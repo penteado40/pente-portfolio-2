@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, type PointerEvent } from 'react';
+import { useCallback, type PointerEvent } from 'react';
 import {
   motion,
   useReducedMotion,
@@ -28,18 +28,10 @@ export const TILT_SPRING = { stiffness: 180, damping: 18, mass: 0.8 };
 // rotate in style is overridden.
 type TiltCardProps = HTMLMotionProps<'div'> & {
   as?: 'div' | 'article';
-  // The expanded ProductionCard keeps still.
-  disabled?: boolean;
-  // CSS selector: while the card matches it, it keeps still. Lets a card
-  // follow a state only CSS knows, like the ProductionCards blurred behind
-  // an expanded one.
-  stillWhen?: string;
 };
 
 export function TiltCard({
   as = 'div',
-  disabled = false,
-  stillWhen,
   style,
   onPointerMove,
   onPointerLeave,
@@ -69,14 +61,9 @@ export function TiltCard({
     scale.set(1);
   }, [rotateX, rotateY, scale]);
 
-  // A card that becomes disabled under a still mouse settles right away.
-  useEffect(() => {
-    if (disabled) settle();
-  }, [disabled, settle]);
-
   const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
     onPointerMove?.(e);
-    if (disabled || reduce || !isFineMouse(e) || (stillWhen && e.currentTarget.matches(stillWhen))) {
+    if (reduce || !isFineMouse(e)) {
       settle();
       return;
     }

@@ -42,7 +42,6 @@
     "portraitAlt": "Portrait of Felipe Penteado"
   },
   "projects": {
-    "title": "Selected Jobs",
     "items": [
       {
         "title": "Penteado's Mixes",
@@ -133,32 +132,37 @@
       }
     ],
     "productionsTitle": "Productions",
+    "productionsLead": "Live DVDs where I ran the recording, FOH or monitors. The numbers are combined streams.",
+    "watch": "Watch {title} on YouTube",
     "productions": [
       {
-        "title": "DVD Temporal - Vocal Livre",
-        "description": "Audio recording and FOH mixing for Vocal Livre's live DVD recording.",
-        "roles": ["Audio Recording", "FOH"],
+        "title": "DVD Temporal · Vocal Livre",
+        "label": "DVD · 2024",
+        "description": "Audio recording and FOH mixing of the live recording.",
+        "short": "Recording and FOH",
+        "roles": ["Recording", "FOH"],
         "image": "/photos/photo_vltemporal.jpeg",
         "streams": "13mi+",
-        "youtubeId": "j10ORL-xEu8",
         "youtubeUrl": "https://www.youtube.com/watch?v=D4Z0-KE6ir8"
       },
       {
-        "title": "DVD 15 Anos - Vocal Livre",
-        "description": "Audio recording and FOH mixing for Vocal Livre's 15th anniversary concert, recorded live in Recife.",
-        "roles": ["Audio Recording", "FOH"],
+        "title": "DVD 15 Anos · Vocal Livre",
+        "label": "DVD · Recife",
+        "description": "Recording and FOH for the 15th anniversary concert, recorded live.",
+        "short": "Recording and FOH",
+        "roles": ["Recording", "FOH"],
         "image": "/photos/photo_vl15.jpeg",
         "streams": "6mi+",
-        "youtubeId": "DXllcDBfu88",
         "youtubeUrl": "https://www.youtube.com/watch?v=YY6mj0kj94s"
       },
       {
         "title": "Novo Tempo In Concert: 30 Anos",
-        "description": "Monitor assistant and audio recording for Novo Tempo label's 30th anniversary DVD recording.",
-        "roles": ["Monitor Assistant", "Audio Recording"],
+        "label": "DVD · Novo Tempo",
+        "description": "Monitor assistant and audio recording on the DVD shoot.",
+        "short": "Monitor and recording",
+        "roles": ["Monitor", "Recording"],
         "image": "/photos/photo_nt30.jpg",
         "streams": "19mi+",
-        "youtubeId": "gt-V6JlXxmc",
         "youtubeUrl": "https://www.youtube.com/watch?v=fcOxkFoRCto"
       }
     ],
