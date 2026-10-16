@@ -23,8 +23,9 @@ type CertificationsProps = {
 // Shared by the personas, each passing its own list. A persona hides the
 // Navbar anchor on its own while its list is empty.
 //
-// One glass card per certification: the badge on a white square on top, the
-// name, issuer and year below. On mobile the cards are a row that scrolls
+// One glass card per certification: the badge on top, whole, at its own
+// proportions (an icon on a white square without one), the name, issuer and
+// year below. On mobile the cards are a row that scrolls
 // sideways, 220px each and bleeding into the gutters; from md up they sit in
 // a grid, four across from lg, left to right.
 export function Certifications({ items, index, label, title = label }: CertificationsProps) {
@@ -48,19 +49,20 @@ export function Certifications({ items, index, label, title = label }: Certifica
                 transition={{ duration: 0.6, delay: i * 0.06, ease: EASE_OUT }}
                 className="glass h-full flex flex-col gap-3.5 md:gap-[18px] p-2 pb-[18px] md:p-2.5 md:pb-[22px] rounded-[20px] md:rounded-[22px]"
               >
-                <div className="relative aspect-square rounded-xl md:rounded-[14px] bg-white overflow-hidden flex items-center justify-center">
-                  {item.image ? (
-                    <Image
-                      src={item.image}
-                      alt=""
-                      fill
-                      sizes="(min-width: 1024px) 280px, (min-width: 768px) 33vw, 220px"
-                      className="object-contain p-3"
-                    />
-                  ) : (
+                {item.image ? (
+                  <Image
+                    src={item.image}
+                    alt=""
+                    width={0}
+                    height={0}
+                    sizes="(min-width: 1024px) 280px, (min-width: 768px) 33vw, 220px"
+                    className="w-full h-auto rounded-xl md:rounded-[14px]"
+                  />
+                ) : (
+                  <div className="aspect-square rounded-xl md:rounded-[14px] bg-white flex items-center justify-center">
                     <Certificate aria-hidden size={56} className="text-background" weight="fill" />
-                  )}
-                </div>
+                  </div>
+                )}
                 <div className="flex flex-col gap-1 md:gap-1.5 px-2.5 md:px-3">
                   <h3 className="text-base md:text-lg font-medium tracking-[-0.015em] text-white">{item.title}</h3>
                   <p className="text-[13px] md:text-sm text-ink/65">{item.issuer}</p>
