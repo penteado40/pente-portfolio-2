@@ -10,7 +10,7 @@ type ProductionCardProps = {
   /** "streams", after the count in the pill. */
   streamsLabel: string;
   /** The link's accessible name, "Watch DVD Temporal on YouTube". */
-  label: string;
+  watchLabel: string;
 };
 
 // The photo grows a little on hover, like the Hub cards'.
@@ -26,13 +26,13 @@ const pill = 'inline-flex items-center h-7 px-3 rounded-full border border-ink/1
 // on desktop, with the description and the roles; compact on mobile, the pane
 // one line of title, short role and play. The whole card opens the video on
 // YouTube.
-export function ProductionCard({ prod, streamsLabel, label }: ProductionCardProps) {
+export function ProductionCard({ prod, streamsLabel, watchLabel }: ProductionCardProps) {
   return (
     <a
       href={prod.youtubeUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={label}
+      aria-label={watchLabel}
       className="group relative isolate flex flex-col justify-between h-[240px] md:h-[560px] rounded-3xl md:rounded-[28px] overflow-hidden p-3.5 md:p-[22px] bg-background text-white shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <Image

@@ -159,8 +159,8 @@
         "title": "Novo Tempo In Concert: 30 Anos",
         "label": "DVD · Novo Tempo",
         "description": "Assistente de monitor e captação da gravação.",
-        "short": "Monitor e captação",
-        "roles": ["Monitor", "Captação"],
+        "short": "Assist. de monitor e captação",
+        "roles": ["Assist. de monitor", "Captação"],
         "image": "/photos/photo_nt30.jpg",
         "streams": "19mi+",
         "youtubeUrl": "https://www.youtube.com/watch?v=fcOxkFoRCto"

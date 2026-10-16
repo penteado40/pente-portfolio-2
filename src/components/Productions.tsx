@@ -3,11 +3,11 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { AudioDictionary } from '@/i18n/types';
-import { ProductionsCarousel } from './ProductionsCarousel';
 import { sectionIndex } from '@/content/audio';
 import { Chip } from './Chip';
 import { Container } from './Container';
 import { ProductionCard } from './ProductionCard';
+import { ProductionsCarousel } from './ProductionsCarousel';
 import { SectionHeader } from './SectionHeader';
 import { EASE_OUT } from './easing';
 
@@ -60,7 +60,7 @@ export function Productions() {
               <ProductionCard
                 prod={prod}
                 streamsLabel={dict.stats.streamsLabel}
-                label={dict.projects.watch.replace('{title}', prod.title)}
+                watchLabel={dict.projects.watch.replace('{title}', prod.title)}
               />
             </motion.li>
           ))}

@@ -159,8 +159,8 @@
         "title": "Novo Tempo In Concert: 30 Anos",
         "label": "DVD · Novo Tempo",
         "description": "Monitor assistant and audio recording on the DVD shoot.",
-        "short": "Monitor and recording",
-        "roles": ["Monitor", "Recording"],
+        "short": "Monitor assist. and recording",
+        "roles": ["Monitor assist.", "Recording"],
         "image": "/photos/photo_nt30.jpg",
         "streams": "19mi+",
         "youtubeUrl": "https://www.youtube.com/watch?v=fcOxkFoRCto"

@@ -251,8 +251,8 @@ body {
 /* Glass that holds an iframe (YouTube and Instagram embeds) drops its own
    backdrop. Chrome composites a backdrop-filter around an iframe wrongly: it
    smears a blurred copy of the video around overlays and paints a lighter
-   box behind the text below the player. These cards keep their tint, border and tilt
-   sheen; glass laid on top of the iframe keeps the full material. */
+   box behind the text below the player. These cards keep their tint,
+   border and tilt sheen; glass laid on top of the iframe keeps the full material. */
 :is(.glass, .glass-strong, .glass-dark):has(iframe) {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
@@ -281,9 +281,9 @@ body {
 
 }
 
-/* Persona photo card (Hub persona cards, persona Hero): the persona's tint
-   over the photo, darkening to black at the bottom, where the glass pane
-   sits. On the Hub it reads the card's own tokens (data-persona-card), never
+/* Persona photo card (Hub persona cards, persona Hero, Audio Productions):
+   the persona's tint over the photo, darkening to black at the bottom,
+   where the glass pane sits. On the Hub it reads the card's own tokens (data-persona-card), never
    the neutral Hub's. */
 .persona-card-tint {
   background: linear-gradient(
