@@ -29,8 +29,10 @@ type ChipProps = {
   Icon?: Icon;
 };
 
+// min-h, not h: a longer item (Audio's other work) wraps on a phone and
+// grows to a second line instead of spilling out.
 const base =
-  'glass inline-flex items-center h-8 px-3 rounded-full font-mono text-xs';
+  'glass inline-flex items-center min-h-8 px-3 py-1.5 rounded-full font-mono text-xs';
 
 const tints = {
   neutral: '',

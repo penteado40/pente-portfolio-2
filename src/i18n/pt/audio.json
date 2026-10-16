@@ -42,7 +42,6 @@
     "portraitAlt": "Retrato de Felipe Penteado"
   },
   "projects": {
-    "title": "Trabalhos Selecionados",
     "items": [
       {
         "title": "Penteado's Mixes",
@@ -133,20 +132,26 @@
       }      
     ],
     "productionsTitle": "Produções",
+    "productionsLead": "DVDs ao vivo onde fiz a captação, o FOH ou a monitoração. Os números são de streams somados.",
+    "watch": "Assistir {title} no YouTube",
     "productions": [
       {
-        "title": "DVD Temporal - Vocal Livre",
-        "description": "Captação de áudio e mixagem FOH da gravação de DVD ao vivo do Vocal Livre.",
-        "roles": ["Captação de Áudio", "FOH"],
+        "title": "DVD Temporal · Vocal Livre",
+        "label": "DVD · 2024",
+        "description": "Captação de áudio e mixagem FOH da gravação ao vivo.",
+        "short": "Captação e FOH",
+        "roles": ["Captação", "FOH"],
         "image": "/photos/photo_vltemporal.jpeg",
         "streams": "13mi+",
         "youtubeId": "j10ORL-xEu8",
         "youtubeUrl": "https://www.youtube.com/watch?v=D4Z0-KE6ir8"
       },
       {
-        "title": "DVD 15 Anos - Vocal Livre",
-        "description": "Captação de áudio e mixagem FOH do show de 15 anos do Vocal Livre, gravado ao vivo em Recife.",
-        "roles": ["Captação de Áudio", "FOH"],
+        "title": "DVD 15 Anos · Vocal Livre",
+        "label": "DVD · Recife",
+        "description": "Captação e FOH do show de 15 anos, gravado ao vivo.",
+        "short": "Captação e FOH",
+        "roles": ["Captação", "FOH"],
         "image": "/photos/photo_vl15.jpeg",
         "streams": "6mi+",
         "youtubeId": "DXllcDBfu88",
@@ -154,8 +159,10 @@
       },
       {
         "title": "Novo Tempo In Concert: 30 Anos",
-        "description": "Assistente de Monitor e captação de áudio da gravação do DVD de 30 anos da Gravadora Novo Tempo.",
-        "roles": ["Assistente de Monitor", "Captação de Áudio"],
+        "label": "DVD · Novo Tempo",
+        "description": "Assistente de monitor e captação da gravação.",
+        "short": "Assist. de monitor e captação",
+        "roles": ["Assist. monitor", "Captação"],
         "image": "/photos/photo_nt30.jpg",
         "streams": "19mi+",
         "youtubeId": "gt-V6JlXxmc",

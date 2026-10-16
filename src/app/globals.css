@@ -250,10 +250,9 @@ body {
 
 /* Glass that holds an iframe (YouTube and Instagram embeds) drops its own
    backdrop. Chrome composites a backdrop-filter around an iframe wrongly: it
-   smears a blurred copy of the video around overlays (the expanded
-   ProductionCard's close and mute buttons) and paints a lighter box behind
-   the text below the player. These cards keep their tint, border and tilt
-   sheen; glass laid on top of the iframe keeps the full material. */
+   smears a blurred copy of the video around overlays and paints a lighter
+   box behind the text below the player. These cards keep their tint,
+   border and tilt sheen; glass laid on top of the iframe keeps the full material. */
 :is(.glass, .glass-strong, .glass-dark):has(iframe) {
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
@@ -282,9 +281,9 @@ body {
 
 }
 
-/* Persona photo card (Hub persona cards, persona Hero): the persona's tint
-   over the photo, darkening to black at the bottom, where the glass pane
-   sits. On the Hub it reads the card's own tokens (data-persona-card), never
+/* Persona photo card (Hub persona cards, persona Hero, Audio Productions):
+   the persona's tint over the photo, darkening to black at the bottom,
+   where the glass pane sits. On the Hub it reads the card's own tokens (data-persona-card), never
    the neutral Hub's. */
 .persona-card-tint {
   background: linear-gradient(
@@ -359,45 +358,6 @@ body {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
-}
-
-.productions-grid {
-  isolation: isolate;
-}
-
-/* The expanded card grows through the `scale` property, not `transform`:
-   TiltCard writes an inline transform for the hover tilt, and the two
-   compose instead of the inline one winning. */
-.production-card {
-  position: relative;
-  transform-origin: center;
-  transition:
-    scale 300ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 300ms ease,
-    filter 300ms ease;
-}
-
-.production-card.is-active {
-  scale: 1.18;
-  z-index: 20;
-  --glass-drop: 0 24px 60px color-mix(in oklab, var(--brand-black) 50%, transparent);
-}
-
-.productions-grid:has(.production-card.is-active) .production-card:not(.is-active) {
-  opacity: 0.35;
-  filter: blur(3px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .production-card {
-    transition:
-      opacity 200ms ease,
-      filter 200ms ease;
-  }
-
-  .production-card.is-active {
-    scale: none;
-  }
 }
 
 .carousel-fade {
