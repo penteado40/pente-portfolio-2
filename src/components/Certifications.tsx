@@ -12,10 +12,12 @@ import { EASE_OUT } from './easing';
 type CertificationsProps = {
   /** The persona's own list; empty renders nothing. */
   items: readonly Certification[];
-  /** Position on the persona's page, for the "04 / Certifications" label. */
+  /** Position on the persona's page, shown as "04 / Certifications". */
   index: number;
+  /** The section's name in the label, the Navbar's. */
   label: string;
-  title: string;
+  /** Defaults to the label, for a persona whose copy has no title of its own. */
+  title?: string;
 };
 
 // Shared by the personas, each passing its own list. A persona hides the
@@ -25,7 +27,7 @@ type CertificationsProps = {
 // name, issuer and year below. On mobile the cards are a row that scrolls
 // sideways, 220px each and bleeding into the gutters; from md up they sit in
 // a grid, four across from lg, left to right.
-export function Certifications({ items, index, label, title }: CertificationsProps) {
+export function Certifications({ items, index, label, title = label }: CertificationsProps) {
   const reduce = useReducedMotion();
 
   if (items.length === 0) return null;
@@ -56,7 +58,7 @@ export function Certifications({ items, index, label, title }: CertificationsPro
                       className="object-contain p-3"
                     />
                   ) : (
-                    <Certificate aria-hidden size={56} className="text-accent" weight="fill" />
+                    <Certificate aria-hidden size={56} className="text-background" weight="fill" />
                   )}
                 </div>
                 <div className="flex flex-col gap-1 md:gap-1.5 px-2.5 md:px-3">

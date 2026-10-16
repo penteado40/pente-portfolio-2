@@ -20,7 +20,6 @@ export default async function DevPage() {
         items={certifications}
         index={sectionIndex("certifications")}
         label={dict.nav.certifications}
-        title={dict.nav.certifications}
       />
       <DevProjects />
       <DevSkills />
