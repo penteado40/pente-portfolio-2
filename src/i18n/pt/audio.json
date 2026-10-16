@@ -291,5 +291,12 @@
     "tabsLabel": "Galeria",
     "tabPhotos": "Fotos",
     "tabInstagram": "Instagram"
+  },
+  "contact": {
+    "title": "Trabalhando em algo que precisa soar certo?",
+    "subtitle": "Estou disponível para mixagem, masterização e som ao vivo. Me conta sobre o seu projeto.",
+    "namePlaceholder": "Seu nome",
+    "emailPlaceholder": "voce@email.com",
+    "messagePlaceholder": "Conte sobre o seu projeto"
   }
 }

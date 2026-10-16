@@ -1,6 +1,7 @@
 'use client';
 
 import type { PointerEvent, ReactNode } from 'react';
+import Link from 'next/link';
 import {
   motion,
   useMotionValue,
@@ -23,16 +24,28 @@ type ChipProps = {
    * (see globals.css); `neutral` elsewhere.
    */
   tone?: 'neutral' | 'block-mid';
-  /** A short link: highlight text, with the magnetic pull and the press. */
+  /**
+   * A short link: highlight text, with the magnetic pull and the press. A
+   * path ("/") goes through Next's router; http(s) opens in a new tab.
+   */
   href?: string;
-  /** Drawn after the text; only for a link. */
+  /** Only for a link. */
   Icon?: Icon;
+  /** Where the Icon sits: after the text (an action), or before it (a channel). */
+  iconAt?: 'start' | 'end';
+  /**
+   * Shares a row with its siblings on a phone, 44px tall for the thumb;
+   * its own width from md up (the persona Footer).
+   */
+  fill?: boolean;
 };
 
 // min-h, not h: a longer item (Audio's other work) wraps on a phone and
 // grows to a second line instead of spilling out.
 const base =
   'glass inline-flex items-center min-h-8 px-3 py-1.5 rounded-full font-mono text-xs';
+
+const MotionLink = motion.create(Link);
 
 const tints = {
   neutral: '',
@@ -44,7 +57,14 @@ const tints = {
 // never tilts, which would read as noise across a row of chips. Only the
 // link variant also follows the cursor, so it is the one that reads as
 // clickable.
-export function Chip({ children, tone = 'neutral', href, Icon }: ChipProps) {
+export function Chip({
+  children,
+  tone = 'neutral',
+  href,
+  Icon,
+  iconAt = 'end',
+  fill = false,
+}: ChipProps) {
   const reduce = useReducedMotion();
   const magnet = useMagnetic<HTMLElement>();
   // The sheen's direction follows the pointer right away; only its
@@ -78,19 +98,33 @@ export function Chip({ children, tone = 'neutral', href, Icon }: ChipProps) {
     '--glass-tilt': strength,
   } as MotionStyle;
 
-  const className = `${base} ${tints[tone]}`;
+  const className = `${base} ${tints[tone]} ${
+    fill ? 'flex-1 md:flex-none justify-center min-h-11 md:min-h-8' : ''
+  }`;
   const handlers = { onPointerMove, onPointerLeave, style };
 
   if (href) {
+    const icon = Icon && <Icon size={12} weight="bold" aria-hidden className="shrink-0" />;
+    const props = {
+      ...handlers,
+      className: `${className} gap-1.5 text-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press`,
+      children: (
+        <>
+          {iconAt === 'start' && icon}
+          {children}
+          {iconAt === 'end' && icon}
+        </>
+      ),
+    };
+
+    if (href.startsWith('/')) return <MotionLink href={href} {...props} />;
+    const external = /^https?:/.test(href);
     return (
       <motion.a
         href={href}
-        {...handlers}
-        className={`${className} gap-1.5 text-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press`}
-      >
-        {children}
-        {Icon && <Icon size={12} weight="bold" aria-hidden />}
-      </motion.a>
+        {...(external && { target: '_blank', rel: 'noopener noreferrer' })}
+        {...props}
+      />
     );
   }
 

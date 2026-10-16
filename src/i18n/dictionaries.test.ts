@@ -31,3 +31,15 @@ for (const name of NAMES.filter((n) => n !== 'common')) {
     assert.deepEqual(shared, []);
   });
 }
+
+// Contact is shared by both persona pages, but each asks its own question.
+for (const locale of ['en', 'pt'] as const) {
+  test(`${locale}: each persona has its own Contact title and subtitle`, () => {
+    const audio = load(locale, 'audio').contact as Record<string, string> | undefined;
+    const dev = load(locale, 'dev').contact as Record<string, string> | undefined;
+    assert.ok(audio?.title && audio.subtitle, 'audio.contact');
+    assert.ok(dev?.title && dev.subtitle, 'dev.contact');
+    assert.notEqual(audio.title, dev.title);
+    assert.notEqual(audio.subtitle, dev.subtitle);
+  });
+}
