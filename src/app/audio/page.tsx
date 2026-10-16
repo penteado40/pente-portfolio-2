@@ -9,7 +9,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { Photos } from "@/components/Photos";
 import { Contact } from "@/components/Contact";
 import { getTestimonials } from "@/lib/getTestimonials";
-import { sectionIndex } from "@/content/audio";
+import { contactLinks, sectionIndex } from "@/content/audio";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function AudioPage() {
@@ -34,7 +34,7 @@ export default async function AudioPage() {
       <Skills />
       <Testimonials items={testimonials} />
       <Photos />
-      <Contact />
+      <Contact index={sectionIndex("contact")} links={contactLinks} />
     </main>
   );
 }

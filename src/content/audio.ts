@@ -1,3 +1,5 @@
+import type { LinkId } from './links';
+
 /*
  * Structured data of the Audio persona. Translatable text lives in
  * `src/i18n/{en,pt}/audio.json` (see docs/adr/0004).
@@ -81,3 +83,9 @@ export const galleryPhotos: { src: string; shape: PhotoShape }[] = [
   { src: '/photos/photo_21.jpg', shape: 'tall' },
   { src: '/photos/photo_17.jpg', shape: 'wide' },
 ];
+
+/** The direct channels beside the Contact form, in order. */
+export const contactLinks: readonly LinkId[] = ['email', 'instagram'];
+
+/** The Footer's Chips after "Back to the Hub", in order. */
+export const footerLinks: readonly LinkId[] = ['linkedin', 'instagram'];

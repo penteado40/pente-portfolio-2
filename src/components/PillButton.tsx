@@ -19,6 +19,8 @@ type PillButtonProps = {
       type?: 'button' | 'submit';
       onClick?: () => void;
       disabled?: boolean;
+      /** Spins the icon and sets aria-busy, while a form is sending. */
+      busy?: boolean;
     }
 );
 
@@ -40,19 +42,21 @@ export function PillButton({
 }: PillButtonProps) {
   const magnet = useMagnetic<HTMLElement>();
   const pill = variants[variant];
+  const busy = props.href === undefined && props.busy;
+  const spin = busy ? 'animate-spin' : '';
 
   const content =
     variant === 'solid' ? (
       <>
         {children}
         <span className="grid place-items-center size-[38px] shrink-0 rounded-full bg-accent ring-1 ring-highlight/40 group-hover:ring-2 group-hover:ring-highlight transition-shadow">
-          <Icon size={18} aria-hidden />
+          <Icon size={18} aria-hidden className={spin} />
         </span>
       </>
     ) : (
       <>
         {children}
-        <Icon size={16} weight="bold" aria-hidden />
+        <Icon size={16} weight="bold" aria-hidden className={spin} />
       </>
     );
 
@@ -76,6 +80,7 @@ export function PillButton({
       type={type}
       onClick={onClick}
       disabled={disabled}
+      aria-busy={busy || undefined}
       className={`${pill} ${className}`}
     >
       {content}

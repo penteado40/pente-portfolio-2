@@ -291,5 +291,12 @@
     "tabsLabel": "Gallery",
     "tabPhotos": "Photos",
     "tabInstagram": "Instagram"
+  },
+  "contact": {
+    "title": "Working on something that needs to sound right?",
+    "subtitle": "I'm open to mixing, mastering, and live sound work. Tell me about your project.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "you@email.com",
+    "messagePlaceholder": "Tell me about your project"
   }
 }
