@@ -9,6 +9,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { Photos } from "@/components/Photos";
 import { Contact } from "@/components/Contact";
 import { getTestimonials } from "@/lib/getTestimonials";
+import { sectionIndex } from "@/content/audio";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function AudioPage() {
@@ -23,7 +24,12 @@ export default async function AudioPage() {
       <Stats />
       <About />
       <Timeline />
-      <Certifications items={dict.certifications.items} title={dict.certifications.title} />
+      <Certifications
+        items={dict.certifications.items}
+        index={sectionIndex("certifications")}
+        label={dict.nav.certifications}
+        title={dict.certifications.title}
+      />
       <Productions />
       <Skills />
       <Testimonials items={testimonials} />
