@@ -134,6 +134,8 @@
     "productionsTitle": "Produções",
     "productionsLead": "DVDs ao vivo onde fiz a captação, o FOH ou a monitoração. Os números são de streams somados.",
     "watch": "Assistir {title} no YouTube",
+    "mixesTitle": "Mixagens selecionadas",
+    "mixesPlayerTitle": "Player do Spotify: Mixed By Penteado",
     "productions": [
       {
         "title": "DVD Temporal · Vocal Livre",

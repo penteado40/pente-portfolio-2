@@ -134,6 +134,8 @@
     "productionsTitle": "Productions",
     "productionsLead": "Live DVDs where I ran the recording, FOH or monitors. The numbers are combined streams.",
     "watch": "Watch {title} on YouTube",
+    "mixesTitle": "Selected mixes",
+    "mixesPlayerTitle": "Spotify player: Mixed By Penteado",
     "productions": [
       {
         "title": "DVD Temporal · Vocal Livre",

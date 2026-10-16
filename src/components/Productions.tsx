@@ -65,6 +65,30 @@ export function Productions() {
             </motion.li>
           ))}
         </ul>
+
+        {spotifyItem && (
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.6, ease: EASE_OUT }}
+            className="mt-14 md:mt-24"
+          >
+            <h3 className="mb-4 md:mb-6 text-2xl md:text-[32px] font-medium tracking-[-0.03em] text-white">
+              {dict.projects.mixesTitle}
+            </h3>
+            {/* The embed lays itself out compact at phone width, where 380px fits three tracks under its header; 452px shows five from md up. */}
+            <div className="rounded-[20px] overflow-hidden border border-ink/10 bg-mist">
+              <iframe
+                src={`https://open.spotify.com/embed/${spotifyItem.embedId}?utm_source=generator&theme=0`}
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                className="block w-full h-[380px] md:h-[452px] border-0"
+                title={dict.projects.mixesPlayerTitle}
+              />
+            </div>
+          </motion.div>
+        )}
       </Container>
 
       <div className="mt-20 mb-20">
@@ -72,26 +96,6 @@ export function Productions() {
       </div>
 
       <Container>
-        {spotifyItem && (
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.6, ease: EASE_OUT }}
-            className="rounded-xl overflow-hidden mb-24 bg-mist"
-          >
-            <iframe
-              src={`https://open.spotify.com/embed/${spotifyItem.embedId}?utm_source=generator&theme=0`}
-              width="100%"
-              height="352"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-              className="border-0"
-              title={spotifyItem.title}
-            />
-          </motion.div>
-        )}
-
         {/* Other work */}
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 16 }}
