@@ -5,7 +5,7 @@ import { Certifications } from "@/components/Certifications";
 import { DevProjects } from "@/components/DevProjects";
 import { DevSkills } from "@/components/DevSkills";
 import { Contact } from "@/components/Contact";
-import { certifications } from "@/content/dev";
+import { certifications, sectionIndex } from "@/content/dev";
 import { getDictionary, getLocale } from "@/i18n/dictionaries";
 
 export default async function DevPage() {
@@ -16,7 +16,12 @@ export default async function DevPage() {
       <DevHero />
       <DevAbout />
       <DevExperience />
-      <Certifications items={certifications} title={dict.nav.certifications} />
+      <Certifications
+        items={certifications}
+        index={sectionIndex("certifications")}
+        label={dict.nav.certifications}
+        title={dict.nav.certifications}
+      />
       <DevProjects />
       <DevSkills />
       <Contact />
