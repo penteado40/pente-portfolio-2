@@ -24,7 +24,7 @@ export function Skills() {
   return (
     <section id="skills" className="bg-block-mid py-[72px] md:py-[120px]">
       <Container>
-        <SectionHeader index={sectionIndex('skills')} label={text.label} title={text.title} />
+        <SectionHeader index={sectionIndex('skills')} label={dict.nav.skills} title={text.title} />
 
         <ul className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-5">
           {gearCategories.map((id, i) => (
