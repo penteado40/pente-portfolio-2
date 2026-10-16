@@ -253,8 +253,8 @@
   "testimonials": {
     "label": "Testimonials",
     "title": "What they say",
-    "cta": "Share yours",
-    "ctaFull": "Share your testimonial",
+    "cta": "Leave yours",
+    "ctaFull": "Leave your testimonial",
     "items": [
       {
         "quote": "The mix was flawless, every vocal sat exactly where it needed to be. Felipe has an ear for detail most engineers miss.",

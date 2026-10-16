@@ -2,22 +2,13 @@
 
 import { useRef, useState, type KeyboardEvent } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { galleryPhotos, sectionIndex, type PhotoShape } from '@/content/audio';
+import { galleryPhotos, instagramPosts, sectionIndex, type PhotoShape } from '@/content/audio';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { AudioDictionary } from '@/i18n/types';
 import { Container } from './Container';
 import { SectionHeader } from './SectionHeader';
 import { TiltCard } from './TiltCard';
 import { EASE_OUT } from './easing';
-
-const instagramPosts = [
-  'https://www.instagram.com/p/DZJC0njx_kQ/',
-  'https://www.instagram.com/p/DXecvK-Alxw/',
-  'https://www.instagram.com/p/DSco_6sjtyV/',
-  'https://www.instagram.com/p/DOT6zzlEaB3/',
-  'https://www.instagram.com/p/DBr1f1vxw7g/',
-  'https://www.instagram.com/p/DZ-2kO4i3R2/',
-];
 
 const SHAPE_SPAN: Record<PhotoShape, string> = {
   single: '',
@@ -70,7 +61,8 @@ export function Photos() {
             role="tab"
             id={`photos-tab-${tab}`}
             aria-selected={selected}
-            aria-controls={`photos-panel-${tab}`}
+            // Only the active panel is mounted, so only its tab points at one.
+            aria-controls={selected ? `photos-panel-${tab}` : undefined}
             tabIndex={selected ? 0 : -1}
             onClick={() => setActiveTab(tab)}
             className={`relative h-[34px] px-4 rounded-full text-[13px] font-medium press focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight ${
@@ -92,7 +84,7 @@ export function Photos() {
     </div>
   );
 
-  const panel = {
+  const panelProps = {
     role: 'tabpanel',
     id: `photos-panel-${activeTab}`,
     'aria-labelledby': `photos-tab-${activeTab}`,
@@ -103,6 +95,8 @@ export function Photos() {
   } as const;
 
   return (
+    // No top padding: the Testimonials above end on the same ground, and
+    // their bottom padding is the gap between the two.
     <section id="photos" className="pb-[72px] md:pb-[120px]">
       <Container>
         <SectionHeader
@@ -116,7 +110,7 @@ export function Photos() {
           {activeTab === 'photos' ? (
             <motion.div
               key="photos"
-              {...panel}
+              {...panelProps}
               // Nothing inside takes focus, so the panel itself is the stop after the tabs.
               tabIndex={0}
               className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight rounded-[20px] grid grid-cols-2 md:grid-cols-4 grid-flow-dense auto-rows-[150px] md:auto-rows-[180px] lg:auto-rows-[220px] gap-2.5 md:gap-4"
@@ -142,7 +136,7 @@ export function Photos() {
           ) : (
             <motion.div
               key="instagram"
-              {...panel}
+              {...panelProps}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
             >
               {instagramPosts.map((post, i) => (
