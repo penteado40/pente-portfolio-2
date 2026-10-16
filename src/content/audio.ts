@@ -30,3 +30,44 @@ export function sectionIndex(id: AudioSection) {
 export const gearCategories = ['consoles', 'studio', 'services'] as const;
 
 export type GearCategoryId = (typeof gearCategories)[number];
+
+/**
+ * How a photo sits in the mosaic: `tall` two rows high (a portrait), `wide`
+ * two columns across (a 16:9 landscape), `single` one cell.
+ */
+export type PhotoShape = 'single' | 'tall' | 'wide';
+
+/**
+ * The Photos tab's mosaic in order, packed densely across four columns on
+ * desktop and two on a phone. The order and shapes fill every row at both
+ * widths; audio.test.ts checks it, so a photo added or moved needs a run.
+ */
+export const galleryPhotos: { src: string; shape: PhotoShape }[] = [
+  { src: '/photos/photo_1.jpg', shape: 'tall' },
+  { src: '/photos/photo_8.jpg', shape: 'wide' },
+  { src: '/photos/photo_3.jpg', shape: 'single' },
+  { src: '/photos/photo_16.jpg', shape: 'single' },
+  { src: '/photos/photo_11.jpg', shape: 'single' },
+  { src: '/photos/photo_4.jpg', shape: 'tall' },
+  { src: '/photos/photo_22.jpg', shape: 'tall' },
+  { src: '/photos/photo_14.jpg', shape: 'single' },
+  { src: '/photos/photo_5.jpg', shape: 'tall' },
+  { src: '/photos/photo_10.jpg', shape: 'tall' },
+  { src: '/photos/photo_18.jpg', shape: 'single' },
+  { src: '/photos/photo_6.jpg', shape: 'tall' },
+  { src: '/photos/photo_12.jpg', shape: 'tall' },
+  { src: '/photos/photo_19.jpg', shape: 'single' },
+  { src: '/photos/photo_23.jpg', shape: 'tall' },
+  { src: '/photos/photo_7.jpg', shape: 'tall' },
+  { src: '/photos/photo_24.jpg', shape: 'tall' },
+  { src: '/photos/photo_25.jpg', shape: 'single' },
+  { src: '/photos/photo_2.jpg', shape: 'tall' },
+  { src: '/photos/photo_9.jpg', shape: 'tall' },
+  { src: '/photos/photo_26.jpg', shape: 'single' },
+  { src: '/photos/photo_13.jpg', shape: 'tall' },
+  { src: '/photos/photo_15.jpg', shape: 'single' },
+  { src: '/photos/photo_27.jpg', shape: 'single' },
+  { src: '/photos/photo_20.jpg', shape: 'tall' },
+  { src: '/photos/photo_21.jpg', shape: 'tall' },
+  { src: '/photos/photo_17.jpg', shape: 'wide' },
+];

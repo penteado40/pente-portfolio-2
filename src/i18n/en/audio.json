@@ -251,8 +251,10 @@
     }
   },
   "testimonials": {
-    "title": "What They Say",
+    "label": "Testimonials",
+    "title": "What they say",
     "cta": "Share yours",
+    "ctaFull": "Share your testimonial",
     "items": [
       {
         "quote": "The mix was flawless, every vocal sat exactly where it needed to be. Felipe has an ear for detail most engineers miss.",
@@ -284,7 +286,9 @@
     "close": "Close"
   },
   "photos": {
-    "title": "Photos",
+    "label": "Photos",
+    "title": "Behind the console",
+    "tabsLabel": "Gallery",
     "tabPhotos": "Photos",
     "tabInstagram": "Instagram"
   }
