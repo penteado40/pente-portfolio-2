@@ -136,6 +136,11 @@
     "watch": "Assistir {title} no YouTube",
     "mixesTitle": "Mixagens selecionadas",
     "mixesPlayerTitle": "Player do Spotify: Mixed By Penteado",
+    "videosTitle": "Vídeos",
+    "videosLead": "Mixagens de estúdio e FOH ao vivo, no YouTube.",
+    "videosPrev": "Vídeos anteriores",
+    "videosNext": "Próximos vídeos",
+    "videosGoTo": "Ir para os vídeos {range}",
     "productions": [
       {
         "title": "DVD Temporal · Vocal Livre",

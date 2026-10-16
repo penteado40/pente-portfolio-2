@@ -136,6 +136,11 @@
     "watch": "Watch {title} on YouTube",
     "mixesTitle": "Selected mixes",
     "mixesPlayerTitle": "Spotify player: Mixed By Penteado",
+    "videosTitle": "Videos",
+    "videosLead": "Studio mixes and live FOH, on YouTube.",
+    "videosPrev": "Previous videos",
+    "videosNext": "Next videos",
+    "videosGoTo": "Go to videos {range}",
     "productions": [
       {
         "title": "DVD Temporal · Vocal Livre",
