@@ -2,15 +2,15 @@
 
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'motion/react';
+import { sectionIndex } from '@/content/audio';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { AudioDictionary } from '@/i18n/types';
 import { Container } from './Container';
 import { SectionLabel } from './SectionHeader';
 import { TiltCard } from './TiltCard';
+import { EASE_OUT } from './easing';
 
 const PORTRAIT = '/photos/pente-portrait.jpg';
-
-const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
 // A Color block, laid out like the Dev About: the portrait card on the left
 // from lg up, a 64px avatar beside the label below that. The first sentence
@@ -57,8 +57,7 @@ export function About() {
                 className="object-cover object-[50%_25%]"
               />
             </div>
-            {/* 01 is the Hero. */}
-            <SectionLabel index={2} label={dict.nav.about} />
+            <SectionLabel index={sectionIndex('about')} label={dict.nav.about} />
           </div>
           <h2 className="text-[34px] md:text-5xl leading-[1.05] md:leading-[1.02] font-medium tracking-[-0.035em] text-white">
             {about.title}

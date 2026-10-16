@@ -9,8 +9,7 @@ import { projects, sectionIndex, type Product, type Repo, type Study } from '@/c
 import { Container } from './Container';
 import { SectionHeader } from './SectionHeader';
 import { TiltCard } from './TiltCard';
-
-const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+import { EASE_OUT } from './easing';
 
 type ProjectsText = DevDictionary['projects'];
 type ProjectText = { title: string; summary: string; highlights?: string[] };

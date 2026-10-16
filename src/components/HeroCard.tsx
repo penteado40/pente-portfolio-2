@@ -9,8 +9,7 @@ import {
 } from 'motion/react';
 import { Container } from './Container';
 import { SectionLabel } from './SectionHeader';
-
-const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+import { EASE_OUT } from './easing';
 
 type HeroCardProps = {
   /** Position on the page and persona name, shown as "01 / AUDIO". */

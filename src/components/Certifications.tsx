@@ -1,86 +1,78 @@
 'use client';
 
+import Image from 'next/image';
 import { Certificate } from '@phosphor-icons/react';
-import { motion, useReducedMotion } from 'motion/react';
+import { useReducedMotion } from 'motion/react';
 import type { Certification } from '@/content/certification';
+import { Container } from './Container';
+import { SectionHeader } from './SectionHeader';
 import { TiltCard } from './TiltCard';
+import { EASE_OUT } from './easing';
 
 type CertificationsProps = {
   /** The persona's own list; empty renders nothing. */
   items: readonly Certification[];
-  title: string;
+  /** Position on the persona's page, shown as "04 / Certifications". */
+  index: number;
+  /** The section's name in the label, the Navbar's. */
+  label: string;
+  /** Defaults to the label, for a persona whose copy has no title of its own. */
+  title?: string;
 };
 
 // Shared by the personas, each passing its own list. A persona hides the
 // Navbar anchor on its own while its list is empty.
-export function Certifications({ items, title }: CertificationsProps) {
+//
+// One glass card per certification: the badge on top, whole, at its own
+// proportions (an icon on a white square without one), the name, issuer and
+// year below. On mobile the cards are a row that scrolls
+// sideways, 220px each and bleeding into the gutters; from md up they sit in
+// a grid, four across from lg, left to right.
+export function Certifications({ items, index, label, title = label }: CertificationsProps) {
   const reduce = useReducedMotion();
 
   if (items.length === 0) return null;
 
   return (
-    <section id="certifications" className="py-24 md:py-32 bg-mist">
-      <div className="max-w-[1400px] mx-auto px-6">
-        <motion.h2
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-3xl md:text-4xl font-medium tracking-tight mb-12"
-        >
-          {title}
-        </motion.h2>
+    <section id="certifications" className="py-[72px] md:py-[120px]">
+      <Container>
+        <SectionHeader index={index} label={label} title={title} />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <ul className="flex gap-3 overflow-x-auto scrollbar-hide -mx-4 px-4 pb-1 md:grid md:grid-cols-3 lg:grid-cols-4 md:gap-5 md:overflow-visible md:mx-0 md:px-0 md:pb-0">
           {items.map((item, i) => (
-            <TiltCard
-              key={`${item.title}-${item.year}`}
-              initial={reduce ? false : { opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.06,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className={
-                item.image
-                  ? 'relative rounded-2xl glass max-w-xs'
-                  : 'relative glass rounded-2xl p-6 max-w-xs'
-              }
-            >
-              {item.image ? (
-                <>
-                  <img
+            <li key={`${item.title}-${item.year}`} className="flex-none w-[220px] md:w-auto">
+              <TiltCard
+                as="article"
+                initial={reduce ? false : { opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: i * 0.06, ease: EASE_OUT }}
+                className="glass h-full flex flex-col gap-3.5 md:gap-[18px] p-2 pb-[18px] md:p-2.5 md:pb-[22px] rounded-[20px] md:rounded-[22px]"
+              >
+                {item.image ? (
+                  <Image
                     src={item.image}
-                    alt={item.title}
-                    className="w-full h-auto block rounded-t-2xl"
-                    loading="lazy"
+                    alt=""
+                    width={0}
+                    height={0}
+                    sizes="(min-width: 1024px) 280px, (min-width: 768px) 33vw, 220px"
+                    className="w-full h-auto rounded-xl md:rounded-[14px]"
                   />
-                  <div className="p-6">
-                    <h3 className="text-lg font-medium">{item.title}</h3>
-                    <p className="text-sm text-ink/60 mt-1">{item.issuer}</p>
-                    <span className="text-xs font-mono text-ink tracking-wider mt-3 inline-block">
-                      {item.year}
-                    </span>
+                ) : (
+                  <div className="aspect-square rounded-xl md:rounded-[14px] bg-white flex items-center justify-center">
+                    <Certificate aria-hidden size={56} className="text-background" weight="fill" />
                   </div>
-                </>
-              ) : (
-                <>
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-accent-dark flex items-center justify-center shadow-lg shadow-accent/20 mb-4">
-                    <Certificate size={22} className="text-white" weight="fill" />
-                  </div>
-                  <h3 className="text-lg font-medium">{item.title}</h3>
-                  <p className="text-sm text-ink/60 mt-1">{item.issuer}</p>
-                  <span className="text-xs font-mono text-ink tracking-wider mt-3 inline-block">
-                    {item.year}
-                  </span>
-                </>
-              )}
-            </TiltCard>
+                )}
+                <div className="flex flex-col gap-1 md:gap-1.5 px-2.5 md:px-3">
+                  <h3 className="text-base md:text-lg font-medium tracking-[-0.015em] text-white">{item.title}</h3>
+                  <p className="text-[13px] md:text-sm text-ink/65">{item.issuer}</p>
+                  <span className="mt-0.5 md:mt-1 font-mono text-xs md:text-[13px] text-highlight">{item.year}</span>
+                </div>
+              </TiltCard>
+            </li>
           ))}
-        </div>
-      </div>
+        </ul>
+      </Container>
     </section>
   );
 }
