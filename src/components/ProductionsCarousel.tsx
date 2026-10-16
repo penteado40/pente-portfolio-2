@@ -7,6 +7,7 @@ import { useLocale } from '@/i18n/LocaleProvider';
 import type { AudioDictionary } from '@/i18n/types';
 import { TiltCard } from './TiltCard';
 import { useMagnetic } from './useMagnetic';
+import { pill } from './pill';
 
 type YoutubeProduction = {
   title: string;
@@ -110,16 +111,13 @@ export function ProductionsCarousel({ items }: { items: YoutubeProduction[] }) {
             <p className="text-ink/60 text-sm leading-relaxed mb-4">
               {project.description}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <ul className="flex flex-wrap gap-1.5">
               {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs font-mono text-ink/60 bg-mist px-3 py-1 rounded-full"
-                >
+                <li key={tag} className={`${pill} border-ink/14 text-ink/80`}>
                   {tag}
-                </span>
+                </li>
               ))}
-            </div>
+            </ul>
           </TiltCard>
         ))}
       </div>

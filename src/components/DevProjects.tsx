@@ -10,6 +10,7 @@ import { Container } from './Container';
 import { SectionHeader } from './SectionHeader';
 import { TiltCard } from './TiltCard';
 import { EASE_OUT } from './easing';
+import { pill } from './pill';
 
 type ProjectsText = DevDictionary['projects'];
 type ProjectText = { title: string; summary: string; highlights?: string[] };
@@ -23,9 +24,6 @@ const interpolate = (template: string, values: Record<string, string>) =>
 /** `https://fawedding.com.br/` as `fawedding.com.br`. */
 const host = (url: string) => new URL(url).host;
 
-// Items inside glass are plain pills, not Chips (see CONTEXT.md): a thin
-// border over the card's own color.
-const pill = 'inline-flex items-center gap-1.5 h-7 px-3 rounded-full border font-mono text-xs';
 
 function StackPills({ stack }: { stack: readonly string[] }) {
   return (
