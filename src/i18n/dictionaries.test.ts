@@ -1,12 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import type { Locale } from './locale.ts';
+import { readDictionary } from './readDictionary.ts';
 
 const NAMES = ['common', 'hub', 'audio', 'dev'] as const;
 
 function load(locale: Locale, name: string): Record<string, unknown> {
-  return JSON.parse(readFileSync(new URL(`./${locale}/${name}.json`, import.meta.url), 'utf8'));
+  return readDictionary(locale, name);
 }
 
 function keyPaths(value: unknown, prefix = ''): string[] {
@@ -29,5 +29,17 @@ for (const name of NAMES.filter((n) => n !== 'common')) {
     const common = Object.keys(load('en', 'common'));
     const shared = Object.keys(load('en', name)).filter((key) => common.includes(key));
     assert.deepEqual(shared, []);
+  });
+}
+
+// Contact is shared by both persona pages, but each asks its own question.
+for (const locale of ['en', 'pt'] as const) {
+  test(`${locale}: each persona has its own Contact title and subtitle`, () => {
+    const audio = readDictionary(locale, 'audio').contact;
+    const dev = readDictionary(locale, 'dev').contact;
+    assert.ok(audio?.title && audio.subtitle, 'audio.contact');
+    assert.ok(dev?.title && dev.subtitle, 'dev.contact');
+    assert.notEqual(audio.title, dev.title);
+    assert.notEqual(audio.subtitle, dev.subtitle);
   });
 }

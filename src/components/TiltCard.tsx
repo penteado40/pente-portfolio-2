@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, type PointerEvent } from 'react';
+import { useCallback, type PointerEvent } from 'react';
 import {
   motion,
   useReducedMotion,
@@ -10,6 +10,7 @@ import {
   type MotionStyle,
 } from 'motion/react';
 import { isFineMouse } from './isFineMouse';
+import { pointerOffset } from './pointerOffset';
 
 // Hover weight for glass cards: the point under the cursor sinks,
 // the opposite side rises, and the card grows slightly. Springs, not state,
@@ -20,33 +21,26 @@ import { isFineMouse } from './isFineMouse';
 // strength (--glass-tilt, 0..1).
 const MAX_TILT_DEG = 8;
 const HOVER_SCALE = 1.04;
-const SPRING = { stiffness: 180, damping: 18, mass: 0.8 };
+/** Also settles the Chips, so they move like the cards around them. */
+export const TILT_SPRING = { stiffness: 180, damping: 18, mass: 0.8 };
 
 // style is merged, but the tilt owns the transform: a caller's scale or
 // rotate in style is overridden.
 type TiltCardProps = HTMLMotionProps<'div'> & {
   as?: 'div' | 'article';
-  // The expanded ProductionCard keeps still.
-  disabled?: boolean;
-  // CSS selector: while the card matches it, it keeps still. Lets a card
-  // follow a state only CSS knows, like the ProductionCards blurred behind
-  // an expanded one.
-  stillWhen?: string;
 };
 
 export function TiltCard({
   as = 'div',
-  disabled = false,
-  stillWhen,
   style,
   onPointerMove,
   onPointerLeave,
   ...props
 }: TiltCardProps) {
   const reduce = useReducedMotion();
-  const rotateX = useSpring(0, SPRING);
-  const rotateY = useSpring(0, SPRING);
-  const scale = useSpring(1, SPRING);
+  const rotateX = useSpring(0, TILT_SPRING);
+  const rotateY = useSpring(0, TILT_SPRING);
+  const scale = useSpring(1, TILT_SPRING);
 
   const tiltAngle = useTransform(
     () => `${(Math.atan2(rotateY.get(), rotateX.get()) * 180) / Math.PI}deg`,
@@ -67,22 +61,14 @@ export function TiltCard({
     scale.set(1);
   }, [rotateX, rotateY, scale]);
 
-  // A card that becomes disabled under a still mouse settles right away.
-  useEffect(() => {
-    if (disabled) settle();
-  }, [disabled, settle]);
-
   const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
     onPointerMove?.(e);
-    if (disabled || reduce || !isFineMouse(e) || (stillWhen && e.currentTarget.matches(stillWhen))) {
+    if (reduce || !isFineMouse(e)) {
       settle();
       return;
     }
 
-    const rect = e.currentTarget.getBoundingClientRect();
-    // -1..1 from the center; positive is right / down.
-    const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    const { nx, ny } = pointerOffset(e);
     // rotateY > 0 pushes the right edge away; rotateX > 0 lifts the bottom.
     rotateY.set(nx * MAX_TILT_DEG);
     rotateX.set(-ny * MAX_TILT_DEG);

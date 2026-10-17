@@ -25,7 +25,9 @@ export function AudioNavbar() {
       items={[
         { label: dict.nav.about, href: '#about', Icon: User },
         { label: dict.nav.timeline, href: '#timeline', Icon: Clock },
-        { label: dict.nav.certifications, href: '#certifications', Icon: Certificate },
+        ...(dict.certifications.items.length > 0
+          ? [{ label: dict.nav.certifications, href: '#certifications', Icon: Certificate }]
+          : []),
         { label: dict.nav.projects, href: '#projects', Icon: MusicNotes },
         { label: dict.nav.skills, href: '#skills', Icon: GearSix },
         { label: dict.nav.contact, href: '#contact', Icon: Envelope },

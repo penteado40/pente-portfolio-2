@@ -1,10 +1,8 @@
-import { Envelope, GithubLogo, LinkedinLogo } from '@phosphor-icons/react/dist/ssr';
-import { links } from '@/content/links';
 import type { HubDictionary } from '@/i18n/types';
+import { ChannelChip } from './ChannelChip';
 
-const pill =
-  'inline-flex flex-1 md:flex-none items-center justify-center gap-2 h-11 md:h-9 px-3.5 rounded-full border border-white/14 bg-white/3 text-sm text-white/80 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press';
-
+// The Hub's footer: Chips out to the channels, filling a row on a phone
+// above the text, like the persona pages' Footer.
 export function HubFooter({ dict }: { dict: HubDictionary }) {
   return (
     <footer className="mt-auto border-t border-white/8">
@@ -13,28 +11,9 @@ export function HubFooter({ dict }: { dict: HubDictionary }) {
           Felipe Penteado · {dict.footer.rights}
         </p>
         <div className="flex gap-2 md:gap-2.5">
-          <a href={links.email} className={pill}>
-            <Envelope size={16} aria-hidden />
-            {dict.links.contact}
-          </a>
-          <a
-            href={links.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={pill}
-          >
-            <LinkedinLogo size={16} aria-hidden />
-            LinkedIn
-          </a>
-          <a
-            href={links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={pill}
-          >
-            <GithubLogo size={16} aria-hidden />
-            GitHub
-          </a>
+          <ChannelChip id="email" label={dict.links.contact} tall stretch />
+          <ChannelChip id="linkedin" tall stretch />
+          <ChannelChip id="github" tall stretch />
         </div>
       </div>
     </footer>

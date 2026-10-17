@@ -34,14 +34,14 @@
     ]
   },
   "about": {
-    "title": "About",
-    "p1": "I'm Felipe Penteado, an audio engineer specializing in vocal music. I work with live events, DVDs, and studio mixing, alongside vocal groups, choirs, bands, and independent artists.",
+    "title": "I'm Felipe Penteado, an audio engineer specializing in vocal music.",
+    "p1": "I work with live events, DVDs, and studio mixing, alongside vocal groups, choirs, bands, and independent artists.",
     "p2": "I've been messing around with cables and gear since I was 12, always curious about the sound equipment at church. I'm not sure exactly when it became a calling, I think it always was. At 15, at boarding school, I was already helping with events at school and at the university. At 18, I took my first professional step joining the audio team at Ministerio VOX.",
     "p3": "To me, the audio engineer's role is to be invisible. No one in the audience should notice I'm there. My job is to amplify what the stage delivers, and let the message land with even more force. When the mix is right, I can feel the energy alongside the audience, get moved by the music. That's when I disconnect from everything around me and just enjoy the show.",
-    "quote": "Music touches hearts. But when the sound is right, the message gets amplified even further."
+    "quote": "Music touches hearts. But when the sound is right, the message gets amplified even further.",
+    "portraitAlt": "Portrait of Felipe Penteado"
   },
   "projects": {
-    "title": "Selected Jobs",
     "items": [
       {
         "title": "Penteado's Mixes",
@@ -132,20 +132,33 @@
       }
     ],
     "productionsTitle": "Productions",
+    "productionsLead": "Live DVDs where I ran the recording, FOH or monitors. The numbers are combined streams.",
+    "watch": "Watch {title} on YouTube",
+    "mixesTitle": "Selected mixes",
+    "mixesPlayerTitle": "Spotify player: Mixed By Penteado",
+    "videosTitle": "Videos",
+    "videosLead": "Studio mixes and live FOH, on YouTube.",
+    "videosPrev": "Previous videos",
+    "videosNext": "Next videos",
+    "videosGoTo": "Go to videos {range}",
     "productions": [
       {
-        "title": "DVD Temporal - Vocal Livre",
-        "description": "Audio recording and FOH mixing for Vocal Livre's live DVD recording.",
-        "roles": ["Audio Recording", "FOH"],
+        "title": "DVD Temporal · Vocal Livre",
+        "label": "DVD · 2024",
+        "description": "Audio recording and FOH mixing of the live recording.",
+        "short": "Recording and FOH",
+        "roles": ["Recording", "FOH"],
         "image": "/photos/photo_vltemporal.jpeg",
         "streams": "13mi+",
         "youtubeId": "j10ORL-xEu8",
         "youtubeUrl": "https://www.youtube.com/watch?v=D4Z0-KE6ir8"
       },
       {
-        "title": "DVD 15 Anos - Vocal Livre",
-        "description": "Audio recording and FOH mixing for Vocal Livre's 15th anniversary concert, recorded live in Recife.",
-        "roles": ["Audio Recording", "FOH"],
+        "title": "DVD 15 Anos · Vocal Livre",
+        "label": "DVD · Recife",
+        "description": "Recording and FOH for the 15th anniversary concert, recorded live.",
+        "short": "Recording and FOH",
+        "roles": ["Recording", "FOH"],
         "image": "/photos/photo_vl15.jpeg",
         "streams": "6mi+",
         "youtubeId": "DXllcDBfu88",
@@ -153,8 +166,10 @@
       },
       {
         "title": "Novo Tempo In Concert: 30 Anos",
-        "description": "Monitor assistant and audio recording for Novo Tempo label's 30th anniversary DVD recording.",
-        "roles": ["Monitor Assistant", "Audio Recording"],
+        "label": "DVD · Novo Tempo",
+        "description": "Monitor assistant and audio recording on the DVD shoot.",
+        "short": "Monitor assist. and recording",
+        "roles": ["Monitor asst.", "Recording"],
         "image": "/photos/photo_nt30.jpg",
         "streams": "19mi+",
         "youtubeId": "gt-V6JlXxmc",
@@ -167,10 +182,10 @@
       "Live Session \"Em Ti\" - Luz e Rimas",
       "Live Session NT Play: Especial de Natal",
       "DVD Liz Avancini",
-      "DVD Coral Livre feat. Marcos Almeida e Paulo Nazareth",
       "Alice e Amanda",
-      "Vocal Livre",
       "Vocal NV",
+      "DVD Coral Livre feat. Marcos Almeida e Paulo Nazareth",
+      "Vocal Livre",
       "Leticia Cordeiro",
       "Paula Schneider",
       "Ministerio Sence",
@@ -178,7 +193,7 @@
     ]
   },
   "timeline": {
-    "title": "Career",
+    "title": "From curious about the cables to technical director",
     "items": [
       {
         "year": "2024",
@@ -219,25 +234,27 @@
     ]
   },
   "skills": {
-    "title": "Studio & Gear",
-    "categories": [
-      {
+    "title": "What I work with",
+    "categories": {
+      "consoles": {
         "name": "Consoles",
         "items": ["Yamaha Rivage", "Yamaha DM7", "Yamaha CL Series", "Waves eMotion LV1", "Digico", "Soundcraft"]
       },
-      {
+      "studio": {
         "name": "Studio",
         "items": ["Avid Pro Tools", "Apogee Duet 3", "Apple AirPods Max", "Beyerdynamic DT 1990 Pro MKII"]
       },
-      {
+      "services": {
         "name": "Services",
         "items": ["Mixing", "Mastering", "Recording", "Live Sound", "Technical Direction"]
       }
-    ]
+    }
   },
   "testimonials": {
-    "title": "What They Say",
-    "cta": "Share yours",
+    "label": "Testimonials",
+    "title": "What they say",
+    "cta": "Leave yours",
+    "ctaFull": "Leave your testimonial",
     "items": [
       {
         "quote": "The mix was flawless, every vocal sat exactly where it needed to be. Felipe has an ear for detail most engineers miss.",
@@ -269,8 +286,17 @@
     "close": "Close"
   },
   "photos": {
-    "title": "Photos",
+    "label": "Photos",
+    "title": "Behind the console",
+    "tabsLabel": "Gallery",
     "tabPhotos": "Photos",
     "tabInstagram": "Instagram"
+  },
+  "contact": {
+    "title": "Working on something that needs to sound right?",
+    "subtitle": "I'm open to mixing, mastering, and live sound work. Tell me about your project.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "you@email.com",
+    "messagePlaceholder": "Tell me about your project"
   }
 }

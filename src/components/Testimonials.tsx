@@ -1,292 +1,93 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { CaretLeft, CaretRight } from '@phosphor-icons/react';
+import { ChatCircleText } from '@phosphor-icons/react';
+import { sectionIndex } from '@/content/audio';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { AudioDictionary } from '@/i18n/types';
-import { useTestimonialModal } from './TestimonialModalProvider';
 import type { ApprovedTestimonial } from '@/lib/testimonial';
-import { TiltCard } from './TiltCard';
-import { useMagnetic } from './useMagnetic';
+import { useTestimonialModal } from './TestimonialModalProvider';
+import { Container } from './Container';
+import { PillButton } from './PillButton';
+import { SectionHeader } from './SectionHeader';
+import { EASE_OUT } from './easing';
 
+// The approved testimonials as 20px cards, three to a row on desktop. On a
+// phone they become a row that scrolls sideways, 300px a card, with the
+// next one peeking, and "Leave yours" moves under it at full width.
 export function Testimonials({ items }: { items: ApprovedTestimonial[] }) {
   const { dict } = useLocale<AudioDictionary>();
   const reduce = useReducedMotion();
   const { open } = useTestimonialModal();
-  const ctaMagnet = useMagnetic<HTMLButtonElement>();
+  const text = dict.testimonials;
 
   return (
-    <section id="testimonials" className="py-24 md:py-32">
-      <div className="max-w-[1400px] mx-auto px-6">
-        <div className="flex items-center justify-between gap-4 mb-12">
-          <motion.h2
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-            className="text-3xl md:text-4xl font-medium tracking-tight"
-          >
-            {dict.testimonials.title}
-          </motion.h2>
+    <section id="testimonials" className="py-[72px] md:py-[120px]">
+      <Container>
+        <SectionHeader
+          index={sectionIndex('testimonials')}
+          label={text.label}
+          title={text.title}
+          aside={
+            <PillButton Icon={ChatCircleText} onClick={open}>
+              {text.cta}
+            </PillButton>
+          }
+          asideFromMd
+        />
 
-          <motion.button
-            {...ctaMagnet}
-            type="button"
-            onClick={open}
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press shrink-0"
+        {items.length > 0 && (
+          // The list starts the entrance, not each card: on a phone the cards
+          // past the edge never come into view until the row is scrolled.
+          <motion.ul
+            initial={reduce ? false : 'hidden'}
+            whileInView="shown"
+            viewport={{ once: true, amount: 0.3 }}
+            className="flex gap-3 -mx-4 px-4 scroll-px-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 md:gap-5 md:mx-0 md:px-0 md:overflow-visible"
           >
-            {dict.testimonials.cta}
-          </motion.button>
-        </div>
-      </div>
+            {items.map((item, i) => (
+              <motion.li
+                key={item.id}
+                variants={{ hidden: { opacity: 0, y: 20 }, shown: { opacity: 1, y: 0 } }}
+                transition={{ duration: 0.6, delay: (i % 3) * 0.06, ease: EASE_OUT }}
+                className="w-[300px] shrink-0 snap-start md:w-auto"
+              >
+                <TestimonialCard item={item} />
+              </motion.li>
+            ))}
+          </motion.ul>
+        )}
 
-      {items.length > 0 &&
-        (reduce ? (
-          <div className="max-w-[1400px] mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {items.map((item) => (
-                <TestimonialCard key={item.id} item={item} />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <TestimonialsCarousel items={items} label={dict.testimonials.title} />
-        ))}
+        <PillButton Icon={ChatCircleText} onClick={open} className="w-full mt-5 md:hidden">
+          {text.ctaFull}
+        </PillButton>
+      </Container>
     </section>
   );
 }
 
-const STEP_INTERVAL_MS = 4500;
-const RESUME_DELAY_MS = 5000;
-const SETTLE_DEBOUNCE_MS = 200;
-
-function TestimonialsCarousel({
-  items,
-  label,
-}: {
-  items: ApprovedTestimonial[];
-  label: string;
-}) {
-  const count = items.length;
-  // Repeating the list lets "next"/"prev" always land on a real card, so the
-  // last-to-first wrap can be a silent instant jump between identical-looking
-  // clones instead of a visible snap-back. With few items, 3 copies can be
-  // narrower than the viewport, which clamps scrollTo and breaks navigation —
-  // so small lists get more copies to guarantee enough scrollable width.
-  const copies = count > 0 && count <= 6 ? 8 : 3;
-  const extended = count > 0 ? Array.from({ length: copies }, () => items).flat() : [];
-
-  const trackRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const activeIndexRef = useRef(count);
-  const isInteractingRef = useRef(false);
-  const lastInteractionRef = useRef(0);
-  const dragRef = useRef<{ startX: number; startScrollLeft: number } | null>(null);
-  const prevMagnet = useMagnetic<HTMLButtonElement>();
-  const nextMagnet = useMagnetic<HTMLButtonElement>();
-
-  // Cards use snap-center, so the valid snap point is the card's center
-  // aligned to the track's center — not its left edge.
-  const cardTarget = useCallback((card: HTMLDivElement, track: HTMLDivElement) => {
-    return card.offsetLeft + card.offsetWidth / 2 - track.clientWidth / 2;
-  }, []);
-
-  // With several small cards visible at once, "most visible" is ambiguous
-  // (many cards tie near 100% visibility), so the current index is derived
-  // geometrically from scroll position instead of via IntersectionObserver.
-  const getNearestIndex = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return activeIndexRef.current;
-    const centerX = track.scrollLeft + track.clientWidth / 2;
-    let nearest = activeIndexRef.current;
-    let nearestDist = Infinity;
-    cardRefs.current.forEach((card, i) => {
-      if (!card) return;
-      const dist = Math.abs(card.offsetLeft + card.offsetWidth / 2 - centerX);
-      if (dist < nearestDist) {
-        nearestDist = dist;
-        nearest = i;
-      }
-    });
-    return nearest;
-  }, []);
-
-  const goToExtended = useCallback(
-    (index: number, instant = false) => {
-      const card = cardRefs.current[index];
-      const track = trackRef.current;
-      if (!card || !track) return;
-      activeIndexRef.current = index;
-      track.scrollTo({ left: cardTarget(card, track), behavior: instant ? 'auto' : 'smooth' });
-    },
-    [cardTarget],
-  );
-
-  const markInteraction = useCallback(() => {
-    lastInteractionRef.current = Date.now();
-  }, []);
-
-  const goNext = useCallback(() => {
-    goToExtended(activeIndexRef.current + 1);
-  }, [goToExtended]);
-
-  const goPrev = useCallback(() => {
-    goToExtended(activeIndexRef.current - 1);
-  }, [goToExtended]);
-
-  useEffect(() => {
-    if (count === 0) return;
-    activeIndexRef.current = count;
-    goToExtended(count, true);
-  }, [count, copies, goToExtended]);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track || count === 0) return;
-
-    const lastCopyStart = count * (copies - 1);
-    const jumpBy = count * (copies - 2);
-
-    let timeout: ReturnType<typeof setTimeout>;
-    const handleScroll = () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        const index = getNearestIndex();
-        activeIndexRef.current = index;
-        if (index < count) {
-          activeIndexRef.current = index + jumpBy;
-          goToExtended(index + jumpBy, true);
-        } else if (index >= lastCopyStart) {
-          activeIndexRef.current = index - jumpBy;
-          goToExtended(index - jumpBy, true);
-        }
-      }, SETTLE_DEBOUNCE_MS);
-    };
-
-    track.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      track.removeEventListener('scroll', handleScroll);
-      clearTimeout(timeout);
-    };
-  }, [count, copies, goToExtended, getNearestIndex]);
-
-  useEffect(() => {
-    if (count === 0) return;
-    const interval = setInterval(() => {
-      if (isInteractingRef.current) return;
-      if (Date.now() - lastInteractionRef.current < RESUME_DELAY_MS) return;
-      goNext();
-    }, STEP_INTERVAL_MS);
-    return () => clearInterval(interval);
-  }, [count, goNext]);
-
-  const handlePointerDown = (e: React.PointerEvent) => {
-    if (e.pointerType !== 'mouse') return;
-    const track = trackRef.current;
-    if (!track) return;
-    dragRef.current = { startX: e.clientX, startScrollLeft: track.scrollLeft };
-    isInteractingRef.current = true;
-    track.setPointerCapture(e.pointerId);
-  };
-
-  const handlePointerMove = (e: React.PointerEvent) => {
-    const drag = dragRef.current;
-    const track = trackRef.current;
-    if (!drag || !track) return;
-    track.scrollLeft = drag.startScrollLeft - (e.clientX - drag.startX);
-  };
-
-  const endDrag = () => {
-    if (!dragRef.current) return;
-    dragRef.current = null;
-    isInteractingRef.current = false;
-    markInteraction();
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      markInteraction();
-      goNext();
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      markInteraction();
-      goPrev();
-    }
-  };
-
-  return (
-    <div className="relative">
-      <div
-        ref={trackRef}
-        role="region"
-        aria-roledescription="carousel"
-        aria-label={label}
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
-        onMouseEnter={() => {
-          isInteractingRef.current = true;
-        }}
-        onMouseLeave={() => {
-          isInteractingRef.current = false;
-          markInteraction();
-        }}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
-        className="carousel-fade flex gap-6 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scrollbar-hide px-6 py-10 -my-10 cursor-grab active:cursor-grabbing select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-highlight rounded-2xl"
-      >
-        {extended.map((item, i) => (
-          <div
-            key={`${item.id}-${Math.floor(i / count)}`}
-            ref={(el) => {
-              cardRefs.current[i] = el;
-            }}
-            className="w-80 shrink-0 snap-center md:w-96"
-          >
-            <TestimonialCard item={item} />
-          </div>
-        ))}
-      </div>
-
-      <motion.button
-        {...prevMagnet}
-        type="button"
-        onClick={() => {
-          markInteraction();
-          goPrev();
-        }}
-        aria-label="Previous testimonial"
-        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press"
-      >
-        <CaretLeft size={18} weight="bold" />
-      </motion.button>
-      <motion.button
-        {...nextMagnet}
-        type="button"
-        onClick={() => {
-          markInteraction();
-          goNext();
-        }}
-        aria-label="Next testimonial"
-        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 glass p-2 rounded-full text-ink/70 hover:text-ink hover:ring-2 hover:ring-highlight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-highlight press"
-      >
-        <CaretRight size={18} weight="bold" />
-      </motion.button>
-    </div>
-  );
-}
-
 function TestimonialCard({ item }: { item: ApprovedTestimonial }) {
+  // Array.from splits by code point, so a name opening with an accent or
+  // an emoji keeps its whole first character.
+  const initial = Array.from(item.author.trim())[0]?.toUpperCase();
+
   return (
-    <TiltCard className="glass rounded-2xl p-6 h-full">
-      <p className="text-ink/70 leading-relaxed mb-4">&ldquo;{item.message}&rdquo;</p>
-      <p className="text-sm">
-        <span className="font-medium">{item.author}</span>
-        <span className="text-ink/60"> &mdash; {item.roleCompany}</span>
-      </p>
-    </TiltCard>
+    <figure className="h-full flex flex-col justify-between gap-6 md:gap-8 min-h-[240px] md:min-h-[280px] p-[22px] md:p-7 rounded-[20px] bg-mist border border-ink/8">
+      <blockquote className="text-[17px] md:text-lg leading-[1.55] text-ink">
+        &ldquo;{item.message.trim()}&rdquo;
+      </blockquote>
+      <figcaption className="flex items-center gap-3">
+        <span
+          aria-hidden
+          className="grid place-items-center size-10 shrink-0 rounded-full bg-block-mid text-highlight text-[13px] font-semibold"
+        >
+          {initial}
+        </span>
+        <span className="flex flex-col gap-0.5">
+          <span className="text-sm font-medium text-ink">{item.author}</span>
+          <span className="text-[13px] text-ink/60">{item.roleCompany}</span>
+        </span>
+      </figcaption>
+    </figure>
   );
 }

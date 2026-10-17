@@ -20,5 +20,187 @@
     "ctaProjects": "Ver projetos",
     "ctaCv": "Baixar CV",
     "ctaCvFallback": "CV (PT)"
+  },
+  "about": {
+    "title": "Back-end por onde o dinheiro passa, e o front-end que as pessoas usam para acompanhá-lo.",
+    "p1": "Sou desenvolvedor full stack, com mais de 4 anos construindo APIs e sistemas financeiros em produção: faturamento, rateio de custos e pagamentos. Meu ponto forte é o back-end, em Node.js, TypeScript, PHP/Laravel e PostgreSQL, com React e Next.js no front-end.",
+    "p2": "Comecei no suporte de TI da UNASP-HT, cuidando de 6 laboratórios. Entrei na IATec como estagiário e fui efetivado em 8 meses; depois construí o core de cobranças de uma fintech de educação e voltei à IATec como pleno, nos sistemas de faturamento. Hoje, como freelancer, desenvolvo e mantenho minha própria plataforma de sites de eventos.",
+    "p3": "Uso IA com método: PRD, glossário e ADRs antes do código, e uma skill própria do Claude Code no events-api. Gosto de arquitetura que dá para verificar, com Clean Architecture e DDD e a regra de dependência imposta pelo ESLint e coberta por testes. E de qualidade na entrega: CI com Postgres de verdade, checagem de drift nas migrations, gitleaks e um build que quebra sem a documentação OpenAPI. Ferramenta certa para a escala.",
+    "quote": "Ferramenta certa para a escala.",
+    "location": "Cotia, SP",
+    "languages": [
+      "Português nativo",
+      "Inglês avançado"
+    ],
+    "availability": "Aberto a vagas remotas CLT/PJ e freelance",
+    "portraitAlt": "Felipe Penteado"
+  },
+  "experience": {
+    "title": "Sistemas financeiros em produção",
+    "current": "atual",
+    "months": [
+      "jan",
+      "fev",
+      "mar",
+      "abr",
+      "mai",
+      "jun",
+      "jul",
+      "ago",
+      "set",
+      "out",
+      "nov",
+      "dez"
+    ],
+    "monthFormat": "{month}/{year}",
+    "items": {
+      "freelance": {
+        "role": "Desenvolvedor Full Stack",
+        "context": "Plataforma multi-cliente de sites de eventos, para casamentos e aniversários.",
+        "bullets": [
+          "3 clientes em produção e cerca de 200 RSVPs processados.",
+          "De ponta a ponta: convite em React com RSVP, API em Hono com Prisma, PostgreSQL e JWT, e painel para os clientes gerenciarem convidados.",
+          "Migrei o envio de e-mails de SQS → Lambda → SES (AWS CDK) para o Resend, cortando custo e infraestrutura."
+        ]
+      },
+      "iatec-mid": {
+        "role": "Desenvolvedor de Sistemas Pleno",
+        "context": "Recontratado para os sistemas de faturamento e rateio de custos da organização.",
+        "bullets": [
+          "Reduzi em 67% (90s → 30s) as consultas principais do faturamento, reescrevendo SQL e criando índices.",
+          "Reestruturei a geração de faturamento e PDFs: de mais de 5 min para cerca de 2 min.",
+          "Automatizei a exportação para o sistema contábil, com os documentos no AWS S3.",
+          "Co-desenvolvi desde a concepção dois sistemas corporativos: gestão de contratos e distribuição de licenças."
+        ]
+      },
+      "youpay": {
+        "role": "Desenvolvedor de Sistemas Pleno",
+        "context": "Startup de pagamentos para educação.",
+        "bullets": [
+          "APIs críticas do core de cobranças de uma plataforma usada por cerca de 15 escolas (cartão, boleto e Pix).",
+          "Integrei 3 gateways (ASAAS, Getnet e Stone) em arquitetura de microsserviços e construí o controle de inadimplência."
+        ]
+      },
+      "iatec-trainee": {
+        "role": "Estagiário → Trainee de Desenvolvimento",
+        "context": "Manutenção de sistemas legados em PHP.",
+        "bullets": [
+          "Efetivado como trainee em 8 meses, passando a desenvolver novas funcionalidades em sistemas financeiros."
+        ]
+      },
+      "unasp": {
+        "role": "Suporte de TI (estágio)",
+        "context": "Suporte aos laboratórios da universidade, numa equipe de três estagiários.",
+        "bullets": [
+          "6 laboratórios e 300 estações, com cerca de 200 alunos e professores por semestre.",
+          "Liderei a preparação dos laboratórios para as provas, sem nenhuma parada."
+        ]
+      }
+    },
+    "education": {
+      "title": "Formação",
+      "expected": "previsão",
+      "items": {
+        "information-systems": {
+          "course": "Sistemas de Informação",
+          "detail": "Graduação · EAD"
+        },
+        "it-technician": {
+          "course": "Técnico em Informática",
+          "detail": "Ensino técnico"
+        }
+      }
+    }
+  },
+  "projects": {
+    "title": "Produtos",
+    "lead": "Projetos com usuários reais, no ar ou em construção.",
+    "product": "Produto",
+    "status": {
+      "active": "no ar",
+      "building": "em construção"
+    },
+    "studies": {
+      "title": "Estudos",
+      "lead": "Feitos para aprender e praticar, sem usuários."
+    },
+    "repos": "Repositórios",
+    "private": "privado",
+    "openDemo": "Abrir {demo}",
+    "openRepo": "{repo} no GitHub",
+    "screenshot": "Tela do {title}",
+    "items": {
+      "fawedding": {
+        "title": "FAWedding",
+        "summary": "Sites de casamento com RSVP, lista de presentes e um e-mail de confirmação para cada convidado. Nasceu como o site do meu casamento e hoje atende outros casais.",
+        "highlights": [
+          "API multi-tenant: cada casamento tem seu front-end, domínio e template de e-mail.",
+          "Confirmação por e-mail com Resend e React Email, com o status de entrega no RSVP e reenvio manual.",
+          "3 clientes em produção e cerca de 200 RSVPs processados."
+        ]
+      },
+      "events": {
+        "title": "Events",
+        "summary": "A sucessora da fawedding-api, para qualquer evento: RSVP, lista de presentes paga com Pix e e-mails para convidados, com um app em Expo para quem organiza.",
+        "highlights": [
+          "Clean Architecture com DDD pragmático no NestJS, com a regra de dependência imposta pelo ESLint.",
+          "PRD, glossário e ADRs antes do código.",
+          "CI com testes de integração em Postgres, checagem de drift nas migrations e varredura de segredos."
+        ]
+      },
+      "portfolio": {
+        "title": "Portfólio",
+        "summary": "Este site: um Hub que leva às minhas duas personas, áudio e desenvolvimento, em português e inglês.",
+        "highlights": [
+          "Cores por persona em tokens, com cards de vidro sobre cada uma.",
+          "API própria de contato e depoimentos, com login JWT e chaves de API."
+        ]
+      },
+      "inventory-api": {
+        "title": "inventory-api",
+        "summary": "API REST multi-tenant de estoque: cada loja isolada por middleware, com JWT de curta duração e papéis por loja."
+      },
+      "task-manager": {
+        "title": "task_manager",
+        "summary": "API REST de tarefas com status personalizados, documentada com OpenAPI e testada com JUnit e Mockito."
+      },
+      "pente-portfolio-api": {
+        "title": "pente-portfolio-api",
+        "summary": "Primeira API do portfólio: recebe mensagens de contato e depoimentos, com login JWT e limite de requisições por IP."
+      }
+    }
+  },
+  "skills": {
+    "title": "Com o que eu construo",
+    "categories": {
+      "back-end": {
+        "name": "Back-end"
+      },
+      "front-end": {
+        "name": "Front-end & Mobile"
+      },
+      "databases": {
+        "name": "Bancos de dados",
+        "note": "Modelagem, índices e otimização de queries."
+      },
+      "cloud": {
+        "name": "Cloud & DevOps"
+      },
+      "integrations": {
+        "name": "Integrações",
+        "note": "Gateways de pagamento, Pix, e-mail e mídia."
+      },
+      "practices": {
+        "name": "Práticas",
+        "note": "Testes unitários e de integração, desenvolvimento com IA assistida."
+      }
+    }
+  },
+  "contact": {
+    "title": "Precisa de uma API que aguente o dinheiro passando?",
+    "subtitle": "Aberto a vagas remotas CLT ou PJ, no Brasil ou no exterior, e a projetos freelance: APIs, integrações e aplicações web.",
+    "namePlaceholder": "Seu nome",
+    "emailPlaceholder": "voce@empresa.com",
+    "messagePlaceholder": "Conte sobre a vaga ou o projeto"
   }
 }

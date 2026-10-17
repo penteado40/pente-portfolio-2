@@ -34,14 +34,14 @@
     ]
   },
   "about": {
-    "title": "Sobre",
-    "p1": "Sou Felipe Penteado, engenheiro de áudio especializado em música vocal. Trabalho com eventos ao vivo, DVDs e mixagem de estúdio, atuando ao lado de grupos vocais, corais, bandas e artistas independentes.",
-    "p2": "Desde os 12 anos eu ja mexia em cabos e ficava curioso com os equipamentos de som da igreja. Não sei exatamente quando isso virou vocação, acho que sempre foi. Aos 15, no colégio interno, já estava ajudando nos eventos da escola e da universidade. Aos 18, dei meu primeiro passo profissional integrando a equipe de áudio do Ministério VOX.",
-    "p3": "Pra mim, o papel do engenheiro de áudio é ser invisível. Ninguém no público precisa reparar que eu estou ali. O meu trabalho é amplificar o que o palco entrega, e deixar a mensagem chegar com ainda mais força. Quando a mixagem está boa, eu consigo vibrar junto com o público, me emocionar com as músicas. E nesse momento que eu me desligo de tudo ao redor e simplesmente curto o show.",
-    "quote": "As músicas tocam os corações. Mas quando o som está bom, a mensagem consegue ser ainda mais amplificada."
+    "title": "Sou Felipe Penteado, engenheiro de áudio especializado em música vocal.",
+    "p1": "Trabalho com eventos ao vivo, DVDs e mixagem de estúdio, atuando ao lado de grupos vocais, corais, bandas e artistas independentes.",
+    "p2": "Desde os 12 anos eu já mexia em cabos e ficava curioso com os equipamentos de som da igreja. Não sei exatamente quando isso virou vocação, acho que sempre foi. Aos 15, no colégio interno, já estava ajudando nos eventos da escola e da universidade. Aos 18, dei meu primeiro passo profissional integrando a equipe de áudio do Ministério VOX.",
+    "p3": "Pra mim, o papel do engenheiro de áudio é ser invisível. Ninguém no público precisa reparar que eu estou ali. O meu trabalho é amplificar o que o palco entrega, e deixar a mensagem chegar com ainda mais força. Quando a mixagem está boa, eu consigo vibrar junto com o público, me emocionar com as músicas. É nesse momento que eu me desligo de tudo ao redor e simplesmente curto o show.",
+    "quote": "As músicas tocam os corações. Mas quando o som está bom, a mensagem consegue ser ainda mais amplificada.",
+    "portraitAlt": "Retrato de Felipe Penteado"
   },
   "projects": {
-    "title": "Trabalhos Selecionados",
     "items": [
       {
         "title": "Penteado's Mixes",
@@ -132,20 +132,33 @@
       }      
     ],
     "productionsTitle": "Produções",
+    "productionsLead": "DVDs ao vivo onde fiz a captação, o FOH ou a monitoração. Os números são de streams somados.",
+    "watch": "Assistir {title} no YouTube",
+    "mixesTitle": "Mixagens selecionadas",
+    "mixesPlayerTitle": "Player do Spotify: Mixed By Penteado",
+    "videosTitle": "Vídeos",
+    "videosLead": "Mixagens de estúdio e FOH ao vivo, no YouTube.",
+    "videosPrev": "Vídeos anteriores",
+    "videosNext": "Próximos vídeos",
+    "videosGoTo": "Ir para os vídeos {range}",
     "productions": [
       {
-        "title": "DVD Temporal - Vocal Livre",
-        "description": "Captação de áudio e mixagem FOH da gravação de DVD ao vivo do Vocal Livre.",
-        "roles": ["Captação de Áudio", "FOH"],
+        "title": "DVD Temporal · Vocal Livre",
+        "label": "DVD · 2024",
+        "description": "Captação de áudio e mixagem FOH da gravação ao vivo.",
+        "short": "Captação e FOH",
+        "roles": ["Captação", "FOH"],
         "image": "/photos/photo_vltemporal.jpeg",
         "streams": "13mi+",
         "youtubeId": "j10ORL-xEu8",
         "youtubeUrl": "https://www.youtube.com/watch?v=D4Z0-KE6ir8"
       },
       {
-        "title": "DVD 15 Anos - Vocal Livre",
-        "description": "Captação de áudio e mixagem FOH do show de 15 anos do Vocal Livre, gravado ao vivo em Recife.",
-        "roles": ["Captação de Áudio", "FOH"],
+        "title": "DVD 15 Anos · Vocal Livre",
+        "label": "DVD · Recife",
+        "description": "Captação e FOH do show de 15 anos, gravado ao vivo.",
+        "short": "Captação e FOH",
+        "roles": ["Captação", "FOH"],
         "image": "/photos/photo_vl15.jpeg",
         "streams": "6mi+",
         "youtubeId": "DXllcDBfu88",
@@ -153,8 +166,10 @@
       },
       {
         "title": "Novo Tempo In Concert: 30 Anos",
-        "description": "Assistente de Monitor e captação de áudio da gravação do DVD de 30 anos da Gravadora Novo Tempo.",
-        "roles": ["Assistente de Monitor", "Captação de Áudio"],
+        "label": "DVD · Novo Tempo",
+        "description": "Assistente de monitor e captação da gravação.",
+        "short": "Assist. de monitor e captação",
+        "roles": ["Assist. monitor", "Captação"],
         "image": "/photos/photo_nt30.jpg",
         "streams": "19mi+",
         "youtubeId": "gt-V6JlXxmc",
@@ -167,10 +182,10 @@
       "Live Session \"Em Ti\" - Luz e Rimas",
       "Live Session NT Play: Especial de Natal",
       "DVD Liz Avancini",
-      "DVD Coral Livre feat. Marcos Almeida e Paulo Nazareth",
       "Alice e Amanda",
-      "Vocal Livre",
       "Vocal NV",
+      "DVD Coral Livre feat. Marcos Almeida e Paulo Nazareth",
+      "Vocal Livre",
       "Leticia Cordeiro",
       "Paula Schneider",
       "Ministerio Sence",
@@ -178,7 +193,7 @@
     ]
   },
   "timeline": {
-    "title": "Trajetória",
+    "title": "De curioso com os cabos a diretor técnico",
     "items": [
       {
         "year": "2024",
@@ -197,8 +212,8 @@
       },
       {
         "year": "2020",
-        "title": "Ministerio VOX",
-        "description": "Integra a equipe de áudio do Ministerio VOX."
+        "title": "Ministério VOX",
+        "description": "Integra a equipe de áudio do Ministério VOX."
       },
       {
         "year": "2017",
@@ -219,25 +234,27 @@
     ]
   },
   "skills": {
-    "title": "Estúdio & Equipamentos",
-    "categories": [
-      {
+    "title": "Com o que eu trabalho",
+    "categories": {
+      "consoles": {
         "name": "Mesas de Som",
         "items": ["Yamaha Rivage", "Yamaha DM7", "Yamaha CL Series", "Waves eMotion LV1", "Digico", "Soundcraft"]
       },
-      {
+      "studio": {
         "name": "Estúdio",
         "items": ["Avid Pro Tools", "Apogee Duet 3", "Apple AirPods Max", "Beyerdynamic DT 1990 Pro MKII"]
       },
-      {
+      "services": {
         "name": "Serviços",
-        "items": ["Mixagem", "Masterização", "Gravacao", "Som ao Vivo", "Direção Tecnica"]
+        "items": ["Mixagem", "Masterização", "Gravação", "Som ao Vivo", "Direção Técnica"]
       }
-    ]
+    }
   },
   "testimonials": {
-    "title": "O Que Dizem",
+    "label": "Depoimentos",
+    "title": "O que dizem",
     "cta": "Deixe o seu",
+    "ctaFull": "Deixe o seu depoimento",
     "items": [
       {
         "quote": "A mixagem ficou impecavel, cada vocal encaixou exatamente onde precisava. O Felipe tem um ouvido pra detalhe que poucos engenheiros tem.",
@@ -269,8 +286,17 @@
     "close": "Fechar"
   },
   "photos": {
-    "title": "Fotos",
+    "label": "Fotos",
+    "title": "Por trás da mesa",
+    "tabsLabel": "Galeria",
     "tabPhotos": "Fotos",
     "tabInstagram": "Instagram"
+  },
+  "contact": {
+    "title": "Trabalhando em algo que precisa soar certo?",
+    "subtitle": "Estou disponível para mixagem, masterização e som ao vivo. Me conta sobre o seu projeto.",
+    "namePlaceholder": "Seu nome",
+    "emailPlaceholder": "voce@email.com",
+    "messagePlaceholder": "Conte sobre o seu projeto"
   }
 }

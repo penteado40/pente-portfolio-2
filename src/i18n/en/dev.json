@@ -20,5 +20,187 @@
     "ctaProjects": "See projects",
     "ctaCv": "Download CV",
     "ctaCvFallback": "CV (PT)"
+  },
+  "about": {
+    "title": "The back-end the money flows through, and the front-end people use to keep track of it.",
+    "p1": "I'm a full stack developer with 4+ years building APIs and financial systems in production: billing, cost allocation and payments. My strength is the back-end, in Node.js, TypeScript, PHP/Laravel and PostgreSQL, with React and Next.js on the front-end.",
+    "p2": "I started in IT support at UNASP-HT, looking after 6 computer labs. I joined IATec as an intern and was hired as a trainee within 8 months; then I built the billing core of an education fintech and went back to IATec as a mid-level developer on its billing systems. Today, as a freelancer, I build and run my own event website platform.",
+    "p3": "I use AI with a method: a PRD, a glossary and ADRs before any code, and a Claude Code skill of my own in events-api. I like architecture you can verify, with Clean Architecture and DDD and the dependency rule enforced by ESLint and covered by tests. And quality in delivery: CI against a real Postgres, migration drift checks, gitleaks, and a build that fails without the OpenAPI docs. The right tool for the scale.",
+    "quote": "The right tool for the scale.",
+    "location": "Cotia, SP",
+    "languages": [
+      "Portuguese (native)",
+      "English (advanced)"
+    ],
+    "availability": "Open to remote roles and freelance",
+    "portraitAlt": "Felipe Penteado"
+  },
+  "experience": {
+    "title": "Financial systems in production",
+    "current": "present",
+    "months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "monthFormat": "{month} {year}",
+    "items": {
+      "freelance": {
+        "role": "Full Stack Developer",
+        "context": "Multi-client event website platform, for weddings and birthdays.",
+        "bullets": [
+          "3 clients in production and ~200 RSVPs processed.",
+          "End to end: a React invitation with RSVP, a Hono API with Prisma, PostgreSQL and JWT, and a dashboard for clients to manage their guests.",
+          "Moved email from SQS → Lambda → SES (AWS CDK) to Resend, cutting cost and infrastructure."
+        ]
+      },
+      "iatec-mid": {
+        "role": "Software Engineer (mid-level)",
+        "context": "Rehired to work on the organization's billing and cost allocation systems.",
+        "bullets": [
+          "Cut the main billing queries by 67% (90s → 30s) by rewriting SQL and adding indexes.",
+          "Restructured billing and PDF generation, from 5+ min to about 2 min.",
+          "Automated the export to the accounting system, with documents stored on AWS S3.",
+          "Co-built two corporate systems from conception: contract management and license distribution."
+        ]
+      },
+      "youpay": {
+        "role": "Software Engineer (mid-level)",
+        "context": "Payments startup for education.",
+        "bullets": [
+          "Critical APIs for the billing core of a platform used by ~15 schools (card, boleto and Pix).",
+          "Integrated 3 gateways (ASAAS, Getnet and Stone) in a microservices architecture and built the delinquency control."
+        ]
+      },
+      "iatec-trainee": {
+        "role": "Development Intern → Trainee",
+        "context": "Maintaining legacy PHP systems.",
+        "bullets": [
+          "Hired as a trainee within 8 months, moving on to new features in financial systems."
+        ]
+      },
+      "unasp": {
+        "role": "IT Support Intern",
+        "context": "Support for the university's computer labs, on a team of three interns.",
+        "bullets": [
+          "6 labs and 300 workstations, serving ~200 students and faculty per semester.",
+          "Led lab preparation for exam periods with zero downtime."
+        ]
+      }
+    },
+    "education": {
+      "title": "Education",
+      "expected": "expected",
+      "items": {
+        "information-systems": {
+          "course": "Information Systems",
+          "detail": "Bachelor's · online"
+        },
+        "it-technician": {
+          "course": "IT Technician",
+          "detail": "Technical school"
+        }
+      }
+    }
+  },
+  "projects": {
+    "title": "Products",
+    "lead": "Projects with real users, live or being built.",
+    "product": "Product",
+    "status": {
+      "active": "live",
+      "building": "in progress"
+    },
+    "studies": {
+      "title": "Studies",
+      "lead": "Built to learn and practice, with no users."
+    },
+    "repos": "Repositories",
+    "private": "private",
+    "openDemo": "Open {demo}",
+    "openRepo": "{repo} on GitHub",
+    "screenshot": "{title} screenshot",
+    "items": {
+      "fawedding": {
+        "title": "FAWedding",
+        "summary": "Wedding websites with RSVP, a gift registry and a confirmation email for every guest. It started as my own wedding's site and now serves other couples.",
+        "highlights": [
+          "Multi-tenant API: each wedding has its own front-end, domain and email template.",
+          "Email confirmation with Resend and React Email, with the delivery status on the RSVP and a manual resend.",
+          "3 clients in production and about 200 RSVPs processed."
+        ]
+      },
+      "events": {
+        "title": "Events",
+        "summary": "The successor to fawedding-api, for any kind of event: RSVP, a gift registry paid with Pix and guest emails, with an Expo app for the organizers.",
+        "highlights": [
+          "Clean Architecture with pragmatic DDD on NestJS, the dependency rule enforced by ESLint.",
+          "PRD, glossary and ADRs before the code.",
+          "CI with integration tests on Postgres, a migration drift check and secret scanning."
+        ]
+      },
+      "portfolio": {
+        "title": "Portfolio",
+        "summary": "This site: a Hub leading to my two personas, audio and development, in English and Portuguese.",
+        "highlights": [
+          "Per-persona colors as tokens, with glass cards over each.",
+          "Its own contact and testimonials API, with JWT login and API keys."
+        ]
+      },
+      "inventory-api": {
+        "title": "inventory-api",
+        "summary": "Multi-tenant inventory REST API: each store isolated by middleware, with short-lived JWTs and per-store roles."
+      },
+      "task-manager": {
+        "title": "task_manager",
+        "summary": "Task REST API with custom statuses, documented with OpenAPI and tested with JUnit and Mockito."
+      },
+      "pente-portfolio-api": {
+        "title": "pente-portfolio-api",
+        "summary": "The portfolio's first API: takes contact messages and testimonials, with JWT login and per-IP rate limiting."
+      }
+    }
+  },
+  "skills": {
+    "title": "What I build with",
+    "categories": {
+      "back-end": {
+        "name": "Back-end"
+      },
+      "front-end": {
+        "name": "Front-end & Mobile"
+      },
+      "databases": {
+        "name": "Databases",
+        "note": "Data modeling, indexes and query tuning."
+      },
+      "cloud": {
+        "name": "Cloud & DevOps"
+      },
+      "integrations": {
+        "name": "Integrations",
+        "note": "Payment gateways, Pix, email and media."
+      },
+      "practices": {
+        "name": "Practices",
+        "note": "Unit and integration tests, AI-assisted development."
+      }
+    }
+  },
+  "contact": {
+    "title": "Need an API that holds up with money flowing through it?",
+    "subtitle": "Open to remote full-time or contract roles, in Brazil or abroad, and to freelance projects: APIs, integrations, and web applications.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "you@company.com",
+    "messagePlaceholder": "Tell me about the role or the project"
   }
 }

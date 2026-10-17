@@ -1,63 +1,43 @@
 'use client';
 
-import { motion, useReducedMotion } from 'motion/react';
+import { Faders, Headphones, Waveform, type Icon } from '@phosphor-icons/react';
+import { gearCategories, sectionIndex, type GearCategoryId } from '@/content/audio';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { AudioDictionary } from '@/i18n/types';
-import { TiltCard } from './TiltCard';
+import { CategoryCard } from './CategoryCard';
+import { Container } from './Container';
+import { SectionHeader } from './SectionHeader';
 
+const GEAR_ICONS: Record<GearCategoryId, Icon> = {
+  consoles: Faders,
+  studio: Headphones,
+  services: Waveform,
+};
+
+// A block-mid Color block like the Dev Stack: one CategoryCard per category,
+// each with its icon, three to a row on desktop, stacked below that (a 2 + 1
+// tablet row would leave a card alone).
 export function Skills() {
   const { dict } = useLocale<AudioDictionary>();
-  const reduce = useReducedMotion();
+  const text = dict.skills;
 
   return (
-    <section
-      id="skills"
-      className="py-24 md:py-32 bg-mist"
-    >
-      <div className="max-w-[1400px] mx-auto px-6">
-        <motion.h2
-          initial={reduce ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-3xl md:text-4xl font-medium tracking-tight mb-12"
-        >
-          {dict.skills.title}
-        </motion.h2>
+    <section id="skills" className="bg-block-mid py-[72px] md:py-[120px]">
+      <Container>
+        <SectionHeader index={sectionIndex('skills')} label={dict.nav.skills} title={text.title} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {dict.skills.categories.map((category, i) => (
-            <TiltCard
-              key={category.name}
-              initial={reduce ? false : { opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.06,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className={`glass rounded-2xl p-6 ${
-                i === 0 ? 'md:col-span-2 lg:col-span-1' : ''
-              }`}
-            >
-              <h3 className="text-sm font-mono text-ink tracking-wider mb-4">
-                {category.name}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {category.items.map((skill) => (
-                  <span
-                    key={skill}
-                    className="text-sm text-ink/70 bg-surface/70 border border-ink/10 px-4 py-2 rounded-full hover:bg-surface hover:border-ink/25 transition-colors cursor-default"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </TiltCard>
+        <ul className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-5">
+          {gearCategories.map((id, i) => (
+            <CategoryCard
+              key={id}
+              name={text.categories[id].name}
+              icon={GEAR_ICONS[id]}
+              items={text.categories[id].items}
+              index={i}
+            />
           ))}
-        </div>
-      </div>
+        </ul>
+      </Container>
     </section>
   );
 }
