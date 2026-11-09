@@ -120,6 +120,10 @@
       "active": "live",
       "building": "in progress"
     },
+    "landing": {
+      "title": "Landing pages",
+      "lead": "Sites made for one client or occasion, live."
+    },
     "studies": {
       "title": "Studies",
       "lead": "Built to learn and practice, with no users."
@@ -130,6 +134,18 @@
     "openRepo": "{repo} on GitHub",
     "screenshot": "{title} screenshot",
     "items": {
+      "abc-dreams": {
+        "title": "ABC Dreams",
+        "summary": "Landing page for a personal shopping service for US imports, with an FAQ and a quote request."
+      },
+      "adeilta": {
+        "title": "Adeilta's 90th birthday",
+        "summary": "Digital invitation with RSVP, a gift list and a private area to follow the replies."
+      },
+      "brenda-guilherme": {
+        "title": "Brenda & Guilherme",
+        "summary": "Wedding site with venue details, a gift list, RSVP and a private area for the couple."
+      },
       "fawedding": {
         "title": "FAWedding",
         "summary": "Wedding websites with RSVP, a gift registry and a confirmation email for every guest. It started as my own wedding's site and now serves other couples.",

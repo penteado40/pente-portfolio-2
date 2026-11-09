@@ -74,13 +74,16 @@ test('skills lists the six categories in order, each with items', () => {
   for (const category of skills) assert.ok(category.items.length > 0, category.id);
 });
 
-test('projects lists the three Products, then the three Studies', () => {
+test('projects lists the three Products, the three Landing pages, then the three Studies', () => {
   assert.deepEqual(
     projects.map(({ id, kind }) => [id, kind]),
     [
       ['fawedding', 'product'],
       ['events', 'product'],
       ['portfolio', 'product'],
+      ['abc-dreams', 'landing'],
+      ['adeilta', 'landing'],
+      ['brenda-guilherme', 'landing'],
       ['inventory-api', 'study'],
       ['task-manager', 'study'],
       ['pente-portfolio-api', 'study'],
@@ -88,10 +91,21 @@ test('projects lists the three Products, then the three Studies', () => {
   );
 });
 
-test('every project has stack tags and at least one repo', () => {
+const withRepos = projects.filter((p) => p.kind !== 'landing');
+
+test('every project has stack tags', () => {
+  for (const project of projects) assert.ok(project.stack.length > 0, project.id);
+});
+
+test('every Product and Study has at least one repo', () => {
+  for (const project of withRepos) assert.ok(project.repos.length > 0, project.id);
+});
+
+test('every Landing page has a live site and a screenshot', () => {
   for (const project of projects) {
-    assert.ok(project.stack.length > 0, project.id);
-    assert.ok(project.repos.length > 0, project.id);
+    if (project.kind !== 'landing') continue;
+    assert.ok(project.demo.startsWith('https://'), project.id);
+    assert.ok(project.image.startsWith('/photos/'), project.id);
   }
 });
 
@@ -101,12 +115,12 @@ test('Events is the only Product being built', () => {
 });
 
 test('portfolio-api is private: listed without a link', () => {
-  const portfolio = projects.find(({ id }) => id === 'portfolio');
+  const portfolio = withRepos.find(({ id }) => id === 'portfolio');
   assert.deepEqual(portfolio?.repos.find(({ label }) => label === 'portfolio-api'), { label: 'portfolio-api' });
 });
 
 test('every public repo links to GitHub', () => {
-  for (const { repos } of projects) {
+  for (const { repos } of withRepos) {
     for (const { label, url } of repos) {
       if (label !== 'portfolio-api') assert.equal(url, `https://github.com/penteado40/${label}`);
     }

@@ -74,6 +74,9 @@ export type ProjectId =
   | 'fawedding'
   | 'events'
   | 'portfolio'
+  | 'abc-dreams'
+  | 'adeilta'
+  | 'brenda-guilherme'
   | 'inventory-api'
   | 'task-manager'
   | 'pente-portfolio-api';
@@ -101,6 +104,15 @@ export type Product = ProjectBase & {
   image?: string;
 };
 
+/** See CONTEXT.md: one public site for one client or occasion; its repo stays private and unlisted. */
+export type Landing = ProjectBase & {
+  kind: 'landing';
+  /** The live site: the tile links to it as a whole. */
+  demo: string;
+  /** A 16:10 screenshot in public/. */
+  image: string;
+};
+
 /** See CONTEXT.md: a project built to learn or practice; no image, no status. */
 export type Study = ProjectBase & {
   kind: 'study';
@@ -108,11 +120,11 @@ export type Study = ProjectBase & {
   repos: readonly [Repo & { url: string }];
 };
 
-export type Project = Product | Study;
+export type Project = Product | Landing | Study;
 
 const github = (repo: string) => ({ label: repo, url: `https://github.com/penteado40/${repo}` });
 
-/** Products first, the lead one (the large card) at the top; then Studies. */
+/** Products first, the lead one (the large card) at the top; then Landing pages; then Studies. */
 export const projects: readonly Project[] = [
   {
     id: 'fawedding',
@@ -137,6 +149,27 @@ export const projects: readonly Project[] = [
     stack: ['Next.js', 'Tailwind v4', 'Motion', 'Express', 'Prisma'],
     repos: [github('pente-portfolio-2'), { label: 'portfolio-api' }],
     image: '/photos/product-portfolio.jpg',
+  },
+  {
+    id: 'abc-dreams',
+    kind: 'landing',
+    stack: ['React', 'Vite', 'Tailwind v4', 'Motion'],
+    demo: 'https://abcdreams.com.br',
+    image: '/photos/landing-abc-dreams.jpg',
+  },
+  {
+    id: 'adeilta',
+    kind: 'landing',
+    stack: ['Next.js', 'TypeScript', 'Tailwind v4', 'Zod'],
+    demo: 'https://birthday-adeilta.vercel.app',
+    image: '/photos/landing-adeilta.jpg',
+  },
+  {
+    id: 'brenda-guilherme',
+    kind: 'landing',
+    stack: ['Next.js', 'TypeScript', 'TanStack Query', 'Motion'],
+    demo: 'https://guibrenwedding.vercel.app',
+    image: '/photos/landing-brenda-guilherme.jpg',
   },
   {
     id: 'inventory-api',
