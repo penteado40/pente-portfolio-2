@@ -141,6 +141,7 @@ export const projects: readonly Project[] = [
     status: 'building',
     stack: ['NestJS', 'Prisma', 'PostgreSQL', 'Redis', 'Expo'],
     repos: [github('events-api'), github('events-expo')],
+    image: '/photos/product-events.jpg',
   },
   {
     id: 'portfolio',
