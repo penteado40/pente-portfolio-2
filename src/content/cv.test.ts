@@ -4,7 +4,7 @@ import { cvLink } from './cv.ts';
 
 test('the active locale gets its own CV when it exists', () => {
   assert.deepEqual(cvLink('pt', ['pt', 'en']), { href: '/cv/CV_Felipe_Penteado_Node.pdf', fallback: false });
-  assert.deepEqual(cvLink('en', ['pt', 'en']), { href: '/cv/CV_Felipe_Penteado_Node_EN.pdf', fallback: false });
+  assert.deepEqual(cvLink('en', ['pt', 'en']), { href: '/cv/Resume_Felipe_Penteado_Node.pdf', fallback: false });
 });
 
 test('a locale without its own CV falls back to the PT one', () => {

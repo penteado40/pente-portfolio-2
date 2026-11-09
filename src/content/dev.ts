@@ -12,7 +12,7 @@ import type { LinkId } from './links';
  * Locales whose CV PDF is in `public/cv/` (see `cvLink`). PT is the original
  * and always listed; add a locale here when its translated file lands.
  */
-export const cvLocales: readonly Locale[] = ['pt'];
+export const cvLocales: readonly Locale[] = ['pt', 'en'];
 
 /**
  * Empty until there is one to show; the section and its Navbar anchor stay

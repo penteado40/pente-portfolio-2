@@ -4,7 +4,7 @@ import type { Locale } from '../i18n/locale';
 // The names in `public/cv/`. The download button saves under this name too.
 const cvFiles: Record<Locale, string> = {
   pt: 'CV_Felipe_Penteado_Node.pdf',
-  en: 'CV_Felipe_Penteado_Node_EN.pdf',
+  en: 'Resume_Felipe_Penteado_Node.pdf',
 };
 
 /**
