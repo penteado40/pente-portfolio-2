@@ -121,6 +121,7 @@ export const projects: readonly Project[] = [
     stack: ['React', 'TypeScript', 'Hono', 'Prisma', 'PostgreSQL', 'Resend'],
     repos: [github('fawedding'), github('fawedding-api')],
     demo: 'https://fawedding.com.br',
+    image: '/photos/product-fawedding.jpg',
   },
   {
     id: 'events',
@@ -135,6 +136,7 @@ export const projects: readonly Project[] = [
     status: 'active',
     stack: ['Next.js', 'Tailwind v4', 'Motion', 'Express', 'Prisma'],
     repos: [github('pente-portfolio-2'), { label: 'portfolio-api' }],
+    image: '/photos/product-portfolio.jpg',
   },
   {
     id: 'inventory-api',
