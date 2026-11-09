@@ -120,6 +120,10 @@
       "active": "no ar",
       "building": "em construção"
     },
+    "landing": {
+      "title": "Landing pages",
+      "lead": "Sites feitos para um cliente ou uma ocasião, no ar."
+    },
     "studies": {
       "title": "Estudos",
       "lead": "Feitos para aprender e praticar, sem usuários."
@@ -130,6 +134,18 @@
     "openRepo": "{repo} no GitHub",
     "screenshot": "Tela do {title}",
     "items": {
+      "abc-dreams": {
+        "title": "ABC Dreams",
+        "summary": "Landing page de uma personal shopper de importados dos EUA, com FAQ e pedido de cotação."
+      },
+      "adeilta": {
+        "title": "90 anos da Adeilta",
+        "summary": "Convite digital com confirmação de presença, lista de presentes e área para acompanhar as respostas."
+      },
+      "brenda-guilherme": {
+        "title": "Brenda & Guilherme",
+        "summary": "Site de casamento com contagem regressiva, confirmação de presença e área dos noivos."
+      },
       "fawedding": {
         "title": "FAWedding",
         "summary": "Sites de casamento com RSVP, lista de presentes e um e-mail de confirmação para cada convidado. Nasceu como o site do meu casamento e hoje atende outros casais.",

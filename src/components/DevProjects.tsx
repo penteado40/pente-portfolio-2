@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight, GithubLogo, Lock } from '@phosphor-icons/react';
 import { useLocale } from '@/i18n/LocaleProvider';
 import type { DevDictionary } from '@/i18n/types';
-import { projects, sectionIndex, type Product, type Repo, type Study } from '@/content/dev';
+import { projects, sectionIndex, type Landing, type Product, type Repo, type Study } from '@/content/dev';
 import { Container } from './Container';
 import { SectionHeader } from './SectionHeader';
 import { TiltCard } from './TiltCard';
@@ -16,6 +16,7 @@ type ProjectsText = DevDictionary['projects'];
 type ProjectText = { title: string; summary: string; highlights?: string[] };
 
 const products = projects.filter((p): p is Product => p.kind === 'product');
+const landings = projects.filter((p): p is Landing => p.kind === 'landing');
 const studies = projects.filter((p): p is Study => p.kind === 'study');
 
 const interpolate = (template: string, values: Record<string, string>) =>
@@ -189,6 +190,43 @@ function ProductTile({ product, text }: { product: Product; text: ProjectsText }
   );
 }
 
+// A Landing page: the Study tile with the screenshot on top, linking to the
+// live site as a whole; tighter on a phone, where the three stack.
+function LandingTile({ landing, text }: { landing: Landing; text: ProjectsText }) {
+  const item: ProjectText = text.items[landing.id];
+
+  return (
+    <TiltCard as="article" className="glass relative h-full flex flex-col gap-3 md:gap-3.5 p-4 md:p-6 rounded-[20px]">
+      <div className="relative aspect-video md:aspect-[16/10] overflow-hidden rounded-[12px]">
+        <Image
+          src={landing.image}
+          alt={interpolate(text.screenshot, { title: item.title })}
+          fill
+          sizes="(min-width: 768px) 420px, 100vw"
+          className="object-cover"
+        />
+      </div>
+      <div className="flex justify-between items-center gap-3">
+        <h4 className="font-mono text-[15px] text-highlight">
+          <a
+            href={landing.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="after:absolute after:inset-0 after:rounded-[20px] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-highlight"
+          >
+            {item.title}
+          </a>
+        </h4>
+        <ArrowUpRight size={18} className="shrink-0 text-ink/75" aria-hidden />
+      </div>
+      <p className="text-sm md:text-[15px] leading-[1.55] text-ink/80 line-clamp-2 md:line-clamp-none">{item.summary}</p>
+      <div className="mt-auto">
+        <StackPills stack={landing.stack} />
+      </div>
+    </TiltCard>
+  );
+}
+
 // A Study: a glass tile linking to its repo as a whole, through the name.
 function StudyTile({ study, text }: { study: Study; text: ProjectsText }) {
   const item: ProjectText = text.items[study.id];
@@ -218,7 +256,8 @@ function StudyTile({ study, text }: { study: Study; text: ProjectsText }) {
 }
 
 // Projects: the Products (CONTEXT.md), the lead one as a large card beside
-// the others' tiles (7fr / 5fr), stacked on mobile; then the Studies, three
+// the others' tiles (7fr / 5fr), stacked on mobile; then the Landing pages,
+// three tiles on desktop and stacked on mobile; then the Studies, three
 // tiles on desktop and a list between thin rules on mobile.
 export function DevProjects() {
   const { dict } = useLocale<DevDictionary>();
@@ -252,6 +291,22 @@ export function DevProjects() {
             {others.map((product, i) => (
               <motion.li key={product.id} {...reveal((i + 1) * 0.06)}>
                 <ProductTile product={product} text={text} />
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-14 md:mt-24 mb-4 md:mb-7 flex flex-col md:flex-row md:justify-between md:items-end gap-1.5 md:gap-8">
+          <h3 className="text-2xl md:text-[32px] font-medium tracking-[-0.03em] text-white">{text.landing.title}</h3>
+          <p className="text-sm md:text-[15px] text-ink/72">{text.landing.lead}</p>
+        </div>
+
+        <div className="relative isolate">
+          <div aria-hidden className="absolute -inset-y-5 md:-inset-y-8 inset-x-0 md:inset-x-[4%] -z-10 persona-ambient" />
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-3.5 md:gap-5">
+            {landings.map((landing, i) => (
+              <motion.li key={landing.id} {...reveal(i * 0.06)}>
+                <LandingTile landing={landing} text={text} />
               </motion.li>
             ))}
           </ul>
