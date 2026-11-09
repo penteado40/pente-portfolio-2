@@ -114,7 +114,7 @@ All visible text lives in the dictionaries, in both languages: change `src/i18n/
 | Projects: kind, status, stack, repos, demo, screenshot | `projects` in `src/content/dev.ts` |
 | Stack lists | `skills` in `src/content/dev.ts` |
 | Certifications | `certifications` in `src/content/dev.ts` (the section shows up with the first one) |
-| CV PDF | Add `public/cv/felipe-penteado-pt.pdf`: the hero's CV button links to it and returns a 404 until it exists. For a translation, add `public/cv/felipe-penteado-en.pdf` and `'en'` to `cvLocales` in `src/content/dev.ts` |
+| CV PDF | Add `public/cv/CV_Felipe_Penteado_Node.pdf`: the hero's CV button links to it and returns a 404 until it exists. For a translation, add `public/cv/Resume_Felipe_Penteado_Node.pdf` and `'en'` to `cvLocales` in `src/content/dev.ts` |
 | Hero and about photos | Add `public/photos/pente-dev-hero.jpg` and `public/photos/pente-dev-portrait.jpg` (until then the Dev glow stands in) |
 
 ### Common
