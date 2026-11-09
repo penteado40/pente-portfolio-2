@@ -86,9 +86,9 @@ function Highlights({ items }: { items: readonly string[] }) {
 
 // The screenshot, or the persona gradient in its place until the file
 // lands; `sizes` is the rendered width.
-function Screenshot({ product, alt, sizes }: { product: Product; alt: string; sizes: string }) {
-  return product.image ? (
-    <Image src={product.image} alt={alt} fill sizes={sizes} className="object-cover" />
+function Screenshot({ image, alt, sizes }: { image?: string; alt: string; sizes: string }) {
+  return image ? (
+    <Image src={image} alt={alt} fill sizes={sizes} className="object-cover" />
   ) : (
     <div aria-hidden className="absolute inset-0 screenshot-placeholder" />
   );
@@ -119,7 +119,7 @@ function LeadProduct({ product, text }: { product: Product; text: ProjectsText }
     <article className="relative isolate overflow-hidden flex flex-col justify-between gap-6 min-h-[440px] md:min-h-[560px] p-4 md:p-7 rounded-[28px] shadow-card">
       <div className="absolute inset-0 -z-10">
         <Screenshot
-          product={product}
+          image={product.image}
           alt={interpolate(text.screenshot, { title: item.title })}
           sizes="(min-width: 1024px) 660px, 100vw"
         />
@@ -172,7 +172,7 @@ function ProductTile({ product, text }: { product: Product; text: ProjectsText }
       </div>
       <div className="relative aspect-[16/10] overflow-hidden rounded-[12px]">
         <Screenshot
-          product={product}
+          image={product.image}
           alt={interpolate(text.screenshot, { title: item.title })}
           sizes="(min-width: 1024px) 420px, 100vw"
         />
@@ -190,6 +190,36 @@ function ProductTile({ product, text }: { product: Product; text: ProjectsText }
   );
 }
 
+// The name of a tile that links as a whole: the link stretches over the
+// nearest positioned ancestor, so the tile needs `relative`.
+function TileHeading({ href, title }: { href: string; title: string }) {
+  return (
+    <div className="flex justify-between items-center gap-3">
+      <h4 className="font-mono text-[15px] text-highlight">
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="after:absolute after:inset-0 after:rounded-[20px] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-highlight"
+        >
+          {title}
+        </a>
+      </h4>
+      <ArrowUpRight size={18} className="shrink-0 text-ink/75" aria-hidden />
+    </div>
+  );
+}
+
+// The heading of a group of projects after the Products.
+function GroupHeader({ title, lead }: { title: string; lead: string }) {
+  return (
+    <div className="mt-14 md:mt-24 mb-4 md:mb-7 flex flex-col md:flex-row md:justify-between md:items-end gap-1.5 md:gap-8">
+      <h3 className="text-2xl md:text-[32px] font-medium tracking-[-0.03em] text-white">{title}</h3>
+      <p className="text-sm md:text-[15px] text-ink/72">{lead}</p>
+    </div>
+  );
+}
+
 // A Landing page: the Study tile with the screenshot on top, linking to the
 // live site as a whole; tighter on a phone, where the three stack.
 function LandingTile({ landing, text }: { landing: Landing; text: ProjectsText }) {
@@ -198,27 +228,13 @@ function LandingTile({ landing, text }: { landing: Landing; text: ProjectsText }
   return (
     <TiltCard as="article" className="glass relative h-full flex flex-col gap-3 md:gap-3.5 p-4 md:p-6 rounded-[20px]">
       <div className="relative aspect-video md:aspect-[16/10] overflow-hidden rounded-[12px]">
-        <Image
-          src={landing.image}
+        <Screenshot
+          image={landing.image}
           alt={interpolate(text.screenshot, { title: item.title })}
-          fill
-          sizes="(min-width: 768px) 420px, 100vw"
-          className="object-cover"
+          sizes="(min-width: 768px) 320px, 100vw"
         />
       </div>
-      <div className="flex justify-between items-center gap-3">
-        <h4 className="font-mono text-[15px] text-highlight">
-          <a
-            href={landing.demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="after:absolute after:inset-0 after:rounded-[20px] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-highlight"
-          >
-            {item.title}
-          </a>
-        </h4>
-        <ArrowUpRight size={18} className="shrink-0 text-ink/75" aria-hidden />
-      </div>
+      <TileHeading href={landing.demo} title={item.title} />
       <p className="text-sm md:text-[15px] leading-[1.55] text-ink/80 line-clamp-2 md:line-clamp-none">{item.summary}</p>
       <div className="mt-auto">
         <StackPills stack={landing.stack} />
@@ -234,19 +250,7 @@ function StudyTile({ study, text }: { study: Study; text: ProjectsText }) {
 
   return (
     <TiltCard as="article" className="glass relative h-full flex flex-col gap-3.5 p-6 rounded-[20px]">
-      <div className="flex justify-between items-center gap-3">
-        <h4 className="font-mono text-[15px] text-highlight">
-          <a
-            href={repo.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="after:absolute after:inset-0 after:rounded-[20px] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-highlight"
-          >
-            {item.title}
-          </a>
-        </h4>
-        <ArrowUpRight size={18} className="shrink-0 text-ink/75" aria-hidden />
-      </div>
+      <TileHeading href={repo.url} title={item.title} />
       <p className="text-[15px] leading-[1.55] text-ink/80">{item.summary}</p>
       <div className="mt-auto">
         <StackPills stack={study.stack} />
@@ -296,10 +300,7 @@ export function DevProjects() {
           </ul>
         </div>
 
-        <div className="mt-14 md:mt-24 mb-4 md:mb-7 flex flex-col md:flex-row md:justify-between md:items-end gap-1.5 md:gap-8">
-          <h3 className="text-2xl md:text-[32px] font-medium tracking-[-0.03em] text-white">{text.landing.title}</h3>
-          <p className="text-sm md:text-[15px] text-ink/72">{text.landing.lead}</p>
-        </div>
+        <GroupHeader title={text.landing.title} lead={text.landing.lead} />
 
         <div className="relative isolate">
           <div aria-hidden className="absolute -inset-y-5 md:-inset-y-8 inset-x-0 md:inset-x-[4%] -z-10 persona-ambient" />
@@ -312,10 +313,7 @@ export function DevProjects() {
           </ul>
         </div>
 
-        <div className="mt-14 md:mt-24 mb-4 md:mb-7 flex flex-col md:flex-row md:justify-between md:items-end gap-1.5 md:gap-8">
-          <h3 className="text-2xl md:text-[32px] font-medium tracking-[-0.03em] text-white">{text.studies.title}</h3>
-          <p className="text-sm md:text-[15px] text-ink/72">{text.studies.lead}</p>
-        </div>
+        <GroupHeader title={text.studies.title} lead={text.studies.lead} />
 
         <div className="relative isolate hidden md:block">
           <div aria-hidden className="absolute -inset-y-8 inset-x-[4%] -z-10 persona-ambient" />
